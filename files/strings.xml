@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="SearchRequestFurniture">мебель для</string>
+    <string name="SearchRequestFurnitureShort">мебель</string>
+    <string name="SearchRequestArch">Архитектор</string>
+    <string name="SearchRequestSuggestion">мебель для ванной</string>
+    <string name="CategoryBathroom">Ванные комнаты</string>
+    <string name="CategoryArch">Архитекторы</string>
+
+    <string name="SiteDomainBuild_Short1">Стро</string>
+    <string name="SiteDomainBuild_Short2">Строй</string>
+    <string name="SiteDomainBuild_Full">Строительный</string>
+    <string name="SiteDomainAuto">Авто</string>
+    <string name="SiteDomainTech">Техника</string>
+    <string name="SiteDomainHome">Дом быта</string>
+    <string name="SiteDomainMaterials">Стройматериалы</string>
+
+    <string name="FilterCategoriesDefault">Все Категории</string>
+    <string name="FilterCityDefault">Город</string>
+    <string name="FilterCity_uz">Ташкент</string>
+    <string name="FilterCity_kz">Астана</string>
+    <string name="FilterCity_ua">Одесса</string>
+    <string name="FilterDistrict_uz">Мирабадский район</string>
+    <string name="FilterDistrict_kz"></string>
+    <string name="FilterDistrict_ua"></string>
+
+    <string name="LoginFailedError">Неверные логин или пароль</string>
+
+</resources>
