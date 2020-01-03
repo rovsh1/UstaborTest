@@ -90,7 +90,6 @@
                         <lang>${lang}</lang>
                         <country>${country}</country>
                     </systemPropertyVariables>
-                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                 </configuration>
             </plugin>
             <plugin>
@@ -110,6 +109,7 @@
                         <include>TC*.java</include>
                         <include>UU*.java</include>
                     </includes>
+                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                 </configuration>
                 <executions>
                     <execution>
