@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
-import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
 
@@ -26,6 +25,8 @@ public class UU167_VerifyMasterBackOffice extends TestBase {
                 Config.getUsers().getDefaultMaster().getLogin(),
                 Config.getUsers().getDefaultMaster().getPassword(),
                 true);
+        user.atHomePage.verifyUserIsLoggedIn();
+
         user.atMasterProfilePage.open();
 
         user.atMasterProjectsPage.openProjectsTab();

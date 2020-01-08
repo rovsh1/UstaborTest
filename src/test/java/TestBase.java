@@ -1,3 +1,4 @@
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
@@ -19,6 +20,7 @@ class TestBase {
 
     @Before
     public void setUp() {
+        Serenity.throwExceptionsImmediately();
         data = new DataGenerator();
         driver.manage().window().maximize();
         user.atHomePage.open();

@@ -303,4 +303,7 @@ public class HomePage extends SearchBlock {
     }
 
 
+    public void authCodeFormShouldBeVisible() {
+        confirmationCodeInput.shouldBeVisible();
+    }
 }

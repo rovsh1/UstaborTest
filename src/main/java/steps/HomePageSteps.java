@@ -34,6 +34,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.enterRegistrationLogin(login);
         homePage.enterRegistrationPassword(password);
         homePage.sendRegisterForm();
+        homePage.authCodeFormShouldBeVisible();
     }
 
     @Step
