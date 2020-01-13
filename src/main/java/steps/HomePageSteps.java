@@ -29,18 +29,18 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void registerAsCustomer(String login, String password) {
-        homePage.clickRegistrationBtn();
+        homePage.openRegistrationForm();
         homePage.clickCustomerBtn();
-        homePage.enterRegistrationLogin(login);
-        homePage.enterRegistrationPassword(password);
-        homePage.sendRegisterForm();
+        homePage.regFormEnterLogin(login);
+        homePage.regFormEnterPassword(password);
+        homePage.regFormClickSubmit();
         homePage.authCodeFormShouldBeVisible();
     }
 
     @Step
     public void enterAuthCodeAndSubmit(String code) {
-        homePage.enterAuthCode(code);
-        homePage.clickSubmitAuthCode();
+        homePage.regFormEnterAuthCode(code);
+        homePage.regFormClickSubmitAuthCode();
     }
 
     @Step
@@ -54,9 +54,9 @@ public class HomePageSteps extends ScenarioSteps {
             homePage.openLoginForm();
         }
         homePage.clickMasterBtn();
-        homePage.enterLogin(login);
-        homePage.enterPassword(password);
-        homePage.clickLoginBtn();
+        homePage.signInFormEnterLogin(login);
+        homePage.signInFormEnterPassword(password);
+        homePage.signInFormClickLoginBtn();
         return homePage.isLoginSuccessful();
     }
 
@@ -64,9 +64,9 @@ public class HomePageSteps extends ScenarioSteps {
     public boolean loginAsCustomer(String login, String password) {
         homePage.openLoginForm();
         homePage.clickCustomerBtn();
-        homePage.enterLogin(login);
-        homePage.enterPassword(password);
-        homePage.clickLoginBtn();
+        homePage.signInFormEnterLogin(login);
+        homePage.signInFormEnterPassword(password);
+        homePage.signInFormClickLoginBtn();
         return homePage.isLoginSuccessful();
     }
 
@@ -143,37 +143,156 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void registerAsMaster(User master) {
-        homePage.clickRegistrationBtn();
+        homePage.openRegistrationForm();
         homePage.clickMasterBtn();
         homePage.registerFormShouldBeVisible();
         homePage.uploadAvatar();
-        homePage.selectRandomSubDomain();
-        homePage.enterRegistrationName(master.getFirstName());
-        homePage.enterRegistrationSurname(master.getLastName());
-        homePage.enterRegistrationLogin(master.getLogin());
-        homePage.enterRegistrationPassword(master.getPassword());
-        homePage.enterAboutMe(master.getAboutMe());
-        homePage.selectRandomCategory();
-        homePage.enterPhoneNumber(master.getPhoneNumber());
-        homePage.selectExperience();
-        master.setCity(homePage.selectCity());
-        homePage.sendRegisterForm();
+        homePage.regMasterFormSelectRandomSubDomain();
+        homePage.regMasterFormEnterFirstName(master.getFirstName());
+        homePage.regMasterFormEnterLastName(master.getLastName());
+        homePage.regFormEnterLogin(master.getLogin());
+        homePage.regFormEnterPassword(master.getPassword());
+        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
+        homePage.regMasterFormSelectRandomCategory();
+        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
+        homePage.regMasterFormSelectExperience();
+        master.setCity(homePage.regMasterFormSelectCity());
+        homePage.regFormClickSubmit();
         homePage.registerFormShouldNotBeVisible();
     }
 
     @Step
     public void clickForgotPassword() {
-        homePage.clickForgotPassword();
+        homePage.openForgotPasswordForm();
     }
 
     @Step
     public void requestNewPasswordAtEmail(String email) {
         homePage.forgotPasswordEnterEmail(email);
-        homePage.clickRestoreBtn();
+        homePage.forgotPasswordClickRestoreBtn();
     }
 
     @Step
     public boolean isCountrySelectorAvailable() {
         return homePage.isCountrySelectorVisible();
+    }
+
+    @Step
+    public void verifyPhonePopUpText(String text) {
+        homePage.clickHeaderPhoneBtn();
+        homePage.verifyHeaderPhonePopupText(text);
+    }
+
+    @Step
+    public void verifyHeaderCountriesListIsVisible() {
+        homePage.openHeaderCountriesDropDown();
+        homePage.verifyHeaderCountriesPopup();
+    }
+
+    @Step
+    public void verifyFooterCountriesListIsVisible() {
+        homePage.scrollPageToBottom();
+        homePage.openFooterCountriesDropDown();
+        homePage.verifyFooterCountriesPopup();
+    }
+
+    @Step
+    public void verifyFooterLanguagesListIsVisible() {
+        homePage.scrollPageToBottom();
+        homePage.openFooterLangDropDown();
+        homePage.verifyFooterLanguagePopup();
+    }
+
+    @Step
+    public void verifyHeaderLanguagesListIsVisible() {
+        homePage.openHeaderLangDropDown();
+        homePage.verifyLangPopupIsVisible();
+    }
+
+    @Step
+    public void verifySubdomainDropDown() {
+        homePage.openSubdomainDropDown();
+        homePage.verifySubdomainsListIsVisible();
+    }
+
+    @Step
+    public void verifyLoginForm() {
+        open();
+        homePage.openLoginForm();
+        homePage.iAmCustomerBtnShouldBeVisible();
+        homePage.iAmMasterBtnShouldBeVisible();
+        homePage.loginInputShouldBeVisible();
+        homePage.passwordInputShouldBeVisible();
+        homePage.forgotPasswordLinkShouldBeVisible();
+        homePage.loginBtnShouldBeVisible();
+        homePage.registerLinkShouldBeVisible();
+    }
+
+    @Step
+    public void verifyRegistrationForm() {
+        open();
+        homePage.openRegistrationForm();
+        homePage.iAmCustomerBtnShouldBeVisible();
+        homePage.iAmMasterBtnShouldBeVisible();
+    }
+
+    @Step
+    public void verifyMobileViewCustomerRegistrationForm() {
+        open();
+        openMobileViewMainMenu();
+        homePage.openMobileViewCustomerRegistrationForm();
+        homePage.regFormLoginInputShouldBeVisible();
+        homePage.regFormPassInputShouldBeVisible();
+        homePage.regFormConfirmPassInputShouldBeVisible();
+        homePage.regFormConditionsLinkShouldBeVisible();
+        homePage.regFormSubmitBtnShouldBeVisible();
+    }
+
+    @Step
+    public void verifyPlaceOrderForm() {
+        open();
+        homePage.openPlaceOrderForm();
+        homePage.orderFormUsernameInputShouldBeVisible();
+        homePage.orderFormPhoneInputShouldBeVisible();
+        homePage.orderFormServiceSelectorShouldBeVisible();
+        homePage.orderFormSubmitBtnShouldBeVisible();
+    }
+
+    @Step
+    public void verifyRandomFaqItem() {
+        open();
+        homePage.openRandomFaqItem();
+        homePage.verifyFaqItemTextIsVisible();
+    }
+
+    @Step
+    public void verifyMobileViewCountriesMenu() {
+        homePage.openMobileViewCountryMenu();
+        homePage.verifyMobileViewCountriesMenu();
+    }
+
+    @Step
+    public void verifyMobileViewLanguageMenu() {
+        homePage.openMobileViewLangMenu();
+        homePage.verifyMobileViewLanguagesMenu();
+    }
+
+    @Step
+    public void verifyMobileViewSitesMenu() {
+        homePage.openMobileViewSitesMenu();
+        homePage.verifyMobileViewSitesMenu();
+    }
+
+    @Step
+    public void openMobileViewMainMenu() {
+        homePage.openMobileViewMainMenu();
+    }
+
+    @Step
+    public void verifyMobileViewContactsForm(String text) {
+        open();
+        openMobileViewMainMenu();
+        homePage.openMobileViewPhoneForm();
+        homePage.verifyMobileViewPhoneFormText(text);
     }
 }

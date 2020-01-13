@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="PhoneHintPopupText">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
+
     <string name="SearchRequestFurniture">мебель для</string>
     <string name="SearchRequestFurnitureShort">мебель</string>
     <string name="SearchRequestArch">Архитектор</string>

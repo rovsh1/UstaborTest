@@ -2,6 +2,7 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import steps.UserSteps;
 import utils.Config;
@@ -34,5 +35,9 @@ class TestBase {
 
     String getText(String key) {
         return XmlParser.getTextByKey(key);
+    }
+
+    void setBrowserWindowSize(int width, int height){
+        driver.manage().window().setSize(new Dimension(width, height));
     }
 }

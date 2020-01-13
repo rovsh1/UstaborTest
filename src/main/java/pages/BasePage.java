@@ -2,6 +2,7 @@ package pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.XmlParser;
@@ -17,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BasePage extends PageObject {
 
     //region Header elements
-
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
     private WebElementFacade logoBtn;
 
@@ -37,7 +37,7 @@ public class BasePage extends PageObject {
     private List<WebElementFacade> sitesList;
 
     @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu countries']/div[contains(@class, 'label')]")
-    private WebElementFacade countriesMenuBtn;
+    private WebElementFacade headerCountriesBtn;
 
     @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu countries']//a")
     private List<WebElementFacade> countriesList;
@@ -45,6 +45,39 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade popupOkBtn;
 
+    @FindBy(xpath = "//div[@id='header-phone-button']")
+    private WebElementFacade phoneBtn;
+
+    @FindBy(xpath = "//div[@class='header-phone']/div[@class='menu']")
+    private WebElementFacade phonePopup;
+
+    @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
+    private WebElementFacade headerLangBtn;
+
+    @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']//a")
+    private List<WebElementFacade> langsList;
+
+    @FindBy(xpath = "//div[@class='header-menu']//button[@id='button-order']")
+    private WebElementFacade placeOrderBtn;
+    //endregion
+
+    //region Footer elements
+    @FindBy(xpath = "//div[@class='footer']//nav[@class='nav-menu language']//div[contains(@class, 'label')]")
+    private WebElementFacade footerLangBtn;
+
+    @FindBy(xpath = "//div[@class='footer']//nav[@class='nav-menu language']//a")
+    private List<WebElementFacade> footerLangsList;
+
+    @FindBy(xpath = "//div[@class='footer']//nav[@class='nav-menu countries']//div[contains(@class, 'label')]")
+    private WebElementFacade footerCountryBtn;
+
+    @FindBy(xpath = "//div[@class='footer']//nav[@class='nav-menu countries']//a")
+    private List<WebElementFacade> footerCountriesList;
+    //endregion
+
+    //region Mobile view elements
+    @FindBy(xpath = "//div[@class='header']//div[@id='button-sitemap']")
+    private WebElementFacade mobileViewMenuBtn;
     //endregion
 
     @FindBy(xpath = "//nav[@class='footer']/a[@href='/sitemap/']")
@@ -112,8 +145,12 @@ public class BasePage extends PageObject {
         return sitesList.stream().map(WebElementFacade::getText).collect(Collectors.toList());
     }
 
-    public void openSiteWithName(String siteName) {
+    public void openSubdomainDropDown() {
         sitesMenuBtn.click();
+    }
+
+    public void openSiteWithName(String siteName) {
+        openSubdomainDropDown();
         WebElementFacade site = sitesList
                 .stream()
                 .filter(s -> s.getText().contains(siteName))
@@ -158,8 +195,16 @@ public class BasePage extends PageObject {
         siteMapLink.click();
     }
 
+    public void openHeaderCountriesDropDown() {
+        headerCountriesBtn.click();
+    }
+
+    public void openFooterCountriesDropDown() {
+        footerCountryBtn.click();
+    }
+
     public List<String> getCountries() {
-        countriesMenuBtn.click();
+        openHeaderCountriesDropDown();
         return countriesList
                 .stream()
                 .map(WebElementFacade::getText)
@@ -167,11 +212,11 @@ public class BasePage extends PageObject {
     }
 
     public void selectCountryWithName(String country) {
-        if (!isCountrySelectorVisible() || countriesMenuBtn.getText().equals(country)) {
+        if (!isCountrySelectorVisible() || headerCountriesBtn.getText().equals(country)) {
             return;
         }
 
-        countriesMenuBtn.click();
+        openHeaderCountriesDropDown();
         WebElementFacade item = countriesList
                 .stream()
                 .filter(s -> s.getText().equals(country))
@@ -186,7 +231,7 @@ public class BasePage extends PageObject {
     }
 
     public void currentDomainNameShouldBe(String country) {
-        assertThat(countriesMenuBtn.getText()).isEqualTo(country);
+        assertThat(headerCountriesBtn.getText()).isEqualTo(country);
     }
 
     public void clickProfileBtn() {
@@ -201,14 +246,59 @@ public class BasePage extends PageObject {
         openLoginFormBtn.click();
     }
 
-    public void reloadPage() {
-        getDriver().navigate().refresh();
-    }
-
     public boolean isCountrySelectorVisible() {
         setImplicitTimeout(2, ChronoUnit.SECONDS);
-        boolean result =  countriesMenuBtn.isCurrentlyVisible();
+        boolean result =  headerCountriesBtn.isCurrentlyVisible();
         resetImplicitTimeout();
         return result;
+    }
+
+    public void clickHeaderPhoneBtn() {
+        phoneBtn.click();
+    }
+
+    public void verifyHeaderPhonePopupText(String text) {
+        phonePopup.shouldBeVisible();
+        phonePopup.shouldContainText(text);
+    }
+
+    public void verifyHeaderCountriesPopup() {
+        countriesList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void openHeaderLangDropDown() {
+        headerLangBtn.click();
+    }
+
+    public void openFooterLangDropDown() {
+        footerLangBtn.click();
+    }
+
+    public void verifyLangPopupIsVisible() {
+        langsList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void verifySubdomainsListIsVisible() {
+        sitesList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void openPlaceOrderForm() {
+        placeOrderBtn.click();
+    }
+
+    public void verifyFooterCountriesPopup() {
+        footerCountriesList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void verifyFooterLanguagePopup() {
+        footerLangsList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void scrollPageToBottom() {
+        evaluateJavascript("window.scrollTo(0,document.body.scrollHeight);");
+    }
+
+    public void openMobileViewMainMenu() {
+        mobileViewMenuBtn.click();
     }
 }

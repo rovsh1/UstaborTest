@@ -2,6 +2,8 @@ package pages;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.core.pages.WebElementState;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
 import java.io.File;
@@ -15,11 +17,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HomePage extends SearchBlock {
 
+    //region Common elements
     @FindBy(xpath = "//div[contains(@class,'customer')]")
     private WebElementFacade iAmCustomerBtn;
 
     @FindBy(xpath = "//div[contains(@class,'master')]")
     private WebElementFacade iAmMasterBtn;
+    //endregion
 
     //region Login form
     @FindBy(xpath = "//input[@id='form_login_login']")
@@ -39,7 +43,6 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//form[@id='form-login']//div[@class='form-errors']")
     private WebElementFacade loginError;
-
     //endregion
 
     //region Customer registration form
@@ -53,21 +56,22 @@ public class HomePage extends SearchBlock {
     private WebElementFacade regFormPasswordInput;
 
     @FindBy(xpath = "//input[@type='password' and contains(@name, 'password_confirm')]")
-    private WebElementFacade confirmPasswordInput;
+    private WebElementFacade regFormConfirmPasswordInput;
 
     @FindBy(xpath = "//form[contains(@id, 'form-registration')]//button[@type='submit']")
-    private WebElementFacade sendRegisterFormBtn;
+    private WebElementFacade regFormSubmitBtn;
 
     @FindBy(xpath = "//input[@id='form_confirm_code']")
-    private WebElementFacade confirmationCodeInput;
+    private WebElementFacade regFormConfirmationCodeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@type='submit']")
-    private WebElementFacade submitCodeBtn;
+    private WebElementFacade regFormSubmitCodeBtn;
+
+    @FindBy(xpath = "//div[contains(@class, 'field-rules')]//a")
+    private WebElementFacade regFormRulesLink;
     //endregion
 
     //region Master registration form
-    //private final String regMasterCategoriesXpath = "(//div[@id='rfm-categories']//a)[%d]";
-
     @FindBy(xpath = "//form[@id='form-registration-master']")
     private WebElementFacade masterRegistrationForm;
 
@@ -102,6 +106,52 @@ public class HomePage extends SearchBlock {
     private WebElementFacade regMasterCitySelector;
     //endregion
 
+    //region Place order form
+    @FindBy(xpath = "//form[@id='form-order']//input[@id='form_order_username']")
+    private WebElementFacade orderFormUsernameInput;
+
+    @FindBy(xpath = "//form[@id='form-order']//input[@id='form_order_phone']")
+    private WebElementFacade orderFormPhoneInput;
+
+    @FindBy(xpath = "//form[@id='form-order']//select[@id='form_order_service']")
+    private WebElementFacade orderFormServiceSelector;
+
+    @FindBy(xpath = "//form[@id='form-order']//button[@class='button-submit']")
+    private WebElementFacade orderFormSubmitBtn;
+    //endregion
+
+    //region Mobile view elements
+    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'countries')]")
+    private WebElementFacade mobileMenuCountryBtn;
+
+    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'countries')]//a")
+    private List<WebElementFacade> mobileCountryList;
+
+    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'language')]")
+    private WebElementFacade mobileMenuLangBtn;
+
+    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'language')]//a")
+    private List<WebElementFacade> mobileMenuLangsList;
+
+    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'sites')]")
+    private WebElementFacade mobileMenuSitesBtn;
+
+    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'sites')]//a")
+    private List<WebElementFacade> mobileMenuSitesList;
+
+    @FindBy(xpath = "//div[@class='sitemap']//div[@id='sitemap-phone-button']")
+    private WebElementFacade mobileMenuPhoneBtn;
+
+    @FindBy(xpath = "//div[@class='window']//div[@class='hint']")
+    private WebElementFacade mobileMenuPhonePopup;
+
+    @FindBy(xpath = "//div[@class='sitemap']//a[contains(@class, 'btn-customer')]")
+    private WebElementFacade mobileMenuCustomerRegistrationBtn;
+
+    @FindBy(xpath = "//div[@class='sitemap']//a[contains(@class, 'btn-master')]")
+    private WebElementFacade mobileMenuMasterRegistrationBtn;
+    //endregion
+
     @FindBy(xpath = "//a[@id='categories-catalog-btn']")
     private WebElementFacade viewFullCatalogBtn;
 
@@ -116,6 +166,106 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//form[@id='form-password']//button[@type='submit']")
     private WebElementFacade restorePasswordBtn;
+
+    @FindBy(xpath = "//div[@class='row row-faq']//div[@class='item']")
+    private List<WebElementFacade> faqItemsList;
+
+    @FindBy(xpath = "//div[@class='row row-faq']//div[@class='item expanded']//div[@class='text']")
+    private WebElementFacade faqOpenedItemText;
+
+
+    //region Customer registration form methods
+    public void openRegistrationForm() {
+        performRegistrationBtn.click();
+    }
+
+    public void regFormEnterLogin(String login) {
+        regFormEmailInput.sendKeys(login);
+    }
+
+    public void regFormEnterPassword(String password) {
+        regFormPasswordInput.sendKeys(password);
+        regFormConfirmPasswordInput.sendKeys(password);
+    }
+
+    public void regFormClickSubmit() {
+        regFormSubmitBtn.click();
+    }
+
+    public void regFormEnterAuthCode(String code) {
+        regFormConfirmationCodeInput.sendKeys(code);
+    }
+
+    public void regFormClickSubmitAuthCode() {
+        regFormSubmitCodeBtn.click();
+    }
+    //endregion
+
+    //region Master registration form methods
+    public void regMasterFormEnterFirstName(String name) {
+        regMasterNameInput.sendKeys(name);
+    }
+
+    public void regMasterFormEnterLastName(String surname) {
+        regMasterSurnameInput.sendKeys(surname);
+    }
+
+    public void regMasterFormEnterAboutMe(String aboutMe) {
+        regMasterAboutMeInput.sendKeys(aboutMe);
+    }
+
+    public void regMasterFormSelectRandomSubDomain() {
+        regMasterDomainSelector.selectByIndex(1);
+    }
+
+    public void regMasterFormSelectRandomCategory() {
+        regMasterCategory.waitUntilVisible();
+        regMasterCategoriesList.get(new Random().nextInt(10)).click();
+    }
+
+    public void regMasterFormEnterPhoneNumber(String phoneNumber) {
+        regMasterPhoneNumber.sendKeys(phoneNumber);
+    }
+
+    public void regMasterFormSelectExperience() {
+        regMasterExperienceSelector.selectByIndex(1);
+    }
+
+    public String regMasterFormSelectCity() {
+        regMasterCitySelector.selectByIndex(1);
+        return regMasterCitySelector.getSelectedVisibleTextValue();
+    }
+    //endregion
+
+    //region SignIn form methods
+    public void signInFormEnterLogin(String login) {
+        clearInputJS(signInFormLoginInput);
+        signInFormLoginInput.sendKeys(login);
+    }
+
+    public void signInFormEnterPassword(String password) {
+        clearInputJS(signInFormPasswordInput);
+        signInFormPasswordInput.sendKeys(password);
+    }
+
+    public void signInFormClickLoginBtn() {
+        signInFormLoginBtn.click();
+    }
+    //endregion
+
+    //region Forgot password form methods
+    public void openForgotPasswordForm() {
+        forgotPasswordLink.click();
+    }
+
+    public void forgotPasswordEnterEmail(String email) {
+        forgotPasswordEmailInput.sendKeys(email);
+    }
+
+    public void forgotPasswordClickRestoreBtn() {
+        restorePasswordBtn.click();
+    }
+    //endregion
 
     //region Validation methods
 
@@ -158,11 +308,85 @@ public class HomePage extends SearchBlock {
         forgotPasswordLink.shouldBeVisible();
     }
 
+    public void authCodeFormShouldBeVisible() {
+        regFormConfirmationCodeInput.shouldBeVisible();
+    }
+
+    public void registerFormShouldNotBeVisible() {
+        masterRegistrationForm.withTimeoutOf(Duration.ofSeconds(30)).waitUntilNotVisible();
+    }
+
+    public void registerFormShouldBeVisible() {
+        regMasterNameInput.shouldBeVisible();
+    }
+
+    public void orderFormUsernameInputShouldBeVisible() {
+        orderFormUsernameInput.shouldBeVisible();
+    }
+
+    public void orderFormPhoneInputShouldBeVisible() {
+        orderFormPhoneInput.shouldBeVisible();
+    }
+
+    public void orderFormServiceSelectorShouldBeVisible() {
+        orderFormServiceSelector.shouldBeVisible();
+    }
+
+    public void orderFormSubmitBtnShouldBeVisible() {
+        orderFormSubmitBtn.shouldBeVisible();
+    }
+
+    public void verifyFaqItemTextIsVisible() {
+        faqOpenedItemText.shouldBeVisible();
+    }
+
+    public void verifyMobileViewCountriesMenu() {
+        mobileCountryList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void verifyMobileViewLanguagesMenu() {
+        mobileMenuLangsList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void verifyMobileViewSitesMenu() {
+        mobileMenuSitesList.forEach(WebElementFacade::shouldBeVisible);
+    }
+
+    public void verifyMobileViewPhoneFormText(String text) {
+        mobileMenuPhonePopup.shouldContainText(text);
+    }
+
+    public void waitUntilFeedbackPopupIsVisible() {
+        leaveFeedbackBtn.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+    }
+
+    public void loginErrorWithTextShouldBeVisible(String text) {
+        assertThat(loginError.getText()).isEqualTo(text);
+    }
     //endregion
 
-    public void clickRegistrationBtn() {
-        performRegistrationBtn.click();
+    //region Mobile view methods
+    public void openMobileViewCountryMenu() {
+        mobileMenuCountryBtn.click();
     }
+
+    public void openMobileViewLangMenu() {
+        mobileMenuLangBtn.click();
+    }
+
+    public void openMobileViewSitesMenu() {
+        mobileMenuSitesBtn.click();
+    }
+
+    public void openMobileViewPhoneForm() {
+        mobileMenuPhoneBtn.click();
+    }
+
+    public void openMobileViewCustomerRegistrationForm() {
+        mobileMenuCustomerRegistrationBtn.click();
+    }
+    //endregion
+
 
     public void clickCustomerBtn() {
         iAmCustomerBtn.click();
@@ -172,119 +396,20 @@ public class HomePage extends SearchBlock {
         iAmMasterBtn.click();
     }
 
-    public void enterRegistrationLogin(String login) {
-        regFormEmailInput.sendKeys(login);
-    }
-
-    public void enterRegistrationPassword(String password) {
-        regFormPasswordInput.sendKeys(password);
-        confirmPasswordInput.sendKeys(password);
-    }
-
-    public void sendRegisterForm() {
-        sendRegisterFormBtn.click();
-    }
-
-    public void enterAuthCode(String code) {
-        confirmationCodeInput.sendKeys(code);
-    }
-
-    public void clickSubmitAuthCode() {
-        submitCodeBtn.click();
-    }
-
     public void clickCatalogBtn() {
         viewFullCatalogBtn.click();
-    }
-
-    public void enterLogin(String login) {
-        clearInputJS(signInFormLoginInput);
-        signInFormLoginInput.sendKeys(login);
-    }
-
-    public void enterPassword(String password) {
-        clearInputJS(signInFormPasswordInput);
-        signInFormPasswordInput.sendKeys(password);
-    }
-
-    public void clickLoginBtn() {
-        signInFormLoginBtn.click();
     }
 
     public boolean isLoginSuccessful() {
         return isLogoutBtnVisible();
     }
 
-    public void waitUntilFeedbackPopupIsVisible() {
-        leaveFeedbackBtn.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
-    }
-
     public void clickLeaveFeedback() {
         leaveFeedbackBtn.click();
     }
 
-
     public void openRandomCategory() {
         categoriesList.get(new Random().nextInt(categoriesList.size())).click();
-    }
-
-
-    public void loginErrorWithTextShouldBeVisible(String text) {
-        assertThat(loginError.getText()).isEqualTo(text);
-    }
-
-    public void enterRegistrationName(String name) {
-        regMasterNameInput.sendKeys(name);
-    }
-
-    public void enterRegistrationSurname(String surname) {
-        regMasterSurnameInput.sendKeys(surname);
-    }
-
-    public void enterAboutMe(String aboutMe) {
-        regMasterAboutMeInput.sendKeys(aboutMe);
-    }
-
-    public void selectRandomSubDomain() {
-        regMasterDomainSelector.selectByIndex(1);
-    }
-
-    public void selectRandomCategory() {
-        regMasterCategory.waitUntilVisible();
-        regMasterCategoriesList.get(new Random().nextInt(10)).click();
-    }
-
-    public void enterPhoneNumber(String phoneNumber) {
-        regMasterPhoneNumber.sendKeys(phoneNumber);
-    }
-
-    public void selectExperience() {
-        regMasterExperienceSelector.selectByIndex(1);
-    }
-
-    public String selectCity() {
-        regMasterCitySelector.selectByIndex(1);
-        return regMasterCitySelector.getSelectedVisibleTextValue();
-    }
-
-    public void clickForgotPassword() {
-        forgotPasswordLink.click();
-    }
-
-    public void forgotPasswordEnterEmail(String email) {
-        forgotPasswordEmailInput.sendKeys(email);
-    }
-
-    public void clickRestoreBtn() {
-        restorePasswordBtn.click();
-    }
-
-    public void registerFormShouldNotBeVisible() {
-        masterRegistrationForm.withTimeoutOf(Duration.ofSeconds(30)).waitUntilNotVisible();
-    }
-
-    public void registerFormShouldBeVisible() {
-        regMasterNameInput.shouldBeVisible();
     }
 
     public void uploadAvatar() {
@@ -302,8 +427,30 @@ public class HomePage extends SearchBlock {
         }
     }
 
+    public void openRandomFaqItem() {
+        faqItemsList
+                .get(new Random().nextInt(faqItemsList.size()))
+                .findElement(By.xpath(".//i"))
+                .click();
+    }
 
-    public void authCodeFormShouldBeVisible() {
-        confirmationCodeInput.shouldBeVisible();
+    public void regFormSubmitBtnShouldBeVisible() {
+        regFormSubmitBtn.shouldBeVisible();
+    }
+
+    public void regFormLoginInputShouldBeVisible() {
+        regFormEmailInput.shouldBeVisible();
+    }
+
+    public void regFormPassInputShouldBeVisible() {
+        regFormPasswordInput.shouldBeVisible();
+    }
+
+    public void regFormConfirmPassInputShouldBeVisible() {
+        regFormConfirmPasswordInput.shouldBeVisible();
+    }
+
+    public void regFormConditionsLinkShouldBeVisible() {
+        regFormRulesLink.shouldBeVisible();
     }
 }
