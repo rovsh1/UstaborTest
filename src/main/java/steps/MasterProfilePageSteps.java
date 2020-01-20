@@ -1,5 +1,6 @@
 package steps;
 
+import entities.MasterBaseInfo;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.MasterProfilePage;
@@ -36,5 +37,12 @@ public class MasterProfilePageSteps extends ScenarioSteps {
     @Step
     public void masterCityShouldBe(String city) {
         masterProfilePage.masterCityShouldBe(city);
+    }
+
+    @Step
+    public void verifyProfilePage(MasterBaseInfo masterBaseInfo) {
+        masterProfilePage.profilePageUrlShouldBe(masterBaseInfo.getProfileUrl());
+        masterProfilePage.masterFullNameShouldContain(masterBaseInfo.getMasterName());
+        masterProfilePage.masterCategoriesShouldContain(masterBaseInfo.getCategory());
     }
 }

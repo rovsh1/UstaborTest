@@ -4,6 +4,8 @@ import entities.Email;
 import enums.SystemProperties;
 import net.serenitybdd.core.Serenity;
 
+import java.util.Properties;
+
 import static enums.SystemProperties.*;
 
 public class Config {
@@ -123,5 +125,10 @@ public class Config {
 
     private static String getUzCountryCode() {
         return PropertyReader.getInstance().getProperty("lang.uz", props);
+    }
+
+    public static boolean isMobileTag() {
+        Properties properties = System.getProperties();
+        return properties.getProperty("tags") != null && properties.getProperty("tags").contains("mobile");
     }
 }

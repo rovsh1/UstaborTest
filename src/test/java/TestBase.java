@@ -40,4 +40,8 @@ class TestBase {
     void setBrowserWindowSize(int width, int height){
         driver.manage().window().setSize(new Dimension(width, height));
     }
+
+    void browserGoBack() {
+        driver.navigate().back();
+    }
 }

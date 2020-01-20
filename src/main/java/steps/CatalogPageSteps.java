@@ -1,5 +1,6 @@
 package steps;
 
+import entities.MasterBaseInfo;
 import net.thucydides.core.annotations.Step;
 import pages.CatalogPage;
 import utils.XmlParser;
@@ -45,7 +46,7 @@ public class CatalogPageSteps extends CommonSteps {
 
     @Step
     public void openRandomProjectWithNameNot(String projectName) {
-        catalogPage.openRandomProjectWithNameNot(projectName);
+        catalogPage.openRandomFavProjectWithNameNot(projectName);
     }
 
     @Step
@@ -68,7 +69,7 @@ public class CatalogPageSteps extends CommonSteps {
 
     @Step
     public void selectFilterCityAndDistrict(String cityName, String district) {
-        catalogPage.openCityDropdown();
+        catalogPage.openFilterCityDropdown();
         catalogPage.selectCity(cityName);
 
         if (!district.isEmpty()) {
@@ -77,11 +78,6 @@ public class CatalogPageSteps extends CommonSteps {
 
         }
         catalogPage.ClickSearchBtn();
-    }
-
-    @Step
-    public int getProjectsCount() {
-        return catalogPage.getProjectsCount();
     }
 
     @Step
@@ -101,5 +97,43 @@ public class CatalogPageSteps extends CommonSteps {
 
     public boolean isSearchResultEmpty() {
         return catalogPage.isSearchCatalogEmpty();
+    }
+
+    @Step
+    public void openFilterAndVerify() {
+        catalogPage.openFilter();
+        catalogPage.filterCategoryBtnShouldBeVisible();
+        catalogPage.filterCityBtnShouldBeVisible();
+        catalogPage.filterSortingBtnShouldBeVisible();
+        catalogPage.filterSearchBtnShouldBeVisible();
+        catalogPage.filterResetBtnShouldBeVisible();
+        catalogPage.filterCloseBtnShouldBeVisible();
+    }
+
+    @Step
+    public void openFilterCategoriesAndVerify() {
+        catalogPage.openFilterCategoryPopup();
+        catalogPage.filterCategoryWindowShouldBeVisible();
+    }
+
+    @Step
+    public void closeFilterCategoryWindow() {
+        catalogPage.closeFilterCategoryWindow();
+    }
+
+    @Step
+    public void openFilterCityDropdownAndVerify() {
+        catalogPage.openFilterCityDropdown();
+        catalogPage.filterCityDropdownShouldBeVisible();
+    }
+
+    @Step
+    public MasterBaseInfo openRandomProject() {
+        return catalogPage.openRandomProject();
+    }
+
+    @Step
+    public MasterBaseInfo openRandomMasterProfile() {
+        return catalogPage.openRandomMasterProfile();
     }
 }
