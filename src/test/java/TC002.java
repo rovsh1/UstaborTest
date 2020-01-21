@@ -37,7 +37,7 @@ public class TC002 extends TestBase {
         CategoryCheckbox category = user.atMasterProfileSettingsPage.enableOrDisableRandomCategory();
         user.atMasterProfileSettingsPage.saveChanges();
 
-        user.atMasterProfilePage.masterFullNameShouldBeEquals(userName);
+        user.atMasterProfilePage.masterFullNameShouldContain(userName);
         user.atMasterProfilePage.verifyCategoriesListValue(category);
 
         user.atMasterProfilePage.openProfileSettings();
@@ -48,25 +48,24 @@ public class TC002 extends TestBase {
         user.atHomePage.loginAsMaster(
                 Config.getUsers().getDefaultMaster().getLogin(),
                 Config.getUsers().getDefaultMaster().getPassword(),
-                false);
+                true);
         user.atHomePage.verifyUserIsLoggedIn();
 
+        user.atMasterProfilePage.open();
 
+        user.atMasterProfilePage.openProjectsTab();
+        user.atMasterProjectsPage.pageShouldBeVisible();
 
+        user.atMasterProjectsPage.openWalletTab();
+        user.atMasterWalletPage.pageShouldBeVisible();
 
-//        user.atMasterProfilePage.openProjectsTab();
-//        user.atMasterProjectsPage.pageShouldBeVisible();
-//
-//        user.atMasterProjectsPage.openWalletTab();
-//        user.atMasterWalletPage.pageShouldBeVisible();
-//
-//        user.atMasterWalletPage.openNotificationTab();
-//        user.atMasterNotificationsPage.pageShouldBeVisible();
-//
-//        user.atMasterNotificationsPage.openPromotionTab();
-//        user.atMasterPromotionPage.pageShouldBeVisible();
-//
-//        user.atMasterPromotionPage.openFaqTab();
-//        user.atMasterFaqPage.pageShouldBeVisible();
+        user.atMasterWalletPage.openNotificationTab();
+        user.atMasterNotificationsPage.pageShouldBeVisible();
+
+        user.atMasterNotificationsPage.openPromotionTab();
+        user.atMasterPromotionPage.pageShouldBeVisible();
+
+        user.atMasterPromotionPage.openFaqTab();
+        user.atMasterFaqPage.pageShouldBeVisible();
     }
 }

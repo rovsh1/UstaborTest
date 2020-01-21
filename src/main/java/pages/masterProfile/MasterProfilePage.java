@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MasterProfilePage extends MasterProfileBasePage {
 
-    @FindBy(xpath = "//div[@class='user-profile']//div[@class='h2']/text()")
+    @FindBy(xpath = "//div[@class='user-profile']//div[@class='h2']")
     private WebElementFacade masterName;
 
     @FindBy(xpath = "//div[@class='p about']")
@@ -21,21 +21,15 @@ public class MasterProfilePage extends MasterProfileBasePage {
     @FindBy(xpath = "//div[@class='user-profile']//ul[@class='cities']")
     private WebElementFacade masterCity;
 
-    @FindBy(xpath = "//ul[@class='categories']//a")
+    @FindBy(xpath = "//ul[@class='categories']//li")
     private List<WebElementFacade> masterCategories;
 
     @FindBy(xpath = "//a[contains(@class, 'button-edit')]")
     private WebElementFacade profileSettingsBtn;
 
-    public void projectsTabShouldBeVisible() {
-        projectsTab.shouldBeVisible();
-    }
-
     public void masterFullNameShouldContain(String firstName) {
         masterName.shouldContainText(firstName);
     }
-
-
 
     public void aboutMeTextShouldBeEqual(String aboutMe) {
         aboutMeText.shouldContainOnlyText(aboutMe);
@@ -62,20 +56,17 @@ public class MasterProfilePage extends MasterProfileBasePage {
         profileSettingsBtn.click();
     }
 
-    public void masterFullNameShouldBeEquals(String userName) {
-        masterName.shouldContainOnlyText(userName);
-    }
-
     public void verifyCategories(CategoryCheckbox category) {
         List<String> categories = masterCategories
                 .stream()
                 .map(WebElementFacade::getText)
+                .map(String::toLowerCase)
                 .collect(Collectors.toList());
 
         if (category.getEnabled()) {
-            assertThat(categories.contains(category.getName())).isTrue();
+            assertThat(categories.contains(category.getName().toLowerCase())).isTrue();
         } else {
-            assertThat(categories.contains(category.getName())).isFalse();
+            assertThat(categories.contains(category.getName().toLowerCase())).isFalse();
         }
     }
 }

@@ -4,7 +4,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
-public abstract class MasterProfileBasePage extends BasePage {
+public class MasterProfileBasePage extends BasePage {
 
     @FindBy(xpath = "//a[contains(@class, 'info')]")
     private WebElementFacade personalInfoTab;

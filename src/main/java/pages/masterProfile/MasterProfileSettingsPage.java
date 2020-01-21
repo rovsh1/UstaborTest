@@ -10,8 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class MasterProfileSettingsPage extends BasePage{
-public class MasterProfileSettingsPage extends BasePage {
+public class MasterProfileSettingsPage extends MasterProfilePage {
 
     @FindBy(xpath = "//input[@id='form_user_presentation']")
     private WebElementFacade userNameInput;
@@ -70,8 +69,8 @@ public class MasterProfileSettingsPage extends BasePage {
     }
 
     public CategoryCheckbox enableOrDisableRandomCategory() {
-        WebElementFacade category = categories.get(new Random().nextInt(categories.size()));
-        category.click();
+        WebElementFacade category = categories.get(new Random().nextInt(5));
+        category.findElement(By.xpath(".//label")).click();
 
         CategoryCheckbox checkbox = new CategoryCheckbox();
         checkbox.setName(category.getText());

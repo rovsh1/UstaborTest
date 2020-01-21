@@ -52,11 +52,6 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     }
 
     @Step
-    public void masterFullNameShouldBeEquals(String userName) {
-        masterProfilePage.masterFullNameShouldBeEquals(userName);
-    }
-
-    @Step
     public void verifyCategoriesListValue(CategoryCheckbox category) {
         masterProfilePage.verifyCategories(category);
     }
