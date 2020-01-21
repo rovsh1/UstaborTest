@@ -1,17 +1,15 @@
-package pages;
+package pages.masterProfile;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
+import pages.BasePage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MasterProfilePage extends BasePage {
-
-    @FindBy(xpath = "//a[@href='/profile/projects/']")
-    private WebElementFacade projectsTab;
+public class MasterProfilePage extends MasterProfileBasePage {
 
     @FindBy(xpath = "//div[@class='user-profile']//div[@class='h2']")
     private WebElementFacade masterName;
@@ -25,23 +23,19 @@ public class MasterProfilePage extends BasePage {
     @FindBy(xpath = "//ul[@class='categories']//a")
     private List<WebElementFacade> masterCategories;
 
-    public void projectsTabShouldBeVisible() {
-        projectsTab.shouldBeVisible();
-    }
-
     public void masterFullNameShouldContain(String firstName) {
         masterName.shouldContainText(firstName);
     }
 
-    public void aboutMeTextShould(String aboutMe) {
+    public void aboutMeTextShouldBeEqual(String aboutMe) {
         aboutMeText.shouldContainOnlyText(aboutMe);
     }
 
-    public void masterCityShouldBe(String city) {
+    public void masterCityShouldBeEqual(String city) {
         masterCity.shouldContainText(city);
     }
 
-    public void profilePageUrlShouldBe(String profileUrl) {
+    public void profilePageUrlShouldBeEqual(String profileUrl) {
         assertThat(getDriver().getCurrentUrl()).contains(profileUrl);
     }
 

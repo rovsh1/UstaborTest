@@ -1,8 +1,7 @@
-package pages;
+package pages.masterProfile;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +15,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MasterProjectsPage extends BasePage {
+public class MasterProjectsPage extends MasterProfileBasePage {
 
     //region Add new project form
 
@@ -51,14 +50,6 @@ public class MasterProjectsPage extends BasePage {
 
     @FindBy(xpath = "//div[@id='master-projects']/a")
     private WebElementFacade projectBtn;
-
-    @FindBy(xpath = "//a[@href='/profile/projects/']")
-    private WebElementFacade projectsTab;
-
-    public void clickProjectsTab() {
-        scrollPageUpJS();
-        projectsTab.click();
-    }
 
     public void openNewProjectForm() {
         addProjectBtn.click();
@@ -134,5 +125,9 @@ public class MasterProjectsPage extends BasePage {
     public void waitTillProjectsAreVisible() {
         projectBtn.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
         projectBtn.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(10));
+    }
+
+    public void addProjectBtnShouldBeVisible() {
+        addProjectBtn.shouldBeVisible();
     }
 }

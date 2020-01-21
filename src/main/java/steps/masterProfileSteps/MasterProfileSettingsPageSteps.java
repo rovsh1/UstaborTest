@@ -1,10 +1,9 @@
-package steps;
+package steps.masterProfileSteps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.steps.ScenarioSteps;
-import pages.MasterProfileSettingsPage;
+import pages.masterProfile.MasterProfileSettingsPage;
 
-public class MasterProfileSettingsPageSteps extends ScenarioSteps {
+public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
 
     private MasterProfileSettingsPage masterProfileSettingsPage;
 

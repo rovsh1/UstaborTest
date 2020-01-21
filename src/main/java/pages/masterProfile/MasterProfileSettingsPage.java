@@ -1,9 +1,10 @@
-package pages;
+package pages.masterProfile;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
+import pages.BasePage;
 
-public class MasterProfileSettingsPage extends BasePage{
+public class MasterProfileSettingsPage extends BasePage {
 
     @FindBy(xpath = "//a[@id='button-password']")
     private WebElementFacade changePasswordBtn;

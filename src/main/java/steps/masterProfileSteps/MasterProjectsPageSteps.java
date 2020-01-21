@@ -1,13 +1,12 @@
-package steps;
+package steps.masterProfileSteps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.steps.ScenarioSteps;
-import pages.MasterProjectsPage;
+import pages.masterProfile.MasterProjectsPage;
 import utils.WaitHelper;
 
 import java.util.concurrent.TimeoutException;
 
-public class MasterProjectsPageSteps extends ScenarioSteps {
+public class MasterProjectsPageSteps extends MasterProfileSteps {
 
     private MasterProjectsPage masterProjectsPage;
 
@@ -32,13 +31,13 @@ public class MasterProjectsPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openProjectsTab() {
-        masterProjectsPage.clickProjectsTab();
-    }
-
-    @Step
     public void deleteProjectByName(String projectName) {
         masterProjectsPage.deleteProjectByName(projectName);
         masterProjectsPage.submitProjectDeleting();
+    }
+
+    @Step
+    public void pageShouldBeVisible() {
+        masterProjectsPage.addProjectBtnShouldBeVisible();
     }
 }

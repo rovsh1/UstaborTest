@@ -1,8 +1,8 @@
 package steps;
 
-
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
+import steps.masterProfileSteps.*;
 
 public class UserSteps extends ScenarioSteps {
 
@@ -38,4 +38,13 @@ public class UserSteps extends ScenarioSteps {
 
     @Steps
     public MasterProfileSettingsPageSteps atMasterProfileSettingsPage;
+
+    @Steps
+    public MasterWalletPageSteps atMasterWalletPage;
+
+    @Steps
+    public MasterNotificationsPageSteps atMasterNotificationsPage;
+
+    @Steps
+    public MasterFaqPageSteps atMasterFaqPage;
 }

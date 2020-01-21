@@ -1,14 +1,13 @@
-package pages;
+package pages.masterProfile;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class MasterPromotionPage extends BasePage{
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @FindBy(xpath = "//a[@href='/profile/promotion/']")
-    private WebElementFacade promotionTab;
+public class MasterPromotionPage extends MasterProfileBasePage{
 
     @FindBy(xpath = "//div[@id='master-projects']/a")
     private List<WebElementFacade> projectsList;
@@ -21,6 +20,9 @@ public class MasterPromotionPage extends BasePage{
 
     @FindBy(xpath = "//div[@class='window window-message window-success' and .//div[text()='Promotion']]//button")
     private WebElementFacade successPopupOkButton;
+
+    @FindBy(xpath = "//a[@id='button-add']")
+    private WebElementFacade addProjectBtn;
 
 
     public void selectProject(String projectName) {
@@ -52,8 +54,11 @@ public class MasterPromotionPage extends BasePage{
         successPopupOkButton.click();
     }
 
-    public void clickPromotionTab() {
-        scrollPageUpJS();
-        promotionTab.click();
+    public void addProjectBtnShouldBeVisible() {
+        addProjectBtn.shouldBeVisible();
+    }
+
+    public void projectsListShouldBeVisible() {
+        assertThat(projectsList.stream().allMatch(WebElementFacade::isVisible)).isTrue();
     }
 }

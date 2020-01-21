@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BasePage extends PageObject {
+public abstract class BasePage extends PageObject {
 
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
@@ -121,7 +121,7 @@ public class BasePage extends PageObject {
         assertThat(isLogoutBtnVisible()).isTrue();
     }
 
-    void clickPopupOkBtn() {
+    protected void clickPopupOkBtn() {
         popupOkBtn.click();
     }
 
@@ -132,7 +132,7 @@ public class BasePage extends PageObject {
                 elementCount);
     }
 
-    void scrollPageUpJS() {
+    protected void scrollPageUpJS() {
         evaluateJavascript("window.scrollTo(0, 0)");
     }
 

@@ -1,11 +1,10 @@
-package steps;
+package steps.masterProfileSteps;
 
 import entities.MasterBaseInfo;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.steps.ScenarioSteps;
-import pages.MasterProfilePage;
+import pages.masterProfile.MasterProfilePage;
 
-public class MasterProfilePageSteps extends ScenarioSteps {
+public class MasterProfilePageSteps extends MasterProfileSteps {
 
     private MasterProfilePage masterProfilePage;
 
@@ -26,7 +25,7 @@ public class MasterProfilePageSteps extends ScenarioSteps {
 
     @Step
     public void aboutMeShouldBe(String aboutMe) {
-        masterProfilePage.aboutMeTextShould(aboutMe);
+        masterProfilePage.aboutMeTextShouldBeEqual(aboutMe);
     }
 
     @Step
@@ -36,12 +35,12 @@ public class MasterProfilePageSteps extends ScenarioSteps {
 
     @Step
     public void masterCityShouldBe(String city) {
-        masterProfilePage.masterCityShouldBe(city);
+        masterProfilePage.masterCityShouldBeEqual(city);
     }
 
     @Step
     public void verifyProfilePage(MasterBaseInfo masterBaseInfo) {
-        masterProfilePage.profilePageUrlShouldBe(masterBaseInfo.getProfileUrl());
+        masterProfilePage.profilePageUrlShouldBeEqual(masterBaseInfo.getProfileUrl());
         masterProfilePage.masterFullNameShouldContain(masterBaseInfo.getMasterName());
         masterProfilePage.masterCategoriesShouldContain(masterBaseInfo.getCategory());
     }

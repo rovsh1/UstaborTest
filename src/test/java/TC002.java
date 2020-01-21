@@ -22,5 +22,20 @@ public class TC002 extends TestBase {
                 Config.getUsers().getDefaultMaster().getPassword(),
                 false);
         user.atHomePage.verifyUserIsLoggedIn();
+
+//        user.atMasterProfilePage.openProjectsTab();
+//        user.atMasterProjectsPage.pageShouldBeVisible();
+//
+//        user.atMasterProjectsPage.openWalletTab();
+//        user.atMasterWalletPage.pageShouldBeVisible();
+//
+//        user.atMasterWalletPage.openNotificationTab();
+//        user.atMasterNotificationsPage.pageShouldBeVisible();
+//
+//        user.atMasterNotificationsPage.openPromotionTab();
+//        user.atMasterPromotionPage.pageShouldBeVisible();
+//
+//        user.atMasterPromotionPage.openFaqTab();
+//        user.atMasterFaqPage.pageShouldBeVisible();
     }
 }

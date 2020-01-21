@@ -1,17 +1,11 @@
-package steps;
+package steps.masterProfileSteps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.steps.ScenarioSteps;
-import pages.MasterPromotionPage;
+import pages.masterProfile.MasterPromotionPage;
 
-public class MasterPromotionPageSteps extends ScenarioSteps {
+public class MasterPromotionPageSteps extends MasterProfileSteps {
 
     private MasterPromotionPage masterPromotionPage;
-
-    @Step
-    public void openPromotionTab() {
-        masterPromotionPage.clickPromotionTab();
-    }
 
     @Step
     public void selectProjectByName(String projectName) {
@@ -35,5 +29,11 @@ public class MasterPromotionPageSteps extends ScenarioSteps {
         masterPromotionPage.clickSubmitPromotionBtn();
         masterPromotionPage.successPopupShouldBeVisible();
         masterPromotionPage.clickSuccessPopupOkBtn();
+    }
+
+    @Step
+    public void pageShouldBeVisible() {
+        masterPromotionPage.addProjectBtnShouldBeVisible();
+        masterPromotionPage.projectsListShouldBeVisible();
     }
 }
