@@ -1,5 +1,6 @@
 package steps.masterProfileSteps;
 
+import entities.CategoryCheckbox;
 import entities.MasterBaseInfo;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfilePage;
@@ -43,5 +44,20 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
         masterProfilePage.profilePageUrlShouldBeEqual(masterBaseInfo.getProfileUrl());
         masterProfilePage.masterFullNameShouldContain(masterBaseInfo.getMasterName());
         masterProfilePage.masterCategoriesShouldContain(masterBaseInfo.getCategory());
+    }
+
+    @Step
+    public void openProfileSettings() {
+        masterProfilePage.openProfileSettings();
+    }
+
+    @Step
+    public void masterFullNameShouldBeEquals(String userName) {
+        masterProfilePage.masterFullNameShouldBeEquals(userName);
+    }
+
+    @Step
+    public void verifyCategoriesListValue(CategoryCheckbox category) {
+        masterProfilePage.verifyCategories(category);
     }
 }

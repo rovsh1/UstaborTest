@@ -1,7 +1,10 @@
 package steps.masterProfileSteps;
 
+import entities.CategoryCheckbox;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfileSettingsPage;
+
+import java.util.HashMap;
 
 public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
 
@@ -24,5 +27,25 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
     @Step
     public void logsOut() {
         masterProfileSettingsPage.logsOut();
+    }
+
+    @Step
+    public void editUsername(String username) {
+        masterProfileSettingsPage.editUsername(username);
+    }
+
+    @Step
+    public CategoryCheckbox enableOrDisableRandomCategory() {
+        return masterProfileSettingsPage.enableOrDisableRandomCategory();
+    }
+
+    @Step
+    public void saveChanges() {
+        masterProfileSettingsPage.saveChanges();
+    }
+
+    @Step
+    public void openChangePasswordForm() {
+        masterProfileSettingsPage.clickChangePasswordBtn();
     }
 }

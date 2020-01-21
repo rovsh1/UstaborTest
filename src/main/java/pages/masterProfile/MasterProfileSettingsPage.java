@@ -1,10 +1,23 @@
 package pages.masterProfile;
 
+import entities.CategoryCheckbox;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+
+public class MasterProfileSettingsPage extends BasePage{
 public class MasterProfileSettingsPage extends BasePage {
+
+    @FindBy(xpath = "//input[@id='form_user_presentation']")
+    private WebElementFacade userNameInput;
+
+    @FindBy(xpath = "//div[contains(@class, 'field-categories')]//div[contains(@class, 'field-checkbox')]")
+    private List<WebElementFacade> categories;
 
     @FindBy(xpath = "//a[@id='button-password']")
     private WebElementFacade changePasswordBtn;
@@ -23,6 +36,9 @@ public class MasterProfileSettingsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='button-close']")
     private WebElementFacade closePopupBtn;
+
+    @FindBy(xpath = "//form/h3//button[@type='submit']")
+    private WebElementFacade saveChangesBtn;
 
     public void clickChangePasswordBtn() {
         changePasswordBtn.click();
@@ -46,5 +62,25 @@ public class MasterProfileSettingsPage extends BasePage {
 
     public void closePopup() {
         closePopupBtn.click();
+    }
+
+    public void editUsername(String username) {
+        userNameInput.clear();
+        userNameInput.sendKeys(username);
+    }
+
+    public CategoryCheckbox enableOrDisableRandomCategory() {
+        WebElementFacade category = categories.get(new Random().nextInt(categories.size()));
+        category.click();
+
+        CategoryCheckbox checkbox = new CategoryCheckbox();
+        checkbox.setName(category.getText());
+        checkbox.setEnabled(category.findElement(By.xpath(".//input")).isSelected());
+
+        return checkbox;
+    }
+
+    public void saveChanges() {
+        saveChangesBtn.click();
     }
 }
