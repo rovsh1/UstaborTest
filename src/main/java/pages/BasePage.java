@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class BasePage extends PageObject {
+public class BasePage extends PageObject {
 
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")

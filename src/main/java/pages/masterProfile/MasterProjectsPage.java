@@ -65,7 +65,7 @@ public class MasterProjectsPage extends MasterProfileBasePage {
 
     public void selectProjectCategoryWithPromotion() {
         WebElementFacade category = projectCategories.get(new Random().nextInt(projectCategories.size()));
-        projectCategorySelect.selectByValue(category.getValue());
+        projectCategorySelect.selectByValue("901");
         waitForLoaderDisappears();
     }
 
