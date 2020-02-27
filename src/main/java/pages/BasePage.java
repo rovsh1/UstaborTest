@@ -132,6 +132,10 @@ public class BasePage extends PageObject {
                 elementCount);
     }
 
+    void focusElementJS(WebElementFacade element) {
+        evaluateJavascript("arguments[0].focus();", element);
+    }
+
     protected void scrollPageUpJS() {
         evaluateJavascript("window.scrollTo(0, 0)");
     }

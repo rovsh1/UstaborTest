@@ -8,7 +8,6 @@ import utils.Config;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 @WithTags({
         @WithTag("test"),

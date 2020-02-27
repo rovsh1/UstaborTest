@@ -14,7 +14,7 @@ public class UU000_SearchTest extends TestBase {
 
     @Test
     public void FindProfilesWithCategory() {
-        user.atHomePage.search(getText("SearchRequestArch"));
+        user.atHomePage.enterTextAndSearch(getText("SearchRequestArch"));
         user.atCatalogPage.verifySelectedCategoryEquals(getText("CategoryArch"));
         user.atCatalogPage.verifyAllFoundProjectsHaveCategory(getText("CategoryArch"));
 

@@ -1,5 +1,6 @@
 package pages;
 
+import entities.FavProject;
 import entities.MasterBaseInfo;
 import freemarker.template.utility.NullArgumentException;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -46,11 +47,11 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@class='results']/span")
     private WebElementFacade projectsCounter;
 
-    @FindBy(xpath = "//div[@class='catalog-search-empty']//div[@class='text']")
+    @FindBy(xpath = "//div[@class='catalog-enterTextAndSearch-empty']//div[@class='text']")
     private WebElementFacade emptyCatalogMessage;
 
     //region Filter elements
-    @FindBy(xpath = "//div[@id='catalog-search-menu']")
+    @FindBy(xpath = "//div[@id='catalog-enterTextAndSearch-menu']")
     private WebElementFacade filterBtn;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'category')]")
@@ -118,12 +119,18 @@ public class CatalogPage extends SearchBlock {
         filterCloseBtn.click();
     }
 
-    public String addRandomProjectToFavorites() {
+    public FavProject addRandomProjectToFavorites() {
         WebElementFacade project = projectsWithFavoriteMark
                 .get(new Random().nextInt(projectsWithFavoriteMark.size()));
 
+        focusElementJS(project);
+
         project.findElement(By.xpath(".//i")).click();
-        return project.findElement(By.xpath(".//div[@class='presentation']")).getText();
+
+        return new FavProject(
+                project.findElement(By.xpath(".//div[@class='presentation']")).getText(),
+                project.findElement(By.xpath(".//div[@class='category']")).getText()
+        );
     }
 
     public void openProjectContactsByName(String projectName) {

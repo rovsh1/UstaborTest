@@ -9,8 +9,8 @@ public class FeedbackPageSteps extends ScenarioSteps {
     private FeedbackPage feedbackPage;
 
     @Step
-    public void leftFeedbackWithRandomGradeAndComment(String comment) {
-        feedbackPage.selectRandomGrade();
+    public void leftFeedback(int rating, String comment) {
+        feedbackPage.setRating(rating);
         feedbackPage.enterFeedbackComment(comment);
         feedbackPage.submitFeedback();
     }

@@ -16,6 +16,7 @@ public class Config {
     private static String lang;
     private static String country;
     private static String countryCode;
+    private static String adminUrl;
 
     private static Users users;
     private static Email email;
@@ -53,6 +54,14 @@ public class Config {
         }
 
         return email;
+    }
+
+    public static String getAdminUrl() {
+        if (adminUrl == null) {
+            adminUrl = PropertyReader.getInstance().getProperty("site.admin", props);
+        }
+
+        return adminUrl;
     }
 
     public static String getFullUrl() {

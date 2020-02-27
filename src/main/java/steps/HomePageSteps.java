@@ -17,7 +17,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void search(String text) {
+    public void enterTextAndSearch(String text) {
         enterSearchText(text);
         homePage.ClickSearchBtn();
     }

@@ -1,5 +1,6 @@
 package steps;
 
+import entities.FavProject;
 import entities.MasterBaseInfo;
 import net.thucydides.core.annotations.Step;
 import pages.CatalogPage;
@@ -32,7 +33,7 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public String addRandomProjectToFavorites() {
+    public FavProject addRandomProjectToFavorites() {
         return catalogPage.addRandomProjectToFavorites();
     }
 

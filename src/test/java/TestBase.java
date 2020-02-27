@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import steps.UserSteps;
+import steps.adminSteps.AdminSteps;
 import utils.Config;
 import utils.DataGenerator;
 import utils.XmlParser;
@@ -18,6 +19,9 @@ class TestBase {
 
     @Steps
     UserSteps user;
+
+    @Steps
+    AdminSteps admin;
 
     @Before
     public void setUp() {

@@ -17,8 +17,10 @@ public class FeedbackPage extends BasePage {
     @FindBy(xpath = "//input[@type='submit']")
     private WebElementFacade submitFeedbackBtn;
 
-    public void selectRandomGrade() {
-        ratingStars.get(new Random().nextInt(ratingStars.size())).click();
+    public void setRating(int rating) {
+        if (rating != 0) {
+            ratingStars.get(rating - 1).click();
+        }
     }
 
     public void enterFeedbackComment(String comment) {

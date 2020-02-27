@@ -34,4 +34,8 @@ public final class Users {
     public User getNewMaster() {
         return getUser("newMaster");
     }
+
+    public User getAdmin() {
+        return getUser("admin");
+    }
 }
