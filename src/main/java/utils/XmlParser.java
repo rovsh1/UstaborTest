@@ -11,6 +11,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class XmlParser {
 
@@ -49,5 +51,42 @@ public class XmlParser {
         }
 
         return null;
+    }
+
+    public static List<String> getAllValuesByPredicate(String attributePredicate) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        DocumentBuilder builder;
+        String xml = null;
+        var results = new ArrayList<String>();
+        try {
+            builder = factory.newDocumentBuilder();
+
+            xml = "files/strings.xml";
+
+            Document document = builder.parse(new File(xml));
+            NodeList nl = document.getElementsByTagName("string");
+
+            for (int i = 0; i < nl.getLength(); i++) {
+                Node node = nl.item(i);
+                NamedNodeMap nm = node.getAttributes();
+                if (nm != null) {
+                    String name = nm.getNamedItem("name").getNodeValue();
+
+                    if (name.startsWith(attributePredicate)) {
+                        results.add(node.getTextContent());
+                    }
+                }
+            }
+
+        } catch (SAXException | IOException | ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return results;
     }
 }

@@ -3,6 +3,8 @@ package utils;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
+import entities.Master;
+import entities.Project;
 import entities.User;
 
 import java.util.Locale;
@@ -12,6 +14,7 @@ public class DataGenerator {
 
     private Faker faker;
     private FakeValuesService fakeValuesService;
+    private String password = "Password1!";
 
     public DataGenerator() {
         faker = new Faker();
@@ -30,7 +33,7 @@ public class DataGenerator {
 
         User user = new User(
                 randomEmail,
-                faker.internet().password(),
+                password,
                 faker.phoneNumber().phoneNumber()
         );
         user.setFirstName(faker.name().firstName());
@@ -43,7 +46,37 @@ public class DataGenerator {
     public User getFullInfoUserRandomEmail() {
         User user = new User(
                 faker.internet().emailAddress(),
-                faker.internet().password(),
+                password,
+                faker.phoneNumber().phoneNumber()
+        );
+        user.setFirstName(faker.name().firstName());
+        user.setLastName(faker.name().lastName());
+        user.setAboutMe(faker.name().fullName());
+        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        return user;
+    }
+
+    public Master getFullInfoMasterRandomEmail() {
+        Master user = new Master(
+                faker.internet().emailAddress(),
+                password,
+                faker.phoneNumber().phoneNumber()
+        );
+        user.setFirstName(faker.name().firstName());
+        user.setLastName(faker.name().lastName());
+        user.setAboutMe(faker.name().fullName());
+        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        return user;
+    }
+
+    public Master getFullInfoMasterValidEmail(String email) {
+        String randomEmail = email.substring(0, email.indexOf('@'))
+                + "+"
+                + fakeValuesService.bothify("????####@gmail.com");
+
+        Master user = new Master(
+                randomEmail,
+                password,
                 faker.phoneNumber().phoneNumber()
         );
         user.setFirstName(faker.name().firstName());
@@ -55,5 +88,13 @@ public class DataGenerator {
 
     public int getRandomNumber() {
         return new Random().nextInt(9999999);
+    }
+
+    public Project getProject(Master master) {
+        return new Project(
+                String.format("Project#%d", this.getRandomNumber()),
+                master.getCategory(),
+                "This is project description"
+        );
     }
 }

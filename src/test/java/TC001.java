@@ -1,4 +1,4 @@
-import entities.User;
+import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -9,7 +9,7 @@ public class TC001 extends TestBase {
     @Test
     public void masterRegistrationTest() {
 
-        User master = data.getFullInfoUserRandomEmail();
+        Master master = data.getFullInfoMasterRandomEmail();
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();

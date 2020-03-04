@@ -14,4 +14,12 @@ public class MastersPageSteps extends ScenarioSteps {
         mastersPage.openMasterProfileByName(masterLastName);
         mastersPage.addMoneyToAccount(amount);
     }
+
+    @Step
+    public void addAllBadgesToMaster(String lastName) {
+        mastersPage.open();
+        mastersPage.openMasterProfileByName(lastName);
+        mastersPage.openEditMasterPage();
+        mastersPage.addAllBadgesToMaster();
+    }
 }

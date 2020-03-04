@@ -1,4 +1,4 @@
-import entities.MasterBaseInfo;
+import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
@@ -29,13 +29,13 @@ public class UU305_CatalogUiTest extends TestBase {
 
         user.atCatalogPage.openFilterCityDropdownAndVerify();
 
-        MasterBaseInfo baseInfo = user.atCatalogPage.openRandomProject();
-        user.atProjectPage.verifyProjectPage(baseInfo);
+        Master master = user.atCatalogPage.openRandomProjectAndGetMasterInfo();
+        user.atProjectPage.verifyProjectPageByMasterInfo(master);
 
         browserGoBack();
 
-        MasterBaseInfo masterBaseInfo = user.atCatalogPage.openRandomMasterProfile();
-        user.atMasterProfilePage.verifyProfilePage(masterBaseInfo);
+        Master master1 = user.atCatalogPage.openRandomMasterProfile();
+        user.atMasterProfilePage.verifyProfilePage(master1);
 
     }
 }

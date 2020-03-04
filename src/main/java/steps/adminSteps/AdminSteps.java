@@ -11,4 +11,13 @@ public class AdminSteps extends ScenarioSteps {
 
     @Steps
     public MastersPageSteps atMastersPage;
+
+    @Steps
+    public CategoriesPageSteps atCategoriesPage;
+
+    @Steps
+    public PromotionPageSteps atPromotionPage;
+
+    @Steps
+    public ProjectsPageSteps atProjectsPage;
 }

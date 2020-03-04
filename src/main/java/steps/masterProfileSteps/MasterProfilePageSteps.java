@@ -1,7 +1,7 @@
 package steps.masterProfileSteps;
 
 import entities.CategoryCheckbox;
-import entities.MasterBaseInfo;
+import entities.Master;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfilePage;
 
@@ -40,10 +40,10 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     }
 
     @Step
-    public void verifyProfilePage(MasterBaseInfo masterBaseInfo) {
-        masterProfilePage.profilePageUrlShouldBeEqual(masterBaseInfo.getProfileUrl());
-        masterProfilePage.masterFullNameShouldContain(masterBaseInfo.getMasterName());
-        masterProfilePage.masterCategoriesShouldContain(masterBaseInfo.getCategory());
+    public void verifyProfilePage(Master master) {
+        masterProfilePage.profilePageUrlShouldBeEqual(master.getProfileUrl());
+        masterProfilePage.masterFullNameShouldContain(master.getFirstName());
+        masterProfilePage.masterCategoriesShouldContain(master.getCategory());
     }
 
     @Step

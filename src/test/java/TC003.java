@@ -1,3 +1,4 @@
+import entities.Master;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Assert;
@@ -29,8 +30,7 @@ public class TC003 extends TestBase {
 
     @Test
     public void masterAccountForgotPassword() throws Exception {
-        User master = data.getFullInfoUserValidEmail(
-                Config.getUsers().getNewMaster().getLogin());
+        Master master = data.getFullInfoMasterValidEmail(Config.getUsers().getNewMaster().getLogin());
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();

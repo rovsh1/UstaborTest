@@ -1,6 +1,7 @@
 package steps;
 
-import entities.MasterBaseInfo;
+import entities.Master;
+import entities.Project;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.ProjectPage;
@@ -20,11 +21,19 @@ public class ProjectPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyProjectPage(MasterBaseInfo baseInfo) {
-        projectPage.projectUrlShouldBe(baseInfo.getProjectUrl());
-        projectPage.masterNameShouldBe(baseInfo.getMasterName());
-        projectPage.masterCategoriesShouldContain(baseInfo.getCategory());
+    public void verifyProjectPageByMasterInfo(Master master) {
+        projectPage.projectUrlShouldContain(master.getProjectUrl());
+        projectPage.masterNameShouldContain(master.getFirstName());
+        projectPage.masterCategoriesShouldContain(master.getCategory());
         projectPage.aboutMeShouldBeVisible();
         projectPage.projectImageShouldBeVisible();
+    }
+
+    @Step
+    public void verifyProjectInfo(Project project, Master master) {
+        projectPage.masterCategoriesShouldContain(project.getCategory());
+        projectPage.projectDescriptionShouldBe(project.getDescription());
+        projectPage.projectUrlShouldContain(project.getSystemId());
+        projectPage.masterNameShouldContain(master.getLastName());
     }
 }
