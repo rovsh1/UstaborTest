@@ -47,11 +47,11 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@class='results']/span")
     private WebElementFacade projectsCounter;
 
-    @FindBy(xpath = "//div[@class='catalog-enterTextAndSearch-empty']//div[@class='text']")
+    @FindBy(xpath = "//div[@class='catalog-search-empty']//div[@class='text']")
     private WebElementFacade emptyCatalogMessage;
 
     //region Filter elements
-    @FindBy(xpath = "//div[@id='catalog-enterTextAndSearch-menu']")
+    @FindBy(xpath = "//div[@id='catalog-search-menu']")
     private WebElementFacade filterBtn;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'category')]")
