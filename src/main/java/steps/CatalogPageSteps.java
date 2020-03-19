@@ -25,12 +25,12 @@ public class CatalogPageSteps extends CommonSteps {
 
     @Step
     public void OpenRandomProfile() {
-        catalogPage.OpenRandomProfile();
+        catalogPage.openRandomProfile();
     }
 
     @Step
     public void VerifyHeaderText(String text) {
-        catalogPage.VerifyHeaderText(text);
+        catalogPage.verifyHeaderText(text);
     }
 
     @Step
@@ -169,7 +169,14 @@ public class CatalogPageSteps extends CommonSteps {
         catalogPage.verifyLastAddedProject(project);
     }
 
-    public void verifyMasterInCatalogTop(Project project, int rating) {
-        catalogPage.verifyMasterInCatalogTop(project, rating);
+    @Step
+    public void verifyProjectsSortedByRate(Project project, int rating) {
+        catalogPage.verifyProjectsSortedByRate(project, rating);
+    }
+
+    @Step
+    public void sortProjectsByRating() {
+        catalogPage.openFilter();
+        catalogPage.applyFilter();
     }
 }

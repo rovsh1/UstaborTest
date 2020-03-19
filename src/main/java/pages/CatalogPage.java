@@ -36,6 +36,9 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@id='projects-gallery']/a")
     private List<WebElementFacade> projectsList;
 
+    @FindBy(xpath = "//div[@id='projects-gallery']/a[.//div[@class='stats'] and not(.//div[@class='master-badges icons'])]")
+    private List<WebElementFacade> projectsWithoutBadges;
+
     @FindBy(xpath = "//div[@id='projects-gallery']/a[.//i]")
     private List<WebElementFacade> projectsWithFavoriteMark;
 
@@ -113,14 +116,14 @@ public class CatalogPage extends SearchBlock {
         categories.forEach(c -> assertThat(c).isEqualTo(expectedCategory));
     }
 
-    public void OpenRandomProfile() {
+    public void openRandomProfile() {
         WebElementFacade project = projectsList.get(new Random().nextInt(projectsList.size()));
         WebElement projectOwner = project.findElement(By.xpath(".//div[@class='bottom']//img"));
 
         projectOwner.click();
     }
 
-    public void VerifyHeaderText(String text) {
+    public void verifyHeaderText(String text) {
         assertThat(pageHeader.getText()).isEqualTo(text);
     }
 
@@ -231,10 +234,6 @@ public class CatalogPage extends SearchBlock {
                 String.format("%s is not in districts list", districtName));
 
         district.click();
-    }
-
-    public int getProjectsCount() {
-        return projectsList.size();
     }
 
     public void verifyCityFilterText(String city) {
@@ -397,8 +396,12 @@ public class CatalogPage extends SearchBlock {
                 .isTrue();
     }
 
-    public void verifyMasterInCatalogTop(Project project, int rating) {
-        for (WebElementFacade proj : projectsList) {
+    public void verifyProjectsSortedByRate(Project project, int rating) {
+        var projectsWithoutPromoAndBadges = projectsWithoutBadges.stream()
+                .filter(x -> x.getAttribute("data-promotion").equals("0"))
+                .collect(Collectors.toList());
+
+        for (WebElementFacade proj : projectsWithoutPromoAndBadges) {
             var projectRating = Integer.valueOf(proj.findElements(By.xpath(ratingXpath)).get(0).getText());
 
             if (projectRating >= rating) {
@@ -409,5 +412,9 @@ public class CatalogPage extends SearchBlock {
                 throw new IllegalArgumentException("Ratings order is wrong");
             }
         }
+    }
+
+    public void applyFilter() {
+        filterSubmitBtn.click();
     }
 }

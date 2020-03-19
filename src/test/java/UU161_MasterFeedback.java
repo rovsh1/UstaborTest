@@ -7,34 +7,31 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import utils.Config;
 
-import java.util.concurrent.TimeoutException;
-
 @RunWith(SerenityRunner.class)
 @WithTags({
         @WithTag("test")
 })
-public class UU161_CustomerAccountRegistration extends RegistrationTestBase {
+public class UU161_MasterFeedback extends RegistrationTestBase {
 
     private Project project;
     private Master master;
 
     @Before
-    public void setup() throws TimeoutException {
+    public void setup() throws Exception {
         master = data.getFullInfoMasterRandomEmail();
         user.atHomePage.registerAsMaster(master);
         project = data.getProject(master);
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
         user.atHomePage.logsOut();
-    }
 
-    @Test
-    public void End2End_RegistrationTest() throws Exception {
         user.atHomePage.registerAsCustomer(
                 Config.getUsers().getNewCustomer().getLogin(), Config.getUsers().getNewCustomer().getPassword());
         user.atHomePage.enterAuthCodeAndSubmit(emailUtils.getAuthorizationCode());
-        user.atCustomerProfilePage.verifyCustomerProfilePageIsOpened();
+    }
 
+    @Test
+    public void verifyMasterFeedback() throws Exception {
         user.atCustomerProfilePage.openHomePage();
         user.atHomePage.openCatalog();
         user.atCatalogPage.openRandomProjectWithNameNot(master.getLastName());
@@ -64,7 +61,9 @@ public class UU161_CustomerAccountRegistration extends RegistrationTestBase {
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(project.getCategory());
         user.atCatalogPage.loadAllResults();
-        user.atCatalogPage.verifyMasterInCatalogTop(project, 5);
+        user.atCatalogPage.sortProjectsByRating();
+
+        user.atCatalogPage.verifyProjectsSortedByRate(project, 5);
     }
 
     @After
