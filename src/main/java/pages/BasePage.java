@@ -49,7 +49,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@id='header-phone-button']")
     private WebElementFacade phoneBtn;
 
-    @FindBy(xpath = "//div[@class='header-phone']/div[@class='menu']")
+    @FindBy(xpath = "//div[@class='header-phone']//div[@class='hint']")
     private WebElementFacade phonePopup;
 
     @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
