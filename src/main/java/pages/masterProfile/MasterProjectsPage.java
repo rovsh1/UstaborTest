@@ -1,5 +1,6 @@
 package pages.masterProfile;
 
+import entities.Project;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 
@@ -36,6 +38,12 @@ public class MasterProjectsPage extends MasterProfileBasePage {
 
     @FindBy(xpath = "//label[@for='checkbox-free-input']")
     private WebElementFacade noPromotionCheckbox;
+
+    @FindBy(xpath = "//div[contains(@class, 'recommended')]//div[@class='price']")
+    private WebElementFacade recommendedPrice;
+
+    @FindBy(xpath = "//div[@class='promotion-select']//div[contains(@class, 'item min')]//div[@class='price']")
+    private WebElementFacade minimalPrice;
 
     @FindBy(xpath = "//form[@id='project-form']//button[@type='submit']")
     private WebElementFacade saveNewProjectBtn;
@@ -69,6 +77,11 @@ public class MasterProjectsPage extends MasterProfileBasePage {
         waitForLoaderDisappears();
     }
 
+    public void selectCategory(String category) {
+        projectCategorySelect.selectByVisibleText(category);
+        waitForLoaderDisappears();
+    }
+
     public void addProjectImage() {
         try {
             String html = Files.readString(
@@ -86,7 +99,17 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     }
 
     public void selectNoPromotionCheckbox() {
+        focusElementJS(noPromotionCheckbox);
         noPromotionCheckbox.click();
+    }
+
+    public void selectNoPromotionCheckboxIfPresent() {
+        setImplicitTimeout(3, ChronoUnit.SECONDS);
+        if (noPromotionCheckbox.isPresent()) {
+            focusElementJS(noPromotionCheckbox);
+            noPromotionCheckbox.click();
+        }
+        resetImplicitTimeout();
     }
 
     public void verifyProjectsListContains(String name) {
@@ -129,5 +152,27 @@ public class MasterProjectsPage extends MasterProfileBasePage {
 
     public void addProjectBtnShouldBeVisible() {
         addProjectBtn.shouldBeVisible();
+    }
+
+    public void selectRecommendedPrice() {
+        recommendedPrice.click();
+    }
+
+    public void getProjectSystemId(Project project) {
+        WebElementFacade element = projectsList.stream()
+                .filter(x -> x.getText().contains(project.getName()))
+                .findFirst()
+                .get();
+
+        project.setSystemId(element.getAttribute("href").replaceAll("\\D", ""));
+    }
+
+    public void selectMinimalPrice() {
+        focusElementJS(minimalPrice);
+        minimalPrice.click();
+    }
+
+    public void verifyMinimalPrice(String promotePrice) {
+        minimalPrice.shouldContainText(promotePrice);
     }
 }

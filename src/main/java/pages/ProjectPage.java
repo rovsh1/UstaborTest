@@ -25,6 +25,9 @@ public class ProjectPage extends BasePage {
     @FindBy(xpath = "//div[@class='about']")
     private WebElementFacade aboutMe;
 
+    @FindBy(xpath = "//div[@class='text']")
+    private WebElementFacade projectDescription;
+
     public void addProjectToFavorites() {
         addToFavoriteBtn.click();
     }
@@ -37,7 +40,7 @@ public class ProjectPage extends BasePage {
         aboutMe.shouldBeVisible();
     }
 
-    public void masterNameShouldBe(String name) {
+    public void masterNameShouldContain(String name) {
         masterName.shouldContainText(name);
     }
 
@@ -50,7 +53,11 @@ public class ProjectPage extends BasePage {
                 .contains(category.toLowerCase());
     }
 
-    public void projectUrlShouldBe(String projectUrl) {
+    public void projectUrlShouldContain(String projectUrl) {
         assertThat(getDriver().getCurrentUrl()).contains(projectUrl);
+    }
+
+    public void projectDescriptionShouldBe(String description) {
+        projectDescription.shouldContainOnlyText(description);
     }
 }

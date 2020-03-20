@@ -17,7 +17,16 @@ public class MastersPage extends PageObject {
     private WebElementFacade amountInput;
 
     @FindBy(xpath = "//input[@type='submit']")
-    private WebElementFacade addMoneyBtn;
+    private WebElementFacade submitBtn;
+
+    @FindBy(xpath = "//div[@title='Actions']")
+    private WebElementFacade actionsBtn;
+    
+    @FindBy(xpath = "//a[@class='edit']")
+    private WebElementFacade editMasterBtn;
+
+    @FindBy(xpath = "//input[contains(@id, 'form_data_badges')]")
+    private List<WebElementFacade> badges;
 
     public void openMasterProfileByName(String masterLastName) {
         mastersList.stream()
@@ -29,6 +38,16 @@ public class MastersPage extends PageObject {
 
     public void addMoneyToAccount(int amount) {
         amountInput.sendKeys(String.valueOf(amount));
-        addMoneyBtn.click();
+        submitBtn.click();
+    }
+
+    public void openEditMasterPage() {
+        actionsBtn.click();
+        editMasterBtn.click();
+    }
+
+    public void addAllBadgesToMaster() {
+        badges.forEach(WebElementFacade::click);
+        submitBtn.click();
     }
 }

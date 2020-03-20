@@ -17,6 +17,12 @@
     <string name="SiteDomainHome">Дом быта</string>
     <string name="SiteDomainMaterials">Стройматериалы</string>
 
+    <string name="DomainBuild_MinPromo_Landscape">Ландшафтный дизайн</string>
+    <string name="DomainBuild_MinPromo_Window">Окна</string>
+    <string name="DomainBuild_MinPromo_Concrete">Бетонщики</string>
+    <string name="DomainBuild_MinPromo_Roof">Крыши</string>
+    <string name="DomainBuild_MinPromo_Pool">Бассейны</string>
+
     <string name="FilterCategoriesDefault">Все Категории</string>
     <string name="FilterCityDefault">Город</string>
     <string name="FilterCity_uz">Ташкент</string>

@@ -1,7 +1,8 @@
 package pages;
 
 import entities.FavProject;
-import entities.MasterBaseInfo;
+import entities.Master;
+import entities.Project;
 import freemarker.template.utility.NullArgumentException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
@@ -22,6 +23,9 @@ public class CatalogPage extends SearchBlock {
     private static String projectCategoryXpath = ".//div[@class='category']";
     private static String projectMasterNameXpath = ".//div[@class='presentation']";
     private static String projectMasterAvatarXpath = ".//div[@class='bottom']/div[@class='image']";
+    private static String ratingXpath = ".//div[@class='rating']";
+
+    private static String promoAttribute = "data-promotion";
 
     @FindBy(xpath = "//h1")
     private WebElementFacade pageHeader;
@@ -32,8 +36,14 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@id='projects-gallery']/a")
     private List<WebElementFacade> projectsList;
 
+    @FindBy(xpath = "//div[@id='projects-gallery']/a[.//div[@class='stats'] and not(.//div[@class='master-badges icons'])]")
+    private List<WebElementFacade> projectsWithoutBadges;
+
     @FindBy(xpath = "//div[@id='projects-gallery']/a[.//i]")
     private List<WebElementFacade> projectsWithFavoriteMark;
+
+    @FindBy(xpath = "//div[@id='projects-gallery']/a[last()]")
+    private WebElementFacade lastAddedProject;
 
     @FindBy(xpath = "//div[contains(@class,'window-contacts')]")
     private WebElementFacade projectContactPopup;
@@ -49,6 +59,12 @@ public class CatalogPage extends SearchBlock {
 
     @FindBy(xpath = "//div[@class='catalog-search-empty']//div[@class='text']")
     private WebElementFacade emptyCatalogMessage;
+
+    @FindBy(xpath = "//button[@id='load-more' and not(@disabled='disabled')]")
+    private WebElementFacade loadMoreBtn;
+
+    @FindBy(xpath = "//button[@id='load-more' and @disabled='disabled']")
+    private WebElementFacade disabledLoadMoreBtn;
 
     //region Filter elements
     @FindBy(xpath = "//div[@id='catalog-search-menu']")
@@ -100,14 +116,14 @@ public class CatalogPage extends SearchBlock {
         categories.forEach(c -> assertThat(c).isEqualTo(expectedCategory));
     }
 
-    public void OpenRandomProfile() {
+    public void openRandomProfile() {
         WebElementFacade project = projectsList.get(new Random().nextInt(projectsList.size()));
         WebElement projectOwner = project.findElement(By.xpath(".//div[@class='bottom']//img"));
 
         projectOwner.click();
     }
 
-    public void VerifyHeaderText(String text) {
+    public void verifyHeaderText(String text) {
         assertThat(pageHeader.getText()).isEqualTo(text);
     }
 
@@ -152,21 +168,21 @@ public class CatalogPage extends SearchBlock {
         closeContactPopup.click();
     }
 
-    public MasterBaseInfo openRandomProject() {
+    public Master openRandomProject() {
         WebElementFacade project = getRandomProject();
-        MasterBaseInfo baseInfo = getProjectBaseInfo(project);
+        Master master = getProjectBaseInfo(project);
         project.click();
 
-        return baseInfo;
+        return master;
     }
 
-    public MasterBaseInfo openRandomMasterProfile() {
+    public Master openRandomMasterProfile() {
         WebElementFacade project = getRandomProject();
-        MasterBaseInfo baseInfo = getProjectBaseInfo(project);
+        Master master = getProjectBaseInfo(project);
 
         project.findElement(By.xpath(projectMasterAvatarXpath)).click();
 
-        return baseInfo;
+        return master;
     }
 
     public void openRandomFavProjectWithNameNot(String projectName) {
@@ -218,10 +234,6 @@ public class CatalogPage extends SearchBlock {
                 String.format("%s is not in districts list", districtName));
 
         district.click();
-    }
-
-    public int getProjectsCount() {
-        return projectsList.size();
     }
 
     public void verifyCityFilterText(String city) {
@@ -300,24 +312,109 @@ public class CatalogPage extends SearchBlock {
 
 
     private WebElementFacade getRandomProject() {
-        int elementNumber = new Random().nextInt(projectsList.size());
+        var elementNumber = new Random().nextInt(projectsList.size());
         focusElementJS("bottom", elementNumber);
 
         return projectsList.get(elementNumber);
     }
 
-    private MasterBaseInfo getProjectBaseInfo(WebElementFacade projectElement) {
+    private Master getProjectBaseInfo(WebElementFacade projectElement) {
         if (projectElement == null) {
             throw new NullPointerException();
         }
 
-        MasterBaseInfo projectInfo = new MasterBaseInfo();
-        projectInfo.setMasterName(projectElement.findElement(By.xpath(projectMasterNameXpath)).getText());
-        projectInfo.setCategory(projectElement.findElement(By.xpath(projectCategoryXpath)).getText());
-        projectInfo.setProjectUrl(projectElement.getAttribute("href"));
-        projectInfo.setProfileUrl(
+        Master master = new Master();
+        master.setFirstName(projectElement.findElement(By.xpath(projectMasterNameXpath)).getText());
+        master.setCategory(projectElement.findElement(By.xpath(projectCategoryXpath)).getText());
+        master.setProjectUrl(projectElement.getAttribute("href"));
+        master.setProfileUrl(
                 projectElement.findElement(By.xpath(projectMasterAvatarXpath)).getAttribute("data-url"));
 
-        return projectInfo;
+        return master;
+    }
+
+    public void verifyProjectsWithBadge(String projectId) {
+        assertThat(projectsList.get(0).getAttribute("data-id")).isEqualTo(projectId);
+    }
+
+    public void verifyFoundProject(String projectSystemId) {
+        assertThat(projectsList.size()).isEqualTo(1);
+        var projectId = projectsList.get(0).getAttribute("data-id");
+        assertThat(projectId).isEqualTo(projectSystemId);
+    }
+
+    public void verifyProjectAtFirstPosition(Project project) {
+        boolean isPromotedProjectBeforeInList = false;
+        boolean isFirst = true;
+
+        for (WebElementFacade proj : projectsList) {
+            var projectId = proj.getAttribute("data-id").replaceAll("\\D", "");
+
+            if ("1".equals(proj.getAttribute(promoAttribute))) {
+                if (projectId.equals(project.getSystemId()) && isFirst) {
+                    return;
+                } else if (projectId.equals(project.getSystemId()) && !isFirst) {
+                    assertThat(isPromotedProjectBeforeInList).isTrue();
+                    return;
+                } else {
+                    isFirst = false;
+                    isPromotedProjectBeforeInList = true;
+                }
+            } else {
+                isPromotedProjectBeforeInList = false;
+            }
+        }
+    }
+
+    public void openProjectBySystemId(String systemId) {
+        WebElementFacade element = projectsList.stream()
+                .filter(x -> x.getAttribute("data-id").equals(systemId))
+                .findFirst()
+                .orElse(null);
+
+        if (element == null) {
+            throw new NullPointerException(String.format("No such project with system id: %s", systemId));
+        }
+
+        element.click();
+    }
+
+    public void loadAllResults() throws InterruptedException {
+        while (loadMoreBtn.isPresent()) {
+            if (loadMoreBtn.isVisible()) {
+                loadMoreBtn.click();
+                continue;
+            }
+            return;
+        }
+    }
+
+    public void verifyLastAddedProject(Project project) {
+        assertThat(projectsList.stream()
+                        .map(x -> x.getAttribute("data-id"))
+                        .anyMatch(y -> y.equals(project.getSystemId())))
+                .isTrue();
+    }
+
+    public void verifyProjectsSortedByRate(Project project, int rating) {
+        var projectsWithoutPromoAndBadges = projectsWithoutBadges.stream()
+                .filter(x -> x.getAttribute("data-promotion").equals("0"))
+                .collect(Collectors.toList());
+
+        for (WebElementFacade proj : projectsWithoutPromoAndBadges) {
+            var projectRating = Integer.valueOf(proj.findElements(By.xpath(ratingXpath)).get(0).getText());
+
+            if (projectRating >= rating) {
+                if (proj.getAttribute("data-id").equals(project.getSystemId())) {
+                    return;
+                }
+            } else {
+                throw new IllegalArgumentException("Ratings order is wrong");
+            }
+        }
+    }
+
+    public void applyFilter() {
+        filterSubmitBtn.click();
     }
 }

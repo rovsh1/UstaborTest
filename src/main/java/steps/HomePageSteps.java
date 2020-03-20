@@ -1,5 +1,6 @@
 package steps;
 
+import entities.Master;
 import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -142,18 +143,38 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void registerAsMaster(User master) {
+    public void registerAsMaster(Master master) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtn();
         homePage.registerFormShouldBeVisible();
         homePage.uploadAvatar();
-        homePage.regMasterFormSelectRandomSubDomain();
+        homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
         homePage.regFormEnterLogin(master.getLogin());
         homePage.regFormEnterPassword(master.getPassword());
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectRandomCategory();
+        homePage.regMasterFormSelectRandomCategory(master);
+        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
+        homePage.regMasterFormSelectExperience();
+        master.setCity(homePage.regMasterFormSelectCity());
+        homePage.regFormClickSubmit();
+        homePage.registerFormShouldNotBeVisible();
+    }
+
+    @Step
+    public void registerAsMasterWithCategory(Master master, String category) {
+        homePage.openRegistrationForm();
+        homePage.clickMasterBtn();
+        homePage.registerFormShouldBeVisible();
+        homePage.uploadAvatar();
+        homePage.regMasterFormSelectBuildSubDomain();
+        homePage.regMasterFormEnterFirstName(master.getFirstName());
+        homePage.regMasterFormEnterLastName(master.getLastName());
+        homePage.regFormEnterLogin(master.getLogin());
+        homePage.regFormEnterPassword(master.getPassword());
+        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
+        homePage.regMasterFormSelectCategory(master, category);
         homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
         homePage.regMasterFormSelectExperience();
         master.setCity(homePage.regMasterFormSelectCity());
@@ -294,5 +315,20 @@ public class HomePageSteps extends ScenarioSteps {
         openMobileViewMainMenu();
         homePage.openMobileViewPhoneForm();
         homePage.verifyMobileViewPhoneFormText(text);
+    }
+
+    @Step
+    public void openBuilderTab() {
+        homePage.clickBuilderTab();
+    }
+
+    @Step
+    public void openCategory(String category) {
+        homePage.openCategory(category);
+    }
+
+    @Step
+    public void logsOut() {
+        homePage.logsOut();
     }
 }

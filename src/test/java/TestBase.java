@@ -10,6 +10,8 @@ import utils.Config;
 import utils.DataGenerator;
 import utils.XmlParser;
 
+import java.util.List;
+
 class TestBase {
 
     DataGenerator data;
@@ -40,6 +42,11 @@ class TestBase {
     String getText(String key) {
         return XmlParser.getTextByKey(key);
     }
+
+    List<String> getTextByPredicate(String predicate) {
+        return XmlParser.getAllValuesByPredicate(predicate);
+    }
+
 
     void setBrowserWindowSize(int width, int height){
         driver.manage().window().setSize(new Dimension(width, height));

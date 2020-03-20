@@ -37,6 +37,7 @@ public class RegistrationTestBase extends TestBase {
 
     @After
     public void tearDown() {
+        user.atHomePage.open();
         user.atCustomerProfilePage.open();
         user.atCustomerProfilePage.deleteProfile();
     }

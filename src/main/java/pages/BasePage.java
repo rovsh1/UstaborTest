@@ -3,6 +3,7 @@ package pages;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.XmlParser;
@@ -48,7 +49,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@id='header-phone-button']")
     private WebElementFacade phoneBtn;
 
-    @FindBy(xpath = "//div[@class='header-phone']/div[@class='menu']")
+    @FindBy(xpath = "//div[@class='header-phone']//div[@class='hint']")
     private WebElementFacade phonePopup;
 
     @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
@@ -132,7 +133,7 @@ public class BasePage extends PageObject {
                 elementCount);
     }
 
-    void focusElementJS(WebElementFacade element) {
+    protected void focusElementJS(WebElementFacade element) {
         evaluateJavascript("arguments[0].focus();", element);
     }
 

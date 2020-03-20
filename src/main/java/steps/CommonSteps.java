@@ -25,6 +25,7 @@ public class CommonSteps extends ScenarioSteps {
         basePage.openSiteMap();
     }
 
+    @Step
     public List<String> getSitesNames() {
         return basePage.getSitesNames();
     }

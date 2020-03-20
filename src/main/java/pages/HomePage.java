@@ -1,10 +1,13 @@
 package pages;
 
+import entities.Master;
+import entities.User;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import utils.XmlParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +26,9 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//div[contains(@class,'master')]")
     private WebElementFacade iAmMasterBtn;
+
+    @FindBy(xpath = "//li[@data-i='1']")
+    private WebElementFacade builderTab;
     //endregion
 
     //region Login form
@@ -92,6 +98,9 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//div[@id='rfm-categories']//a")
     private WebElementFacade regMasterCategory;
+
+    @FindBy(xpath = "//a[@data-id='901']")
+    private WebElementFacade regMasterDesignCategory;
 
     @FindBy(xpath = "//div[@id='rfm-categories']//a")
     private List<WebElementFacade> regMasterCategoriesList;
@@ -214,13 +223,36 @@ public class HomePage extends SearchBlock {
         regMasterAboutMeInput.sendKeys(aboutMe);
     }
 
-    public void regMasterFormSelectRandomSubDomain() {
-        regMasterDomainSelector.selectByIndex(1);
+    public void regMasterFormSelectBuildSubDomain() {
+        regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Full"));
     }
 
-    public void regMasterFormSelectRandomCategory() {
+    public void regMasterFormSelectRandomCategory(Master master) {
         regMasterCategory.waitUntilVisible();
-        regMasterCategoriesList.get(new Random().nextInt(10)).click();
+        WebElementFacade category = regMasterCategoriesList.get(new Random().nextInt(regMasterCategoriesList.size()));
+        focusElementJS(category);
+        category.click();
+
+        master.setCategory(category.getText());
+        master.setCategoryId(category.getAttribute("data-id"));
+    }
+
+    public void regMasterFormSelectCategory(Master master, String categoryName) {
+        regMasterCategory.waitUntilVisible();
+        WebElementFacade category = regMasterCategoriesList.stream()
+                .filter(x -> x.getText().equals(categoryName))
+                .findFirst()
+                .orElse(null);
+
+        if (category == null) {
+            throw new NullPointerException(String.format("No category found: %s", categoryName));
+        }
+
+        focusElementJS(category);
+        category.click();
+
+        master.setCategory(category.getText());
+        master.setCategoryId(category.getAttribute("data-id"));
     }
 
     public void regMasterFormEnterPhoneNumber(String phoneNumber) {
@@ -452,5 +484,22 @@ public class HomePage extends SearchBlock {
 
     public void regFormConditionsLinkShouldBeVisible() {
         regFormRulesLink.shouldBeVisible();
+    }
+
+    public void clickBuilderTab() {
+        builderTab.click();
+    }
+
+    public void openCategory(String category) {
+        WebElementFacade foundCategory = categoriesList.stream()
+                .filter(e -> e.getText().equals(category))
+                .findAny()
+                .orElse(null);
+
+        if (foundCategory == null) {
+            throw new NullPointerException(String.format("No element with text '%s' found", category));
+        }
+
+        foundCategory.click();
     }
 }

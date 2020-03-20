@@ -1,7 +1,8 @@
 package steps;
 
 import entities.FavProject;
-import entities.MasterBaseInfo;
+import entities.Master;
+import entities.Project;
 import net.thucydides.core.annotations.Step;
 import pages.CatalogPage;
 import utils.XmlParser;
@@ -24,12 +25,12 @@ public class CatalogPageSteps extends CommonSteps {
 
     @Step
     public void OpenRandomProfile() {
-        catalogPage.OpenRandomProfile();
+        catalogPage.openRandomProfile();
     }
 
     @Step
     public void VerifyHeaderText(String text) {
-        catalogPage.VerifyHeaderText(text);
+        catalogPage.verifyHeaderText(text);
     }
 
     @Step
@@ -129,12 +130,53 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public MasterBaseInfo openRandomProject() {
+    public Master openRandomProjectAndGetMasterInfo() {
         return catalogPage.openRandomProject();
     }
 
     @Step
-    public MasterBaseInfo openRandomMasterProfile() {
+    public Master openRandomMasterProfile() {
         return catalogPage.openRandomMasterProfile();
+    }
+
+    @Step
+    public void verifyProjectsWithBadge(String systemId) {
+        catalogPage.verifyProjectsWithBadge(systemId);
+    }
+
+    @Step
+    public void verifyFoundProject(String projectId) {
+        catalogPage.verifyFoundProject(projectId);
+    }
+
+    @Step
+    public void verifyProjectPromoted(Project project) {
+        catalogPage.verifyProjectAtFirstPosition(project);
+    }
+
+    @Step
+    public void openProjectBySystemId(String systemId) {
+        catalogPage.openProjectBySystemId(systemId);
+    }
+
+    @Step
+    public void loadAllResults() throws InterruptedException {
+        catalogPage.loadAllResults();
+    }
+
+    @Step
+    public void verifyLastAddedProject(Project project) {
+        catalogPage.verifyLastAddedProject(project);
+    }
+
+    @Step
+    public void verifyProjectsSortedByRate(Project project, int rating) {
+        catalogPage.verifyProjectsSortedByRate(project, rating);
+    }
+
+    @Step
+    public void sortProjectsByRating() {
+        catalogPage.openFilter();
+        catalogPage.applyFilter();
     }
 }

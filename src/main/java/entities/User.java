@@ -16,6 +16,10 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User() {
+
+    }
+
     public String getCity() {
         return city;
     }
@@ -71,5 +75,4 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
 }
