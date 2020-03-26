@@ -1,16 +1,13 @@
 package pages.admin;
 
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
-@DefaultUrl("http://s660022689.onlinehome.us/category/")
-public class CategoriesPage extends PageObject {
+public class CategoriesPage extends BaseAdminPage {
 
     private static String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
     private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a[@class='button-edit']";
@@ -31,8 +28,16 @@ public class CategoriesPage extends PageObject {
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitBtn;
 
-    public void editCategoryById(String categoryId) {
-        getDriver().findElement(By.xpath(String.format(categoryXpath, categoryId))).click();
+    @FindBy(xpath = "//td[.//a[@class='button-edit']]")
+    private WebElementFacade editBtn;
+
+    public void openPage() {
+        getDriver().get(Config.getAdminUrl() + "category");
+    }
+
+    public void editCategoryByName(String categoryName) {
+        quickSearch(categoryName);
+        editBtn.click();
     }
 
     public void openPromotionTab() {

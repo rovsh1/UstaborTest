@@ -1,7 +1,6 @@
 package steps;
 
 import entities.Master;
-import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.HomePage;
@@ -49,6 +48,10 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.clickCatalogBtn();
     }
 
+    public boolean isUserLoggedIn() {
+        return homePage.isLoggedIn();
+    }
+
     @Step
     public boolean loginAsMaster(String login, String password, boolean openLoginForm) {
         if (openLoginForm) {
@@ -58,7 +61,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.signInFormEnterLogin(login);
         homePage.signInFormEnterPassword(password);
         homePage.signInFormClickLoginBtn();
-        return homePage.isLoginSuccessful();
+        return homePage.isLoggedIn();
     }
 
     @Step
@@ -68,7 +71,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.signInFormEnterLogin(login);
         homePage.signInFormEnterPassword(password);
         homePage.signInFormClickLoginBtn();
-        return homePage.isLoginSuccessful();
+        return homePage.isLoggedIn();
     }
 
     @Step
@@ -111,7 +114,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void homePageShouldBeVisible() {
-        homePage.pageShouldBeVisible();
+        homePage.openLoginFormBtnShouldBeVisible();
     }
 
     @Step
@@ -330,5 +333,9 @@ public class HomePageSteps extends ScenarioSteps {
     @Step
     public void logsOut() {
         homePage.logsOut();
+    }
+
+    public void waitForLoaderDisappears() {
+        homePage.waitForLoaderDisappears();
     }
 }

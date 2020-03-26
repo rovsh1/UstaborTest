@@ -1,14 +1,12 @@
 package pages.admin;
 
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.support.FindBy;
+import utils.Config;
 
 import java.util.List;
 
-@DefaultUrl("http://s660022689.onlinehome.us/master/")
-public class MastersPage extends PageObject {
+public class MastersPage extends BaseAdminPage {
 
     @FindBy(xpath = "//a[contains(@href,'master/view')]")
     private List<WebElementFacade> mastersList;
@@ -27,6 +25,10 @@ public class MastersPage extends PageObject {
 
     @FindBy(xpath = "//input[contains(@id, 'form_data_badges')]")
     private List<WebElementFacade> badges;
+
+    public void openPage() {
+        getDriver().get(Config.getAdminUrl() + "master");
+    }
 
     public void openMasterProfileByName(String masterLastName) {
         mastersList.stream()

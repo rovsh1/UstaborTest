@@ -10,6 +10,7 @@ import utils.Config;
 import utils.DataGenerator;
 import utils.XmlParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class TestBase {
@@ -34,7 +35,7 @@ class TestBase {
 
         user.atHomePage.homePageShouldBeVisible();
 
-        if (Config.getCountry() != null) {
+        if (!Config.isUstabor() && Config.getCountry() != null) {
             user.atHomePage.goToDomainWithName(Config.getCountry());
         }
     }

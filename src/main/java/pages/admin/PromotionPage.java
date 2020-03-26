@@ -1,13 +1,15 @@
 package pages.admin;
 
-import net.serenitybdd.core.pages.PageObject;
-import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
+import utils.Config;
 
-@DefaultUrl("http://s660022689.onlinehome.us/promotion/")
-public class PromotionPage extends PageObject {
+public class PromotionPage extends BaseAdminPage {
 
     private static String approveXpath = "//tr[./td[text()='%s']]//a[contains(@href, 'enable')]";
+
+    public void openPage() {
+        getDriver().get(Config.getAdminUrl() + "promotion");
+    }
 
     public void approvePromotionByProjectSystemId(String systemId) {
         getDriver().findElement(By.xpath(String.format(approveXpath, systemId))).click();

@@ -247,6 +247,10 @@ public class BasePage extends PageObject {
         return openLoginFormBtn.isVisible();
     }
 
+    public void openLoginFormBtnShouldBeVisible() {
+        openLoginFormBtn.shouldBeVisible();
+    }
+
     public void openLoginForm() {
         openLoginFormBtn.click();
     }

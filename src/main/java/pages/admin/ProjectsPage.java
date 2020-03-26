@@ -1,12 +1,11 @@
 package pages.admin;
 
 import entities.Project;
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
-public class ProjectsPage extends PageObject {
+public class ProjectsPage extends BaseAdminPage {
 
     @FindBy(xpath = "//textarea[@id='form_data_text']")
     private WebElementFacade deleteReason;

@@ -10,7 +10,7 @@ public class PromotionPageSteps extends ScenarioSteps {
 
     @Step
     public void approveProject(String systemId) {
-        promotionPage.open();
+        promotionPage.openPage();
         promotionPage.approvePromotionByProjectSystemId(systemId);
     }
 }

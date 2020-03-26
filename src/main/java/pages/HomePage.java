@@ -313,13 +313,6 @@ public class HomePage extends SearchBlock {
         viewFullCatalogBtn.shouldBeVisible();
     }
 
-    public void pageShouldBeVisible() {
-        if (!isOpenLoginFormBtnVisible()) {
-            Serenity.throwExceptionsImmediately();
-            throw new NullPointerException();
-        }
-    }
-
     public void registerLinkShouldBeVisible() {
         signInFormRegisterLink.shouldBeVisible();
     }
@@ -432,7 +425,7 @@ public class HomePage extends SearchBlock {
         viewFullCatalogBtn.click();
     }
 
-    public boolean isLoginSuccessful() {
+    public boolean isLoggedIn() {
         return isLogoutBtnVisible();
     }
 
