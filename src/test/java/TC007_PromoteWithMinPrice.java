@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException;
 })
 public class TC007_PromoteWithMinPrice extends TestBase {
 
-    private Project project;
+    private Master master;
 
     @Test
     public void promoteWithMinPrice() throws TimeoutException {
@@ -25,12 +25,12 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         var category = minimalPriceOnlyCategories.get(new Random().nextInt(minimalPriceOnlyCategories.size()));
         var promoPrice = new Random().nextInt( 300);
 
-        Master master = data.getFullInfoMasterRandomEmail();
+        master = data.getFullInfoMasterRandomEmail();
 
         user.atHomePage.registerAsMasterWithCategory(master, category);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
 
-        project = data.getProject(master);
+        var project = data.getProject(master);
 
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addMoneyToMaster(1000, master.getLastName());
@@ -53,9 +53,9 @@ public class TC007_PromoteWithMinPrice extends TestBase {
 
     @After
     public void tearDown() {
-        if (project.getSystemId() != null) {
-            admin.atAdminHomePage.loginAsAdmin();
-            admin.atProjectsPage.deleteProject(project);
+        admin.atAdminHomePage.loginAsAdmin();
+        if (master.getProfileId() != null) {
+            admin.atMastersPage.deleteMaster(master);
         }
     }
 }

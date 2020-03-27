@@ -17,16 +17,16 @@ import java.util.concurrent.TimeoutException;
 })
 public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
-    private Project project;
+    private Master master;
 
     @Test
     public void promoteWithRecommendedPrice() throws TimeoutException {
-        Master master = data.getFullInfoMasterRandomEmail();
+        master = data.getFullInfoMasterRandomEmail();
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
 
-        project = data.getProject(master);
+        var project = data.getProject(master);
 
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addMoneyToMaster(1000, master.getLastName());
@@ -49,9 +49,9 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     @After
     public void tearDown() {
-        if (project.getSystemId() != null) {
-            admin.atAdminHomePage.loginAsAdmin();
-            admin.atProjectsPage.deleteProject(project);
+        admin.atAdminHomePage.loginAsAdmin();
+        if (master.getProfileId() != null) {
+            admin.atMastersPage.deleteMaster(master);
         }
     }
 }
