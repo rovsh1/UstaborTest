@@ -25,6 +25,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
 
         var project = data.getProject(master);
 

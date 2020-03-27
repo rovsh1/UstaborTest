@@ -29,6 +29,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
 
         user.atHomePage.registerAsMasterWithCategory(master, category);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
 
         var project = data.getProject(master);
 

@@ -20,6 +20,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
     public void setup() throws Exception {
         master = data.getFullInfoMasterRandomEmail();
         user.atHomePage.registerAsMaster(master);
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
         project = data.getProject(master);
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);

@@ -24,6 +24,9 @@ public class MasterProfileBasePage extends BasePage {
     @FindBy(xpath = "//a[contains(@class, 'faq')]")
     private WebElementFacade faqTab;
 
+    @FindBy(xpath = "//span[@class='ID']")
+    private WebElementFacade profileId;
+
     public void projectsTabShouldBeVisible() {
         projectsTab.shouldBeVisible();
     }
@@ -51,5 +54,9 @@ public class MasterProfileBasePage extends BasePage {
     public void openFaqTab() {
         scrollPageUpJS();
         faqTab.click();
+    }
+
+    public String getProfileId() {
+        return profileId.getText().replaceAll("\\D", "");
     }
 }

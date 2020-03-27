@@ -55,4 +55,8 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     public void verifyCategoriesListValue(CategoryCheckbox category) {
         masterProfilePage.verifyCategories(category);
     }
+
+    public String getProfileId() {
+        return masterProfilePage.getProfileId();
+    }
 }

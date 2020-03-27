@@ -21,6 +21,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
     public void addBadgesToMaster() throws TimeoutException, InterruptedException {
         Master master = data.getFullInfoMasterRandomEmail();
         user.atHomePage.registerAsMaster(master);
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
 
         var project = data.getProject(master);
 
