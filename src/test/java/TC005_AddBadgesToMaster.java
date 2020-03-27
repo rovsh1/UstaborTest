@@ -15,14 +15,14 @@ import java.util.concurrent.TimeoutException;
 })
 public class TC005_AddBadgesToMaster extends TestBase {
 
-    private Project project;
+    private Master master;
 
     @Test
     public void addBadgesToMaster() throws TimeoutException, InterruptedException {
         Master master = data.getFullInfoMasterRandomEmail();
         user.atHomePage.registerAsMaster(master);
 
-        project = data.getProject(master);
+        var project = data.getProject(master);
 
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
@@ -49,9 +49,9 @@ public class TC005_AddBadgesToMaster extends TestBase {
 
     @After
     public void tearDown() {
-        if (project.getSystemId() != null) {
-            admin.atAdminHomePage.loginAsAdmin();
-            admin.atProjectsPage.deleteProject(project);
+        admin.atAdminHomePage.loginAsAdmin();
+        if (master.getProfileId() != null) {
+            admin.atMastersPage.deleteMaster(master);
         }
     }
 }
