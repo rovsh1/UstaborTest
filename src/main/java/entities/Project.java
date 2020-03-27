@@ -5,7 +5,7 @@ public class Project {
     private String name;
     private String category;
     private String description;
-    private String systemId;
+    private String systemId = null;
 
     public Project(String name, String category, String description) {
         this.name = name;

@@ -48,8 +48,18 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.clickCatalogBtn();
     }
 
-    public boolean isUserLoggedIn() {
-        return homePage.isLoggedIn();
+    @Step
+    public void loginAsMasterIfNeed(String login, String password) {
+        if (!homePage.isLoggedIn()) {
+            homePage.openLoginForm();
+            homePage.clickMasterBtn();
+            homePage.signInFormEnterLogin(login);
+            homePage.signInFormEnterPassword(password);
+            homePage.signInFormClickLoginBtn();
+            homePage.loginErrorShouldBeVisible();
+            homePage.clickMasterBtn();
+            homePage.signInFormClickLoginBtn();
+        }
     }
 
     @Step

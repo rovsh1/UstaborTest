@@ -37,7 +37,9 @@ public class CategoriesPage extends BaseAdminPage {
 
     public void editCategoryByName(String categoryName) {
         quickSearch(categoryName);
-        editBtn.click();
+        Actions build = new Actions(getDriver());
+        build.moveToElement(editBtn).click().build().perform();
+        //editBtn.click();
     }
 
     public void openPromotionTab() {
@@ -53,7 +55,6 @@ public class CategoriesPage extends BaseAdminPage {
         maxPrice.sendKeys(String.valueOf(maximumPrice));
 
         submitBtn.click();
-
     }
 
     public void openPromotionForCurrentCountry() {

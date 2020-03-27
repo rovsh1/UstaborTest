@@ -32,4 +32,8 @@ class MasterProfileSteps extends ScenarioSteps {
     public void openFaqTab() {
         masterProfileBasePage.openFaqTab();
     }
+
+    public String getProfileId() {
+        return masterProfileBasePage.getProfileId();
+    }
 }

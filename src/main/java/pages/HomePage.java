@@ -495,4 +495,8 @@ public class HomePage extends SearchBlock {
 
         foundCategory.click();
     }
+
+    public void loginErrorShouldBeVisible() {
+        loginError.shouldBeVisible();
+    }
 }

@@ -67,10 +67,10 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
     }
 
     @After
-    public void teardown() {
-        if (project.getSystemId() != null) {
-            admin.atAdminHomePage.loginAsAdmin();
-            admin.atProjectsPage.deleteProject(project);
+    public void tearDown() {
+        admin.atAdminHomePage.loginAsAdmin();
+        if (master.getProfileId() != null) {
+            admin.atMastersPage.deleteMaster(master);
         }
     }
 }

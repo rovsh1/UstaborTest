@@ -104,7 +104,7 @@ public class BasePage extends PageObject {
     }
 
     public void openProfilePage() {
-        profileBtn.click();
+        getDriver().get(Config.getFullUrl() + "profile");
     }
 
     public void logsOut() {

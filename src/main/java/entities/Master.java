@@ -6,6 +6,7 @@ public class Master extends User {
     private String categoryId;
     private String projectUrl;
     private String profileUrl;
+    private String profileId = null;
 
     public Master(String login, String password, String phoneNumber) {
         super(login, password, phoneNumber);
@@ -45,5 +46,13 @@ public class Master extends User {
 
     public void setProjectUrl(String projectUrl) {
         this.projectUrl = projectUrl;
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 }

@@ -52,4 +52,8 @@ public class MastersPage extends BaseAdminPage {
         badges.forEach(WebElementFacade::click);
         submitBtn.click();
     }
+
+    public void deleteMaster(String profileId) {
+        getDriver().get(Config.getAdminUrl() + "master/delete/" + profileId);
+    }
 }

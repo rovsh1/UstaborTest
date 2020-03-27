@@ -344,24 +344,15 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void verifyProjectAtFirstPosition(Project project) {
-        boolean isPromotedProjectBeforeInList = false;
-        boolean isFirst = true;
-
         for (WebElementFacade proj : projectsList) {
             var projectId = proj.getAttribute("data-id").replaceAll("\\D", "");
 
-            if ("1".equals(proj.getAttribute(promoAttribute))) {
-                if (projectId.equals(project.getSystemId()) && isFirst) {
+            if (proj.getAttribute(promoAttribute).equals("1")) {
+                if (projectId.equals(project.getSystemId())) {
                     return;
-                } else if (projectId.equals(project.getSystemId()) && !isFirst) {
-                    assertThat(isPromotedProjectBeforeInList).isTrue();
-                    return;
-                } else {
-                    isFirst = false;
-                    isPromotedProjectBeforeInList = true;
                 }
             } else {
-                isPromotedProjectBeforeInList = false;
+                throw new IllegalArgumentException("Test project was not promoted, or projects sorting is wrong!");
             }
         }
     }

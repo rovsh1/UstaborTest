@@ -9,7 +9,6 @@ public class ProjectsPageSteps extends ScenarioSteps {
 
     private ProjectsPage projectsPage;
 
-    @Step
     public void deleteProject(Project project) {
         projectsPage.deleteProject(project);
     }

@@ -150,7 +150,8 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyProjectPromoted(Project project) {
+    public void verifyProjectPromoted(Project project) throws InterruptedException {
+        loadAllResults();
         catalogPage.verifyProjectAtFirstPosition(project);
     }
 
