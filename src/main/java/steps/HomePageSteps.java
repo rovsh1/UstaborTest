@@ -41,6 +41,7 @@ public class HomePageSteps extends ScenarioSteps {
     public void enterAuthCodeAndSubmit(String code) {
         homePage.regFormEnterAuthCode(code);
         homePage.regFormClickSubmitAuthCode();
+        homePage.waitForLoaderDisappears();
     }
 
     @Step
@@ -59,6 +60,7 @@ public class HomePageSteps extends ScenarioSteps {
             homePage.loginErrorShouldBeVisible();
             homePage.clickMasterBtn();
             homePage.signInFormClickLoginBtn();
+            homePage.waitForLoaderDisappears();
         }
     }
 

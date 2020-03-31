@@ -29,7 +29,7 @@ public class BaseAdminPage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
-        withTimeoutOf(5, ChronoUnit.SECONDS)
+        withTimeoutOf(25, ChronoUnit.SECONDS)
                 .waitForCondition()
                 .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
     }
