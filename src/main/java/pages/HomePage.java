@@ -199,6 +199,7 @@ public class HomePage extends SearchBlock {
 
     public void regFormClickSubmit() {
         regFormSubmitBtn.click();
+        waitForLoaderDisappears();
     }
 
     public void regFormEnterAuthCode(String code) {
@@ -225,6 +226,7 @@ public class HomePage extends SearchBlock {
 
     public void regMasterFormSelectBuildSubDomain() {
         regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Full"));
+        waitForLoaderDisappears();
     }
 
     public void regMasterFormSelectRandomCategory(Master master) {
@@ -419,6 +421,7 @@ public class HomePage extends SearchBlock {
 
     public void clickMasterBtn() {
         iAmMasterBtn.click();
+        waitForLoaderDisappears();
     }
 
     public void clickCatalogBtn() {

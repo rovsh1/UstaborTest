@@ -3,8 +3,10 @@ package pages;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.Config;
 import utils.XmlParser;
 
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasePage extends PageObject {
+
+    private String loaderXpath = "//div[contains(@class, 'loading')]";
 
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
@@ -85,9 +89,6 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//nav[@class='footer']/a[@href='/sitemap/']")
     private WebElementFacade siteMapLink;
 
-    @FindBy(xpath = "//div[contains(@class, 'loading')]")
-    private WebElementFacade loader;
-
     public void setTimeouts(int duration, TemporalUnit timeUnit) {
         setImplicitTimeout(duration, timeUnit);
         setWaitForTimeout(duration * 1000);
@@ -99,7 +100,9 @@ public class BasePage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
-        loader.withTimeoutOf(Duration.ofSeconds(15)).waitUntilNotVisible();
+        withTimeoutOf(5, ChronoUnit.SECONDS)
+                .waitForCondition()
+                .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
     }
 
     public void openPageWithConfigUrl() {

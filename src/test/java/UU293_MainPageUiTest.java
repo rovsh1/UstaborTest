@@ -14,7 +14,7 @@ public class UU293_MainPageUiTest extends TestBase {
         }
 
         user.atHomePage.verifySubdomainDropDown();
-        user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText"));
+        user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
         user.atHomePage.verifyHeaderLanguagesListIsVisible();
 
         user.atHomePage.verifyLoginForm();
@@ -39,6 +39,6 @@ public class UU293_MainPageUiTest extends TestBase {
         user.atHomePage.verifyPlaceOrderForm();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();
 
-        user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText"));
+        user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));
     }
 }

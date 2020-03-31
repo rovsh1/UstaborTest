@@ -12,6 +12,7 @@ public class Config {
 
     private static String props = "config.properties";
 
+    private static String env;
     private static String site;
     private static String lang;
     private static String country;
@@ -109,6 +110,13 @@ public class Config {
             countryCode = getEnvironmentVariableValue(COUNTRY, true);
         }
         return countryCode;
+    }
+
+    public static String getEnv() {
+        if (env == null) {
+            env = getEnvironmentVariableValue(SITE, true);
+        }
+        return env;
     }
 
     private static String getPropertyFromEnvVariable(SystemProperties variable, boolean throwIfNull) {

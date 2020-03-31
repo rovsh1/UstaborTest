@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="PhoneHintPopupText">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
+    <string name="PhoneHintPopupText_test">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
+    <string name="PhoneHintPopupText_ustabor">Звоните на "горячую" линию с 9:00 - 18:00</string>
+    <string name="PhoneHintPopupText_fixinglist">C 9:00 - 18:00 Звони на нашу линию, наш менеджер ответит.</string>
 
     <string name="SearchRequestFurniture">мебель для</string>
     <string name="SearchRequestFurnitureShort">мебель</string>

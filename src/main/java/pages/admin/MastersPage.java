@@ -57,6 +57,5 @@ public class MastersPage extends BaseAdminPage {
 
     public void deleteMaster(String profileId) {
         getDriver().get(Config.getAdminUrl() + "master/delete/" + profileId);
-        searchSubmitShouldBeVisible();
     }
 }

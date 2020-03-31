@@ -145,7 +145,7 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     }
 
     public void selectMinimalPrice() {
-        focusElementJS(minimalPrice);
+//        focusElementJS(minimalPrice);
         minimalPrice.click();
     }
 }

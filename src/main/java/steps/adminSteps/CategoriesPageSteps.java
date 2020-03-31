@@ -15,5 +15,6 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.openPromotionTab();
         categoriesPage.openPromotionForCurrentCountry();
         categoriesPage.enablePromotionAndSetPrice(minPrice, maxPrice);
+        categoriesPage.waitForLoaderDisappears();
     }
 }
