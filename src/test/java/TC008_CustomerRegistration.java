@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import utils.Config;
 
 @RunWith(SerenityRunner.class)
-public class TC_008_CustomerRegistration extends RegistrationTestBase {
+public class TC008_CustomerRegistration extends RegistrationTestBase {
 
     @Test
     public void customerRegistration() throws Exception {
