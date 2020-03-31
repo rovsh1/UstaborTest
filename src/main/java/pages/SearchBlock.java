@@ -36,7 +36,7 @@ public class SearchBlock extends BasePage {
 
 
     public void suggestionListShouldBeVisible() {
-        assertThat(suggestionDropdown.getAttribute("style")).contains("display: block;");
+        suggestionDropdown.shouldBeVisible();
     }
 
     public void selectSuggestion(String suggestion) {
