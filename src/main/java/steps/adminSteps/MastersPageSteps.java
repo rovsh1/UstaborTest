@@ -17,11 +17,11 @@ public class MastersPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void addAllBadgesToMaster(String lastName) {
+    public void addAllBadgesToMaster(Master master) {
         mastersPage.openPage();
-        mastersPage.openMasterProfileByName(lastName);
+        mastersPage.openMasterProfileByName(master.getLastName());
         mastersPage.openEditMasterPage();
-        mastersPage.addAllBadgesToMaster();
+        mastersPage.addAllBadgesToMaster(master);
     }
 
     public void deleteMaster(Master master) {

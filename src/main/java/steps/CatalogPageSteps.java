@@ -140,8 +140,8 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyProjectsWithBadge(String systemId) {
-        catalogPage.verifyProjectsWithBadge(systemId);
+    public void verifyProjectsWithBadge(Project project, Master master) {
+        catalogPage.verifyProjectsWithBadge(project, master);
     }
 
     @Step

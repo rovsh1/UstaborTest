@@ -40,11 +40,12 @@ public class TC005_AddBadgesToMaster extends TestBase {
         user.atCatalogPage.verifyLastAddedProject(project);
 
         admin.atAdminHomePage.loginAsAdmin();
-        admin.atMastersPage.addAllBadgesToMaster(master.getLastName());
+        admin.atMastersPage.addAllBadgesToMaster(master);
 
         user.atHomePage.open();
-        user.atHomePage.openCatalog();
-        user.atCatalogPage.verifyProjectsWithBadge(project.getSystemId());
+        user.atHomePage.openBuilderTab();
+        user.atHomePage.openCategory(project.getCategory());
+        user.atCatalogPage.verifyProjectsWithBadge(project, master);
     }
 
     @After

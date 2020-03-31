@@ -1,5 +1,6 @@
 package pages.admin;
 
+import entities.Master;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
@@ -48,12 +49,14 @@ public class MastersPage extends BaseAdminPage {
         editMasterBtn.click();
     }
 
-    public void addAllBadgesToMaster() {
+    public void addAllBadgesToMaster(Master master) {
         badges.forEach(WebElementFacade::click);
+        master.setCountOfBadges(badges.size() - 2);
         submitBtn.click();
     }
 
     public void deleteMaster(String profileId) {
         getDriver().get(Config.getAdminUrl() + "master/delete/" + profileId);
+        searchSubmitShouldBeVisible();
     }
 }

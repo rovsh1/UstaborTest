@@ -11,7 +11,7 @@ public class MyChromeDriver implements DriverSource {
     @Override
     public WebDriver newDriver() {
         try {
-            System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/workspace/chromedriver_linux");
+            System.setProperty("webdriver.chrome.driver", "driver/chromedriver_mac");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
             options.addArguments("window-size=1800x900");

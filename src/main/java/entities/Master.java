@@ -7,6 +7,7 @@ public class Master extends User {
     private String projectUrl;
     private String profileUrl;
     private String profileId = null;
+    private int countOfBadges = 0;
 
     public Master(String login, String password, String phoneNumber) {
         super(login, password, phoneNumber);
@@ -54,5 +55,13 @@ public class Master extends User {
 
     public void setProfileId(String profileId) {
         this.profileId = profileId;
+    }
+
+    public int getCountOfBadges() {
+        return countOfBadges;
+    }
+
+    public void setCountOfBadges(int countOfBadges) {
+        this.countOfBadges = countOfBadges;
     }
 }

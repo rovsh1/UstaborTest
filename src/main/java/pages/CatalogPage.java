@@ -24,6 +24,7 @@ public class CatalogPage extends SearchBlock {
     private static String projectMasterNameXpath = ".//div[@class='presentation']";
     private static String projectMasterAvatarXpath = ".//div[@class='bottom']/div[@class='image']";
     private static String ratingXpath = ".//div[@class='rating']";
+    private static String badgesXpath = ".//span[contains(@class, 'master-badge')]";
 
     private static String promoAttribute = "data-promotion";
 
@@ -333,8 +334,26 @@ public class CatalogPage extends SearchBlock {
         return master;
     }
 
-    public void verifyProjectsWithBadge(String projectId) {
-        assertThat(projectsList.get(0).getAttribute("data-id")).isEqualTo(projectId);
+    public void verifyProjectsWithBadge(Project project, Master master) {
+        var noMorePromoProjects = false;
+
+        for (WebElementFacade proj: projectsList) {
+            if (proj.getAttribute(promoAttribute).equals("1") && !noMorePromoProjects) {
+            } else {
+                noMorePromoProjects = true;
+
+                var countOfBadges = proj.findElements(By.xpath(badgesXpath)).size();
+                if (countOfBadges == master.getCountOfBadges()) {
+                    var projectId = proj.getAttribute("data-id").replaceAll("\\D", "");
+                    if (project.getSystemId().equals(projectId)) {
+                        return;
+                    }
+                } else {
+                    throw new IllegalArgumentException("Project with badges order is wrong!");
+                }
+            }
+        }
+        assertThat(projectsList.get(0).getAttribute("data-id")).isEqualTo(project.getSystemId());
     }
 
     public void verifyFoundProject(String projectSystemId) {
