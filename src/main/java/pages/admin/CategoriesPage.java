@@ -50,8 +50,9 @@ public class CategoriesPage extends BaseAdminPage {
         if (!enablePromoCheckbox.isSelected()) {
             enablePromoCheckbox.click();
         }
-
+        minPrice.clear();
         minPrice.sendKeys(String.valueOf(minimalPrice));
+        maxPrice.clear();
         maxPrice.sendKeys(String.valueOf(maximumPrice));
 
         submitBtn.click();

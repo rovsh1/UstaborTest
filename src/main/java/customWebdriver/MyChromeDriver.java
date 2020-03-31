@@ -13,10 +13,11 @@ public class MyChromeDriver implements DriverSource {
         try {
             System.setProperty("webdriver.chrome.driver", "driver/chromedriver_mac");
             ChromeOptions options = new ChromeOptions();
-            //options.addArguments("--headless");
+            options.addArguments("--headless");
             options.addArguments("window-size=1800x900");
             options.addArguments("start-maximized");
             options.addArguments("user-agent=qatesting");
+            options.addArguments("--ignore-certificate-errors");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             return new ChromeDriver(options);
