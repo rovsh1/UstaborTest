@@ -1,6 +1,7 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Config;
 
 @RunWith(SerenityRunner.class)
 public class UU293_MainPageUiTest extends TestBase {
@@ -8,7 +9,10 @@ public class UU293_MainPageUiTest extends TestBase {
     @Test
     public void mainPageUiTest() {
 
-        user.atHomePage.verifyHeaderCountriesListIsVisible();
+        if (!Config.isUstabor()) {
+            user.atHomePage.verifyHeaderCountriesListIsVisible();
+        }
+
         user.atHomePage.verifySubdomainDropDown();
         user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText"));
         user.atHomePage.verifyHeaderLanguagesListIsVisible();
@@ -19,13 +23,17 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyRandomFaqItem();
 
-        user.atHomePage.verifyFooterCountriesListIsVisible();
+        if (!Config.isUstabor()) {
+            user.atHomePage.verifyFooterCountriesListIsVisible();
+        }
         user.atHomePage.verifyFooterLanguagesListIsVisible();
 
         setBrowserWindowSize(320, 800);
         user.atHomePage.openMobileViewMainMenu();
         user.atHomePage.verifyMobileViewSitesMenu();
-        user.atHomePage.verifyMobileViewCountriesMenu();
+        if (!Config.isUstabor()) {
+            user.atHomePage.verifyMobileViewCountriesMenu();
+        }
         user.atHomePage.verifyMobileViewLanguageMenu();
 
         user.atHomePage.verifyPlaceOrderForm();

@@ -31,6 +31,7 @@ class TestBase {
         Serenity.throwExceptionsImmediately();
         data = new DataGenerator();
         driver.manage().window().maximize();
+
         user.atHomePage.open();
 
         user.atHomePage.homePageShouldBeVisible();

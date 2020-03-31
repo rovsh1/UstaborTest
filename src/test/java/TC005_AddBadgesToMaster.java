@@ -22,6 +22,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
         master = data.getFullInfoMasterRandomEmail();
         user.atHomePage.registerAsMaster(master);
 
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
         var project = data.getProject(master);
 
         user.atMasterProjectsPage.openProjectsTab();
@@ -32,12 +33,6 @@ public class TC005_AddBadgesToMaster extends TestBase {
         user.atCatalogPage.verifyFoundProject(project.getSystemId());
         user.atCatalogPage.openProjectBySystemId(project.getSystemId());
         user.atProjectPage.verifyProjectInfo(project, master);
-
-        user.atHomePage.open();
-        user.atHomePage.openBuilderTab();
-        user.atHomePage.openCategory(project.getCategory());
-        user.atCatalogPage.loadAllResults();
-        user.atCatalogPage.verifyLastAddedProject(project);
 
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addAllBadgesToMaster(master);

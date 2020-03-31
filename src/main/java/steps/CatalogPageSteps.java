@@ -140,7 +140,8 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyProjectsWithBadge(Project project, Master master) {
+    public void verifyProjectsWithBadge(Project project, Master master) throws InterruptedException {
+        catalogPage.loadAllResults();
         catalogPage.verifyProjectsWithBadge(project, master);
     }
 

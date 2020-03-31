@@ -71,12 +71,6 @@ public class MasterProjectsPage extends MasterProfileBasePage {
         newProjectDescriptionInput.sendKeys(description);
     }
 
-    public void selectProjectCategoryWithPromotion() {
-        WebElementFacade category = projectCategories.get(new Random().nextInt(projectCategories.size()));
-        projectCategorySelect.selectByValue("901");
-        waitForLoaderDisappears();
-    }
-
     public void selectCategory(String category) {
         projectCategorySelect.selectByVisibleText(category);
         waitForLoaderDisappears();
@@ -104,12 +98,12 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     }
 
     public void selectNoPromotionCheckboxIfPresent() {
-        setImplicitTimeout(3, ChronoUnit.SECONDS);
+        setWaitForTimeout(1000);
         if (noPromotionCheckbox.isPresent()) {
             focusElementJS(noPromotionCheckbox);
             noPromotionCheckbox.click();
         }
-        resetImplicitTimeout();
+        setWaitForTimeout(15000);
     }
 
     public void verifyProjectsListContains(String name) {
@@ -120,29 +114,12 @@ public class MasterProjectsPage extends MasterProfileBasePage {
                 .isTrue();
     }
 
-    public void deleteProjectByName(String projectName) {
-        WebElementFacade project = projectsList
-                .stream()
-                .filter(p -> p.getText().contains(projectName))
-                .findFirst()
-                .orElse(null);
-
-        if (project == null) {
-            throw new NullPointerException(String.format("No project with such name: %s ", projectName));
-        }
-
-        Actions builder = new Actions(getDriver());
-        builder.moveToElement(project)
-                .moveToElement(project.findElement(By.xpath("//div[@class='btn btn-remove']")))
-                .click().build().perform();
-    }
-
-    public void submitProjectDeleting() {
-        clickPopupOkBtn();
-    }
-
     public int getCountOfProjects() {
-        return projectsList.size();
+        setTimeouts(1, ChronoUnit.SECONDS);
+        var count =  projectsList.size();
+        resetTimeouts();
+
+        return count;
     }
 
     public void waitTillProjectsAreVisible() {
@@ -170,9 +147,5 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     public void selectMinimalPrice() {
         focusElementJS(minimalPrice);
         minimalPrice.click();
-    }
-
-    public void verifyMinimalPrice(String promotePrice) {
-        minimalPrice.shouldContainText(promotePrice);
     }
 }

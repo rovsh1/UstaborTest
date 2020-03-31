@@ -10,6 +10,7 @@ import utils.XmlParser;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -87,6 +88,16 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[contains(@class, 'loading')]")
     private WebElementFacade loader;
 
+    public void setTimeouts(int duration, TemporalUnit timeUnit) {
+        setImplicitTimeout(duration, timeUnit);
+        setWaitForTimeout(duration * 1000);
+    }
+
+    public void resetTimeouts() {
+        resetImplicitTimeout();
+        setWaitForTimeout(15000);
+    }
+
     public void waitForLoaderDisappears() {
         loader.withTimeoutOf(Duration.ofSeconds(15)).waitUntilNotVisible();
     }
@@ -112,9 +123,9 @@ public class BasePage extends PageObject {
     }
 
     boolean isLogoutBtnVisible() {
-        setImplicitTimeout(2, ChronoUnit.SECONDS);
+        setTimeouts(1, ChronoUnit.SECONDS);
         boolean result = logoutBtn.isVisible();
-        resetImplicitTimeout();
+        resetTimeouts();
         return result;
     }
 
@@ -256,9 +267,9 @@ public class BasePage extends PageObject {
     }
 
     public boolean isCountrySelectorVisible() {
-        setImplicitTimeout(2, ChronoUnit.SECONDS);
+        setTimeouts(1, ChronoUnit.SECONDS);
         boolean result =  headerCountriesBtn.isCurrentlyVisible();
-        resetImplicitTimeout();
+        resetTimeouts();
         return result;
     }
 

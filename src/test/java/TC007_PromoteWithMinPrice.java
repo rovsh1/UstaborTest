@@ -23,20 +23,22 @@ public class TC007_PromoteWithMinPrice extends TestBase {
     public void promoteWithMinPrice() throws Exception {
         var minimalPriceOnlyCategories = getTextByPredicate("DomainBuild_MinPromo_");
         var category = minimalPriceOnlyCategories.get(new Random().nextInt(minimalPriceOnlyCategories.size()));
-        var promoPrice = new Random().nextInt( 300);
 
         master = data.getFullInfoMasterRandomEmail();
 
         user.atHomePage.registerAsMasterWithCategory(master, category);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
 
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
         var project = data.getProject(master);
 
         admin.atAdminHomePage.loginAsAdmin();
-        admin.atMastersPage.addMoneyToMaster(1000, master.getLastName());
+        admin.atMastersPage.addMoneyToMaster(10000, master.getLastName());
         admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategory(), "100", "");
 
         user.atHomePage.open();
+        user.atHomePage.loginAsMasterIfNeed(master.getLogin(), master.getPassword());
+
         user.atMasterProfilePage.open();
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(project, true, true);

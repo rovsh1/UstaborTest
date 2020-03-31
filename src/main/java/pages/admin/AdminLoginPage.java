@@ -38,7 +38,7 @@ public class AdminLoginPage extends BaseAdminPage {
     }
 
     public boolean isLoginInputVisible() {
-        setImplicitTimeout(2, ChronoUnit.SECONDS);
+        setImplicitTimeout(1, ChronoUnit.SECONDS);
         boolean result = loginInput.isPresent();
         resetImplicitTimeout();
         return result;

@@ -264,9 +264,9 @@ public class CatalogPage extends SearchBlock {
     }
 
     public boolean isSearchCatalogEmpty() {
-        setImplicitTimeout(2, ChronoUnit.SECONDS);
+        setTimeouts(1, ChronoUnit.SECONDS);
         boolean result = emptyCatalogMessage.isVisible();
-        resetImplicitTimeout();
+        resetTimeouts();
         return result;
     }
 
