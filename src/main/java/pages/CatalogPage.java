@@ -34,7 +34,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class, 'category selected')]")
     private WebElementFacade selectedCategory;
 
-    @FindBy(xpath = "//div[@id='projects-gallery']/a")
+    @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item project']")
     private List<WebElementFacade> projectsList;
 
     @FindBy(xpath = "//div[@id='projects-gallery']/a[.//div[@class='stats'] and not(.//div[@class='master-badges icons'])]")
