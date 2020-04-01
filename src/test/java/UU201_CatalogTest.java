@@ -42,7 +42,7 @@ public class UU201_CatalogTest extends TestBase {
         user.atCatalogPage.verifyFilterDoesNotContainsDefaultValues();
         int projectsCount = user.atCatalogPage.getProjectsCounterValue();
 
-        String city = getText("FilterCity_" + Config.getCountryCode());
+        String city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
         String district = getText("FilterDistrict_" + Config.getCountryCode());
 
         user.atCatalogPage.selectFilterCityAndDistrict(city, district);
