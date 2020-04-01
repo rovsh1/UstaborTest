@@ -31,7 +31,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addMoneyToMaster(10000, master.getLastName());
-        admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategory(), "100", "");
+        admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategory(), "100", "500");
 
         user.atHomePage.open();
         user.atHomePage.loginAsMasterIfNeed(master.getLogin(), master.getPassword());
