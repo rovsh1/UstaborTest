@@ -111,7 +111,8 @@ import javax.mail.Store;
             return folder.getMessage(index);
         }
 
-        public Message getLatestMessage() throws MessagingException{
+        public Message getLatestMessage() throws MessagingException {
+            if (getNumberOfMessages() == 0) { return null; }
             return getMessageByIndex(getNumberOfMessages());
         }
 
@@ -191,11 +192,11 @@ import javax.mail.Store;
 
         public Message waitForMessageByContentText(String text) throws MessagingException, TimeoutException {
             folder.open(Folder.READ_WRITE);
-            waitForEmailIsNotEmpty();
 
             WaitHelper.pollingWait(240000, 2000, () -> {
                 try {
                     Message email = getLatestMessage();
+                    if (email == null) { return false; }
                     return isTextInMessage(email, text);
                 } catch (MessagingException e) {
                     e.printStackTrace();
