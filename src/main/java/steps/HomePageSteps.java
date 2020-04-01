@@ -206,6 +206,7 @@ public class HomePageSteps extends ScenarioSteps {
     public void requestNewPasswordAtEmail(String email) {
         homePage.forgotPasswordEnterEmail(email);
         homePage.forgotPasswordClickRestoreBtn();
+        homePage.waitForLoaderDisappears();
     }
 
     @Step
