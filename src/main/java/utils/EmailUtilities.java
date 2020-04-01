@@ -193,7 +193,7 @@ import javax.mail.Store;
         public Message waitForMessageByContentText(String text) throws MessagingException, TimeoutException {
             folder.open(Folder.READ_WRITE);
 
-            WaitHelper.pollingWait(240000, 2000, () -> {
+            WaitHelper.pollingWait(5 * 60000, 2000, () -> {
                 try {
                     Message email = getLatestMessage();
                     if (email == null) { return false; }
