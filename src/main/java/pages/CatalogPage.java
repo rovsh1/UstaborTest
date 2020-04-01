@@ -83,7 +83,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class, 'city')]//div[@class='item']")
     private List<WebElementFacade> filterCitiesList;
 
-    @FindBy(xpath = "//div[contains(@class, 'district')]//div[@class='item']")
+    @FindBy(xpath = "//div[contains(@class, 'district expanded')]//div[@class='item']")
     private List<WebElementFacade> filterDistrictsList;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'order')]")
@@ -225,7 +225,6 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void selectDistrict(String districtName) {
-        firstDistrict.waitUntilClickable();
         WebElementFacade district = filterDistrictsList.stream()
                 .filter(city -> city.getText().equals(districtName))
                 .findFirst()
