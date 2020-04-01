@@ -193,7 +193,7 @@ import javax.mail.Store;
             folder.open(Folder.READ_WRITE);
             waitForEmailIsNotEmpty();
 
-            WaitHelper.pollingWait(120000, 2000, () -> {
+            WaitHelper.pollingWait(240000, 2000, () -> {
                 try {
                     Message email = getLatestMessage();
                     return isTextInMessage(email, text);
@@ -224,7 +224,7 @@ import javax.mail.Store;
         //
 
         private void waitForEmailIsNotEmpty() throws TimeoutException {
-            WaitHelper.pollingWait(120000, 2000, () -> {
+            WaitHelper.pollingWait(240000, 2000, () -> {
                 try {
                     return getNumberOfMessages() > 0;
                 } catch (MessagingException e) {
