@@ -25,6 +25,7 @@ public class CatalogPage extends SearchBlock {
     private static String projectMasterAvatarXpath = ".//div[@class='bottom']/div[@class='image']";
     private static String ratingXpath = ".//div[@class='rating']";
     private static String badgesXpath = ".//span[contains(@class, 'master-badge')]";
+    private static String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
 
     private static String promoAttribute = "data-promotion";
 
@@ -82,9 +83,6 @@ public class CatalogPage extends SearchBlock {
 
     @FindBy(xpath = "//div[contains(@class, 'city')]//div[@class='item']")
     private List<WebElementFacade> filterCitiesList;
-
-    @FindBy(xpath = "//div[contains(@class, 'district expanded')]//div[@class='item']")
-    private List<WebElementFacade> filterDistrictsList;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'order')]")
     private WebElementFacade filterSortingBtn;
@@ -225,15 +223,7 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void selectDistrict(String districtName) {
-        WebElementFacade district = filterDistrictsList.stream()
-                .filter(city -> city.getText().equals(districtName))
-                .findFirst()
-                .orElse(null);
-
-        if (district == null) throw new NullArgumentException(
-                String.format("%s is not in districts list", districtName));
-
-        district.click();
+        getDriver().findElement(By.xpath(String.format(districtXpath, districtName))).click();
     }
 
     public void verifyCityFilterText(String city) {
@@ -256,10 +246,9 @@ public class CatalogPage extends SearchBlock {
         if (isSearchCatalogEmpty()) {
             return 0;
         }
-        return Integer.valueOf(
-                projectsCounter
-                        .getText()
-                        .replaceAll("[^0-9]", ""));
+        return Integer.parseInt(projectsCounter
+                .getText()
+                .replaceAll("[^0-9]", ""));
     }
 
     public boolean isSearchCatalogEmpty() {
