@@ -1,5 +1,4 @@
 import entities.Master;
-import entities.Project;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
@@ -28,7 +27,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
 
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
         user.atHomePage.enterTextAndSearch(project.getName());
         user.atCatalogPage.verifyFoundProject(project.getSystemId());
         user.atCatalogPage.openProjectBySystemId(project.getSystemId());
@@ -37,7 +36,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addAllBadgesToMaster(master);
 
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(project.getCategory());
         user.atCatalogPage.verifyProjectsWithBadge(project, master);

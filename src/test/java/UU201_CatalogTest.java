@@ -27,11 +27,11 @@ public class UU201_CatalogTest extends TestBase {
 
         user.atCatalogPage.enterSearchText(getText("SearchRequestFurnitureShort"));
         user.atCatalogPage.suggestionDropdownShouldBeVisible();
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
 
         List<String> sitesNamesList = user.atCatalogPage.getSitesNames();
         for (String siteName : sitesNamesList) {
-            user.atHomePage.open();
+            user.atHomePage.openHomePage();
             user.atCatalogPage.openSiteWithName(siteName);
             user.atCatalogPage.correctSiteShouldBeVisible(siteName);
         }
@@ -51,7 +51,7 @@ public class UU201_CatalogTest extends TestBase {
         user.atCatalogPage.verifyFilterContainsValues(city, district);
 
         for (int i = 0; i < 3; i++) {
-            user.atHomePage.open();
+            user.atHomePage.openHomePage();
             user.atHomePage.openRandomCategory();
             if (!user.atCatalogPage.isSearchResultEmpty()) {
                 assertThat(user.atCatalogPage.getProjectsCounterValue()).isGreaterThan(0);

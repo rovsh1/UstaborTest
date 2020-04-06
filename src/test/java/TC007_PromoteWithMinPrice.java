@@ -1,7 +1,5 @@
 import entities.Master;
-import entities.Project;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Pending;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
 import org.junit.After;
@@ -9,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Random;
-import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
@@ -36,7 +33,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         admin.atMastersPage.addMoneyToMaster(10000, master.getLastName());
         admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategory(), "100", "500");
 
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getLogin(), master.getPassword());
 
         user.atMasterProfilePage.open();
@@ -47,7 +44,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         admin.atAdminHomePage.loginAsAdmin();
         admin.atPromotionPage.approveProject(project.getSystemId());
 
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(project.getCategory());
         user.atCatalogPage.verifyProjectPromoted(project);

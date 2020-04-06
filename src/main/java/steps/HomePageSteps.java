@@ -23,7 +23,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void open() {
+    public void openHomePage() {
         homePage.openPageWithConfigUrl();
     }
 
@@ -115,8 +115,8 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void goToDomainWithName(String country) {
-        homePage.selectCountryWithName(country);
+    public void setCountry(String country) {
+        homePage.setCountry(country);
     }
 
     @Step
@@ -254,7 +254,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void verifyLoginForm() {
-        open();
+        openHomePage();
         homePage.openLoginForm();
         homePage.iAmCustomerBtnShouldBeVisible();
         homePage.iAmMasterBtnShouldBeVisible();
@@ -267,7 +267,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void verifyRegistrationForm() {
-        open();
+        openHomePage();
         homePage.openRegistrationForm();
         homePage.iAmCustomerBtnShouldBeVisible();
         homePage.iAmMasterBtnShouldBeVisible();
@@ -275,7 +275,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void verifyMobileViewCustomerRegistrationForm() {
-        open();
+        openHomePage();
         openMobileViewMainMenu();
         homePage.openMobileViewCustomerRegistrationForm();
         homePage.regFormLoginInputShouldBeVisible();
@@ -287,7 +287,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void verifyPlaceOrderForm() {
-        open();
+        openHomePage();
         homePage.openPlaceOrderForm();
         homePage.orderFormUsernameInputShouldBeVisible();
         homePage.orderFormPhoneInputShouldBeVisible();
@@ -297,7 +297,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void verifyRandomFaqItem() {
-        open();
+        openHomePage();
         homePage.openRandomFaqItem();
         homePage.verifyFaqItemTextIsVisible();
     }
@@ -327,7 +327,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void verifyMobileViewContactsForm(String text) {
-        open();
+        openHomePage();
         openMobileViewMainMenu();
         homePage.openMobileViewPhoneForm();
         homePage.verifyMobileViewPhoneFormText(text);
@@ -348,7 +348,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.logsOut();
     }
 
-    public void waitForLoaderDisappears() {
-        homePage.waitForLoaderDisappears();
+    public void setLanguage(String lang) {
+        homePage.setLanguage(lang);
     }
 }

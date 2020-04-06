@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.Config;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class UU222_VerifyDomainsChange extends TestBase {
         if (user.atHomePage.isCountrySelectorAvailable()) {
             List<String> countriesList = user.atHomePage.getCountriesList();
             for (String country: countriesList) {
-                user.atHomePage.goToDomainWithName(country);
+                user.atHomePage.setCountry(country);
                 user.atHomePage.currentDomainNameShouldBe(country);
             }
         }

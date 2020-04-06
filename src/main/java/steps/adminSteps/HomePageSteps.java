@@ -13,5 +13,6 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.enterLogin(Config.getUsers().getAdmin().getLogin());
         homePage.enterPassword(Config.getUsers().getAdmin().getPassword());
         homePage.clickLoginBtn();
+        homePage.waitForLoaderDisappears();
     }
 }

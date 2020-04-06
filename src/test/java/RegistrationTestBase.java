@@ -29,16 +29,16 @@ public class RegistrationTestBase extends TestBase {
                 Config.getUsers().getNewCustomer().getLogin(),
                 Config.getUsers().getNewCustomer().getPassword());
         if (result) {
-            user.atCustomerProfilePage.open();
+            user.atCustomerProfilePage.openCustomerProfilePage();
             user.atCustomerProfilePage.deleteProfile();
         }
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
     }
 
     @After
     public void tearDown() {
-        user.atHomePage.open();
-        user.atCustomerProfilePage.open();
+        user.atHomePage.openHomePage();
+        user.atCustomerProfilePage.openCustomerProfilePage();
         user.atCustomerProfilePage.deleteProfile();
     }
 }

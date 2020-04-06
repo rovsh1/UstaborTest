@@ -18,7 +18,7 @@ public class TC008_CustomerRegistration extends RegistrationTestBase {
 
     @After
     public void tearDown() {
-        user.atCustomerProfilePage.open();
+        user.atCustomerProfilePage.openCustomerProfilePage();
         user.atCustomerProfilePage.deleteProfile();
     }
 }

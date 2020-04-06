@@ -10,7 +10,6 @@ import utils.Config;
 import utils.DataGenerator;
 import utils.XmlParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class TestBase {
@@ -32,12 +31,12 @@ class TestBase {
         data = new DataGenerator();
         driver.manage().window().maximize();
 
-        user.atHomePage.open();
-
+        user.atHomePage.openHomePage();
         user.atHomePage.homePageShouldBeVisible();
 
-        if (!Config.isUstabor() && Config.getCountry() != null) {
-            user.atHomePage.goToDomainWithName(Config.getCountry());
+        user.atHomePage.setLanguage(Config.getLang());
+        if (!Config.isUstabor()) {
+            user.atHomePage.setCountry(Config.getCountry());
         }
     }
 
@@ -48,7 +47,6 @@ class TestBase {
     List<String> getTextByPredicate(String predicate) {
         return XmlParser.getAllValuesByPredicate(predicate);
     }
-
 
     void setBrowserWindowSize(int width, int height){
         driver.manage().window().setSize(new Dimension(width, height));

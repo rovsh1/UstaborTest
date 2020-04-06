@@ -42,7 +42,7 @@ public class CustomerProfilePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void open() {
+    public void openCustomerProfilePage() {
         customerProfilePage.clickProfileBtn();
     }
 

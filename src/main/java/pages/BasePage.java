@@ -230,7 +230,7 @@ public class BasePage extends PageObject {
                 .collect(Collectors.toList());
     }
 
-    public void selectCountryWithName(String country) {
+    public void setCountry(String country) {
         if (!isCountrySelectorVisible() || headerCountriesBtn.getText().equals(country)) {
             return;
         }
@@ -293,12 +293,21 @@ public class BasePage extends PageObject {
         headerLangBtn.click();
     }
 
+    public String getCurrentLang() {
+        return headerLangBtn.getText();
+    }
+
     public void openFooterLangDropDown() {
         footerLangBtn.click();
     }
 
     public void verifyLangPopupIsVisible() {
         langsList.forEach(WebElementState::shouldBeVisible);
+    }
+
+    public void selectLanguage(String lang) {
+        var language = langsList.stream().filter(x -> x.getText().contains(lang)).findFirst().orElse(null);
+        language.click();
     }
 
     public void verifySubdomainsListIsVisible() {

@@ -502,4 +502,13 @@ public class HomePage extends SearchBlock {
     public void loginErrorShouldBeVisible() {
         loginError.shouldBeVisible();
     }
+
+    public void setLanguage(String lang) {
+        if (getCurrentLang().toLowerCase().equals(lang)) {
+            return;
+        }
+
+        openHeaderLangDropDown();
+        selectLanguage(lang);
+    }
 }

@@ -26,18 +26,6 @@ public class Config {
         return site.contains("ustabor");
     }
 
-    public static boolean isFixinglist() {
-        return site.endsWith("fixinglist.com");
-    }
-
-    public static boolean isFixinglistKg() {
-        return site.endsWith("fixinglist.kg");
-    }
-
-    public static boolean isTestEnv() {
-        return site.contains("bildrlist");
-    }
-
     public static Users getUsers() {
         if (users == null) {
             users = new Users(getEnvironmentVariableValue(SITE, true));

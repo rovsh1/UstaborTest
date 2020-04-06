@@ -54,10 +54,10 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
         user.atFeedbackPage.leftFeedback(5, "Testing Review");
         user.atHomePage.pageShouldBeVisible();
 
-        user.atCustomerProfilePage.open();
+        user.atCustomerProfilePage.openCustomerProfilePage();
         user.atCustomerProfilePage.verifyMyMastersListContains(master.getLastName());
 
-        user.atHomePage.open();
+        user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(project.getCategory());
         user.atCatalogPage.loadAllResults();
