@@ -1,6 +1,6 @@
 import entities.Master;
-import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TC003 extends TestBase {
 
     private static EmailUtilities emailUtils;
+
+    private Master master;
 
     @BeforeClass
     public static void connectToEmail() {
@@ -30,7 +32,7 @@ public class TC003 extends TestBase {
 
     @Test
     public void masterAccountForgotPassword() throws Exception {
-        Master master = data.getFullInfoMasterValidEmail(Config.getUsers().getNewMaster().getLogin());
+        master = data.getFullInfoMasterValidEmail(Config.getUsers().getNewMaster().getLogin());
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
@@ -50,5 +52,13 @@ public class TC003 extends TestBase {
                 .isFalse();
         user.atHomePage.loginAsMaster(master.getLogin(), newPassword, false);
         user.atHomePage.verifyUserIsLoggedIn();
+    }
+
+    @After
+    public void tearDown() {
+        admin.atAdminHomePage.loginAsAdmin();
+        if (master.getProfileId() != null) {
+            admin.atMastersPage.deleteMaster(master);
+        }
     }
 }

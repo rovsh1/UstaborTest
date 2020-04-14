@@ -18,7 +18,7 @@ public class TC002 extends TestBase {
 
     @Test
     public void masterAccountLogin() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddhhmm");
         String userName = "Test " + dateFormat.format(new Date());
 
         user.atHomePage.openLoginFormAndVerify();

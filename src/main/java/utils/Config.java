@@ -1,6 +1,7 @@
 package utils;
 
 import entities.Email;
+import enums.Browsers;
 import enums.SystemProperties;
 import net.serenitybdd.core.Serenity;
 
@@ -21,6 +22,15 @@ public class Config {
 
     private static Users users;
     private static Email email;
+
+    private static Browsers browser;
+
+    public static Browsers getBrowser() {
+        if (browser == null) {
+            browser = Browsers.valueOf(getEnvironmentVariableValue(BROWSER, false));
+        }
+        return browser;
+    }
 
     public static boolean isUstabor() {
         return site.contains("ustabor");
@@ -137,5 +147,9 @@ public class Config {
     public static boolean isMobileTag() {
         Properties properties = System.getProperties();
         return properties.getProperty("tags") != null && properties.getProperty("tags").contains("mobile");
+    }
+
+    public static boolean isChrome() {
+        return getBrowser().equals(Browsers.chrome);
     }
 }

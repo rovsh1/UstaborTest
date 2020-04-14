@@ -12,6 +12,8 @@ public class SiteMapPage extends BasePage{
     private List<WebElementFacade> urlsList;
 
     public void openRandomUrl() {
-        urlsList.get(new Random().nextInt(10)).click();
+        var url = urlsList.get(new Random().nextInt((urlsList.size() - 10) + 1) + 10);
+        focusElementJS(url);
+        url.click();
     }
 }

@@ -32,18 +32,15 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public void verifyCountOfFavouriteProjectsEquals(int countOfProjects) {
+        getDriver().navigate().refresh();
         assertThat(favoriteProjects.size()).isEqualTo(countOfProjects);
     }
 
-    public void removeRandomFavoriteProject() throws TimeoutException {
-        int projectsCount = favoriteProjects.size();
+    public void removeRandomFavoriteProject() {
         favoriteProjects
                 .get(new Random().nextInt(favoriteProjects.size()))
                 .findElement(By.xpath(".//i"))
                 .click();
-
-        WaitHelper.pollingWait(60000, 500, ()
-                -> favoriteProjects.size() == projectsCount - 1);
     }
 
     public void verifyMyMastersListContains(String projectName) {

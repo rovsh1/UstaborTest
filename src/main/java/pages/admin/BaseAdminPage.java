@@ -5,8 +5,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Config;
 
-import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 public class BaseAdminPage extends PageObject {
@@ -19,18 +20,19 @@ public class BaseAdminPage extends PageObject {
 
     private String loaderXpath = "//div[contains(@class, 'loading')]";
 
-    public void searchSubmitShouldBeVisible() {
-        quickSearchSubmit.shouldBeVisible();
-    }
-
     public void quickSearch(String query) {
         quickSearchInput.sendKeys(query);
         quickSearchSubmit.click();
     }
 
     public void waitForLoaderDisappears() {
-        withTimeoutOf(25, ChronoUnit.SECONDS)
-                .waitForCondition()
-                .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
+        if (Config.isChrome()) {
+            withTimeoutOf(25, ChronoUnit.SECONDS)
+                    .waitForCondition()
+                    .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
+        } else {
+            new WebDriverWait(getDriver(), 10)
+                    .until(d -> d.findElements(By.xpath(loaderXpath)).size() == 0);
+        }
     }
 }

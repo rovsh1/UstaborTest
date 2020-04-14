@@ -26,7 +26,7 @@ public class CustomerProfilePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void removeRandomAndVerifyCountOfProjects(int countOfProjects) throws TimeoutException {
+    public void removeRandomAndVerifyCountOfProjects(int countOfProjects) {
         customerProfilePage.removeRandomFavoriteProject();
         customerProfilePage.verifyCountOfFavouriteProjectsEquals(countOfProjects);
     }

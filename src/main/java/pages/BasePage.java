@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
 import utils.XmlParser;
 
@@ -100,9 +101,11 @@ public class BasePage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
-        withTimeoutOf(25, ChronoUnit.SECONDS)
-                .waitForCondition()
-                .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
+        if (Config.isChrome()) {
+            withTimeoutOf(25, ChronoUnit.SECONDS)
+                    .waitForCondition()
+                    .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
+        }
     }
 
     public void openPageWithConfigUrl() {
@@ -114,6 +117,7 @@ public class BasePage extends PageObject {
     }
 
     public void openHomePage() {
+        logoutBtn.waitUntilClickable();
         logoBtn.click();
     }
 
@@ -122,6 +126,7 @@ public class BasePage extends PageObject {
     }
 
     public void logsOut() {
+        logoutBtn.waitUntilClickable();
         logoutBtn.click();
     }
 
@@ -157,6 +162,10 @@ public class BasePage extends PageObject {
 
     void clearInputJS(WebElementFacade input) {
         evaluateJavascript("arguments[0].value = ''", input);
+    }
+
+    void clickElementJS(WebElementFacade element) {
+        evaluateJavascript("arguments[0].click();", element);
     }
 
     public List<String> getSitesNames() {

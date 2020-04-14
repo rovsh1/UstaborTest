@@ -9,6 +9,7 @@ import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.Config;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -127,7 +128,22 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void openFilter() {
+        scrollPageUpJS();
         filterBtn.click();
+
+        if (!Config.isChrome()) {
+            var counter = 0;
+            while (!filterCategoryBtn.isVisible() && counter < 10) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                filterBtn.click();
+                counter++;
+            }
+        }
     }
 
     public void closeFilter() {

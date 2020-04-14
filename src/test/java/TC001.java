@@ -24,7 +24,6 @@ public class TC001 extends TestBase {
 
     @After
     public void tearDown() {
-        admin.atAdminHomePage.loginAsAdmin();
         if (master.getProfileId() != null) {
             admin.atMastersPage.deleteMaster(master);
         }

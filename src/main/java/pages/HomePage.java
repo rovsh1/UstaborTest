@@ -6,7 +6,11 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Config;
 import utils.XmlParser;
 
 import java.io.File;
@@ -78,8 +82,12 @@ public class HomePage extends SearchBlock {
     //endregion
 
     //region Master registration form
-    @FindBy(xpath = "//form[@id='form-registration-master']")
+    private static final String registrationFormXpath = "//form[@id='form-registration-master']";
+    @FindBy(xpath = registrationFormXpath)
     private WebElementFacade masterRegistrationForm;
+
+    @FindBy(xpath = registrationFormXpath)
+    private List<WebElementFacade> masterRegistrationForm1;
 
     @FindBy(xpath = "//input[@type='file']")
     private WebElementFacade fileInput;
@@ -161,7 +169,7 @@ public class HomePage extends SearchBlock {
     private WebElementFacade mobileMenuMasterRegistrationBtn;
     //endregion
 
-    @FindBy(xpath = "//a[@id='categories-catalog-btn']")
+    @FindBy(xpath = "//div[contains(@class, 'categories-tabs')]//a[@id='categories-catalog-btn']")
     private WebElementFacade viewFullCatalogBtn;
 
     @FindBy(xpath = "//div[@class='window feedback-window']//a[@class='button button-submit']")
@@ -340,7 +348,13 @@ public class HomePage extends SearchBlock {
     }
 
     public void registerFormShouldNotBeVisible() {
-        masterRegistrationForm.withTimeoutOf(Duration.ofSeconds(30)).waitUntilNotVisible();
+        if (Config.isChrome()) {
+            masterRegistrationForm.withTimeoutOf(Duration.ofSeconds(30)).waitUntilNotVisible();
+        } else {
+            new WebDriverWait(getDriver(), 30)
+                    .until(driver -> driver.findElements(By.xpath(registrationFormXpath)).size() == 0);
+        }
+
     }
 
     public void registerFormShouldBeVisible() {
@@ -425,7 +439,11 @@ public class HomePage extends SearchBlock {
     }
 
     public void clickCatalogBtn() {
-        viewFullCatalogBtn.click();
+        if (Config.isChrome()) {
+            viewFullCatalogBtn.click();
+        } else {
+            clickElementJS(viewFullCatalogBtn);
+        }
     }
 
     public boolean isLoggedIn() {
@@ -437,7 +455,9 @@ public class HomePage extends SearchBlock {
     }
 
     public void openRandomCategory() {
-        categoriesList.get(new Random().nextInt(categoriesList.size())).click();
+        var category = categoriesList.get(new Random().nextInt(categoriesList.size()));
+        focusElementJS(category);
+        category.click();
     }
 
     public void uploadAvatar() {
@@ -496,6 +516,7 @@ public class HomePage extends SearchBlock {
             throw new NullPointerException(String.format("No element with text '%s' found", category));
         }
 
+        focusElementJS(foundCategory);
         foundCategory.click();
     }
 
