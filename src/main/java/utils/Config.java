@@ -27,7 +27,13 @@ public class Config {
 
     public static Browsers getBrowser() {
         if (browser == null) {
-            browser = Browsers.valueOf(getEnvironmentVariableValue(BROWSER, false));
+            var parameter = getEnvironmentVariableValue(BROWSER, false);
+
+            if (parameter == null) {
+                browser = Browsers.chrome;
+            } else {
+                browser = Browsers.valueOf(parameter);
+            }
         }
         return browser;
     }

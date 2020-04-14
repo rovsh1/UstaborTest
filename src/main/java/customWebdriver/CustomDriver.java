@@ -9,7 +9,7 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import utils.Config;
 
-public class MyChromeDriver implements DriverSource {
+public class CustomDriver implements DriverSource {
 
     @Override
     public WebDriver newDriver() {
