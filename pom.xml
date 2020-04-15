@@ -100,11 +100,6 @@
                 <version>${surefire.verson}</version>
                 <configuration>
                     <skipTests>true</skipTests>
-                    <systemPropertyVariables>
-                        <environment>${environment}</environment>
-                        <lang>${lang}</lang>
-                        <country>${country}</country>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>

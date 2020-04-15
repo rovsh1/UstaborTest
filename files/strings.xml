@@ -29,7 +29,7 @@
     <string name="FilterCityDefault">Город</string>
 
     <string name="FilterCity_kz_test">Астана</string>
-    <string name="FilterCity_uz_test">Ташкент</string>
+    <string name="FilterCity_uz_test">Джизак</string>
     <string name="FilterCity_ua_test">Одесса</string>
 
     <string name="FilterCity_kz_ustabor">Нур-Султан</string>
@@ -39,7 +39,7 @@
     <string name="FilterCity_uz_fixinglist">Ташкент</string>
 
 
-    <string name="FilterDistrict_uz">Мирабадский район</string>
+    <string name="FilterDistrict_uz"></string>
     <string name="FilterDistrict_kz"></string>
     <string name="FilterDistrict_ua"></string>
 
