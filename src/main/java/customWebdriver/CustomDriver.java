@@ -36,6 +36,7 @@ public class CustomDriver implements DriverSource {
                     System.setProperty("webdriver.ie.driver", "driver/IEDriverServer.exe");
                     InternetExplorerOptions options = new InternetExplorerOptions();
                     options.destructivelyEnsureCleanSession();
+                    options.ignoreZoomSettings();
 
                     return new InternetExplorerDriver(options);
                 } catch (Exception e) {
