@@ -104,7 +104,7 @@ public class Config {
 
     public static String getCountry() {
         if (country == null) {
-            country = getPropertyFromEnvVariable(COUNTRY, false);
+            country = XmlParser.getTextByKey(getCountryCode());
         }
         return country;
     }
