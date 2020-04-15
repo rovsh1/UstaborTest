@@ -2,7 +2,9 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import steps.UserSteps;
 import steps.adminSteps.AdminSteps;
@@ -30,6 +32,10 @@ class TestBase {
         Serenity.throwExceptionsImmediately();
         data = new DataGenerator();
         driver.manage().window().maximize();
+
+        if (!Config.isChrome()) {
+            driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
+        }
 
         user.atHomePage.openHomePage();
         user.atHomePage.homePageShouldBeVisible();
