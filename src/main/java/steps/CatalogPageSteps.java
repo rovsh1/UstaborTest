@@ -127,6 +127,7 @@ public class CatalogPageSteps extends CommonSteps {
     public void openFilterCityDropdownAndVerify() {
         catalogPage.openFilterCityDropdown();
         catalogPage.filterCityDropdownShouldBeVisible();
+        catalogPage.closeFilter();
     }
 
     @Step
