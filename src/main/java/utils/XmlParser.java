@@ -10,22 +10,28 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 public class XmlParser {
 
     public static String getTextByKey(String attribute) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        DocumentBuilder builder;
-        String xml = null;
-
+        System.setProperty("file.encoding","UTF-8");
         try {
-            builder = factory.newDocumentBuilder();
+            Field charset = Charset.class.getDeclaredField("defaultCharset");
+            charset.setAccessible(true);
+            charset.set(null,null);
 
-            xml = "files/strings.xml";
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
+            DocumentBuilder builder;
+            String xml = "files/strings.xml";
+
+            builder = factory.newDocumentBuilder();
 
             Document document = builder.parse(new File(xml));
             NodeList nl = document.getElementsByTagName("string");

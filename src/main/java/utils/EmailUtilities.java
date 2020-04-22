@@ -1,5 +1,8 @@
 package utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
@@ -18,6 +21,8 @@ import javax.mail.Store;
      * Utility for interacting with an Email application
      */
     public class EmailUtilities {
+
+        final static Logger logger = LoggerFactory.getLogger(EmailUtilities.class);
 
         private Folder folder;
 
@@ -84,6 +89,7 @@ import javax.mail.Store;
         }
 
         public void markAllAsReadAndDeleteEmails() throws Exception {
+            logger.info("Mark as read and delete");
             Message[] messages = getAllMessages();
             Arrays.stream(messages).forEach(message -> {
                 try {
@@ -112,6 +118,7 @@ import javax.mail.Store;
         }
 
         public Message getLatestMessage() throws MessagingException {
+            logger.info("Getting latest message");
             if (getNumberOfMessages() == 0) { return null; }
             return getMessageByIndex(getNumberOfMessages());
         }
@@ -158,16 +165,18 @@ import javax.mail.Store;
          * Change these items to whatever you need for your email. This is only an example.
          */
         public String getAuthorizationCode() throws Exception {
-            Message email = waitForMessageByContentText("Код вашей регистрации:");
+            Message email = waitForMessageByContentText(XmlParser.getTextByKey("AuthCode"));
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(email.getInputStream()));
 
             String line;
-            String prefix = "Код вашей регистрации:";
 
             while ((line = reader.readLine()) != null) {
-                if(line.startsWith(prefix)) {
-                    String code = line.substring(line.indexOf(":") + 1, line.indexOf(":") + 7);
+                if(line.startsWith(Objects.requireNonNull(XmlParser.getTextByKey("AuthCode")))) {
+
+                    var code =  line.substring(line.indexOf(":") + 1, line.indexOf(":") + 7);
+                    logger.info("Code found, return code: " + code);
+
                     return code;
                 }
             }
@@ -192,17 +201,20 @@ import javax.mail.Store;
 
         public Message waitForMessageByContentText(String text) throws MessagingException, TimeoutException {
             folder.open(Folder.READ_WRITE);
+            logger.info("Folder opened");
 
             WaitHelper.pollingWait(5 * 60000, 2000, () -> {
                 try {
                     Message email = getLatestMessage();
                     if (email == null) { return false; }
+                    logger.info("Looking for text in message: " + text);
                     return isTextInMessage(email, text);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
                 return false;
             });
+            logger.info("Return message");
             return getLatestMessage();
         }
 
