@@ -119,7 +119,7 @@
                         <include>TC*.java</include>
                         <include>UU*.java</include>
                     </includes>
-<!--                    <rerunFailingTestsCount>2</rerunFailingTestsCount>-->
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
                 </configuration>
                 <executions>
                     <execution>
