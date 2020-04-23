@@ -37,6 +37,7 @@ public class CustomDriver implements DriverSource {
                     InternetExplorerOptions options = new InternetExplorerOptions();
                     options.destructivelyEnsureCleanSession();
                     options.ignoreZoomSettings();
+                    options.introduceFlakinessByIgnoringSecurityDomains();
 
                     return new InternetExplorerDriver(options);
                 } catch (Exception e) {
