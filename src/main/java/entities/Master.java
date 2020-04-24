@@ -64,4 +64,8 @@ public class Master extends User {
     public void setCountOfBadges(int countOfBadges) {
         this.countOfBadges = countOfBadges;
     }
+
+    public String toString() {
+        return String.format("Login: '%s', SystemId: '%s'", getLogin(), getProfileId());
+    }
 }

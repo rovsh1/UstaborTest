@@ -30,7 +30,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         var project = data.getProject(master);
 
         admin.atAdminHomePage.loginAsAdmin();
-        admin.atMastersPage.addMoneyToMaster(10000, master.getLastName());
+        admin.atMastersPage.addMoneyToMaster(10000, master.getProfileId());
         admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategoryId(), "100", "500");
 
         user.atHomePage.openHomePage();
