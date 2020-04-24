@@ -393,9 +393,10 @@ public class CatalogPage extends SearchBlock {
         element.click();
     }
 
-    public void loadAllResults() throws InterruptedException {
+    public void loadAllResults() {
         while (loadMoreBtn.isPresent()) {
             if (loadMoreBtn.isVisible()) {
+                focusElementJS(loadMoreBtn);
                 loadMoreBtn.click();
                 continue;
             }
