@@ -9,10 +9,8 @@ public class CategoriesPageSteps extends ScenarioSteps {
     private CategoriesPage categoriesPage;
 
     @Step
-    public void enablePromotionAndSetPrice(String categoryName, String minPrice, String maxPrice) {
-        categoriesPage.openPage();
-        categoriesPage.editCategoryByName(categoryName);
-        categoriesPage.openPromotionTab();
+    public void enablePromotionAndSetPrice(String categoryId, String minPrice, String maxPrice) {
+        categoriesPage.openEditCategoryPage(categoryId);
         categoriesPage.openPromotionForCurrentCountry();
         categoriesPage.enablePromotionAndSetPrice(minPrice, maxPrice);
         categoriesPage.waitForLoaderDisappears();

@@ -35,11 +35,14 @@ public class CategoriesPage extends BaseAdminPage {
         getDriver().get(Config.getAdminUrl() + "category");
     }
 
+    public void openEditCategoryPage(String categoryId) {
+        getDriver().get(Config.getAdminUrl() + String.format("category/edit/%s/#!tab-countries", categoryId));
+    }
+
     public void editCategoryByName(String categoryName) {
         quickSearch(categoryName);
         Actions build = new Actions(getDriver());
         build.moveToElement(editBtn).click().build().perform();
-        //editBtn.click();
     }
 
     public void openPromotionTab() {

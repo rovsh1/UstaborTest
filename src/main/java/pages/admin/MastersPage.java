@@ -27,8 +27,19 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//input[contains(@id, 'form_data_badges')]")
     private List<WebElementFacade> badges;
 
+    private final String VIEWMASTERURL = "master/view/";
+    private final String EDITMASTERURL = "master/edit/";
+
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "master");
+    }
+
+    public void openMasterPageByDirectUrl(String masterId) {
+        getDriver().get(Config.getAdminUrl() + VIEWMASTERURL + masterId);
+    }
+
+    public void openEditMasterPageByDirectUrl(String masterId) {
+        getDriver().get(Config.getAdminUrl() + EDITMASTERURL + masterId);
     }
 
     public void openMasterProfileByName(String masterLastName) {
