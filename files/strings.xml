@@ -7,7 +7,7 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
-    <string name="AuthCode">Код вашей регистрации:</string>
+    <string name="AuthCode">Код вашей регистрации: </string>
 
     <string name="PhoneHintPopupText_test">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
     <string name="PhoneHintPopupText_ustabor">Звоните на "горячую" линию с 9:00 - 18:00</string>

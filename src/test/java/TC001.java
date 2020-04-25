@@ -1,6 +1,7 @@
 import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(SerenityRunner.class)

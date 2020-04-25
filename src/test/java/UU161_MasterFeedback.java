@@ -3,9 +3,12 @@ import entities.Project;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
+import utils.mailApi.client.EmailSingleton;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
@@ -27,7 +30,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
 
         user.atHomePage.registerAsCustomer(
                 Config.getUsers().getNewCustomer().getLogin(), Config.getUsers().getNewCustomer().getPassword());
-        user.atHomePage.enterAuthCodeAndSubmit(emailUtils.getAuthorizationCode());
+        user.atHomePage.enterAuthCodeAndSubmit(EmailSingleton.INSTANCE.getAuthCode());
     }
 
     @Test
