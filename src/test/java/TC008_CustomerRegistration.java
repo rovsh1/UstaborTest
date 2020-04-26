@@ -13,11 +13,11 @@ public class TC008_CustomerRegistration extends RegistrationTestBase {
     @Test
     public void customerRegistration() throws TimeoutException {
         user.atHomePage.registerAsCustomer(
-                Email.INSTANCE.getEmail(),
+                email.getEmail(),
                 Config.getUsers().getNewCustomer().getPassword()
         );
 
-        user.atHomePage.enterAuthCodeAndSubmit(Email.INSTANCE.getAuthCode());
+        user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
 
         user.atCustomerProfilePage.verifyCustomerProfilePageIsOpened();
     }

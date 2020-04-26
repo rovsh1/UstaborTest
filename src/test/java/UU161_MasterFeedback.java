@@ -29,10 +29,10 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
         user.atHomePage.logsOut();
 
         user.atHomePage.registerAsCustomer(
-                Email.INSTANCE.getEmail(),
+                email.getEmail(),
                 Config.getUsers().getNewCustomer().getPassword()
         );
-        user.atHomePage.enterAuthCodeAndSubmit(Email.INSTANCE.getAuthCode());
+        user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
     }
 
     @Test

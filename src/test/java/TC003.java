@@ -14,7 +14,9 @@ public class TC003 extends TestBase {
 
     @Test
     public void masterAccountForgotPassword() throws Exception {
-        master = data.getFullInfoMasterValidEmail(Email.INSTANCE.getEmail());
+        var email = new Email();
+
+        master = data.getFullInfoMasterValidEmail(email.getEmail());
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
@@ -24,7 +26,7 @@ public class TC003 extends TestBase {
         user.atHomePage.clickForgotPassword();
         user.atHomePage.requestNewPasswordAtEmail(master.getLogin());
 
-        var url = Email.INSTANCE.getForgotPasswordUrl();
+        var url = email.getForgotPasswordUrl();
         user.atMasterProfileSettingsPage.open(url);
         String newPassword = data.getPassword();
         user.atMasterProfileSettingsPage.changePassword(newPassword);

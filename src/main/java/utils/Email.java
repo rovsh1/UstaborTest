@@ -13,16 +13,15 @@ import javax.ws.rs.client.WebTarget;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
+import static com.refactorable.guerrillamail.api.client.model.request.AddressRequest.forget;
 import static com.refactorable.guerrillamail.api.client.model.request.EmailsRequest.emails;
 
 public class Email {
 
-    private final GuerrillaMailClient guerrillaMailClient;
-    private final AddressResponse addressResponse;
+    private static GuerrillaMailClient guerrillaMailClient;
+    private static AddressResponse addressResponse;
 
-    public static final Email INSTANCE = new Email();
-
-    private Email() {
+    public Email() {
         Client client = ClientBuilder.newClient();
         WebTarget webTarget = client.target("http://api.guerrillamail.com");
         guerrillaMailClient = GuerrillaMailClientFactory.defaultClient(webTarget);
@@ -81,5 +80,9 @@ public class Email {
             return matcher.group(0);
         }
         return null;
+    }
+
+    public void forgetEmail() {
+        guerrillaMailClient.address( forget(addressResponse.getSessionId()) );
     }
 }
