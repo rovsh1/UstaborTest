@@ -52,7 +52,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
 
         user.atCustomerProfilePage.logsOut();
         user.atHomePage.loginAsCustomer(
-                Config.getUsers().getNewCustomer().getLogin(),
+                email.getEmail(),
                 Config.getUsers().getNewCustomer().getPassword());
 
         user.atHomePage.waitForFeedbackProposalAndOpen();
