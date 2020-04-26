@@ -3,7 +3,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
-import utils.mailApi.client.EmailSingleton;
+import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 
@@ -13,11 +13,11 @@ public class TC008_CustomerRegistration extends RegistrationTestBase {
     @Test
     public void customerRegistration() throws TimeoutException {
         user.atHomePage.registerAsCustomer(
-                EmailSingleton.INSTANCE.getEmail(),
+                Email.INSTANCE.getEmail(),
                 Config.getUsers().getNewCustomer().getPassword()
         );
 
-        user.atHomePage.enterAuthCodeAndSubmit(EmailSingleton.INSTANCE.getAuthCode());
+        user.atHomePage.enterAuthCodeAndSubmit(Email.INSTANCE.getAuthCode());
 
         user.atCustomerProfilePage.verifyCustomerProfilePageIsOpened();
     }

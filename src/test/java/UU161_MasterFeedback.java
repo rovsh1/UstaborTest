@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
-import utils.mailApi.client.EmailSingleton;
+import utils.Email;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
@@ -29,8 +29,10 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
         user.atHomePage.logsOut();
 
         user.atHomePage.registerAsCustomer(
-                Config.getUsers().getNewCustomer().getLogin(), Config.getUsers().getNewCustomer().getPassword());
-        user.atHomePage.enterAuthCodeAndSubmit(EmailSingleton.INSTANCE.getAuthCode());
+                Email.INSTANCE.getEmail(),
+                Config.getUsers().getNewCustomer().getPassword()
+        );
+        user.atHomePage.enterAuthCodeAndSubmit(Email.INSTANCE.getAuthCode());
     }
 
     @Test

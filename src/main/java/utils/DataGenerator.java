@@ -70,12 +70,8 @@ public class DataGenerator {
     }
 
     public Master getFullInfoMasterValidEmail(String email) {
-        String randomEmail = email.substring(0, email.indexOf('@'))
-                + "+"
-                + fakeValuesService.bothify("????####@gmail.com");
-
-        Master user = new Master(
-                randomEmail,
+        var user = new Master(
+                email,
                 password,
                 faker.phoneNumber().phoneNumber()
         );

@@ -1,38 +1,20 @@
 import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.After;
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.Config;
-import utils.EmailUtilities;
+import utils.Email;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SerenityRunner.class)
 public class TC003 extends TestBase {
 
-    private static EmailUtilities emailUtils;
-
     private Master master;
-
-    @BeforeClass
-    public static void connectToEmail() {
-        try {
-            emailUtils = new EmailUtilities(
-                    Config.getUsers().getNewMaster().getLogin(),
-                    Config.getUsers().getNewMaster().getPassword());
-            emailUtils.markAllAsReadAndDeleteEmails();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
-    }
 
     @Test
     public void masterAccountForgotPassword() throws Exception {
-        master = data.getFullInfoMasterValidEmail(Config.getUsers().getNewMaster().getLogin());
+        master = data.getFullInfoMasterValidEmail(Email.INSTANCE.getEmail());
 
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
@@ -41,7 +23,8 @@ public class TC003 extends TestBase {
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.clickForgotPassword();
         user.atHomePage.requestNewPasswordAtEmail(master.getLogin());
-        String url = emailUtils.getResetPasswordUrl();
+
+        var url = Email.INSTANCE.getForgotPasswordUrl();
         user.atMasterProfileSettingsPage.open(url);
         String newPassword = data.getPassword();
         user.atMasterProfileSettingsPage.changePassword(newPassword);
