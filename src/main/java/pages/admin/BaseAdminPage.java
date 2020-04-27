@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
 
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class BaseAdminPage extends PageObject {
 
@@ -34,5 +35,15 @@ public class BaseAdminPage extends PageObject {
             new WebDriverWait(getDriver(), 10)
                     .until(d -> d.findElements(By.xpath(loaderXpath)).size() == 0);
         }
+    }
+
+    public void setTimeouts(int duration, TemporalUnit timeUnit) {
+        setImplicitTimeout(duration, timeUnit);
+        setWaitForTimeout(duration * 1000);
+    }
+
+    public void resetTimeouts() {
+        resetImplicitTimeout();
+        setWaitForTimeout(15000);
     }
 }

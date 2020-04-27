@@ -6,12 +6,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
+import utils.WaitHelper;
+
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeoutException;
 
 public class CategoriesPage extends BaseAdminPage {
 
     private static String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
     private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a[@class='button-edit']";
     private static String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
+    private static String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
 
     @FindBy(xpath = "//li[@data-tab='tab-countries']")
     private WebElementFacade promotionTab;
@@ -31,12 +36,29 @@ public class CategoriesPage extends BaseAdminPage {
     @FindBy(xpath = "//td[.//a[@class='button-edit']]")
     private WebElementFacade editBtn;
 
+    @FindBy(xpath = "//li[@data-tab='tab-countries' and @class='current']")
+    private WebElementFacade countriesAndPromotionTabSelected;
+
+    @FindBy(xpath = "//li[@data-tab='tab-countries']")
+    private WebElementFacade countriesAndPromotionTab;
+
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "category");
     }
 
-    public void openEditCategoryPage(String categoryId) {
+    public void openEditCategoryPage(String categoryId) throws TimeoutException {
         getDriver().get(Config.getAdminUrl() + String.format("category/edit/%s/#!tab-countries", categoryId));
+
+        if (!Config.isChrome()) {
+            setTimeouts(1, ChronoUnit.SECONDS);
+            WaitHelper.pollingWait(60000, 1000, () -> {
+                if (!countriesAndPromotionTabSelected.isPresent()) {
+                    countriesAndPromotionTab.click();
+                }
+                return countriesAndPromotionTabSelected.isPresent();
+            });
+            resetTimeouts();
+        }
     }
 
     public void editCategoryByName(String categoryName) {
