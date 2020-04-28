@@ -31,10 +31,6 @@ public final class Users {
         return getUser("newCustomer");
     }
 
-    public User getNewMaster() {
-        return getUser("newMaster");
-    }
-
     public User getAdmin() {
         return getUser("admin");
     }

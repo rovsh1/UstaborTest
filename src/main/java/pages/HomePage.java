@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Random;
 
@@ -189,6 +191,12 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//div[@class='row row-faq']//div[@class='item expanded']//div[@class='text']")
     private WebElementFacade faqOpenedItemText;
+
+    @FindBy(xpath = "//div[@class='ad-banner-popup']")
+    private WebElementFacade adBanner;
+
+    @FindBy(xpath = "//div[@class='ad-banner-popup']/div")
+    private WebElementFacade adBannerCloseBtn;
 
 
     //region Customer registration form methods
@@ -444,6 +452,13 @@ public class HomePage extends SearchBlock {
         } else {
             clickElementJS(viewFullCatalogBtn);
         }
+
+        setTimeouts(1, ChronoUnit.SECONDS);
+        if (adBanner.isPresent()) {
+            adBannerCloseBtn.click();
+        }
+        resetTimeouts();
+
     }
 
     public boolean isLoggedIn() {
