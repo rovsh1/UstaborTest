@@ -17,7 +17,7 @@ public class CustomDriver implements DriverSource {
         switch (Config.getBrowser()) {
             case chrome:
                 try {
-                    System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/workspace/chromedriver_linux");
+                    System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--headless");
                     options.addArguments("window-size=1800x900");

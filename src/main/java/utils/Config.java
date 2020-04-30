@@ -158,4 +158,24 @@ public class Config {
     public static boolean isChrome() {
         return getBrowser().equals(Browsers.chrome);
     }
+
+    public static String getChromeDriverPath() {
+        var os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("win")) {
+
+            return "driver/chromedriver_81.exe";
+
+        } else if (os.contains("mac")) {
+
+            return "driver/chromedriver_mac";
+
+        } else if (os.contains("nux")) {
+
+            return "/var/lib/jenkins/workspace/chromedriver_linux";
+
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
 }
