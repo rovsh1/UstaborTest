@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import utils.WaitHelper;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -37,10 +38,20 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public void removeRandomFavoriteProject() {
+        var projectsCount = favoriteProjects.size();
         favoriteProjects
                 .get(new Random().nextInt(favoriteProjects.size()))
                 .findElement(By.xpath(".//i"))
                 .click();
+
+        try {
+            setTimeouts(1, ChronoUnit.SECONDS);
+            WaitHelper.pollingWait(20000, 500, () -> favoriteProjects.size() == projectsCount - 1);
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+
+        resetTimeouts();
     }
 
     public void verifyMyMastersListContains(String projectName) {
