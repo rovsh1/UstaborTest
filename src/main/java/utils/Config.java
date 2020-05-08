@@ -72,17 +72,10 @@ public class Config {
     }
 
     public static String getFullUrl() {
-        String lang = getLang();
-        String url = getSite();
-
-        if (lang == null) {
-            return url;
-        }
-
-        return url + "/" + lang + "/";
+        return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
     }
 
-    public static String getSite() {
+    public static String getBaseUrl() {
         if (site == null) {
             site = getPropertyFromEnvVariable(SITE, true);
         }
@@ -97,7 +90,7 @@ public class Config {
 
     public static String getLang() {
         if (lang == null) {
-            lang = getPropertyFromEnvVariable(LANG, false);
+            lang = getPropertyFromEnvVariable(LANG, true);
         }
         return lang;
     }
@@ -164,7 +157,7 @@ public class Config {
 
         if (os.contains("win")) {
 
-            return "driver/chromedriver_81.exe";
+            return "driver/chromedriver.exe";
 
         } else if (os.contains("mac")) {
 

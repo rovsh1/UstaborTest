@@ -28,10 +28,10 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
     private WebElementFacade logoBtn;
 
-    @FindBy(xpath = "//a[@href='/profile/']")
+    @FindBy(xpath = "//a[contains(@href, 'profile')]")
     private WebElementFacade profileBtn;
 
-    @FindBy(xpath = "//a[@href='/profile/logout/']")
+    @FindBy(xpath = "//a[contains(@href, 'profile/logout')]")
     private WebElementFacade logoutBtn;
 
     @FindBy(xpath = "//a[@href='#signInForm']")
@@ -87,7 +87,7 @@ public class BasePage extends PageObject {
     private WebElementFacade mobileViewMenuBtn;
     //endregion
 
-    @FindBy(xpath = "//nav[@class='footer']/a[@href='/sitemap/']")
+    @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'/sitemap/')]")
     private WebElementFacade siteMapLink;
 
     public void setTimeouts(int duration, TemporalUnit timeUnit) {
@@ -235,7 +235,8 @@ public class BasePage extends PageObject {
         openHeaderCountriesDropDown();
         return countriesList
                 .stream()
-                .map(WebElementFacade::getText)
+                .map(x -> x.getAttribute("class"))
+                .map(x -> x.substring(0, x.lastIndexOf(" ")))
                 .collect(Collectors.toList());
     }
 
@@ -258,8 +259,27 @@ public class BasePage extends PageObject {
         item.click();
     }
 
+    public void setCountryByCode(String countryCode) {
+        if (!isCountrySelectorVisible() || headerCountriesBtn.getAttribute("class").contains(countryCode)) {
+            return;
+        }
+
+        openHeaderCountriesDropDown();
+        WebElementFacade item = countriesList
+                .stream()
+                .filter(s -> s.getAttribute("class").contains(countryCode))
+                .findFirst()
+                .orElse(null);
+
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
+        item.click();
+    }
+
     public void currentDomainNameShouldBe(String country) {
-        assertThat(headerCountriesBtn.getText()).isEqualTo(country);
+        assertThat(headerCountriesBtn.getAttribute("class")).contains(country);
     }
 
     public void clickProfileBtn() {

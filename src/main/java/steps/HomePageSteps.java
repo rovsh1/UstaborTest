@@ -120,6 +120,11 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
+    public void setCountryByCode(String countryCode) {
+        homePage.setCountryByCode(countryCode);
+    }
+
+    @Step
     public void currentDomainNameShouldBe(String country) {
         homePage.currentDomainNameShouldBe(country);
     }

@@ -1,6 +1,5 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.WithTags;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
@@ -9,12 +8,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@WithTag("smoke")
+
 @RunWith(SerenityRunner.class)
-@WithTags({
-        @WithTag("test"),
-        @WithTag("full"),
-        @WithTag("prod")
-})
 public class UU201_CatalogTest extends TestBase {
 
     @Test

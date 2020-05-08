@@ -1,7 +1,6 @@
 import entities.CategoryCheckbox;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.WithTags;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
@@ -9,10 +8,8 @@ import utils.Config;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WithTags({
-        @WithTag("test"),
-        @WithTag("full")
-})
+@WithTag("smoke")
+
 @RunWith(SerenityRunner.class)
 public class TC002 extends TestBase {
 

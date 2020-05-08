@@ -1,18 +1,13 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
-
-import net.thucydides.core.annotations.WithTags;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
 
+@WithTag("smoke")
+
 @RunWith(SerenityRunner.class)
-@WithTags({
-        @WithTag("test"),
-        @WithTag("prod"),
-        @WithTag("full")
-})
 public class UU222_VerifyDomainsChange extends TestBase {
 
     @Test
@@ -21,7 +16,7 @@ public class UU222_VerifyDomainsChange extends TestBase {
         if (user.atHomePage.isCountrySelectorAvailable()) {
             List<String> countriesList = user.atHomePage.getCountriesList();
             for (String country: countriesList) {
-                user.atHomePage.setCountry(country);
+                user.atHomePage.setCountryByCode(country);
                 user.atHomePage.currentDomainNameShouldBe(country);
             }
         }

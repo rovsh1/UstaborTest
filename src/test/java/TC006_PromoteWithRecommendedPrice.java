@@ -1,7 +1,5 @@
 import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.WithTags;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,9 +7,6 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
-@WithTags({
-        @WithTag("test")
-})
 public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     private Master master;

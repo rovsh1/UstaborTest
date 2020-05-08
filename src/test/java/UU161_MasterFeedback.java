@@ -1,19 +1,13 @@
 import entities.Master;
 import entities.Project;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.WithTags;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
-import utils.Email;
 
 @RunWith(SerenityRunner.class)
-@WithTags({
-        @WithTag("test")
-})
 public class UU161_MasterFeedback extends RegistrationTestBase {
 
     private Project project;
