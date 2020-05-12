@@ -36,14 +36,11 @@ public class UU201_CatalogTest extends TestBase {
         user.atCatalogPage.openSiteMap();
         user.atSiteMapPage.openRandomUrl();
         user.atCatalogPage.verifyFilterDoesNotContainsDefaultValues();
-        int projectsCount = user.atCatalogPage.getProjectsCounterValue();
 
         String city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
         String district = getText("FilterDistrict_" + Config.getCountryCode());
 
         user.atCatalogPage.selectFilterCityAndDistrict(city, district);
-        assertThat(user.atCatalogPage.getProjectsCounterValue()).isNotEqualTo(projectsCount);
-
         user.atCatalogPage.verifyFilterContainsValues(city, district);
 
         for (int i = 0; i < 3; i++) {

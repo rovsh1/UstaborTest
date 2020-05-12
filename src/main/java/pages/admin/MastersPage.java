@@ -7,6 +7,8 @@ import utils.Config;
 
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 public class MastersPage extends BaseAdminPage {
 
     @FindBy(xpath = "//a[contains(@href,'master/view')]")
@@ -64,6 +66,7 @@ public class MastersPage extends BaseAdminPage {
         badges.forEach(WebElementFacade::click);
         master.setCountOfBadges(badges.size() - 2);
         submitBtn.click();
+        assertThat(mastersList.isEmpty()).isFalse();
     }
 
     public void deleteMaster(String profileId) {

@@ -38,20 +38,15 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public void removeRandomFavoriteProject() {
-        var projectsCount = favoriteProjects.size();
         favoriteProjects
                 .get(new Random().nextInt(favoriteProjects.size()))
                 .findElement(By.xpath(".//i"))
                 .click();
-
         try {
-            setTimeouts(1, ChronoUnit.SECONDS);
-            WaitHelper.pollingWait(20000, 500, () -> favoriteProjects.size() == projectsCount - 1);
-        } catch (TimeoutException e) {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        resetTimeouts();
     }
 
     public void verifyMyMastersListContains(String projectName) {

@@ -163,10 +163,14 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void registerAsMaster(Master master) {
+    public void openMasterRegistrationForm() {
         homePage.openRegistrationForm();
         homePage.clickMasterBtn();
         homePage.registerFormShouldBeVisible();
+    }
+
+    @Step
+    public void selectDomainAndEnterUsername(Master master) {
         homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
@@ -175,18 +179,27 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regFormEnterPassword(master.getPassword());
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectRandomCategory(master);
+    }
+
+    @Step
+    public void enterSelectExperienceAndCity(Master master) {
         homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
         homePage.regMasterFormSelectExperience();
         master.setCity(homePage.regMasterFormSelectCity());
+    }
+
+    @Step
+    public void registerAsMaster(Master master) {
+        openMasterRegistrationForm();
+        selectDomainAndEnterUsername(master);
+        enterSelectExperienceAndCity(master);
         homePage.regFormClickSubmit();
         homePage.registerFormShouldNotBeVisible();
     }
 
     @Step
     public void registerAsMasterWithCategory(Master master, String category) {
-        homePage.openRegistrationForm();
-        homePage.clickMasterBtn();
-        homePage.registerFormShouldBeVisible();
+        openMasterRegistrationForm();
         homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
