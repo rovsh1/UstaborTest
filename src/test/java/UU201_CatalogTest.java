@@ -35,7 +35,7 @@ public class UU201_CatalogTest extends TestBase {
         user.atCatalogPage.openSiteWithName(getText("SiteDomainBuild_Short1"));
         user.atCatalogPage.openSiteMap();
         user.atSiteMapPage.openRandomUrl();
-        user.atCatalogPage.verifyFilterDoesNotContainsDefaultValues();
+        user.atCatalogPage.verifyFilterValues();
 
         String city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
         String district = getText("FilterDistrict_" + Config.getCountryCode());

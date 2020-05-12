@@ -63,10 +63,12 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyFilterDoesNotContainsDefaultValues() {
+    public void verifyFilterValues() {
         catalogPage.openFilter();
         catalogPage.verifyCategoryFilterBtnTextIsNot(XmlParser.getTextByKey("FilterCategoriesDefault"));
-        catalogPage.verifyCityFilterTextIsNot(XmlParser.getTextByKey("FilterCityDefault"));
+        if (catalogPage.isBreadcrumbsLongEnough()) {
+            catalogPage.verifyCityFilterTextIsNot(XmlParser.getTextByKey("FilterCityDefault"));
+        }
     }
 
     @Step

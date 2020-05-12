@@ -33,6 +33,9 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//h1")
     private WebElementFacade pageHeader;
 
+    @FindBy(xpath = "//nav[@class='breadcrumbs']/a")
+    private List<WebElementFacade> headerNavigationElements;
+
     @FindBy(xpath = "//div[contains(@class, 'category selected')]")
     private WebElementFacade selectedCategory;
 
@@ -431,5 +434,9 @@ public class CatalogPage extends SearchBlock {
 
     public void applyFilter() {
         filterSubmitBtn.click();
+    }
+
+    public boolean isBreadcrumbsLongEnough() {
+        return headerNavigationElements.size() > 3;
     }
 }
