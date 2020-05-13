@@ -6,29 +6,25 @@ import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Map;
 
 public class AdminApi {
 
-    private static AdminApi instance;
+    private static final Logger logger = LoggerFactory.getLogger(AdminApi.class);
 
-    private Executor executor;
-    private String baseUrl;
+    private final Executor executor;
+    private final String baseUrl;
 
-    private AdminApi() {
+    public AdminApi() {
         executor = Executor.newInstance(
                 HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy())
                         .build());
         baseUrl = Config.getAdminUrl();
-    }
-
-    public static AdminApi getInstance() {
-        if (instance == null) {
-            instance = new AdminApi();
-        }
-        return instance;
+        login();
     }
 
     public void login() {
@@ -45,8 +41,10 @@ public class AdminApi {
                     .getStatusCode();
 
             if (result != 200) {
+                logger.info("Admin login failed");
                 throw new HttpResponseException(result, "Login failed");
             }
+            logger.info("Admin login successfully");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +52,7 @@ public class AdminApi {
     }
 
     public void deleteMaster(String id) {
-        var url = baseUrl + "master/delete/" + id;
+        var url = baseUrl + String.format("master/delete/%s/", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -65,6 +63,7 @@ public class AdminApi {
             if (result != 200) {
                 throw new HttpResponseException(result, "Delete master request failed");
             }
+            logger.info("Master profile deleted. Id: {}", id);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,28 +131,5 @@ public class AdminApi {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void enablePromotion(String countryId, String categoryId, int minPrice, int maxPrice) {
-        var url = baseUrl +  String.format("category/countryform/%s/?id=%s", categoryId, countryId);
-
-        try {
-            var result = executor.execute(Request.Post(url)
-                    .bodyForm(Form.form()
-                            .add("data[enabled]", "1")
-                            .add("data[price_min]", String.valueOf(minPrice))
-                            .add("data[price_max]", String.valueOf(maxPrice))
-                            .build()))
-                    .returnResponse();
-
-            if (result.getStatusLine()
-                    .getStatusCode() != 200) {
-                throw new HttpResponseException(99, "Category enable request failed");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }

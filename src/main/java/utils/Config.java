@@ -68,7 +68,8 @@ public class Config {
             adminUrl = PropertyReader.getInstance().getProperty(prefix + ".site.admin", props);
         }
 
-        return String.format("%s%s-%s/", adminUrl, getLang(), getCountryCode());
+        //return String.format("%s%s-%s/", adminUrl, getLang(), getCountryCode());
+        return adminUrl;
     }
 
     public static String getFullUrl() {

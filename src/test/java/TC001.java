@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.AdminApi;
 
 @WithTag("smoke")
 
@@ -26,10 +27,10 @@ public class TC001 extends TestBase {
         user.atMasterProfilePage.masterCityShouldBe(master.getCity());
     }
 
-    @After
-    public void tearDown() {
-        if (master.getProfileId() != null) {
-            admin.atMastersPage.deleteMaster(master);
-        }
-    }
+//    @After
+//    public void tearDown() {
+//        if (master.getProfileId() != null) {
+//            new AdminApi().deleteMaster(master.getProfileId());
+//        }
+//    }
 }

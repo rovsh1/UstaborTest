@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -28,6 +29,15 @@ public class MastersPage extends BaseAdminPage {
 
     @FindBy(xpath = "//input[contains(@id, 'form_data_badges')]")
     private List<WebElementFacade> badges;
+
+    @FindBy(xpath = "//input[@id='quicksearch']")
+    private WebElementFacade searchForm;
+
+    @FindBy(xpath = "//form[@class='quicksearch']/button")
+    private WebElementFacade searchButton;
+
+    @FindBy(xpath = "//table//tr/td[2]")
+    private List<WebElementFacade> mastersIds;
 
     private final String VIEWMASTERURL = "master/view/";
     private final String EDITMASTERURL = "master/edit/";
@@ -71,5 +81,15 @@ public class MastersPage extends BaseAdminPage {
 
     public void deleteMaster(String profileId) {
         getDriver().get(Config.getAdminUrl() + "master/delete/" + profileId);
+    }
+
+    public void performSearch(String text) {
+        openPage();
+        searchForm.sendKeys(text);
+        searchButton.click();
+    }
+
+    public List<String> getMastersIds() {
+        return mastersIds.stream().map(WebElementFacade::getText).collect(Collectors.toList());
     }
 }

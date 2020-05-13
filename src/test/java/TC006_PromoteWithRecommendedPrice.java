@@ -3,6 +3,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.AdminApi;
 
 import java.util.concurrent.TimeoutException;
 
@@ -44,9 +45,8 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     @After
     public void tearDown() {
-        admin.atAdminHomePage.loginAsAdmin();
         if (master.getProfileId() != null) {
-            admin.atMastersPage.deleteMaster(master);
+            new AdminApi().deleteMaster(master.getProfileId());
         }
     }
 }
