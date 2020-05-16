@@ -5,16 +5,16 @@ import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import entities.Master;
 import entities.Project;
+import entities.TestCategory;
 import entities.User;
 
 import java.util.Locale;
-import java.util.Random;
 
 public class DataGenerator {
 
-    private Faker faker;
-    private FakeValuesService fakeValuesService;
-    private String password = "Password1!";
+    private final Faker faker;
+    private final FakeValuesService fakeValuesService;
+    private final String password = "Password1!";
 
     public DataGenerator() {
         faker = new Faker();
@@ -26,71 +26,42 @@ public class DataGenerator {
         return faker.internet().password();
     }
 
-    public User getFullInfoUserValidEmail(String email) {
-        String randomEmail = email.substring(0, email.indexOf('@'))
-                + "+"
-                + fakeValuesService.bothify("????####@gmail.com");
+    public User getCustomer(String email) {
+        return new User(email, password, faker.phoneNumber().phoneNumber());
+    }
 
-        User user = new User(
-                randomEmail,
-                password,
-                faker.phoneNumber().phoneNumber()
-        );
+    public Master getMasterRandomEmail() {
+        var user = new Master();
+        user.setPassword(password);
+        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        user.setFirstName(faker.name().firstName());
+        user.setLastName(faker.name().lastName());
+        user.setAboutMe(faker.name().fullName());
+        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+
+        String randomEmail = fakeValuesService.bothify(".????####@fakeDomain.com");
+        user.setEmail(user.getFirstName() + "." + user.getLastName() + randomEmail);
+
+        return user;
+    }
+
+    public Master getMasterRandomEmail(TestCategory category) {
+        var master = getMasterRandomEmail();
+        master.setCategoryId(category.getSystemId());
+        master.setCategoryName(category.getName());
+
+        return master;
+    }
+
+    public Master getMasterValidEmail(String email) {
+        var user = new Master();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
         user.setPhoneNumber(faker.phoneNumber().phoneNumber());
         return user;
-    }
-
-    public User getFullInfoUserRandomEmail() {
-        User user = new User(
-                faker.internet().emailAddress(),
-                password,
-                faker.phoneNumber().phoneNumber()
-        );
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
-        user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
-        return user;
-    }
-
-    public Master getFullInfoMasterRandomEmail() {
-        Master user = new Master(
-                faker.internet().emailAddress(),
-                password,
-                faker.phoneNumber().phoneNumber()
-        );
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
-        user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
-        return user;
-    }
-
-    public Master getFullInfoMasterValidEmail(String email) {
-        var user = new Master(
-                email,
-                password,
-                faker.phoneNumber().phoneNumber()
-        );
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
-        user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
-        return user;
-    }
-
-    public int getRandomNumber() {
-        return new Random().nextInt(9999999);
-    }
-
-    public Project getProject(Master master) {
-        return new Project(
-                String.format("Project#%d", this.getRandomNumber()),
-                master.getCategory(),
-                "This is project description"
-        );
     }
 }

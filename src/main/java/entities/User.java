@@ -2,7 +2,7 @@ package entities;
 
 public class User {
 
-    private String login;
+    private String email;
     private String password;
     private String phoneNumber;
     private String firstName;
@@ -10,14 +10,12 @@ public class User {
     private String aboutMe;
     private String city;
 
-    public User(String login, String password, String phoneNumber) {
-        this.login = login;
+    public User() { }
+
+    public User(String email, String password, String phoneNumber) {
+        this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-    }
-
-    public User() {
-
     }
 
     public String getCity() {
@@ -52,12 +50,12 @@ public class User {
         this.aboutMe = aboutMe;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

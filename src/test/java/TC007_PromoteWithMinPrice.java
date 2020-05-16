@@ -1,55 +1,44 @@
-import entities.Master;
+import entities.TestCategory;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import org.junit.After;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Random;
 
-@RunWith(SerenityRunner.class)
-public class TC007_PromoteWithMinPrice extends TestBase {
+@WithTag("prod")
 
-    private Master master;
+@RunWith(SerenityRunner.class)
+public class TC007_PromoteWithMinPrice extends ProdTestBase {
 
     @Test
     public void promoteWithMinPrice() throws Exception {
-        var minimalPriceOnlyCategories = getTextByPredicate("DomainBuild_MinPromo_");
-        var category = minimalPriceOnlyCategories.get(new Random().nextInt(minimalPriceOnlyCategories.size()));
+//        var minimalPriceOnlyCategories = getTextByPredicate("DomainBuild_MinPromo_");
+//        var nonProdCategoryName = minimalPriceOnlyCategories.get(new Random().nextInt(minimalPriceOnlyCategories.size()));
+//        var category = new TestCategory();
+//        category.setName(nonProdCategoryName);
 
-        master = data.getFullInfoMasterRandomEmail();
+        var master = data.getMasterRandomEmail(category);
+        watcher.masters.add(master);
 
-        user.atHomePage.registerAsMasterWithCategory(master, category);
-        user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
+        user.registerAsMaster(master);
 
-        master.setProfileId(user.atMasterProfilePage.getProfileId());
-        var project = data.getProject(master);
-
-        admin.atAdminHomePage.loginAsAdmin();
-        admin.atMastersPage.addMoneyToMaster(10000, master.getProfileId());
+        admin.addMoneyToMaster(10000, master);
         admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategoryId(), "100", "500");
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMasterIfNeed(master.getLogin(), master.getPassword());
-
+        user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
         user.atMasterProfilePage.open();
         user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(project, true, true);
+        user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), true, true);
         user.atMasterProjectsPage.logsOut();
 
         admin.atAdminHomePage.loginAsAdmin();
-        admin.atPromotionPage.approveProject(project.getSystemId());
+        admin.atPromotionPage.approveProject(master.getProject().getSystemId());
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
-        user.atHomePage.openCategory(project.getCategory());
-        user.atCatalogPage.verifyProjectPromoted(project);
-    }
-
-    @After
-    public void tearDown() {
-        admin.atAdminHomePage.loginAsAdmin();
-        if (master.getProfileId() != null) {
-            admin.atMastersPage.deleteMaster(master);
-        }
+        user.atHomePage.openCategory(master.getProject().getCategory());
+        user.atCatalogPage.verifyProjectPromoted(master.getProject());
     }
 }

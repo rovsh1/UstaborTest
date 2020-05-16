@@ -1,8 +1,11 @@
 package steps;
 
+import entities.Master;
+import entities.Project;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 import steps.masterProfileSteps.*;
+import utils.Config;
 
 public class UserSteps extends ScenarioSteps {
 
@@ -47,4 +50,15 @@ public class UserSteps extends ScenarioSteps {
 
     @Steps
     public MasterFaqPageSteps atMasterFaqPage;
+
+    public void registerAsMaster(Master master) {
+        if (Config.isProdEnv()) {
+            atHomePage.registerAsMasterWithSpecifiedCategory(master);
+        } else {
+            atHomePage.registerAsMaster(master);
+        }
+        atMasterProfilePage.waitForPageIsVisible();
+        master.setProfileId(atMasterProfilePage.getProfileId());
+        master.setProject(new Project(master.getCategoryName()));
+    }
 }

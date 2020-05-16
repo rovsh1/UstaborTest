@@ -24,7 +24,7 @@ public class ProjectPageSteps extends ScenarioSteps {
     public void verifyProjectPageByMasterInfo(Master master) {
         projectPage.projectUrlShouldContain(master.getProjectUrl());
         projectPage.masterNameShouldContain(master.getFirstName());
-        projectPage.masterCategoriesShouldContain(master.getCategory());
+        projectPage.masterCategoriesShouldContain(master.getCategoryName());
         projectPage.aboutMeShouldBeVisible();
         projectPage.projectImageShouldBeVisible();
     }

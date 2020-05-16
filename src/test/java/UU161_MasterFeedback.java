@@ -1,31 +1,36 @@
 import entities.Master;
-import entities.Project;
+import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import org.junit.After;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.Config;
+
+@WithTag("prod")
 
 @RunWith(SerenityRunner.class)
 public class UU161_MasterFeedback extends RegistrationTestBase {
 
-    private Project project;
     private Master master;
+    private User customer;
 
     @Before
     public void setup() throws Exception {
-        master = data.getFullInfoMasterRandomEmail();
-        user.atHomePage.registerAsMaster(master);
-        project = data.getProject(master);
+        customer = data.getCustomer(email.getEmailAddress());
+        master = data.getMasterRandomEmail(category);
+        watcher.masters.add(master);
+
+        user.registerAsMaster(master);
+        admin.enablePromotion(master);
+
+        user.atHomePage.openHomePage();
+        user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
+        user.atMasterProfilePage.open();
         user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
+        user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), false, false);
         user.atHomePage.logsOut();
 
-        user.atHomePage.registerAsCustomer(
-                email.getEmail(),
-                Config.getUsers().getNewCustomer().getPassword()
-        );
+        user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
     }
 
@@ -37,7 +42,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
         user.atProjectPage.addProjectToFavorites();
 
         user.atCustomerProfilePage.openHomePage();
-        user.atHomePage.enterTextAndSearch(project.getName());
+        user.atHomePage.enterTextAndSearch(master.getProject().getName());
         user.atCatalogPage.openProjectContactsAndVerify(master.getLastName());
 
         user.atProjectPage.openCustomerProfilePage();
@@ -45,9 +50,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
         user.atCustomerProfilePage.removeRandomAndVerifyCountOfProjects(0);
 
         user.atCustomerProfilePage.logsOut();
-        user.atHomePage.loginAsCustomer(
-                email.getEmail(),
-                Config.getUsers().getNewCustomer().getPassword());
+        user.atHomePage.loginAsCustomer(customer.getEmail(), customer.getPassword());
 
         user.atHomePage.waitForFeedbackProposalAndOpen();
         user.atFeedbackPage.leftFeedback(5, "Testing Review");
@@ -58,18 +61,10 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
-        user.atHomePage.openCategory(project.getCategory());
+        user.atHomePage.openCategory(master.getProject().getCategory());
         user.atCatalogPage.loadAllResults();
         user.atCatalogPage.sortProjectsByRating();
 
-        user.atCatalogPage.verifyProjectsSortedByRate(project, 5);
-    }
-
-    @After
-    public void tearDown() {
-        admin.atAdminHomePage.loginAsAdmin();
-        if (master.getProfileId() != null) {
-            admin.atMastersPage.deleteMaster(master);
-        }
+        user.atCatalogPage.verifyProjectsSortedByRate(master.getProject(), 5);
     }
 }

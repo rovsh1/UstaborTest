@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Map;
 
-public class AdminApi {
+public class Admin {
 
-    private static final Logger logger = LoggerFactory.getLogger(AdminApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(Admin.class);
 
     private final Executor executor;
     private final String baseUrl;
 
-    public AdminApi() {
+    public Admin() {
         executor = Executor.newInstance(
                 HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy())
                         .build());
@@ -33,7 +33,7 @@ public class AdminApi {
         try {
             var result = executor.execute(Request.Post(url)
                 .bodyForm(Form.form()
-                        .add("auth[login]", Config.getUsers().getAdmin().getLogin())
+                        .add("auth[login]", Config.getUsers().getAdmin().getEmail())
                         .add("auth[password]", Config.getUsers().getAdmin().getPassword())
                         .build()))
                     .returnResponse()
@@ -61,6 +61,7 @@ public class AdminApi {
                     .getStatusCode();
 
             if (result != 200) {
+                logger.info("Delete master request failed");
                 throw new HttpResponseException(result, "Delete master request failed");
             }
             logger.info("Master profile deleted. Id: {}", id);
@@ -131,5 +132,25 @@ public class AdminApi {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void deleteCategory(String id) {
+        var url = baseUrl + String.format("category/delete/%s/", id);
+
+        try {
+            var result = executor.execute(Request.Get(url))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
+            if (result != 200) {
+                logger.info("Delete category request failed");
+                throw new HttpResponseException(result, "Delete category request failed");
+            }
+            logger.info("Category deleted. Id: {}", id);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

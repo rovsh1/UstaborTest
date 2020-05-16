@@ -1,14 +1,11 @@
 package pages;
 
 import entities.Master;
-import entities.User;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
 import utils.XmlParser;
@@ -18,7 +15,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Random;
 
@@ -178,6 +174,9 @@ public class HomePage extends SearchBlock {
     private WebElementFacade leaveFeedbackBtn;
 
     @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
+    private WebElementFacade firstCategory;
+
+    @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
     private List<WebElementFacade> categoriesList;
 
     @FindBy(xpath = "//input[@id='form_password_login']")
@@ -215,7 +214,7 @@ public class HomePage extends SearchBlock {
 
     public void regFormClickSubmit() {
         regFormSubmitBtn.click();
-        waitForLoaderDisappears();
+//        waitForLoaderDisappears();
     }
 
     public void regFormEnterAuthCode(String code) {
@@ -251,7 +250,7 @@ public class HomePage extends SearchBlock {
         focusElementJS(category);
         category.click();
 
-        master.setCategory(category.getText());
+        master.setCategoryName(category.getText());
         master.setCategoryId(category.getAttribute("data-id"));
     }
 
@@ -269,8 +268,23 @@ public class HomePage extends SearchBlock {
         focusElementJS(category);
         category.click();
 
-        master.setCategory(category.getText());
+        master.setCategoryName(category.getText());
         master.setCategoryId(category.getAttribute("data-id"));
+    }
+
+    public void regMasterFormSelectCategory(Master master) {
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(firstCategory).isClickable();
+        WebElementFacade category = regMasterCategoriesList.stream()
+                .filter(x -> x.getText().equals(master.getCategoryName()))
+                .findFirst()
+                .orElse(null);
+
+        if (category == null) {
+            throw new NullPointerException(String.format("No category found: %s", master.getCategoryName()));
+        }
+
+        focusElementJS(category);
+        category.click();
     }
 
     public void regMasterFormEnterPhoneNumber(String phoneNumber) {
@@ -356,13 +370,8 @@ public class HomePage extends SearchBlock {
     }
 
     public void registerFormShouldNotBeVisible() {
-        if (Config.isChrome()) {
-            masterRegistrationForm.withTimeoutOf(Duration.ofSeconds(30)).waitUntilNotVisible();
-        } else {
-            new WebDriverWait(getDriver(), 30)
-                    .until(driver -> driver.findElements(By.xpath(registrationFormXpath)).size() == 0);
-        }
-
+        new WebDriverWait(getDriver(), 30)
+                .until(driver -> driver.findElements(By.xpath(registrationFormXpath)).size() == 0);
     }
 
     public void registerFormShouldBeVisible() {
@@ -441,9 +450,15 @@ public class HomePage extends SearchBlock {
         iAmCustomerBtn.click();
     }
 
-    public void clickMasterBtn() {
+    public void clickMasterBtnRegister() {
         iAmMasterBtn.click();
-        waitForLoaderDisappears();
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(regFormEmailInput).isPresent();
+//        waitForLoaderDisappears();
+    }
+
+    public void clickMasterBtnLogin() {
+        iAmMasterBtn.click();
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(signInFormLoginInput).isPresent();
     }
 
     public void clickCatalogBtn() {

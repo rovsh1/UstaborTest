@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
+import utils.WaitHelper;
 import utils.XmlParser;
 
 import java.time.Duration;
@@ -16,13 +17,17 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasePage extends PageObject {
 
-    private String loaderXpath = "//div[contains(@class, 'loading')]";
+    private final String loaderXpath = "//div[contains(@class, 'loading')]";
+
+    @FindBy(xpath = loaderXpath)
+    private WebElementFacade loader;
 
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
@@ -101,11 +106,24 @@ public class BasePage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
-        if (Config.isChrome()) {
-            withTimeoutOf(25, ChronoUnit.SECONDS)
-                    .waitForCondition()
-                    .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
-        }
+        setTimeouts(2, ChronoUnit.SECONDS);
+//        if (loader.isVisible()) {
+            try {
+                WaitHelper.pollingWait(60000, 500, () -> !loader.isVisible());
+            } catch (TimeoutException e) {
+                e.printStackTrace();
+            }
+//            resetTimeouts();
+//            if (Config.isChrome()) {
+//                withTimeoutOf(10, ChronoUnit.SECONDS)
+//                        .waitForCondition()
+//                        .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
+//            } else {
+//                new WebDriverWait(getDriver(), 10)
+//                        .until(d -> d.findElements(By.xpath(loaderXpath)).size() == 0);
+//            }
+//        }
+        resetTimeouts();
     }
 
     public void openPageWithConfigUrl() {
@@ -126,8 +144,11 @@ public class BasePage extends PageObject {
     }
 
     public void logsOut() {
-        logoutBtn.waitUntilClickable();
-        logoutBtn.click();
+        for (int i=0;i<3;i++) {
+            logoutBtn.waitUntilClickable();
+            logoutBtn.click();
+            if (openLoginFormBtn.isVisible()) { return; }
+        }
     }
 
     boolean isLogoutBtnVisible() {

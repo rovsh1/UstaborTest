@@ -11,11 +11,10 @@ public class TC004 extends TestBase {
 
     @Test
     public void masterAccountLoginWrongPassword() {
-
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.selectIamMasterAndVerify();
         user.atHomePage.loginAsMaster(
-                Config.getUsers().getDefaultMaster().getLogin(),
+                Config.getUsers().getDefaultMaster().getEmail(),
                 "thisIsWrongPassword",
                 false);
         user.atHomePage.loginErrorWithTextShouldBeVisible(getText("LoginFailedError"));

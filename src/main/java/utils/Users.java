@@ -5,7 +5,7 @@ import entities.User;
 public final class Users {
 
     private static final String PROPERTY_FILE = "users.properties";
-    private String domain;
+    private final String domain;
 
     Users(String domain) {
         this.domain = domain;
@@ -25,10 +25,6 @@ public final class Users {
 
     public User getDefaultMaster() {
         return getUser("defaultMaster");
-    }
-
-    public User getNewCustomer() {
-        return getUser("newCustomer");
     }
 
     public User getAdmin() {

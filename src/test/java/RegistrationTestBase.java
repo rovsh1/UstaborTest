@@ -2,14 +2,16 @@ import org.junit.After;
 import org.junit.Before;
 import utils.Email;
 
-public class RegistrationTestBase extends TestBase {
+import java.util.concurrent.TimeoutException;
+
+public class RegistrationTestBase extends ProdTestBase {
 
     protected Email email;
 
     @Before
-    public void setUp() {
-        email = new Email();
+    public void setUp() throws TimeoutException {
         super.setUp();
+        email = new Email();
         user.atHomePage.openHomePage();
     }
 

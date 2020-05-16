@@ -7,9 +7,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
+import utils.XmlParser;
 
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Pattern;
 
 public class CategoriesPage extends BaseAdminPage {
 
@@ -17,6 +20,8 @@ public class CategoriesPage extends BaseAdminPage {
     private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a[@class='button-edit']";
     private static String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
     private static String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
+
+    private static String categoryUrlByNameXpath = "//tr[./td[text()='%s']]//a";
 
     @FindBy(xpath = "//li[@data-tab='tab-countries']")
     private WebElementFacade promotionTab;
@@ -61,16 +66,6 @@ public class CategoriesPage extends BaseAdminPage {
         }
     }
 
-    public void editCategoryByName(String categoryName) {
-        quickSearch(categoryName);
-        Actions build = new Actions(getDriver());
-        build.moveToElement(editBtn).click().build().perform();
-    }
-
-    public void openPromotionTab() {
-        promotionTab.click();
-    }
-
     public void enablePromotionAndSetPrice(String minimalPrice, String maximumPrice) {
         if (!enablePromoCheckbox.isSelected()) {
             enablePromoCheckbox.click();
@@ -90,5 +85,22 @@ public class CategoriesPage extends BaseAdminPage {
         builder.moveToElement(countryRow).build().perform();
 
         getDriver().findElement(By.xpath(String.format(promotionXpath, Config.getCountry()))).click();
+    }
+
+    public String getCategoryIdByName(String categoryName) {
+        var url = getDriver()
+                .findElement(By.xpath(String.format(categoryUrlByNameXpath, categoryName)))
+                .getAttribute("href");
+
+        var matcher = Pattern.compile("(?<=/)\\d{3,}(?=/)").matcher(url);
+        if (matcher.find()) {
+            return matcher.group(0);
+        }
+
+        return null;
+    }
+
+    public void waitForPageLoaded() {
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(promotionTab).isClickable();
     }
 }

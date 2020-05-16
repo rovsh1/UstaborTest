@@ -98,20 +98,12 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     }
 
     public void selectNoPromotionCheckboxIfPresent() {
-        setWaitForTimeout(1000);
+        setTimeouts(3, ChronoUnit.SECONDS);
         if (noPromotionCheckbox.isPresent()) {
             focusElementJS(noPromotionCheckbox);
             noPromotionCheckbox.click();
         }
-        setWaitForTimeout(15000);
-    }
-
-    public void verifyProjectsListContains(String name) {
-        assertThat(projectsList
-                .stream()
-                .map(WebElementFacade::getText)
-                .anyMatch(project -> project.contains(name)))
-                .isTrue();
+        resetTimeouts();
     }
 
     public int getCountOfProjects() {
@@ -123,8 +115,8 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     }
 
     public void waitTillProjectsAreVisible() {
-        projectBtn.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
-        projectBtn.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(10));
+        projectBtn.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(25));
+        projectBtn.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(25));
     }
 
     public void addProjectBtnShouldBeVisible() {

@@ -21,7 +21,7 @@ public class TC002 extends TestBase {
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.selectIamMasterAndVerify();
         user.atHomePage.loginAsMaster(
-                Config.getUsers().getDefaultMaster().getLogin(),
+                Config.getUsers().getDefaultMaster().getEmail(),
                 Config.getUsers().getDefaultMaster().getPassword(),
                 false);
         user.atHomePage.verifyUserIsLoggedIn();
@@ -42,7 +42,7 @@ public class TC002 extends TestBase {
 
         user.atMasterProfileSettingsPage.logsOut();
         user.atHomePage.loginAsMaster(
-                Config.getUsers().getDefaultMaster().getLogin(),
+                Config.getUsers().getDefaultMaster().getEmail(),
                 Config.getUsers().getDefaultMaster().getPassword(),
                 true);
         user.atHomePage.verifyUserIsLoggedIn();

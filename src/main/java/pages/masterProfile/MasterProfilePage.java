@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,5 +69,9 @@ public class MasterProfilePage extends MasterProfileBasePage {
         } else {
             assertThat(categories.contains(category.getName().toLowerCase())).isFalse();
         }
+    }
+
+    public void waitForPageIsVisible() {
+        withTimeoutOf(Duration.ofSeconds(30)).waitFor(profileSettingsBtn).isPresent();
     }
 }

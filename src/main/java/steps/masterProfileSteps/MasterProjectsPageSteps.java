@@ -12,8 +12,7 @@ public class MasterProjectsPageSteps extends MasterProfileSteps {
     private MasterProjectsPage masterProjectsPage;
 
     @Step
-    public void addNewProjectInCategory(
-            Project project, boolean promotion, boolean minPrice) throws TimeoutException {
+    public void addNewProjectInCategory(Project project, boolean promotion, boolean minPrice) throws TimeoutException {
         int countOfProjects = masterProjectsPage.getCountOfProjects();
         masterProjectsPage.openNewProjectForm();
         masterProjectsPage.enterProjectName(project.getName());

@@ -7,11 +7,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
+import utils.WaitHelper;
 
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
+import java.util.concurrent.TimeoutException;
 
 public class BaseAdminPage extends PageObject {
+
+    private final String loaderXpath = "//div[contains(@class, 'loading')]";
 
     @FindBy(xpath = "//form[@class='quicksearch']/input[@id='quicksearch']")
     private WebElementFacade quickSearchInput;
@@ -19,7 +24,8 @@ public class BaseAdminPage extends PageObject {
     @FindBy(xpath = "//form[@class='quicksearch']/button[@type='submit']")
     private WebElementFacade quickSearchSubmit;
 
-    private String loaderXpath = "//div[contains(@class, 'loading')]";
+    @FindBy(xpath = loaderXpath)
+    private WebElementFacade loader;
 
     public void quickSearch(String query) {
         quickSearchInput.sendKeys(query);
@@ -27,14 +33,13 @@ public class BaseAdminPage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
-        if (Config.isChrome()) {
-            withTimeoutOf(25, ChronoUnit.SECONDS)
-                    .waitForCondition()
-                    .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
-        } else {
-            new WebDriverWait(getDriver(), 10)
-                    .until(d -> d.findElements(By.xpath(loaderXpath)).size() == 0);
+        setTimeouts(1, ChronoUnit.SECONDS);
+        try {
+            WaitHelper.pollingWait(60000, 500, () -> !loader.isVisible());
+        } catch (TimeoutException e) {
+            e.printStackTrace();
         }
+        resetTimeouts();
     }
 
     public void setTimeouts(int duration, TemporalUnit timeUnit) {
@@ -45,5 +50,9 @@ public class BaseAdminPage extends PageObject {
     public void resetTimeouts() {
         resetImplicitTimeout();
         setWaitForTimeout(15000);
+    }
+
+    public void waitForLogin() {
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(quickSearchInput).isPresent();
     }
 }

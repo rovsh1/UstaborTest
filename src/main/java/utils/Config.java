@@ -1,6 +1,5 @@
 package utils;
 
-import entities.Email;
 import enums.Browsers;
 import enums.SystemProperties;
 import net.serenitybdd.core.Serenity;
@@ -11,7 +10,7 @@ import static enums.SystemProperties.*;
 
 public class Config {
 
-    private static String props = "config.properties";
+    private static final String props = "config.properties";
 
     private static String env;
     private static String site;
@@ -19,10 +18,7 @@ public class Config {
     private static String country;
     private static String countryCode;
     private static String adminUrl;
-
     private static Users users;
-    private static Email email;
-
     private static Browsers browser;
 
     public static Browsers getBrowser() {
@@ -38,6 +34,10 @@ public class Config {
         return browser;
     }
 
+    public static boolean isProdEnv() {
+        return !getEnv().equals("test");
+    }
+
     public static boolean isUstabor() {
         return site.contains("ustabor");
     }
@@ -48,17 +48,6 @@ public class Config {
         }
 
         return users;
-    }
-
-    public static Email getEmail() {
-        if (email == null) {
-            email = new Email(
-                    PropertyReader.getInstance().getProperty("email.server", props),
-                    PropertyReader.getInstance().getProperty("email.username", props),
-                    PropertyReader.getInstance().getProperty("email.password", props));
-        }
-
-        return email;
     }
 
     public static String getAdminUrl() {

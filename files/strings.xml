@@ -7,6 +7,9 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
+    <string name="CustomerRegEmailSubject">Регистрация пользователя</string>
+    <string name="MasterRegEmailSubject">Регистрация на сайте</string>
+    <string name="ForgotPassEmailSubject">Восстановление пароля</string>
     <string name="AuthCode">Код вашей регистрации: </string>
     <string name="ForgotPassword">этой ссылке</string>
 

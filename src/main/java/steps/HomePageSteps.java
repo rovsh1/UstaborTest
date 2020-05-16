@@ -53,12 +53,12 @@ public class HomePageSteps extends ScenarioSteps {
     public void loginAsMasterIfNeed(String login, String password) {
         if (!homePage.isLoggedIn()) {
             homePage.openLoginForm();
-            homePage.clickMasterBtn();
+            homePage.clickMasterBtnRegister();
             homePage.signInFormEnterLogin(login);
             homePage.signInFormEnterPassword(password);
             homePage.signInFormClickLoginBtn();
             homePage.loginErrorShouldBeVisible();
-            homePage.clickMasterBtn();
+            homePage.clickMasterBtnRegister();
             homePage.signInFormClickLoginBtn();
             homePage.waitForLoaderDisappears();
         }
@@ -69,7 +69,7 @@ public class HomePageSteps extends ScenarioSteps {
         if (openLoginForm) {
             homePage.openLoginForm();
         }
-        homePage.clickMasterBtn();
+        homePage.clickMasterBtnLogin();
         homePage.signInFormEnterLogin(login);
         homePage.signInFormEnterPassword(password);
         homePage.signInFormClickLoginBtn();
@@ -144,7 +144,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void selectIamMasterAndVerify() {
-        homePage.clickMasterBtn();
+        homePage.clickMasterBtnLogin();
         homePage.loginInputShouldBeVisible();
         homePage.passwordInputShouldBeVisible();
         homePage.loginBtnShouldBeVisible();
@@ -163,25 +163,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openMasterRegistrationForm() {
-        homePage.openRegistrationForm();
-        homePage.clickMasterBtn();
-        homePage.registerFormShouldBeVisible();
-    }
-
-    @Step
-    public void selectDomainAndEnterUsername(Master master) {
-        homePage.uploadAvatar();
-        homePage.regMasterFormSelectBuildSubDomain();
-        homePage.regMasterFormEnterFirstName(master.getFirstName());
-        homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterLogin(master.getLogin());
-        homePage.regFormEnterPassword(master.getPassword());
-        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectRandomCategory(master);
-    }
-
-    @Step
     public void enterSelectExperienceAndCity(Master master) {
         homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
         homePage.regMasterFormSelectExperience();
@@ -189,22 +170,51 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void registerAsMaster(Master master) {
-        openMasterRegistrationForm();
-        selectDomainAndEnterUsername(master);
-        enterSelectExperienceAndCity(master);
-        homePage.regFormClickSubmit();
-        homePage.registerFormShouldNotBeVisible();
-    }
-
-    @Step
-    public void registerAsMasterWithCategory(Master master, String category) {
-        openMasterRegistrationForm();
+    public void registerAsMasterWithSpecifiedCategory(Master master) {
+        homePage.openRegistrationForm();
+        homePage.clickMasterBtnRegister();
         homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterLogin(master.getLogin());
+        homePage.regFormEnterLogin(master.getEmail());
+        homePage.regFormEnterPassword(master.getPassword());
+        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
+        homePage.regMasterFormSelectCategory(master);
+        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
+        homePage.regMasterFormSelectExperience();
+        master.setCity(homePage.regMasterFormSelectCity());
+        homePage.regFormClickSubmit();
+    }
+
+    @Step
+    public void registerAsMaster(Master master) {
+        homePage.openRegistrationForm();
+        homePage.clickMasterBtnRegister();
+        homePage.registerFormShouldBeVisible();
+        homePage.uploadAvatar();
+        homePage.regMasterFormSelectBuildSubDomain();
+        homePage.regMasterFormEnterFirstName(master.getFirstName());
+        homePage.regMasterFormEnterLastName(master.getLastName());
+        homePage.regFormEnterLogin(master.getEmail());
+        homePage.regFormEnterPassword(master.getPassword());
+        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
+        homePage.regMasterFormSelectRandomCategory(master);
+        enterSelectExperienceAndCity(master);
+        homePage.regFormClickSubmit();
+//        homePage.registerFormShouldNotBeVisible();
+    }
+
+    @Step
+    public void registerAsMasterWithCategory(Master master, String category) {
+        homePage.openRegistrationForm();
+        homePage.clickMasterBtnRegister();
+        homePage.registerFormShouldBeVisible();
+        homePage.uploadAvatar();
+        homePage.regMasterFormSelectBuildSubDomain();
+        homePage.regMasterFormEnterFirstName(master.getFirstName());
+        homePage.regMasterFormEnterLastName(master.getLastName());
+        homePage.regFormEnterLogin(master.getEmail());
         homePage.regFormEnterPassword(master.getPassword());
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectCategory(master, category);
@@ -212,7 +222,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormSelectExperience();
         master.setCity(homePage.regMasterFormSelectCity());
         homePage.regFormClickSubmit();
-        homePage.registerFormShouldNotBeVisible();
+//        homePage.registerFormShouldNotBeVisible();
     }
 
     @Step

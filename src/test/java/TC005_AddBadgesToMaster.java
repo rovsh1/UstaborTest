@@ -1,47 +1,42 @@
-import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import org.junit.After;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeoutException;
 
-@RunWith(SerenityRunner.class)
-public class TC005_AddBadgesToMaster extends TestBase {
+@WithTag("prod")
 
-    private Master master;
+@RunWith(SerenityRunner.class)
+public class TC005_AddBadgesToMaster extends ProdTestBase {
 
     @Test
     public void addBadgesToMaster() throws TimeoutException, InterruptedException {
-        master = data.getFullInfoMasterRandomEmail();
-        user.atHomePage.registerAsMaster(master);
+        var master = data.getMasterRandomEmail(category);
+        watcher.masters.add(master);
 
-        master.setProfileId(user.atMasterProfilePage.getProfileId());
-        var project = data.getProject(master);
-
-        user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
+        user.registerAsMaster(master);
+        admin.enablePromotion(master);
 
         user.atHomePage.openHomePage();
-        user.atHomePage.enterTextAndSearch(project.getName());
-        user.atCatalogPage.verifyFoundProject(project.getSystemId());
-        user.atCatalogPage.openProjectBySystemId(project.getSystemId());
-        user.atProjectPage.verifyProjectInfo(project, master);
+        user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
+
+        user.atMasterProfilePage.open();
+        user.atMasterProjectsPage.openProjectsTab();
+        user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), false, false);
+
+        user.atHomePage.openHomePage();
+        user.atHomePage.enterTextAndSearch(master.getProject().getName());
+        user.atCatalogPage.verifyFoundProject(master.getProject().getSystemId());
+        user.atCatalogPage.openProjectBySystemId(master.getProject().getSystemId());
+        user.atProjectPage.verifyProjectInfo(master.getProject(), master);
 
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addAllBadgesToMaster(master);
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
-        user.atHomePage.openCategory(project.getCategory());
-        user.atCatalogPage.verifyProjectsWithBadge(project, master);
-    }
-
-    @After
-    public void tearDown() {
-        admin.atAdminHomePage.loginAsAdmin();
-        if (master.getProfileId() != null) {
-            admin.atMastersPage.deleteMaster(master);
-        }
+        user.atHomePage.openCategory(master.getProject().getCategory());
+        user.atCatalogPage.verifyProjectsWithBadge(master.getProject(), master);
     }
 }

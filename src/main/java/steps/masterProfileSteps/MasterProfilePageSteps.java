@@ -20,6 +20,11 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     }
 
     @Step
+    public void waitForPageIsVisible() {
+        masterProfilePage.waitForPageIsVisible();
+    }
+
+    @Step
     public void masterFullNameShouldContain(String firstName) {
         masterProfilePage.masterFullNameShouldContain(firstName);
     }
@@ -43,7 +48,7 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     public void verifyProfilePage(Master master) {
         masterProfilePage.profilePageUrlShouldBeEqual(master.getProfileUrl());
         masterProfilePage.masterFullNameShouldContain(master.getFirstName());
-        masterProfilePage.masterCategoriesShouldContain(master.getCategory());
+        masterProfilePage.masterCategoriesShouldContain(master.getCategoryName());
     }
 
     @Step

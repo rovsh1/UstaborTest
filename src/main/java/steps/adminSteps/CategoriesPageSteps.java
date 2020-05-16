@@ -1,5 +1,6 @@
 package steps.adminSteps;
 
+import entities.TestCategory;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.CategoriesPage;
@@ -21,5 +22,10 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.openPromotionForCurrentCountry();
         categoriesPage.enablePromotionAndSetPrice(minPrice, maxPrice);
         categoriesPage.waitForLoaderDisappears();
+    }
+
+    public void getCategoryIdByName(TestCategory category) {
+        categoriesPage.openPage();
+        category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
     }
 }

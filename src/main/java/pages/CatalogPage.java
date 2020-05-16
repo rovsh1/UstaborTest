@@ -333,7 +333,7 @@ public class CatalogPage extends SearchBlock {
 
         Master master = new Master();
         master.setFirstName(projectElement.findElement(By.xpath(projectMasterNameXpath)).getText());
-        master.setCategory(projectElement.findElement(By.xpath(projectCategoryXpath)).getText());
+        master.setCategoryName(projectElement.findElement(By.xpath(projectCategoryXpath)).getText());
         master.setProjectUrl(projectElement.getAttribute("href"));
         master.setProfileUrl(
                 projectElement.findElement(By.xpath(projectMasterAvatarXpath)).getAttribute("data-url"));

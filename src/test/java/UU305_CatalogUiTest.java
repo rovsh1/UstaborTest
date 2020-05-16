@@ -19,18 +19,16 @@ public class UU305_CatalogUiTest extends TestBase {
         user.atHomePage.openCatalog();
 
         user.atCatalogPage.openFilterAndVerify();
-
         user.atCatalogPage.openFilterCategoriesAndVerify();
         user.atCatalogPage.closeFilterCategoryWindow();
-
         user.atCatalogPage.openFilterCityDropdownAndVerify();
 
-        Master master = user.atCatalogPage.openRandomProjectAndGetMasterInfo();
+        var master = user.atCatalogPage.openRandomProjectAndGetMasterInfo();
         user.atProjectPage.verifyProjectPageByMasterInfo(master);
 
         browserGoBack();
 
-        Master master1 = user.atCatalogPage.openRandomMasterProfile();
+        var master1 = user.atCatalogPage.openRandomMasterProfile();
         user.atMasterProfilePage.verifyProfilePage(master1);
 
     }

@@ -2,6 +2,7 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
+import org.junit.Rule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
@@ -10,11 +11,13 @@ import steps.UserSteps;
 import steps.adminSteps.AdminSteps;
 import utils.Config;
 import utils.DataGenerator;
+import utils.Watcher;
 import utils.XmlParser;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
-class TestBase {
+public class TestBase {
 
     DataGenerator data;
 
@@ -27,11 +30,13 @@ class TestBase {
     @Steps
     AdminSteps admin;
 
+    @Rule
+    public Watcher watcher = new Watcher();
+
     @Before
-    public void setUp() {
+    public void setUp() throws TimeoutException {
         Serenity.throwExceptionsImmediately();
         data = new DataGenerator();
-        driver.manage().window().maximize();
 
         if (!Config.isChrome()) {
             driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
