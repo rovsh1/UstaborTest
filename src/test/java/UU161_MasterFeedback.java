@@ -17,7 +17,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
     private User customer;
 
     @Before
-    public void setup() throws TimeoutException {
+    public void setUp() throws TimeoutException {
         super.setUp();
         customer = data.getCustomer(email.getEmailAddress());
         master = data.getMasterRandomEmail(category);
