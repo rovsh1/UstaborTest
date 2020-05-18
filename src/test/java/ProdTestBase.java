@@ -14,9 +14,7 @@ public class ProdTestBase extends TestBase {
         super.setUp();
         if (Config.isProdEnv()) {
             watcher.category = category;
-            admin.atAdminHomePage.loginAsAdmin();
-            admin.atAddCategoryPage.addTestCategory(category);
-            admin.atCategoriesPage.getCategoryIdByName(category);
+            admin.addTestCategory(category);
 
             for (int i = 0;i<2;i++) {
                 var master = data.getMasterRandomEmail(category);

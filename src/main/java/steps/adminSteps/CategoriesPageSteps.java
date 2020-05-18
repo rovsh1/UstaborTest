@@ -3,11 +3,16 @@ package steps.adminSteps;
 import entities.TestCategory;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.admin.CategoriesPage;
+import utils.Admin;
 
 import java.util.concurrent.TimeoutException;
 
 public class CategoriesPageSteps extends ScenarioSteps {
+
+    private static final Logger logger = LoggerFactory.getLogger(Admin.class);
 
     private CategoriesPage categoriesPage;
 
@@ -27,5 +32,6 @@ public class CategoriesPageSteps extends ScenarioSteps {
     public void getCategoryIdByName(TestCategory category) {
         categoriesPage.openPage();
         category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
+        logger.info("Test category with id '{}' was created", category.getSystemId());
     }
 }
