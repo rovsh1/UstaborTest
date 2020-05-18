@@ -140,7 +140,7 @@ public class BasePage extends PageObject {
     }
 
     public void openProfilePage() {
-        getDriver().get(Config.getFullUrl() + "profile");
+        getDriver().get(Config.getFullUrl() + "/profile");
     }
 
     public void logsOut() {

@@ -53,12 +53,12 @@ public class HomePageSteps extends ScenarioSteps {
     public void loginAsMasterIfNeed(String login, String password) {
         if (!homePage.isLoggedIn()) {
             homePage.openLoginForm();
-            homePage.clickMasterBtnRegister();
+            homePage.clickMasterBtnLogin();
             homePage.signInFormEnterLogin(login);
             homePage.signInFormEnterPassword(password);
             homePage.signInFormClickLoginBtn();
             homePage.loginErrorShouldBeVisible();
-            homePage.clickMasterBtnRegister();
+            homePage.clickMasterBtnLogin();
             homePage.signInFormClickLoginBtn();
             homePage.waitForLoaderDisappears();
         }
@@ -173,7 +173,7 @@ public class HomePageSteps extends ScenarioSteps {
     public void registerAsMasterWithSpecifiedCategory(Master master) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
-        homePage.uploadAvatar();
+        //homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
@@ -192,7 +192,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
         homePage.registerFormShouldBeVisible();
-        homePage.uploadAvatar();
+//        homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
@@ -210,7 +210,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
         homePage.registerFormShouldBeVisible();
-        homePage.uploadAvatar();
+        //homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());

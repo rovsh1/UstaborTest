@@ -37,8 +37,8 @@ public class UU201_CatalogTest extends TestBase {
         user.atSiteMapPage.openRandomUrl();
         user.atCatalogPage.verifyFilterValues();
 
-        String city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
-        String district = getText("FilterDistrict_" + Config.getCountryCode());
+        var city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
+        var district = getText("FilterDistrict_" + Config.getCountryCode());
 
         user.atCatalogPage.selectFilterCityAndDistrict(city, district);
         user.atCatalogPage.verifyFilterContainsValues(city, district);

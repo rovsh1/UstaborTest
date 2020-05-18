@@ -7,15 +7,19 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
-    <string name="CustomerRegEmailSubject">Регистрация пользователя</string>
-    <string name="MasterRegEmailSubject">Регистрация на сайте</string>
+    <string name="CustomerRegEmailSubject_uz_test">Регистрация пользователя</string>
+    <string name="CustomerRegEmailSubject_kz_test">Регистрация пользователя</string>
+    <string name="CustomerRegEmailSubject_uz_ustabor">Регистрация пользователя</string>
+    <string name="CustomerRegEmailSubject_kz_fixinglist">Регистрация пользователя</string>
+    <string name="CustomerRegEmailSubject_uz_fixinglist">Подтверждение регистрации</string>
+
     <string name="ForgotPassEmailSubject">Восстановление пароля</string>
     <string name="AuthCode">Код вашей регистрации: </string>
     <string name="ForgotPassword">этой ссылке</string>
 
     <string name="PhoneHintPopupText_test">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
     <string name="PhoneHintPopupText_ustabor">Звоните на "горячую" линию с 9:00 - 18:00</string>
-    <string name="PhoneHintPopupText_fixinglist">C 9:00 - 18:00 Звони на нашу линию, наш менеджер ответит.</string>
+    <string name="PhoneHintPopupText_fixinglist">C 9:00 - 18:00 Звони на нашу линию</string>
 
     <string name="SearchRequestFurniture">мебель для</string>
     <string name="SearchRequestFurnitureShort">мебель</string>

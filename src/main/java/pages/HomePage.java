@@ -213,6 +213,7 @@ public class HomePage extends SearchBlock {
     }
 
     public void regFormClickSubmit() {
+        focusElementJS(regFormSubmitBtn);
         regFormSubmitBtn.click();
 //        waitForLoaderDisappears();
     }

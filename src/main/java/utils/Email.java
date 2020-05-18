@@ -38,7 +38,12 @@ public class Email {
     }
 
     public String getAuthCode() throws TimeoutException {
-        var email = getEmailBySubject(XmlParser.getTextByKey("CustomerRegEmailSubject"));
+        var key = String.format("%s_%s_%s",
+                "CustomerRegEmailSubject",
+                Config.getCountryCode(),
+                Config.getEnv());
+
+        var email = getEmailBySubject(XmlParser.getTextByKey(key));
 
         var pattern = Pattern.compile(String.format("(?<=%s).*?(?=</)", XmlParser.getTextByKey("AuthCode")));
         var matcher = pattern.matcher(email.getBody());

@@ -85,7 +85,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'district')]")
     private WebElementFacade filterDistrictBtn;
 
-    @FindBy(xpath = "//div[contains(@class, 'city')]//div[@class='item']")
+    @FindBy(xpath = "//div[contains(@class, 'city')]//div[contains(@class,'item')]")
     private List<WebElementFacade> filterCitiesList;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'order')]")
@@ -231,7 +231,7 @@ public class CatalogPage extends SearchBlock {
 
     public void selectCity(String expectedCity) {
         WebElementFacade foundCity = filterCitiesList.stream()
-                .filter(city -> expectedCity.equals(city.getText()))
+                .filter(city -> expectedCity.contains(city.getText()))
                 .findFirst()
                 .orElse(null);
 

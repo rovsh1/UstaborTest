@@ -40,6 +40,7 @@ public class TestBase {
 
         if (!Config.isChrome()) {
             driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
+            driver.manage().window().fullscreen();
         }
 
         user.atHomePage.openHomePage();

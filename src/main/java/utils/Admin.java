@@ -4,25 +4,39 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.TrustAllStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 public class Admin {
 
     private static final Logger logger = LoggerFactory.getLogger(Admin.class);
 
-    private final Executor executor;
+    private Executor executor;
     private final String baseUrl;
 
     public Admin() {
-        executor = Executor.newInstance(
-                HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy())
-                        .build());
+        try {
+            executor = Executor.newInstance(
+                    HttpClientBuilder
+                            .create()
+                            .setRedirectStrategy(new LaxRedirectStrategy())
+                            .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, TrustAllStrategy.INSTANCE).build())
+                            .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                            .build());
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
+            e.printStackTrace();
+        }
         baseUrl = Config.getAdminUrl();
         login();
     }

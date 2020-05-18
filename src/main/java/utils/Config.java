@@ -62,7 +62,10 @@ public class Config {
     }
 
     public static String getFullUrl() {
-        return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
+        if (Config.isProdEnv()) {
+            return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
+        }
+        return getBaseUrl();
     }
 
     public static String getBaseUrl() {
@@ -94,7 +97,7 @@ public class Config {
 
     public static String getCountryCode() {
         if (countryCode == null) {
-            countryCode = getEnvironmentVariableValue(COUNTRY, true);
+            countryCode = getEnvironmentVariableValue(COUNTRY, false);
         }
         return countryCode;
     }

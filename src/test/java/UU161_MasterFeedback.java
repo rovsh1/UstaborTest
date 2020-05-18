@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeoutException;
+
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
@@ -15,7 +17,8 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
     private User customer;
 
     @Before
-    public void setup() throws Exception {
+    public void setup() throws TimeoutException {
+        super.setUp();
         customer = data.getCustomer(email.getEmailAddress());
         master = data.getMasterRandomEmail(category);
         watcher.masters.add(master);
@@ -35,7 +38,7 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
     }
 
     @Test
-    public void verifyMasterFeedback() throws Exception {
+    public void verifyMasterFeedback() throws InterruptedException {
         user.atCustomerProfilePage.openHomePage();
         user.atHomePage.openCatalog();
         user.atCatalogPage.openRandomProjectWithNameNot(master.getLastName());
