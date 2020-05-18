@@ -63,9 +63,9 @@ public class Config {
 
     public static String getFullUrl() {
         if (Config.isProdEnv()) {
-            return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
+            return getBaseUrl();
         }
-        return getBaseUrl();
+        return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
     }
 
     public static String getBaseUrl() {
