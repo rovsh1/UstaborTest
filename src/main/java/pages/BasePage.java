@@ -107,22 +107,11 @@ public class BasePage extends PageObject {
 
     public void waitForLoaderDisappears() {
         setTimeouts(2, ChronoUnit.SECONDS);
-//        if (loader.isVisible()) {
             try {
                 WaitHelper.pollingWait(60000, 500, () -> !loader.isVisible());
             } catch (TimeoutException e) {
                 e.printStackTrace();
             }
-//            resetTimeouts();
-//            if (Config.isChrome()) {
-//                withTimeoutOf(10, ChronoUnit.SECONDS)
-//                        .waitForCondition()
-//                        .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loaderXpath)));
-//            } else {
-//                new WebDriverWait(getDriver(), 10)
-//                        .until(d -> d.findElements(By.xpath(loaderXpath)).size() == 0);
-//            }
-//        }
         resetTimeouts();
     }
 

@@ -154,7 +154,7 @@ public class Config {
 
         } else if (os.contains("mac")) {
 
-            return "driver/chromedriver_mac";
+            return "driver/chromedriver";
 
         } else if (os.contains("nux")) {
 
