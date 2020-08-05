@@ -23,4 +23,8 @@ public class SiteMapPage extends BasePage{
         focusElementJS(url);
         url.click();
     }
+
+    public boolean isMapListEmpty() {
+        return urlsList.isEmpty();
+    }
 }

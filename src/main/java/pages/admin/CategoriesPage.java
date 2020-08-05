@@ -21,7 +21,7 @@ public class CategoriesPage extends BaseAdminPage {
     private static String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
     private static String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
 
-    private static String categoryUrlByNameXpath = "//tr[./td[text()='%s']]//a";
+    private static String categoryUrlByNameXpath = "//td//a[text()='%s']";
 
     @FindBy(xpath = "//li[@data-tab='tab-countries']")
     private WebElementFacade promotionTab;

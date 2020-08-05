@@ -34,8 +34,12 @@ public class UU201_CatalogTest extends TestBase {
 
         user.atCatalogPage.openSiteWithName(getText("SiteDomainBuild_Short1"));
         user.atCatalogPage.openSiteMap();
-        user.atSiteMapPage.openRandomUrl();
-        user.atCatalogPage.verifyFilterValues();
+
+        if (!user.atSiteMapPage.isMapEmpty()) {
+            user.atSiteMapPage.openRandomUrl();
+            user.atCatalogPage.verifyFilterValues();
+        }
+
 
         var city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
         var district = getText("FilterDistrict_" + Config.getCountryCode());

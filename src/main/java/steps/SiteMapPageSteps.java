@@ -11,4 +11,8 @@ public class SiteMapPageSteps extends CommonSteps{
     public void openRandomUrl() {
         siteMapPage.openRandomUrl();
     }
+
+    public boolean isMapEmpty() {
+        return siteMapPage.isMapListEmpty();
+    }
 }
