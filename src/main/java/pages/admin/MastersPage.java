@@ -15,10 +15,13 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//a[contains(@href,'master/view')]")
     private List<WebElementFacade> mastersList;
 
+    @FindBy(xpath = "//a[@id='btn-master-balance']")
+    private WebElementFacade addMoneyBnt;
+
     @FindBy(xpath = "//input[@id='form_balance_sum']")
     private WebElementFacade amountInput;
 
-    @FindBy(xpath = "//input[@type='submit']")
+    @FindBy(xpath = "//button[@type='submit']")
     private WebElementFacade submitBtn;
 
     @FindBy(xpath = "//div[@title='Actions']")
@@ -63,6 +66,7 @@ public class MastersPage extends BaseAdminPage {
     }
 
     public void addMoneyToAccount(int amount) {
+        addMoneyBnt.click();
         amountInput.sendKeys(String.valueOf(amount));
         submitBtn.click();
     }

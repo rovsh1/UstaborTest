@@ -34,7 +34,7 @@ public class TC007_PromoteWithMinPrice extends ProdTestBase {
         user.atMasterProjectsPage.logsOut();
 
         admin.atAdminHomePage.loginAsAdmin();
-        admin.atPromotionPage.approveProject(master.getProject().getSystemId());
+        admin.atPromotionPage.approveProject(master.getProject());
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();

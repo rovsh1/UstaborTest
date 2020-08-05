@@ -370,17 +370,12 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void verifyProjectAtFirstPosition(Project project) {
-        for (WebElementFacade proj : projectsList) {
-            var projectId = proj.getAttribute("data-id").replaceAll("\\D", "");
+        var firstProject = projectsList.stream().findFirst();
+        int dataId = Integer.parseInt(firstProject.get().getAttribute("data-id"));
+        int promoId = Integer.parseInt(firstProject.get().getAttribute(promoAttribute));
 
-            if (proj.getAttribute(promoAttribute).equals("1")) {
-                if (projectId.equals(project.getSystemId())) {
-                    return;
-                }
-            } else {
-                throw new IllegalArgumentException("Test project was not promoted, or projects sorting is wrong!");
-            }
-        }
+        assertThat(dataId).isEqualTo(Integer.parseInt(project.getSystemId()));
+        assertThat(promoId).isEqualTo(Integer.parseInt(project.getPromoId()));
     }
 
     public void openProjectBySystemId(String systemId) {

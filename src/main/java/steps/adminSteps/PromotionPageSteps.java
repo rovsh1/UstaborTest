@@ -1,5 +1,6 @@
 package steps.adminSteps;
 
+import entities.Project;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.PromotionPage;
@@ -9,8 +10,9 @@ public class PromotionPageSteps extends ScenarioSteps {
     private PromotionPage promotionPage;
 
     @Step
-    public void approveProject(String systemId) {
+    public void approveProject(Project project) {
         promotionPage.openPage();
-        promotionPage.approvePromotionByProjectSystemId(systemId);
+        project.setPromoId(promotionPage.getProjectPromoId(project.getSystemId()));
+        promotionPage.approvePromotionByProjectSystemId(project.getSystemId());
     }
 }

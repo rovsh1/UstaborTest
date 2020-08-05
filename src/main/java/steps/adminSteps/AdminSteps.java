@@ -39,7 +39,7 @@ public class AdminSteps extends ScenarioSteps {
 
     public void approveProject(Project project) {
         atAdminHomePage.loginAsAdmin();
-        atPromotionPage.approveProject(project.getSystemId());
+        atPromotionPage.approveProject(project);
     }
 
     public void enablePromotion(Master master) throws TimeoutException {

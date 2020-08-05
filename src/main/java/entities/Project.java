@@ -8,6 +8,7 @@ public class Project {
     private String category;
     private String description = "This is project description";
     private String systemId;
+    private String promoId;
 
     public Project(String name, String category, String description) {
         this.name = name;
@@ -50,5 +51,13 @@ public class Project {
 
     public void setSystemId(String systemId) {
         this.systemId = systemId;
+    }
+
+    public String getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(String promoId) {
+        this.promoId = promoId;
     }
 }
