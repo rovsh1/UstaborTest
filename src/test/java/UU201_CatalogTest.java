@@ -38,14 +38,13 @@ public class UU201_CatalogTest extends TestBase {
         if (!user.atSiteMapPage.isMapEmpty()) {
             user.atSiteMapPage.openRandomUrl();
             user.atCatalogPage.verifyFilterValues();
+
+            var city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
+            var district = getText("FilterDistrict_" + Config.getCountryCode());
+
+            user.atCatalogPage.selectFilterCityAndDistrict(city, district);
+            user.atCatalogPage.verifyFilterContainsValues(city, district);
         }
-
-
-        var city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
-        var district = getText("FilterDistrict_" + Config.getCountryCode());
-
-        user.atCatalogPage.selectFilterCityAndDistrict(city, district);
-        user.atCatalogPage.verifyFilterContainsValues(city, district);
 
         for (int i = 0; i < 3; i++) {
             user.atHomePage.openHomePage();
