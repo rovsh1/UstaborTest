@@ -21,7 +21,7 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//input[@id='form_balance_sum']")
     private WebElementFacade amountInput;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//*[@type='submit']")
     private WebElementFacade submitBtn;
 
     @FindBy(xpath = "//div[@title='Actions']")
