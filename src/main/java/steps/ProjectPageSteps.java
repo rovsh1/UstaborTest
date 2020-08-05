@@ -17,7 +17,7 @@ public class ProjectPageSteps extends ScenarioSteps {
 
     @Step
     public void openCustomerProfilePage() {
-        projectPage.openProfilePage();
+        projectPage.openCustomerProfilePage();
     }
 
     @Step

@@ -128,7 +128,11 @@ public class BasePage extends PageObject {
         logoBtn.click();
     }
 
-    public void openProfilePage() {
+    public void openCustomerProfilePage() {
+        getDriver().get(Config.getFullUrl() + "/customer");
+    }
+
+    public void openMasterProfilePage() {
         getDriver().get(Config.getFullUrl() + "/profile");
     }
 
