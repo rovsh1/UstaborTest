@@ -314,13 +314,9 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyPlaceOrderForm() {
+    public void openPlaceOrderForm() {
         openHomePage();
         homePage.openPlaceOrderForm();
-        homePage.orderFormUsernameInputShouldBeVisible();
-        homePage.orderFormPhoneInputShouldBeVisible();
-        homePage.orderFormServiceSelectorShouldBeVisible();
-        homePage.orderFormSubmitBtnShouldBeVisible();
     }
 
     @Step

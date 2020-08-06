@@ -22,7 +22,8 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyLoginForm();
         user.atHomePage.verifyRegistrationForm();
-        user.atHomePage.verifyPlaceOrderForm();
+        user.atHomePage.openPlaceOrderForm();
+        user.atPlaceOrderPage.verifyPage();
 
         user.atHomePage.verifyRandomFaqItem();
 
@@ -39,7 +40,7 @@ public class UU293_MainPageUiTest extends TestBase {
         }
         user.atHomePage.verifyMobileViewLanguageMenu();
 
-        user.atHomePage.verifyPlaceOrderForm();
+        user.atHomePage.openPlaceOrderForm();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();
 
         user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));

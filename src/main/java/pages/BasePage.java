@@ -69,7 +69,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']//a")
     private List<WebElementFacade> langsList;
 
-    @FindBy(xpath = "//div[@class='header-menu']//button[@id='button-order']")
+    @FindBy(xpath = "//a[contains(@class,'button-order')]")
     private WebElementFacade placeOrderBtn;
     //endregion
 

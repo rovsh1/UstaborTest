@@ -121,20 +121,6 @@ public class HomePage extends SearchBlock {
     private WebElementFacade regMasterCitySelector;
     //endregion
 
-    //region Place order form
-    @FindBy(xpath = "//form[@id='form-order']//input[@id='form_order_username']")
-    private WebElementFacade orderFormUsernameInput;
-
-    @FindBy(xpath = "//form[@id='form-order']//input[@id='form_order_phone']")
-    private WebElementFacade orderFormPhoneInput;
-
-    @FindBy(xpath = "//form[@id='form-order']//select[@id='form_order_service']")
-    private WebElementFacade orderFormServiceSelector;
-
-    @FindBy(xpath = "//form[@id='form-order']//button[@class='button-submit']")
-    private WebElementFacade orderFormSubmitBtn;
-    //endregion
-
     //region Mobile view elements
     @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'countries')]")
     private WebElementFacade mobileMenuCountryBtn;
@@ -377,22 +363,6 @@ public class HomePage extends SearchBlock {
 
     public void registerFormShouldBeVisible() {
         regMasterNameInput.shouldBeVisible();
-    }
-
-    public void orderFormUsernameInputShouldBeVisible() {
-        orderFormUsernameInput.shouldBeVisible();
-    }
-
-    public void orderFormPhoneInputShouldBeVisible() {
-        orderFormPhoneInput.shouldBeVisible();
-    }
-
-    public void orderFormServiceSelectorShouldBeVisible() {
-        orderFormServiceSelector.shouldBeVisible();
-    }
-
-    public void orderFormSubmitBtnShouldBeVisible() {
-        orderFormSubmitBtn.shouldBeVisible();
     }
 
     public void verifyFaqItemTextIsVisible() {

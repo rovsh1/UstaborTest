@@ -51,6 +51,9 @@ public class UserSteps extends ScenarioSteps {
     @Steps
     public MasterFaqPageSteps atMasterFaqPage;
 
+    @Steps
+    public PlaceOrderPageSteps atPlaceOrderPage;
+
     public void registerAsMaster(Master master) {
         if (Config.isProdEnv()) {
             atHomePage.registerAsMasterWithSpecifiedCategory(master);
