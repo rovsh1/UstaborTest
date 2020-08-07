@@ -3,9 +3,8 @@ package pages.masterProfile;
 import entities.Project;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import utils.Config;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,9 +12,6 @@ import java.nio.file.Files;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Random;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class MasterProjectsPage extends MasterProfileBasePage {
 
@@ -115,8 +111,11 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     }
 
     public void waitTillProjectsAreVisible() {
-        projectBtn.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(25));
-        projectBtn.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(25));
+        if (Config.isUstabor()) {
+            waitForLoaderDisappears();
+        }
+        projectBtn.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(60));
+        projectBtn.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(60));
     }
 
     public void addProjectBtnShouldBeVisible() {

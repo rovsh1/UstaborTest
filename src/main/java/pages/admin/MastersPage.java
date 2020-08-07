@@ -69,6 +69,7 @@ public class MastersPage extends BaseAdminPage {
         addMoneyBnt.click();
         amountInput.sendKeys(String.valueOf(amount));
         submitBtn.click();
+        waitForLoaderDisappears();
     }
 
     public void openEditMasterPage() {
