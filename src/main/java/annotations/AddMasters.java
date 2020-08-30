@@ -8,5 +8,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AddMasters {
-    int value();
+    int masters() default 2;
+    boolean addProject() default true;
 }

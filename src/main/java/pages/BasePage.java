@@ -1,5 +1,6 @@
 package pages;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
@@ -100,9 +101,10 @@ public class BasePage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
+        Serenity.throwExceptionsImmediately();
         setTimeouts(2, ChronoUnit.SECONDS);
             try {
-                WaitHelper.pollingWait(60000, 500, () -> !loader.isVisible());
+                WaitHelper.pollingWait(120000, 500, () -> !loader.isVisible());
             } catch (TimeoutException e) {
                 e.printStackTrace();
             }

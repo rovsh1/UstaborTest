@@ -34,6 +34,9 @@ public class CategoriesPage extends BaseAdminPage {
     @FindBy(xpath = "//input[@id='form_data_price_max']")
     private WebElementFacade maxPrice;
 
+    @FindBy(xpath = "//input[@id='form_data_request_price']")
+    private WebElementFacade requestClickPrice;
+
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitBtn;
 
@@ -77,6 +80,15 @@ public class CategoriesPage extends BaseAdminPage {
         submitBtn.click();
     }
 
+    public void enablePromotionAndSetClickPrice(String clickPrice) {
+        if (!enablePromoCheckbox.isSelected()) {
+            enablePromoCheckbox.click();
+        }
+        requestClickPrice.sendKeys(clickPrice);
+
+        submitBtn.click();
+    }
+
     public void openPromotionForCurrentCountry() {
         WebElement countryRow = getDriver().findElement(By.xpath(String.format(countryXpath, Config.getCountry())));
 
@@ -97,9 +109,5 @@ public class CategoriesPage extends BaseAdminPage {
         }
 
         return null;
-    }
-
-    public void waitForPageLoaded() {
-        withTimeoutOf(Duration.ofSeconds(25)).waitFor(promotionTab).isClickable();
     }
 }

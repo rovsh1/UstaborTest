@@ -34,6 +34,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regFormEnterLogin(login);
         homePage.regFormEnterPassword(password);
         homePage.regFormClickSubmit();
+        homePage.waitForLoaderDisappears();
         homePage.authCodeFormShouldBeVisible();
     }
 

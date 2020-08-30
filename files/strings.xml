@@ -64,4 +64,6 @@
 
     <string name="Question">This is a test question</string>
 
+    <string name="WithdrawError">На вашем счете недостаточно средств</string>
+
 </resources>

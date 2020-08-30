@@ -12,8 +12,8 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory
-@AddMasters(1)
-public class TC010_RequestAssignToMaster extends TestBase {
+@AddMasters(masters = 1, addProject = false)
+public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
     protected Email email;
     protected User customer;
@@ -29,6 +29,8 @@ public class TC010_RequestAssignToMaster extends TestBase {
 
         user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
+        user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
+        customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
     }
 
     @Test
@@ -41,10 +43,14 @@ public class TC010_RequestAssignToMaster extends TestBase {
 
         admin.atRequestsPage.openRequestById(requestId);
         admin.atRequestsPage.verifyRequest(customer, category, getText("Question"));
-        admin.atRequestsPage.addAssignRequestToMaster(masters.get(0));
+        admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMasterIfNeed(masters.get(0).getEmail(), masters.get(0).getPassword());
+        user.atHomePage.logsOut();
+        user.atHomePage.loginAsMaster(
+                watcher.getMaster().getEmail(),
+                watcher.getMaster().getPassword(),
+                true);
         user.atMasterProfilePage.open();
         user.atMasterProfileRequestsPage.open();
         user.atMasterProfileRequestsPage.verifyRequestId(requestId);

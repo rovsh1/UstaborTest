@@ -10,7 +10,7 @@ import utils.DataGenerator;
 
 @RunWith(SerenityRunner.class)
 @AddCategory
-@AddMasters(2)
+@AddMasters
 public class TC007_PromoteWithMinPrice extends TestBase {
 
     @Test

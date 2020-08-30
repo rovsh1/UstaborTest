@@ -4,6 +4,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
+import java.util.List;
+
 public class RequestsPage extends BaseAdminPage {
 
     @FindBy(xpath = "//a[@id='btn-master-add']")
@@ -14,6 +16,9 @@ public class RequestsPage extends BaseAdminPage {
 
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitMasterAssignBtn;
+
+    @FindBy(xpath = "//ul[contains(@class, 'ui-autocomplete')]/li")
+    private WebElementFacade autocompleteSuggestion;
 
     public void openPage(String requestId) {
         getDriver().get(Config.getAdminUrl() + String.format("request/view/%s/",requestId));
@@ -43,7 +48,7 @@ public class RequestsPage extends BaseAdminPage {
 
     public void findMaster(String masterId) {
         masterNameInput.sendKeys(masterId);
-        masterNameInput.click();
+        autocompleteSuggestion.waitUntilPresent();
     }
 
     public void submitMasterAssign() {

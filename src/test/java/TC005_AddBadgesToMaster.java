@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory
-@AddMasters(2)
+@AddMasters
 public class TC005_AddBadgesToMaster extends TestBase {
 
     @Test

@@ -5,6 +5,7 @@ import entities.Project;
 import entities.TestCategory;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
+import pages.admin.AddCategoryPage;
 import utils.Config;
 
 import java.util.concurrent.TimeoutException;
@@ -58,6 +59,5 @@ public class AdminSteps extends ScenarioSteps {
         atAddRequestQuestionsPage.openPage();
         atAddRequestQuestionsPage.addQuestionToCategory(category, question);
         atAddRequestQuestionsPage.setQuestionPriceForCurrentCountry(question, Config.getCountry(), minPrice, maxPrice);
-
     }
 }

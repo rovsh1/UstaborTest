@@ -34,4 +34,12 @@ public class CategoriesPageSteps extends ScenarioSteps {
         category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
         logger.info("Test category with id '{}' was created", category.getSystemId());
     }
+
+    @Step
+    public void setRequestClickPrice(String categoryId, String clickPrice) throws TimeoutException {
+        openEditCategoryPage(categoryId);
+        categoriesPage.openPromotionForCurrentCountry();
+        categoriesPage.enablePromotionAndSetClickPrice(clickPrice);
+        categoriesPage.waitForLoaderDisappears();
+    }
 }
