@@ -1,19 +1,23 @@
-package pages;
+package pages.customerProfile;
 
 import static org.assertj.core.api.Assertions.*;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import utils.WaitHelper;
+import pages.BasePage;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.TimeoutException;
 
-public class CustomerProfilePage extends BasePage {
+public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
+
+    @FindBy(xpath = "//input[@id='form_user_presentation']")
+    private WebElementFacade userNameInput;
+
+    @FindBy(xpath = "//input[@id='form_user_phone']")
+    private WebElementFacade phoneNumberInput;
 
     @FindBy(xpath = "//a[@id='button-delete']")
     private WebElementFacade deleteProfileButton;
@@ -64,5 +68,13 @@ public class CustomerProfilePage extends BasePage {
 
     public void submitProfileDeleting() {
         submitButton.click();
+    }
+
+    public void verifyUserName(String phoneNumber) {
+        assertThat(userNameInput.getValue()).isEqualTo(phoneNumber);
+    }
+
+    public void verifyPhoneNumber(String phoneNumber) {
+        assertThat(phoneNumberInput.getValue().replaceAll("\\s+", "")).contains(phoneNumber);
     }
 }

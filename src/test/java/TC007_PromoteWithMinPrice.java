@@ -1,25 +1,22 @@
-import entities.TestCategory;
+import annotations.AddCategory;
+import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.Random;
+import utils.DataGenerator;
 
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
-public class TC007_PromoteWithMinPrice extends ProdTestBase {
+@AddCategory
+@AddMasters(2)
+public class TC007_PromoteWithMinPrice extends TestBase {
 
     @Test
     public void promoteWithMinPrice() throws Exception {
-//        var minimalPriceOnlyCategories = getTextByPredicate("DomainBuild_MinPromo_");
-//        var nonProdCategoryName = minimalPriceOnlyCategories.get(new Random().nextInt(minimalPriceOnlyCategories.size()));
-//        var category = new TestCategory();
-//        category.setName(nonProdCategoryName);
-
-        var master = data.getMasterRandomEmail(category);
-        watcher.masters.add(master);
+        var master = DataGenerator.getMasterRandomEmail(category);
+        watcher.users.add(master);
 
         user.registerAsMaster(master);
 

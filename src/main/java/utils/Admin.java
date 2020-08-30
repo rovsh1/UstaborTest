@@ -167,4 +167,39 @@ public class Admin {
             e.printStackTrace();
         }
     }
+
+    public String getSmsCode(String phoneNumber) {
+        var url = baseUrl + "log/sms/";
+        String code = "N/A";
+
+        try {
+            var html = executor.execute(Request.Get(url)).returnContent().asString();
+            code = NewXmlParser.getSmsCode(html, phoneNumber);
+            logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+
+    public void deleteCustomer(String customerId) {
+        var url = baseUrl + String.format("customer/delete/%s/", customerId);
+
+        try {
+            var result = executor.execute(Request.Get(url))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
+            if (result != 200) {
+                logger.info("Delete customer request failed");
+                throw new HttpResponseException(result, "Delete customer request failed");
+            }
+            logger.info("Customer deleted. Id: {}", customerId);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

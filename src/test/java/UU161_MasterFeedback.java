@@ -5,23 +5,29 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.DataGenerator;
+import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
-public class UU161_MasterFeedback extends RegistrationTestBase {
+public class UU161_MasterFeedback extends TestBase {
 
     private Master master;
     private User customer;
+    private Email email;
 
     @Before
     public void setUp() throws TimeoutException {
-        super.setUp();
-        customer = data.getCustomer(email.getEmailAddress());
-        master = data.getMasterRandomEmail(category);
-        watcher.masters.add(master);
+        email = new Email();
+        customer = DataGenerator.getCustomer(email.getEmailAddress());
+        master = DataGenerator.getMasterRandomEmail(category);
+        watcher.users.add(customer);
+        watcher.users.add(master);
+
+        user.atHomePage.openHomePage();
 
         user.registerAsMaster(master);
         admin.enablePromotion(master);
@@ -39,28 +45,28 @@ public class UU161_MasterFeedback extends RegistrationTestBase {
 
     @Test
     public void verifyMasterFeedback() throws InterruptedException {
-        user.atCustomerProfilePage.openHomePage();
+        user.atCustomerProfilePersonalInfoPage.openHomePage();
         user.atHomePage.openCatalog();
         user.atCatalogPage.openRandomProjectWithNameNot(master.getLastName());
         user.atProjectPage.addProjectToFavorites();
 
-        user.atCustomerProfilePage.openHomePage();
+        user.atCustomerProfilePersonalInfoPage.openHomePage();
         user.atHomePage.enterTextAndSearch(master.getProject().getName());
         user.atCatalogPage.openProjectContactsAndVerify(master.getLastName());
 
         user.atProjectPage.openCustomerProfilePage();
-        user.atCustomerProfilePage.verifyCountOfFavouriteProjectsEquals(1);
-        user.atCustomerProfilePage.removeRandomAndVerifyCountOfProjects(0);
+        user.atCustomerProfilePersonalInfoPage.verifyCountOfFavouriteProjectsEquals(1);
+        user.atCustomerProfilePersonalInfoPage.removeRandomAndVerifyCountOfProjects(0);
 
-        user.atCustomerProfilePage.logsOut();
+        user.atCustomerProfilePersonalInfoPage.logsOut();
         user.atHomePage.loginAsCustomer(customer.getEmail(), customer.getPassword());
 
         user.atHomePage.waitForFeedbackProposalAndOpen();
         user.atFeedbackPage.leftFeedback(5, "Testing Review");
         user.atHomePage.pageShouldBeVisible();
 
-        user.atCustomerProfilePage.openCustomerProfilePage();
-        user.atCustomerProfilePage.verifyMyMastersListContains(master.getLastName());
+        user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
+        user.atCustomerProfilePersonalInfoPage.verifyMyMastersListContains(master.getLastName());
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();

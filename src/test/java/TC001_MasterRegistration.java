@@ -2,18 +2,19 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.DataGenerator;
 
 @WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
-public class TC001 extends TestBase {
+public class TC001_MasterRegistration extends TestBase {
 
     @Test
-    public void masterRegistrationTest() {
-        var master = data.getMasterRandomEmail();
+    public void verifyMasterCanCreateProfile() {
+        var master = DataGenerator.getMasterRandomEmail();
+        watcher.users.add(master);
 
         user.atHomePage.registerAsMaster(master);
-        watcher.masters.add(master);
 
         user.atMasterProfilePage.waitForPageIsVisible();
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();

@@ -314,7 +314,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openPlaceOrderForm() {
+    public void openPlaceOrderPage() {
         openHomePage();
         homePage.openPlaceOrderForm();
     }

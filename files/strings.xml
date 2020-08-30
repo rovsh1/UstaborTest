@@ -62,4 +62,6 @@
 
     <string name="LoginFailedError">Неверные логин или пароль</string>
 
+    <string name="Question">This is a test question</string>
+
 </resources>

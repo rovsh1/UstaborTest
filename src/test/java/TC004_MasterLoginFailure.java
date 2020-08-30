@@ -7,10 +7,10 @@ import utils.Config;
 @WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
-public class TC004 extends TestBase {
+public class TC004_MasterLoginFailure extends TestBase {
 
     @Test
-    public void masterAccountLoginWrongPassword() {
+    public void verifyMasterCantLoginWithWrongPassword() {
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.selectIamMasterAndVerify();
         user.atHomePage.loginAsMaster(

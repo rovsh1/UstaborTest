@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.DataGenerator;
 import utils.Email;
 
 import java.util.concurrent.TimeoutException;
@@ -13,27 +14,24 @@ import java.util.concurrent.TimeoutException;
 @RunWith(SerenityRunner.class)
 public class TC008_CustomerRegistration extends TestBase {
 
-    protected Email email;
-
-    @Before
-    public void setUp() throws TimeoutException {
-        super.setUp();
-        email = new Email();
-    }
+    protected Email email = new Email();
 
     @Test
     public void customerRegistration() throws TimeoutException {
-        var customer = data.getCustomer(email.getEmailAddress());
+        var customer = DataGenerator.getCustomer(email.getEmailAddress());
+        watcher.users.add(customer);
 
         user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
-        user.atCustomerProfilePage.verifyCustomerProfilePageIsOpened();
+        user.atCustomerProfilePersonalInfoPage.verifyCustomerProfilePageIsOpened();
+
+        customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
     }
 
     @After
     public void tearDown() {
         user.atHomePage.openHomePage();
-        user.atCustomerProfilePage.openCustomerProfilePage();
-        user.atCustomerProfilePage.deleteProfile();
+        user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
+        user.atCustomerProfilePersonalInfoPage.deleteProfile();
     }
 }

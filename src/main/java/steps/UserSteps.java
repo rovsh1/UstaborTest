@@ -4,6 +4,8 @@ import entities.Master;
 import entities.Project;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
+import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
+import steps.customerProfileSteps.CustomerProfileRequestsPageSteps;
 import steps.masterProfileSteps.*;
 import utils.Config;
 
@@ -16,10 +18,7 @@ public class UserSteps extends ScenarioSteps {
     public CatalogPageSteps atCatalogPage;
 
     @Steps
-    public ProfilePageSteps atProfilePage;
-
-    @Steps
-    public CustomerProfilePageSteps atCustomerProfilePage;
+    public CustomerProfilePersonalInfoPageSteps atCustomerProfilePersonalInfoPage;
 
     @Steps
     public ProjectPageSteps atProjectPage;
@@ -53,6 +52,12 @@ public class UserSteps extends ScenarioSteps {
 
     @Steps
     public PlaceOrderPageSteps atPlaceOrderPage;
+
+    @Steps
+    public CustomerProfileRequestsPageSteps atCustomerProfileRequestsPage;
+
+    @Steps
+    public MasterProfileRequestsPageSteps atMasterProfileRequestsPage;
 
     public void registerAsMaster(Master master) {
         if (Config.isProdEnv()) {

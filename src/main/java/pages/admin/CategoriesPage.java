@@ -7,7 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
-import utils.XmlParser;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

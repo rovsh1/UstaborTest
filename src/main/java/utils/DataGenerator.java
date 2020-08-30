@@ -4,33 +4,43 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import entities.Master;
-import entities.Project;
 import entities.TestCategory;
 import entities.User;
 
 import java.util.Locale;
 
 public class DataGenerator {
+    private static final String password = "Password1!";
 
-    private final Faker faker;
-    private final FakeValuesService fakeValuesService;
-    private final String password = "Password1!";
-
-    public DataGenerator() {
-        faker = new Faker();
-        fakeValuesService = new FakeValuesService(
-                new Locale("en-GB"), new RandomService());
+    public static String getPassword() {
+        return new Faker().internet().password();
     }
 
-    public String getPassword() {
-        return faker.internet().password();
+    public static User getCustomer(String email) {
+        var faker = new Faker();
+
+        var user = new User(email, password, faker.phoneNumber().cellPhone());
+        user.setFirstName(faker.name().firstName());
+        user.setCity(faker.address().cityName());
+
+        return user;
     }
 
-    public User getCustomer(String email) {
-        return new User(email, password, faker.phoneNumber().phoneNumber());
+    public static User getGuestCustomer() {
+        var faker = new Faker();
+        var user = new User();
+
+        user.setFirstName(faker.name().firstName());
+        user.setPhoneNumber(faker.number().digits(10));
+        user.setCity(faker.address().cityName());
+
+        return user;
     }
 
-    public Master getMasterRandomEmail() {
+    public static Master getMasterRandomEmail() {
+        var faker = new Faker();
+        var service = new FakeValuesService(new Locale("en-GB"), new RandomService());
+
         var user = new Master();
         user.setPassword(password);
         user.setPhoneNumber(faker.phoneNumber().phoneNumber());
@@ -39,13 +49,13 @@ public class DataGenerator {
         user.setAboutMe(faker.name().fullName());
         user.setPhoneNumber(faker.phoneNumber().phoneNumber());
 
-        String randomEmail = fakeValuesService.bothify(".????####@fakeDomain.com");
+        String randomEmail = service.bothify(".????####@fakeDomain.com");
         user.setEmail(user.getFirstName() + "." + user.getLastName() + randomEmail);
 
         return user;
     }
 
-    public Master getMasterRandomEmail(TestCategory category) {
+    public static Master getMasterRandomEmail(TestCategory category) {
         var master = getMasterRandomEmail();
         master.setCategoryId(category.getSystemId());
         master.setCategoryName(category.getName());
@@ -53,7 +63,9 @@ public class DataGenerator {
         return master;
     }
 
-    public Master getMasterValidEmail(String email) {
+    public static Master getMasterValidEmail(String email) {
+        var faker = new Faker();
+
         var user = new Master();
         user.setEmail(email);
         user.setPassword(password);

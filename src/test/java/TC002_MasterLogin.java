@@ -11,10 +11,10 @@ import java.util.Date;
 @WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
-public class TC002 extends TestBase {
+public class TC002_MasterLogin extends TestBase {
 
     @Test
-    public void masterAccountLogin() {
+    public void verifyMasterAccountLogin() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMddhhmm");
         String userName = "Test " + dateFormat.format(new Date());
 

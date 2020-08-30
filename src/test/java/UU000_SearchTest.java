@@ -8,10 +8,9 @@ import org.junit.runner.RunWith;
 public class UU000_SearchTest extends TestBase {
 
     @Test
-    public void FindProfilesWithCategory() {
+    public void findProfilesWithCategory() {
         user.atHomePage.enterTextAndSearch(getText("SearchRequestArch"));
         user.atCatalogPage.verifySelectedCategoryEquals(getText("CategoryArch"));
         user.atCatalogPage.verifyAllFoundProjectsHaveCategory(getText("CategoryArch"));
-
     }
 }

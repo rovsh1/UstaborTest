@@ -6,7 +6,6 @@ public class Master extends User {
     private String categoryId;
     private String projectUrl;
     private String profileUrl;
-    private String profileId = null;
     private Project project;
 
     private int countOfBadges = 0;
@@ -45,14 +44,6 @@ public class Master extends User {
 
     public void setProjectUrl(String projectUrl) {
         this.projectUrl = projectUrl;
-    }
-
-    public String getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
     }
 
     public int getCountOfBadges() {
