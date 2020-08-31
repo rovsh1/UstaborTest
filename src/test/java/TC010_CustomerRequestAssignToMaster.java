@@ -51,7 +51,6 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
                 watcher.getMaster().getEmail(),
                 watcher.getMaster().getPassword(),
                 true);
-        user.atMasterProfilePage.open();
         user.atMasterProfileRequestsPage.open();
         user.atMasterProfileRequestsPage.verifyRequestId(requestId);
     }

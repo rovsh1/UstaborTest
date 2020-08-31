@@ -67,7 +67,7 @@ public class Config {
         return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
     }
 
-    public static String getBaseUrl() {
+    private static String getBaseUrl() {
         if (site == null) {
             site = getPropertyFromEnvVariable(SITE, true);
         }

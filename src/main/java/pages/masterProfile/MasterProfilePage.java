@@ -28,9 +28,6 @@ public class MasterProfilePage extends MasterProfileBasePage {
     @FindBy(xpath = "//a[contains(@class, 'button-edit')]")
     private WebElementFacade profileSettingsBtn;
 
-    @FindBy(xpath = "//div[@data-balance]")
-    private WebElementFacade masterBalance;
-
     public void masterFullNameShouldContain(String firstName) {
         masterName.shouldContainText(firstName);
     }
@@ -76,9 +73,5 @@ public class MasterProfilePage extends MasterProfileBasePage {
 
     public void waitForPageIsVisible() {
         withTimeoutOf(Duration.ofSeconds(30)).waitFor(profileSettingsBtn).isPresent();
-    }
-
-    public void verifyBalanceAmount(int amount) {
-        assertThat(masterBalance.getText().replaceAll("[^0-9.]", "")).isEqualTo(String.valueOf(amount));
     }
 }

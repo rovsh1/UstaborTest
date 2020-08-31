@@ -9,6 +9,11 @@ public class CustomerProfileRequestsPageSteps extends ScenarioSteps {
     private CustomerProfileRequestsPage customerProfileRequestsPage;
 
     @Step
+    public void open() {
+        customerProfileRequestsPage.openPage();
+    }
+
+    @Step
     public void newRequestShouldBeVisible() {
         customerProfileRequestsPage.requestShouldBeVisible();
     }
@@ -19,5 +24,16 @@ public class CustomerProfileRequestsPageSteps extends ScenarioSteps {
 
     public String getCustomerProfileId() {
         return customerProfileRequestsPage.getCustomerId();
+    }
+
+    @Step
+    public void deleteRequest() {
+        customerProfileRequestsPage.deleteRequest();
+        customerProfileRequestsPage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void verifyRequestsTabIsEmpty() {
+        customerProfileRequestsPage.verifyRequestsTabIsEmpty();
     }
 }

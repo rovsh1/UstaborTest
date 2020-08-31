@@ -1,6 +1,7 @@
 package steps.adminSteps;
 
 import entities.TestCategory;
+import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.slf4j.Logger;
@@ -8,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import pages.admin.CategoriesPage;
 import utils.Admin;
 
+import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Stream;
 
 public class CategoriesPageSteps extends ScenarioSteps {
 
@@ -19,6 +22,11 @@ public class CategoriesPageSteps extends ScenarioSteps {
     @Step
     public void openEditCategoryPage(String categoryId) throws TimeoutException {
         categoriesPage.openEditCategoryPage(categoryId);
+    }
+
+    @Step
+    public void openViewCategoryPage(String categoryId) {
+        categoriesPage.openViewCategoryPage(categoryId);
     }
 
     @Step
@@ -41,5 +49,16 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.openPromotionForCurrentCountry();
         categoriesPage.enablePromotionAndSetClickPrice(clickPrice);
         categoriesPage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void addMastersToCategoryRequest(TestCategory category, List<User> masters) {
+        openViewCategoryPage(category.getSystemId());
+        masters.forEach(m -> {
+            categoriesPage.openAddMasterForm();
+            categoriesPage.addMasterToCategoryRequest(m.getProfileId());
+            categoriesPage.submitMasterAssign();
+            categoriesPage.waitForLoaderDisappears();
+        });
     }
 }

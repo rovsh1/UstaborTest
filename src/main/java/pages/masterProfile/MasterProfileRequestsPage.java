@@ -4,6 +4,7 @@ import enums.RequestPages;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+import utils.Config;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -42,7 +43,11 @@ public class MasterProfileRequestsPage extends BasePage {
     @FindBy(xpath = "//div[@class='button-close']")
     private WebElementFacade closePopupButton;
 
+    @FindBy(xpath = "//div[@class='btn-contact']")
+    private WebElementFacade phoneButton;
+
     public void openPage() {
+        getDriver().get(Config.getFullUrl() + "profile/requests/");
         requestsTab.click();
     }
 
@@ -88,7 +93,11 @@ public class MasterProfileRequestsPage extends BasePage {
         customerName.shouldContainText(firstName);
     }
 
-    public void closePopup() {
-        closePopupButton.click();
+    public void phoneButtonShouldBeVisible() {
+        phoneButton.shouldBeVisible();
+    }
+
+    public void verifyCustomerConnectButtonHasNoPrice() {
+        assertThat(customerContactBtn.getText().replaceAll("[^0-9.]", "")).isEqualTo("");
     }
 }

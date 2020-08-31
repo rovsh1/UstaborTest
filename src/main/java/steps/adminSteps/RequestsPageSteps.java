@@ -33,4 +33,13 @@ public class RequestsPageSteps extends ScenarioSteps {
         requestsPage.submitMasterAssign();
         requestsPage.waitForLoaderDisappears();
     }
+
+    @Step
+    public void assignRequestToAllMastersOfCategory() {
+        requestsPage.openAssignMasterForm();
+        requestsPage.setAssignToAllMasters();
+        requestsPage.setWithdrawContactPrice();
+        requestsPage.submitMasterAssign();
+        requestsPage.waitForLoaderDisappears();
+    }
 }

@@ -19,9 +19,9 @@ public class CategoriesPage extends BaseAdminPage {
     private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a[@class='button-edit']";
     private static String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
     private static String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
-
     private static String categoryUrlByNameXpath = "//td//a[text()='%s']";
 
+    //region Edit category page
     @FindBy(xpath = "//li[@data-tab='tab-countries']")
     private WebElementFacade promotionTab;
 
@@ -48,6 +48,21 @@ public class CategoriesPage extends BaseAdminPage {
 
     @FindBy(xpath = "//li[@data-tab='tab-countries']")
     private WebElementFacade countriesAndPromotionTab;
+    //endregion
+
+    //region View category page
+    @FindBy(xpath = "//a[@id='btn-master-add']")
+    private WebElementFacade addMasterBtn;
+
+    @FindBy(xpath = "//input[@class='ui-autocomplete-input']")
+    private WebElementFacade masterInput;
+
+    @FindBy(xpath = "//ul[contains(@class, 'ui-autocomplete')]/li")
+    private WebElementFacade autocompleteSuggestion;
+
+    @FindBy(xpath = "//button[@class='button-submit']")
+    private WebElementFacade submitMasterAssignBtn;
+    //endregion
 
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "category");
@@ -66,6 +81,10 @@ public class CategoriesPage extends BaseAdminPage {
             });
             resetTimeouts();
         }
+    }
+
+    public void openViewCategoryPage(String categoryId) {
+        getDriver().get(Config.getAdminUrl() + String.format("category/view/%s/", categoryId));
     }
 
     public void enablePromotionAndSetPrice(String minimalPrice, String maximumPrice) {
@@ -109,5 +128,19 @@ public class CategoriesPage extends BaseAdminPage {
         }
 
         return null;
+    }
+
+    public void openAddMasterForm() {
+        addMasterBtn.click();
+    }
+
+    public void addMasterToCategoryRequest(String profileId) {
+        masterInput.sendKeys(profileId);
+        autocompleteSuggestion.waitUntilPresent();
+        autocompleteSuggestion.click();
+    }
+
+    public void submitMasterAssign() {
+        submitMasterAssignBtn.click();
     }
 }

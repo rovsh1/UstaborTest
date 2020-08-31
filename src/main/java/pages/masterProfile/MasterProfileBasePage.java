@@ -4,6 +4,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class MasterProfileBasePage extends BasePage {
 
     @FindBy(xpath = "//a[contains(@class, 'info')]")
@@ -26,6 +28,9 @@ public class MasterProfileBasePage extends BasePage {
 
     @FindBy(xpath = "//span[@class='ID']")
     private WebElementFacade profileId;
+
+    @FindBy(xpath = "//div[@data-balance]")
+    private WebElementFacade masterBalance;
 
     public void projectsTabShouldBeVisible() {
         projectsTab.shouldBeVisible();
@@ -58,5 +63,9 @@ public class MasterProfileBasePage extends BasePage {
 
     public String getProfileId() {
         return profileId.getText().replaceAll("\\D", "");
+    }
+
+    public void verifyBalanceAmount(int amount) {
+        assertThat(masterBalance.getText().replaceAll("[^0-9.-]", "")).isEqualTo(String.valueOf(amount));
     }
 }

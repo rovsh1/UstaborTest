@@ -7,7 +7,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.masterProfile.MasterProfileRequestsPage;
 
-public class MasterProfileRequestsPageSteps extends ScenarioSteps {
+public class MasterProfileRequestsPageSteps extends MasterProfileSteps {
 
     private MasterProfileRequestsPage masterProfileRequestsPage;
 
@@ -60,7 +60,13 @@ public class MasterProfileRequestsPageSteps extends ScenarioSteps {
         masterProfileRequestsPage.verifyCustomerName(customer.getFirstName());
     }
 
-    public void closePopup() {
-        masterProfileRequestsPage.closePopup();
+    @Step
+    public void clickPhoneButton() {
+        masterProfileRequestsPage.phoneButtonShouldBeVisible();
+    }
+
+    @Step
+    public void verifyCustomerConnectButtonHasNoPrice() {
+        masterProfileRequestsPage.verifyCustomerConnectButtonHasNoPrice();
     }
 }

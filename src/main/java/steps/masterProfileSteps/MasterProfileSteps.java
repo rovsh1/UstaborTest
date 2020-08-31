@@ -36,4 +36,9 @@ class MasterProfileSteps extends ScenarioSteps {
     public String getProfileId() {
         return masterProfileBasePage.getProfileId();
     }
+
+    @Step
+    public void verifyBalance(int amount) {
+        masterProfileBasePage.verifyBalanceAmount(amount);
+    }
 }

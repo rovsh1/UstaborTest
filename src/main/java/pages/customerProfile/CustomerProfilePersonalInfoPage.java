@@ -31,7 +31,6 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
     @FindBy(xpath = "//div[@id='customer-masters']//div[@class='item']")
     private List<WebElementFacade> myMastersList;
 
-
     public void deleteBtnShouldBeVisible() {
         deleteProfileButton.shouldBeVisible();
     }

@@ -4,8 +4,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
-import java.util.List;
-
 public class RequestsPage extends BaseAdminPage {
 
     @FindBy(xpath = "//a[@id='btn-master-add']")
@@ -19,6 +17,12 @@ public class RequestsPage extends BaseAdminPage {
 
     @FindBy(xpath = "//ul[contains(@class, 'ui-autocomplete')]/li")
     private WebElementFacade autocompleteSuggestion;
+
+    @FindBy(xpath = "//select[@id='form_data_type']")
+    private WebElementFacade assignToDropDown;
+
+    @FindBy(xpath = "//input[@id='form_data_payment']")
+    private WebElementFacade withdrawContactPrice;
 
     public void openPage(String requestId) {
         getDriver().get(Config.getAdminUrl() + String.format("request/view/%s/",requestId));
@@ -53,5 +57,13 @@ public class RequestsPage extends BaseAdminPage {
 
     public void submitMasterAssign() {
         submitMasterAssignBtn.click();
+    }
+
+    public void setAssignToAllMasters() {
+        assignToDropDown.selectByValue("category");
+    }
+
+    public void setWithdrawContactPrice() {
+        withdrawContactPrice.click();
     }
 }

@@ -64,9 +64,4 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     public String getProfileId() {
         return masterProfilePage.getProfileId();
     }
-
-    @Step
-    public void verifyBalance(int amount) {
-        masterProfilePage.verifyBalanceAmount(amount);
-    }
 }
