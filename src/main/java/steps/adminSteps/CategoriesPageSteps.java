@@ -11,7 +11,6 @@ import utils.Admin;
 
 import java.util.List;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Stream;
 
 public class CategoriesPageSteps extends ScenarioSteps {
 
@@ -33,7 +32,9 @@ public class CategoriesPageSteps extends ScenarioSteps {
     public void enablePromotionAndSetPrice(String categoryId, String minPrice, String maxPrice) throws TimeoutException {
         openEditCategoryPage(categoryId);
         categoriesPage.openPromotionForCurrentCountry();
-        categoriesPage.enablePromotionAndSetPrice(minPrice, maxPrice);
+        categoriesPage.enablePromotion();
+        categoriesPage.setPrice(minPrice, maxPrice);
+        categoriesPage.submitPromotion();
         categoriesPage.waitForLoaderDisappears();
     }
 
@@ -47,7 +48,9 @@ public class CategoriesPageSteps extends ScenarioSteps {
     public void setRequestClickPrice(String categoryId, String clickPrice) throws TimeoutException {
         openEditCategoryPage(categoryId);
         categoriesPage.openPromotionForCurrentCountry();
-        categoriesPage.enablePromotionAndSetClickPrice(clickPrice);
+        categoriesPage.enablePromotion();
+        categoriesPage.setClickPrice(clickPrice);
+        categoriesPage.submitPromotion();
         categoriesPage.waitForLoaderDisappears();
     }
 
@@ -60,5 +63,16 @@ public class CategoriesPageSteps extends ScenarioSteps {
             categoriesPage.submitMasterAssign();
             categoriesPage.waitForLoaderDisappears();
         });
+    }
+
+    @Step
+    public void setPromotionAndClickPrice(String categoryId, String minPrice, String maxPrice, String clickPrice) throws TimeoutException {
+        openEditCategoryPage(categoryId);
+        categoriesPage.openPromotionForCurrentCountry();
+        categoriesPage.enablePromotion();
+        categoriesPage.setPrice(minPrice, maxPrice);
+        categoriesPage.setClickPrice(clickPrice);
+        categoriesPage.submitPromotion();
+        categoriesPage.waitForLoaderDisappears();
     }
 }

@@ -1,13 +1,15 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(requestClickPrice = 1000)
+@AddCategory(promotionAndClickPrice = true, addRequestQuestion = true)
 @AddMasters(masters = 1, addProject = false)
+@WithTag("new")
 public class TC011_CustomerRequestWithdrawAmount extends TestBase {
 
     @Test
@@ -37,21 +39,21 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
 
         user.atMasterProfileRequestsPage.open();
         user.atMasterProfileRequestsPage.openRequest();
-        user.atMasterProfileRequestsPage.verifyClickPriceFirstPage("1000");
-        user.atMasterProfileRequestsPage.verifyClickPriceSecondPage("1000");
-        user.atMasterProfileRequestsPage.verifyClickPriceLastPage("1000");
+        user.atMasterRequestPage.verifyClickPriceFirstPage("1000");
+        user.atMasterRequestPage.verifyClickPriceSecondPage("1000");
+        user.atMasterRequestPage.verifyClickPriceLastPage("1000");
 
-        user.atMasterProfileRequestsPage.clickConnectClientButton();
-        user.atMasterProfileRequestsPage.verifyErrorMessage(getText("WithdrawError"));
+        user.atMasterRequestPage.clickConnectClientButton();
+        user.atMasterRequestPage.verifyErrorMessage(getText("WithdrawError"));
 
         admin.addMoneyToMaster(1000, watcher.getMaster());
 
         user.atHomePage.openHomePage();
         user.atMasterProfileRequestsPage.open();
         user.atMasterProfileRequestsPage.openRequest();
-        user.atMasterProfileRequestsPage.clickConnectClientButton();
+        user.atMasterRequestPage.clickConnectClientButton();
 
-        user.atMasterProfileRequestsPage.verifyCustomerInfo(customer);
+        user.atMasterRequestPage.verifyCustomerInfo(customer);
 
         user.atMasterProfilePage.open();
         user.atMasterProfilePage.verifyBalance(900);

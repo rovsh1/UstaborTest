@@ -2,6 +2,7 @@ import annotations.AddCategory;
 import annotations.AddMasters;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +12,9 @@ import utils.Email;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
-@AddCategory
+@AddCategory(addRequestQuestion = true)
 @AddMasters(masters = 1, addProject = false)
+@WithTag("new")
 public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
     protected Email email;

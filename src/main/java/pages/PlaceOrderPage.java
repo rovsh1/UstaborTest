@@ -85,6 +85,7 @@ public class PlaceOrderPage extends BasePage {
 
     public void selectCategory(String systemId) {
         categoryDropdown.selectByValue(systemId);
+        waitForLoaderDisappears();
     }
 
     public void clickNextButton(RequestPages pageNumber) {

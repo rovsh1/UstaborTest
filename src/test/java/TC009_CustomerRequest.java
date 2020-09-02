@@ -1,5 +1,6 @@
 import annotations.AddCategory;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import enums.RequestPages;
@@ -8,7 +9,8 @@ import utils.DataGenerator;
 import utils.XmlParser;
 
 @RunWith(SerenityRunner.class)
-@AddCategory
+@AddCategory(addRequestQuestion = true)
+@WithTag("new")
 public class TC009_CustomerRequest extends TestBase {
 
     @Test

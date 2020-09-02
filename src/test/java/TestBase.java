@@ -48,10 +48,17 @@ public class TestBase {
         if (this.getClass().isAnnotationPresent(AddCategory.class)) {
             watcher.category = category;
             admin.addTestCategory(category);
-            admin.addTestCategoryRequestQuestions(category, getText("Question"), "100", "200");
 
-            if (this.getClass().getAnnotation(AddCategory.class).requestClickPrice() > 0) {
-                admin.atCategoriesPage.setRequestClickPrice(category.getSystemId(), "1000");
+            if (this.getClass().getAnnotation(AddCategory.class).addRequestQuestion()) {
+                admin.addTestCategoryRequestQuestions(category, getText("Question"), "100", "200");
+            }
+
+            if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
+                admin.atCategoriesPage.setPromotionAndClickPrice(
+                        category.getSystemId(),
+                        "100",
+                        "200",
+                        "1000");
             }
 
             if (this.getClass().isAnnotationPresent(AddMasters.class)) {

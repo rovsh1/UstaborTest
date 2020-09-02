@@ -36,4 +36,14 @@ public class CustomerProfileRequestsPageSteps extends ScenarioSteps {
     public void verifyRequestsTabIsEmpty() {
         customerProfileRequestsPage.verifyRequestsTabIsEmpty();
     }
+
+    @Step
+    public void hideRequest() {
+        customerProfileRequestsPage.clickHideRequest();
+    }
+
+    @Step
+    public void verifyRequestStatus(String status) {
+        customerProfileRequestsPage.verifyRequestStatus(status);
+    }
 }

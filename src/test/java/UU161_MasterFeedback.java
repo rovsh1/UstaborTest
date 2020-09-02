@@ -1,3 +1,4 @@
+import annotations.AddCategory;
 import entities.Master;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeoutException;
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
+@AddCategory(promotionAndClickPrice = true)
 public class UU161_MasterFeedback extends TestBase {
 
     private Master master;
@@ -30,7 +32,6 @@ public class UU161_MasterFeedback extends TestBase {
         user.atHomePage.openHomePage();
 
         user.registerAsMaster(master);
-        admin.enablePromotion(master);
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());

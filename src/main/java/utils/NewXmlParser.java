@@ -50,4 +50,26 @@ public class NewXmlParser {
         }
         throw new NullPointerException("Getting email auth code failed");
     }
+
+    public static String getSmsPassword(String html, String phoneNumber, String text) {
+        JXDocument document = JXDocument.create(html);
+        String xpath = String.format("//tr[./td[contains(text(), '%s')]]//td[contains(text(), '%s')]",
+                phoneNumber,
+                text);
+
+        JXNode node = document.selNOne(xpath);
+
+        return node.toString().substring(node.toString().lastIndexOf(':') + 2, node.toString().lastIndexOf('<'));
+    }
+
+    public static String getSmsByText(String html, String phoneNumber, String text) {
+        JXDocument document = JXDocument.create(html);
+        String xpath = String.format("//tr[./td[contains(text(), '%s')]]//td[contains(text(), '%s')]",
+                phoneNumber,
+                text);
+
+        JXNode node = document.selNOne(xpath);
+
+        return node.toString();
+    }
 }

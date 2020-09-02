@@ -19,7 +19,7 @@ public class DataGenerator {
     public static User getCustomer(String email) {
         var faker = new Faker();
 
-        var user = new User(email, password, faker.phoneNumber().cellPhone());
+        var user = new User(email, password, faker.number().digits(10));
         user.setFirstName(faker.name().firstName());
         user.setCity(faker.address().cityName());
 
@@ -43,11 +43,11 @@ public class DataGenerator {
 
         var user = new Master();
         user.setPassword(password);
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        user.setPhoneNumber(faker.number().digits(10));
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        user.setPhoneNumber(faker.number().digits(10));
 
         String randomEmail = service.bothify(".????####@fakeDomain.com");
         user.setEmail(user.getFirstName() + "." + user.getLastName() + randomEmail);
@@ -69,11 +69,11 @@ public class DataGenerator {
         var user = new Master();
         user.setEmail(email);
         user.setPassword(password);
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        user.setPhoneNumber(faker.number().digits(10));
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        user.setPhoneNumber(faker.number().digits(10));
         return user;
     }
 }

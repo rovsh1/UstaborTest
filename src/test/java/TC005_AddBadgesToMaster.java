@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
-@AddCategory
+@AddCategory(promotionAndClickPrice = true)
 @AddMasters
 public class TC005_AddBadgesToMaster extends TestBase {
 
@@ -21,7 +21,6 @@ public class TC005_AddBadgesToMaster extends TestBase {
         watcher.users.add(master);
 
         user.registerAsMaster(master);
-        admin.enablePromotion(master);
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());

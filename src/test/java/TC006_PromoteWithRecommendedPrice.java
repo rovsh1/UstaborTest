@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
-@AddCategory
+@AddCategory(promotionAndClickPrice = true)
 @AddMasters
 public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
@@ -22,7 +22,6 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
         user.registerAsMaster(master);
         admin.addMoneyToMaster(10000, master);
-        admin.atCategoriesPage.enablePromotionAndSetPrice(master.getCategoryId(), "100", "500");
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());

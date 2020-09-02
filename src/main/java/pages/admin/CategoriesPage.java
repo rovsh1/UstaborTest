@@ -87,24 +87,18 @@ public class CategoriesPage extends BaseAdminPage {
         getDriver().get(Config.getAdminUrl() + String.format("category/view/%s/", categoryId));
     }
 
-    public void enablePromotionAndSetPrice(String minimalPrice, String maximumPrice) {
-        if (!enablePromoCheckbox.isSelected()) {
-            enablePromoCheckbox.click();
-        }
+    public void setPrice(String minimalPrice, String maximumPrice) {
         minPrice.clear();
         minPrice.sendKeys(String.valueOf(minimalPrice));
         maxPrice.clear();
         maxPrice.sendKeys(String.valueOf(maximumPrice));
-
-        submitBtn.click();
     }
 
-    public void enablePromotionAndSetClickPrice(String clickPrice) {
-        if (!enablePromoCheckbox.isSelected()) {
-            enablePromoCheckbox.click();
-        }
+    public void setClickPrice(String clickPrice) {
         requestClickPrice.sendKeys(clickPrice);
+    }
 
+    public void submitPromotion() {
         submitBtn.click();
     }
 
@@ -142,5 +136,11 @@ public class CategoriesPage extends BaseAdminPage {
 
     public void submitMasterAssign() {
         submitMasterAssignBtn.click();
+    }
+
+    public void enablePromotion() {
+        if (!enablePromoCheckbox.isSelected()) {
+            enablePromoCheckbox.click();
+        }
     }
 }

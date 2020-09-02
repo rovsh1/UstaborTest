@@ -24,6 +24,12 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     @FindBy(xpath = "//a[@class='delete']")
     private WebElementFacade deleteBtn;
 
+    @FindBy(xpath = "//a[contains(@href,'close')]")
+    private WebElementFacade hideRequest;
+
+    @FindBy(xpath = "//span[contains(@class, 'CUSTOMER_REQUEST_STATUS')]")
+    private WebElementFacade requestStatus;
+
     public void requestShouldBeVisible() {
         assertThat(requests).isNotEmpty();
     }
@@ -33,15 +39,22 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     }
 
     public void openPage() {
-        getDriver().get(Config.getFullUrl() + "/customer/requests/");
+        getDriver().get(Config.getFullUrl() + "customer/requests/");
     }
 
     public void deleteRequest() {
-        var actions = new Actions(getDriver());
-        actions.moveToElement(additionalOptionsBtn).moveToElement(deleteBtn).click();
+        evaluateJavascript("document.getElementsByClassName('delete')[0].click();");
     }
 
     public void verifyRequestsTabIsEmpty() {
         assertThat(requests).isEmpty();
+    }
+
+    public void clickHideRequest() {
+        evaluateJavascript("document.getElementsByClassName('more')[0].click();");
+    }
+
+    public void verifyRequestStatus(String status) {
+        requestStatus.shouldContainOnlyText(status);
     }
 }

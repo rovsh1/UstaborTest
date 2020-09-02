@@ -8,5 +8,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AddCategory {
-    int requestClickPrice() default 0;
+    boolean promotionAndClickPrice() default false;
+    boolean addRequestQuestion() default false;
 }

@@ -1,6 +1,7 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
@@ -10,8 +11,9 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(requestClickPrice = 500)
+@AddCategory(promotionAndClickPrice = true, addRequestQuestion = true)
 @AddMasters(addProject = false)
+@WithTag("new")
 public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
 
     protected Email email = new Email();
@@ -49,15 +51,15 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         user.atMasterProfileRequestsPage.open();
         user.atMasterProfileRequestsPage.verifyBalance(1000);
         user.atMasterProfileRequestsPage.clickPhoneButton();
-        user.atMasterProfileRequestsPage.verifyCustomerInfo(customer);
+        user.atMasterRequestPage.verifyCustomerInfo(customer);
         user.atHomePage.logsOut();
 
         user.atHomePage.loginAsMaster(masters.get(1).getEmail(), masters.get(1).getPassword(), true);
         user.atMasterProfileRequestsPage.open();
         user.atMasterProfileRequestsPage.openRequest();
-        user.atMasterProfileRequestsPage.verifyCustomerConnectButtonHasNoPrice();
-        user.atMasterProfileRequestsPage.clickConnectClientButton();
-        user.atMasterProfileRequestsPage.verifyCustomerInfo(customer);
+        user.atMasterRequestPage.verifyCustomerConnectButtonHasNoPrice();
+        user.atMasterRequestPage.clickConnectClientButton();
+        user.atMasterRequestPage.verifyCustomerInfo(customer);
         user.atMasterProfilePage.open();
         user.atMasterProfilePage.verifyBalance(1000);
         user.atHomePage.logsOut();
