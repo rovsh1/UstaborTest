@@ -21,16 +21,8 @@ public class BaseAdminPage extends PageObject {
     @FindBy(xpath = "//form[@class='quicksearch']/input[@id='quicksearch']")
     private WebElementFacade quickSearchInput;
 
-    @FindBy(xpath = "//form[@class='quicksearch']/button[@type='submit']")
-    private WebElementFacade quickSearchSubmit;
-
     @FindBy(xpath = loaderXpath)
     private WebElementFacade loader;
-
-    public void quickSearch(String query) {
-        quickSearchInput.sendKeys(query);
-        quickSearchSubmit.click();
-    }
 
     public void waitForLoaderDisappears() {
         setTimeouts(1, ChronoUnit.SECONDS);

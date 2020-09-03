@@ -44,8 +44,8 @@ public class MasterProfileRequestsPage extends BasePage {
         requestDetailsBtn.click();
     }
 
-    public void phoneButtonShouldBeVisible() {
-        phoneButton.shouldBeVisible();
+    public void clickPhoneButton() {
+        phoneButton.click();
     }
 
     public void verifyRequestStatus(String status) {

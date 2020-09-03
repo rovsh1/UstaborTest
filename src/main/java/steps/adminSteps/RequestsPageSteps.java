@@ -42,4 +42,11 @@ public class RequestsPageSteps extends ScenarioSteps {
         requestsPage.submitMasterAssign();
         requestsPage.waitForLoaderDisappears();
     }
+
+    @Step
+    public void deleteRequest(String requestId) {
+        openRequestById(requestId);
+        requestsPage.deleteRequest();
+        requestsPage.waitForLoaderDisappears();
+    }
 }

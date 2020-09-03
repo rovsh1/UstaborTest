@@ -24,6 +24,15 @@ public class RequestsPage extends BaseAdminPage {
     @FindBy(xpath = "//input[@id='form_data_payment']")
     private WebElementFacade withdrawContactPrice;
 
+    @FindBy(xpath = "//div[@class='btn-menu']")
+    private WebElementFacade menuBtn;
+
+    @FindBy(xpath = "//a[@class='delete']")
+    private WebElementFacade deleteBtn;
+
+    @FindBy(xpath = "//button[contains(@class, 'button-cancel')]")
+    private WebElementFacade submitBtn;
+
     public void openPage(String requestId) {
         getDriver().get(Config.getAdminUrl() + String.format("request/view/%s/",requestId));
     }
@@ -65,5 +74,11 @@ public class RequestsPage extends BaseAdminPage {
 
     public void setWithdrawContactPrice() {
         withdrawContactPrice.click();
+    }
+
+    public void deleteRequest() {
+        menuBtn.click();
+        deleteBtn.click();
+        submitBtn.click();
     }
 }

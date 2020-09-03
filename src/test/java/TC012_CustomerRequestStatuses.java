@@ -88,9 +88,12 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atMasterProfileRequestsPage.verifyRequestStatusSetByCustomer(getText("RequestClosed"));
         user.atHomePage.logsOut();
 
+        admin.atRequestsPage.deleteRequest(requestId);
+
+        user.atHomePage.openHomePage();
         user.atHomePage.loginAsCustomer(customer.getPhoneNumber(), customer.getPassword());
         user.atCustomerProfileRequestsPage.open();
-        user.atCustomerProfileRequestsPage.deleteRequest();
+        user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
         user.atHomePage.logsOut();
 
         user.atHomePage.loginAsMaster(watcher.getMaster().getEmail(), watcher.getMaster().getPassword(), true);

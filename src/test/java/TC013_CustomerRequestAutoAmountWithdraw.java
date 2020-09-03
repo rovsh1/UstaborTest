@@ -52,6 +52,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         user.atMasterProfileRequestsPage.verifyBalance(1000);
         user.atMasterProfileRequestsPage.clickPhoneButton();
         user.atMasterRequestPage.verifyCustomerInfo(customer);
+        user.atMasterRequestPage.closeConnectCustomerPopup();
         user.atHomePage.logsOut();
 
         user.atHomePage.loginAsMaster(masters.get(1).getEmail(), masters.get(1).getPassword(), true);
@@ -72,6 +73,6 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
 
         user.atCustomerProfileRequestsPage.open();
         user.atCustomerProfileRequestsPage.deleteRequest();
-        user.atCustomerProfileRequestsPage.verifyRequestsTabIsEmpty();
+        user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
     }
 }

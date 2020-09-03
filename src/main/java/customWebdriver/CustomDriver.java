@@ -19,7 +19,7 @@ public class CustomDriver implements DriverSource {
                 try {
                     System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
                     ChromeOptions options = new ChromeOptions();
-                    //options.addArguments("--headless");
+                    options.addArguments("--headless");
                     options.addArguments("window-size=1800x900");
                     options.addArguments("start-maximized");
                     options.addArguments("user-agent=qatesting");

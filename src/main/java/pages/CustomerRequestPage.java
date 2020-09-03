@@ -3,7 +3,6 @@ package pages;
 import entities.User;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -47,7 +46,7 @@ public class CustomerRequestPage extends BasePage {
 
     public void verifyMasterAssigned(User master) {
         var mastersPhones = mastersOffers.stream().map(WebElementFacade::getText).collect(Collectors.toList());
-        assertThat(mastersPhones).contains(master.getPhoneNumber());
+        assertThat(mastersPhones.stream().anyMatch(x -> x.contains(master.getPhoneNumber()))).isTrue();
     }
 
     public void verifySmsText(String smsTestMessage) {

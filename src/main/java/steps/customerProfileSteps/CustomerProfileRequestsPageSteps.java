@@ -33,7 +33,7 @@ public class CustomerProfileRequestsPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyRequestsTabIsEmpty() {
+    public void verifyRequestsTableIsEmpty() {
         customerProfileRequestsPage.verifyRequestsTabIsEmpty();
     }
 

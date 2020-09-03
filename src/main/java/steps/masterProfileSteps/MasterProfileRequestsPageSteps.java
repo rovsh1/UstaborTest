@@ -24,7 +24,7 @@ public class MasterProfileRequestsPageSteps extends MasterProfileSteps {
 
     @Step
     public void clickPhoneButton() {
-        masterProfileRequestsPage.phoneButtonShouldBeVisible();
+        masterProfileRequestsPage.clickPhoneButton();
     }
 
     @Step
