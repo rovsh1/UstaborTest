@@ -3,6 +3,7 @@ package steps.adminSteps;
 import entities.TestCategory;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.AddRequestQuestionsPage;
+import utils.Config;
 
 public class AddRequestQuestionsPageSteps extends ScenarioSteps {
 
@@ -19,6 +20,11 @@ public class AddRequestQuestionsPageSteps extends ScenarioSteps {
 
     public void setQuestionPriceForCurrentCountry(String question, String countryName, String minPrice, String maxPrice) {
         addRequestQuestionsPage.openPricesTableForQuestion(question);
-        addRequestQuestionsPage.setQuestionPriceForCountry(countryName, minPrice, maxPrice);
+        if (Config.isUstabor()) {
+            addRequestQuestionsPage.setQuestionPriceUstabor(minPrice, maxPrice);
+        } else {
+            addRequestQuestionsPage.setQuestionPriceForCountry(countryName, minPrice, maxPrice);
+        }
+
     }
 }

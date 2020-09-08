@@ -39,7 +39,7 @@ public class Config {
     }
 
     public static boolean isUstabor() {
-        return site.contains("ustabor");
+        return getEnv().equals("ustabor");
     }
 
     public static Users getUsers() {
@@ -61,9 +61,7 @@ public class Config {
     }
 
     public static String getFullUrl() {
-        if (Config.isProdEnv()) {
-            return getBaseUrl();
-        }
+        if (isUstabor()) return getBaseUrl();
         return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
     }
 
@@ -77,7 +75,7 @@ public class Config {
             countryCode = getUzCountryCode();
         }
 
-        return site;
+        return site + "/";
     }
 
     public static String getLang() {
@@ -96,7 +94,11 @@ public class Config {
 
     public static String getCountryCode() {
         if (countryCode == null) {
-            countryCode = getEnvironmentVariableValue(COUNTRY, false);
+            if (isUstabor()) {
+                countryCode = "uz";
+            } else {
+                countryCode = getEnvironmentVariableValue(COUNTRY, false);
+            }
         }
         return countryCode;
     }

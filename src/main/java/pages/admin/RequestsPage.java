@@ -30,7 +30,13 @@ public class RequestsPage extends BaseAdminPage {
     @FindBy(xpath = "//a[@class='delete']")
     private WebElementFacade deleteBtn;
 
-    @FindBy(xpath = "//button[contains(@class, 'button-cancel')]")
+    @FindBy(xpath = "//a[@id='btn-request-delete']")
+    private WebElementFacade prodDeleteBtn;
+
+    @FindBy(xpath = "//textarea[@id='form_data_note']")
+    private WebElementFacade prodDeleteReason;
+
+    @FindBy(xpath = "//button[contains(@class, 'button-submit')]")
     private WebElementFacade submitBtn;
 
     public void openPage(String requestId) {
@@ -77,8 +83,13 @@ public class RequestsPage extends BaseAdminPage {
     }
 
     public void deleteRequest() {
-        menuBtn.click();
-        deleteBtn.click();
+        if (Config.isProdEnv()) {
+            prodDeleteBtn.click();
+            prodDeleteReason.sendKeys("test");
+        } else {
+            menuBtn.click();
+            deleteBtn.click();
+        }
         submitBtn.click();
     }
 }

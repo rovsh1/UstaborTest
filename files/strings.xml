@@ -72,8 +72,8 @@
     <string name="RequestDeclined">Отклонена</string>
     <string name="RequestClosed">Закрыта для предложений</string>
 
-    <string name="SmsRegistration">Вы зарегистрированы</string>
-    <string name="SmsMasterMessage">мастер оставил сообщение</string>
+    <string name="SmsRegistration">Ваш логин</string>
+    <string name="SmsMasterMessage">сообщение</string>
     <string name="SmsMasterPrice">мастер предложил свою цену</string>
     <string name="SmsRequestClosed">закрыта для предложений</string>
     <string name="SmsTestMessage">This is test message</string>

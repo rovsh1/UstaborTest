@@ -7,7 +7,9 @@ import entities.Master;
 import entities.TestCategory;
 import entities.User;
 
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.Random;
 
 public class DataGenerator {
     private static final String password = "Password1!";
@@ -19,7 +21,10 @@ public class DataGenerator {
     public static User getCustomer(String email) {
         var faker = new Faker();
 
-        var user = new User(email, password, faker.number().digits(10));
+        var user = new User(
+                email,
+                password,
+                getCountryCode() + getPhoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setCity(faker.address().cityName());
 
@@ -31,7 +36,7 @@ public class DataGenerator {
         var user = new User();
 
         user.setFirstName(faker.name().firstName());
-        user.setPhoneNumber(faker.number().digits(10));
+        user.setPhoneNumber(getCountryCode() + getPhoneNumber());
         user.setCity(faker.address().cityName());
 
         return user;
@@ -43,11 +48,10 @@ public class DataGenerator {
 
         var user = new Master();
         user.setPassword(password);
-        user.setPhoneNumber(faker.number().digits(10));
+        user.setPhoneNumber("70" + getPhoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.number().digits(10));
 
         String randomEmail = service.bothify(".????####@fakeDomain.com");
         user.setEmail(user.getFirstName() + "." + user.getLastName() + randomEmail);
@@ -69,11 +73,39 @@ public class DataGenerator {
         var user = new Master();
         user.setEmail(email);
         user.setPassword(password);
-        user.setPhoneNumber(faker.number().digits(10));
+        user.setPhoneNumber("70" + getPhoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
-        user.setPhoneNumber(faker.number().digits(10));
         return user;
+    }
+
+    private static String getPhoneNumber() {
+        if (Config.isUstabor()) {
+            var faker = new Faker();
+            return faker.number().digits(9);
+        }
+        var exclude = Arrays.asList(3, 4);
+        var sb = new StringBuilder();
+        var rand = new Random();
+
+        while (true) {
+            var firstDigit = rand.nextInt(10);
+            if (exclude.contains(firstDigit)) continue;
+
+            sb.append(firstDigit);
+
+            var lastDigits = rand.nextInt((9999999 - 1000000) + 1) + 1000000;
+            sb.append(lastDigits);
+
+            return sb.toString();
+        }
+    }
+
+    private static String getCountryCode() {
+        if (Config.isUstabor()) {
+            return "998";
+        }
+        return "770";
     }
 }

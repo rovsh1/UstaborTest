@@ -30,6 +30,12 @@ public class AddRequestQuestionsPage extends BaseAdminPage {
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitPriceBtn;
 
+    @FindBy(xpath = "//input[contains(@name, 'price_min')]")
+    private WebElementFacade minPriceUstabor;
+
+    @FindBy(xpath = "//input[contains(@name, 'price_max')]")
+    private WebElementFacade maxPriceUstabor;
+
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "requestanswer/");
     }
@@ -69,5 +75,10 @@ public class AddRequestQuestionsPage extends BaseAdminPage {
     }
 
 
+    public void setQuestionPriceUstabor(String minPrice, String maxPrice) {
+        minPriceUstabor.sendKeys(minPrice);
+        maxPriceUstabor.sendKeys(maxPrice);
+        submitPriceBtn.click();
+    }
 }
 

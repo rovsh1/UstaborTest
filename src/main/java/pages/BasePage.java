@@ -125,11 +125,11 @@ public class BasePage extends PageObject {
     }
 
     public void openCustomerProfilePage() {
-        getDriver().get(Config.getFullUrl() + "/customer");
+        getDriver().get(Config.getFullUrl() + "customer");
     }
 
     public void openMasterProfilePage() {
-        getDriver().get(Config.getFullUrl() + "/profile");
+        getDriver().get(Config.getFullUrl() + "profile");
     }
 
     public void logsOut() {
