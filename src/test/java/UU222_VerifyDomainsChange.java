@@ -9,7 +9,6 @@ import java.util.List;
 @WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
-@Ignore
 public class UU222_VerifyDomainsChange extends TestBase {
 
     @Test

@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
-@Ignore
 public class TC003_MasterForgotPassword extends TestBase {
 
     @Test
