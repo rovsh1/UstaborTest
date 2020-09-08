@@ -62,7 +62,7 @@ public class Config {
 
     public static String getFullUrl() {
         if (isUstabor()) return getBaseUrl();
-        return String.format("%s/%s-%s/", getBaseUrl(), getLang(), getCountryCode());
+        return getBaseUrl() + String.format("%s-%s/", getLang(), getCountryCode());
     }
 
     private static String getBaseUrl() {
