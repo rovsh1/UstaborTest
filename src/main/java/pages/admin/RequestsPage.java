@@ -83,13 +83,8 @@ public class RequestsPage extends BaseAdminPage {
     }
 
     public void deleteRequest() {
-        if (Config.isProdEnv()) {
-            prodDeleteBtn.click();
-            prodDeleteReason.sendKeys("test");
-        } else {
-            menuBtn.click();
-            deleteBtn.click();
-        }
+        prodDeleteBtn.click();
+        prodDeleteReason.sendKeys("test");
         submitBtn.click();
     }
 }
