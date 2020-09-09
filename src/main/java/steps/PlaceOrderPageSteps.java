@@ -47,6 +47,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     @Step
     public void clickNextButton(RequestPages pageNumber) {
         placeOrderPage.clickNextButton(pageNumber);
+        placeOrderPage.waitForLoaderDisappears();
     }
 
     @Step
