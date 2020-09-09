@@ -167,4 +167,69 @@ public class Admin {
             e.printStackTrace();
         }
     }
+
+    public String getSmsCode(String phoneNumber) {
+        var url = baseUrl + "log/sms/";
+        String code = "N/A";
+
+        try {
+            var html = executor.execute(Request.Get(url)).returnContent().asString();
+            code = NewXmlParser.getSmsCode(html, phoneNumber);
+            logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+
+    public String getSmsPassword(String phoneNumber) {
+        var url = baseUrl + "log/sms/";
+        String password = null;
+
+        try {
+            var html = executor.execute(Request.Get(url)).returnContent().asString();
+            password = NewXmlParser.getSmsPassword(html, phoneNumber, XmlParser.getTextByKey("SmsRegistration"));
+            logger.info("Get SMS password {} for phone number: {}", password, phoneNumber);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return password;
+    }
+
+    public String getSmsByText(String phoneNumber, String sms) {
+        var url = baseUrl + "log/sms/";
+        String smsText = null;
+
+        try {
+            var html = executor.execute(Request.Get(url)).returnContent().asString();
+            smsText = NewXmlParser.getSmsByText(html, phoneNumber, sms);
+            logger.info("Get SMS by piece of text for phone number: {}", phoneNumber);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return smsText;
+    }
+
+    public void deleteCustomer(String customerId) {
+        var url = baseUrl + String.format("customer/delete/%s/", customerId);
+
+        try {
+            var result = executor.execute(Request.Get(url))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
+            if (result != 200) {
+                logger.info("Delete customer request failed");
+                throw new HttpResponseException(result, "Delete customer request failed");
+            }
+            logger.info("Customer deleted. Id: {}", customerId);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

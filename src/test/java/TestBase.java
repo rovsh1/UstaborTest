@@ -1,3 +1,7 @@
+import annotations.AddCategory;
+import annotations.AddMasters;
+import entities.Project;
+import entities.TestCategory;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -19,10 +23,10 @@ import java.util.concurrent.TimeoutException;
 
 public class TestBase {
 
-    DataGenerator data;
+    public final TestCategory category = new TestCategory();
 
-    @Managed
-    private WebDriver driver;
+    @Rule
+    public Watcher watcher = new Watcher();
 
     @Steps
     UserSteps user;
@@ -30,25 +34,66 @@ public class TestBase {
     @Steps
     AdminSteps admin;
 
-    @Rule
-    public Watcher watcher = new Watcher();
+    @Managed
+    public WebDriver driver;
 
     @Before
     public void setUp() throws TimeoutException {
         Serenity.throwExceptionsImmediately();
-        data = new DataGenerator();
-
         if (!Config.isChrome()) {
             driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
             driver.manage().window().fullscreen();
         }
 
-        user.atHomePage.openHomePage();
-        user.atHomePage.homePageShouldBeVisible();
+        if (this.getClass().isAnnotationPresent(AddCategory.class)) {
+            watcher.category = category;
+            admin.addTestCategory(category);
 
-        user.atHomePage.setLanguage(Config.getLang());
-        if (!Config.isUstabor()) {
-            user.atHomePage.setCountry(Config.getCountry());
+            if (this.getClass().getAnnotation(AddCategory.class).addRequestQuestion()) {
+                admin.addTestCategoryRequestQuestions(category, getText("Question"), "100", "200");
+            }
+
+            if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
+                admin.atCategoriesPage.setPromotionAndClickPrice(
+                        category.getSystemId(),
+                        "100",
+                        "200",
+                        "1000");
+            }
+
+            if (this.getClass().isAnnotationPresent(AddMasters.class)) {
+                user.atHomePage.openHomePage();
+                user.atHomePage.setLanguage(Config.getLang());
+                if (!Config.isUstabor()) {
+                    user.atHomePage.setCountry(Config.getCountry());
+                }
+                var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
+                for (int i = 0; i < mastersCount; i++) {
+                    var master = DataGenerator.getMasterRandomEmail(category);
+                    watcher.users.add(master);
+
+                    user.atHomePage.openHomePage();
+                    user.atHomePage.registerAsMasterWithSpecifiedCategory(master);
+                    user.atMasterProfilePage.waitForPageIsVisible();
+                    master.setProfileId(user.atMasterProfilePage.getProfileId());
+
+                    if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
+                        var project = new Project(category.getName());
+                        master.setProject(project);
+                        user.atMasterProjectsPage.openProjectsTab();
+                        user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
+                    }
+                    user.atHomePage.logsOut();
+                }
+            }
+        } else {
+            user.atHomePage.openHomePage();
+            user.atHomePage.homePageShouldBeVisible();
+
+            user.atHomePage.setLanguage(Config.getLang());
+            if (!Config.isUstabor()) {
+                user.atHomePage.setCountry(Config.getCountry());
+            }
         }
     }
 

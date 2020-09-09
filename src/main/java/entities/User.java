@@ -9,6 +9,7 @@ public class User {
     private String lastName;
     private String aboutMe;
     private String city;
+    private String profileId = null;
 
     public User() { }
 
@@ -72,5 +73,13 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 }

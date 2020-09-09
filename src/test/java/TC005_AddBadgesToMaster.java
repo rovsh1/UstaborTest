@@ -1,22 +1,26 @@
+import annotations.AddCategory;
+import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
 
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
-public class TC005_AddBadgesToMaster extends ProdTestBase {
+@AddCategory(promotionAndClickPrice = true)
+@AddMasters
+public class TC005_AddBadgesToMaster extends TestBase {
 
     @Test
-    public void addBadgesToMaster() throws TimeoutException, InterruptedException {
-        var master = data.getMasterRandomEmail(category);
-        watcher.masters.add(master);
+    public void verifyBadgesEnableMasterPromotion() throws TimeoutException, InterruptedException {
+        var master = DataGenerator.getMasterRandomEmail(category);
+        watcher.users.add(master);
 
         user.registerAsMaster(master);
-        admin.enablePromotion(master);
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());

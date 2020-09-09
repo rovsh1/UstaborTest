@@ -4,6 +4,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,11 +30,8 @@ public class MasterPromotionPage extends MasterProfileBasePage{
         WebElementFacade project = projectsList
                 .stream()
                 .filter(p -> p.getText().contains(projectName))
-                .findFirst().orElse(null);
-
-        if (project == null) {
-            throw new NullPointerException(String.format("No project with such name: %s ", projectName));
-        }
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException(String.format("No project with such name: %s ", projectName)));
 
         project.click();
     }

@@ -55,11 +55,27 @@
     <string name="FilterCity_kz_fixinglist">Нур-Султан</string>
     <string name="FilterCity_uz_fixinglist">Ташкент</string>
 
-
     <string name="FilterDistrict_uz"></string>
     <string name="FilterDistrict_kz"></string>
     <string name="FilterDistrict_ua"></string>
 
     <string name="LoginFailedError">Неверные логин или пароль</string>
+
+    <string name="Question">This is a test question</string>
+
+    <string name="WithdrawError">На вашем счете недостаточно средств</string>
+
+    <string name="RequestNew">Новая</string>
+    <string name="RequestWatched">Просмотрена</string>
+    <string name="RequestPaid">Оплачена</string>
+    <string name="RequestActive">Активная</string>
+    <string name="RequestDeclined">Отклонена</string>
+    <string name="RequestClosed">Закрыта для предложений</string>
+
+    <string name="SmsRegistration">Ваш логин</string>
+    <string name="SmsMasterMessage">сообщение</string>
+    <string name="SmsMasterPrice">мастер предложил свою цену</string>
+    <string name="SmsRequestClosed">закрыта для предложений</string>
+    <string name="SmsTestMessage">This is test message</string>
 
 </resources>

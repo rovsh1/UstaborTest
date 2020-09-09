@@ -34,6 +34,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regFormEnterLogin(login);
         homePage.regFormEnterPassword(password);
         homePage.regFormClickSubmit();
+        homePage.waitForLoaderDisappears();
         homePage.authCodeFormShouldBeVisible();
     }
 
@@ -314,7 +315,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openPlaceOrderForm() {
+    public void openPlaceOrderPage() {
         openHomePage();
         homePage.openPlaceOrderForm();
     }
