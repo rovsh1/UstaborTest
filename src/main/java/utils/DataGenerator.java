@@ -85,7 +85,7 @@ public class DataGenerator {
             var faker = new Faker();
             return faker.number().digits(9);
         }
-        var exclude = Arrays.asList(3, 4);
+        var exclude = Arrays.asList(3, 4, 9);
         var sb = new StringBuilder();
         var rand = new Random();
 
