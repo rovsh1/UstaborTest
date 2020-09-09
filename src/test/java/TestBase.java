@@ -78,7 +78,8 @@ public class TestBase {
                     master.setProfileId(user.atMasterProfilePage.getProfileId());
 
                     if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
-                        var project = new Project(master.getCategoryName());
+                        var project = new Project(category.getName());
+                        master.setProject(project);
                         user.atMasterProjectsPage.openProjectsTab();
                         user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
                     }

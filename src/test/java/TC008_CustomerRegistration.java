@@ -1,3 +1,4 @@
+import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.After;
@@ -15,10 +16,11 @@ import java.util.concurrent.TimeoutException;
 public class TC008_CustomerRegistration extends TestBase {
 
     protected Email email = new Email();
+    private User customer;
 
     @Test
     public void customerRegistration() throws TimeoutException {
-        var customer = DataGenerator.getCustomer(email.getEmailAddress());
+        customer = DataGenerator.getCustomer(email.getEmailAddress());
         watcher.users.add(customer);
 
         user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
@@ -33,5 +35,6 @@ public class TC008_CustomerRegistration extends TestBase {
         user.atHomePage.openHomePage();
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atCustomerProfilePersonalInfoPage.deleteProfile();
+        customer.setProfileId(null);
     }
 }
