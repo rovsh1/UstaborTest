@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import utils.Admin;
 import utils.DataGenerator;
 
+import java.util.concurrent.TimeoutException;
+
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @RunWith(SerenityRunner.class)
@@ -16,7 +18,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class TC012_CustomerRequestStatuses extends TestBase {
 
     @Test
-    public void verifyCustomerRequestStatuses() {
+    public void verifyCustomerRequestStatuses() throws TimeoutException {
         var customer = DataGenerator.getGuestCustomer();
         watcher.users.add(customer);
 

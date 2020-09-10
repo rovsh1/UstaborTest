@@ -31,7 +31,7 @@ public class TC008_CustomerRegistration extends TestBase {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws TimeoutException {
         user.atHomePage.openHomePage();
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atCustomerProfilePersonalInfoPage.deleteProfile();

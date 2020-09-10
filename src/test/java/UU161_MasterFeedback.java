@@ -35,7 +35,7 @@ public class UU161_MasterFeedback extends TestBase {
     }
 
     @Test
-    public void verifyMasterFeedback() throws InterruptedException {
+    public void verifyMasterFeedback() throws InterruptedException, TimeoutException {
         user.atCustomerProfilePersonalInfoPage.openHomePage();
         user.atHomePage.openCatalog();
         user.atCatalogPage.openRandomProjectWithNameNot(watcher.getMaster().getLastName());

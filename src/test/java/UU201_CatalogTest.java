@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import utils.Config;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UU201_CatalogTest extends TestBase {
 
     @Test
-    public void verifyCatalogCategoriesAndSearch() {
+    public void verifyCatalogCategoriesAndSearch() throws TimeoutException {
 
         user.atHomePage.enterSearchText(getText("SearchRequestFurniture"));
         user.atHomePage.selectSuggestionCategoryAndSearch(getText("SearchRequestSuggestion"));

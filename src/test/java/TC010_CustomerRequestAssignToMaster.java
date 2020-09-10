@@ -36,7 +36,7 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
     }
 
     @Test
-    public void verifyRequestAssignToMaster() {
+    public void verifyRequestAssignToMaster() throws TimeoutException {
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.placeOrder(customer, category);
         user.atPlaceOrderPage.openRequestsPage();

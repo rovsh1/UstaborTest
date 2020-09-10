@@ -8,13 +8,15 @@ import utils.Admin;
 import utils.DataGenerator;
 import utils.XmlParser;
 
+import java.util.concurrent.TimeoutException;
+
 @RunWith(SerenityRunner.class)
 @AddCategory(addRequestQuestion = true)
 @WithTag("new")
 public class TC009_CustomerRequest extends TestBase {
 
     @Test
-    public void verifyUserCanCreateCustomerRequest() {
+    public void verifyUserCanCreateCustomerRequest() throws TimeoutException {
         var guest = DataGenerator.getGuestCustomer();
         watcher.users.add(guest);
 

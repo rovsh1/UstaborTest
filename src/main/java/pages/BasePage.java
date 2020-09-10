@@ -111,8 +111,9 @@ public class BasePage extends PageObject {
         resetTimeouts();
     }
 
-    public void openPageWithConfigUrl() {
+    public void openPageWithConfigUrl() throws TimeoutException {
         getDriver().get(Config.getFullUrl());
+        WaitHelper.pollingWait(120000, 500, () -> (Boolean) evaluateJavascript("return document.readyState === 'complete'"));
     }
 
     public void goToUrl(String url) {

@@ -4,13 +4,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
 
+import java.util.concurrent.TimeoutException;
+
 @WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
 public class UU293_MainPageUiTest extends TestBase {
 
     @Test
-    public void mainPageUiTest() {
+    public void mainPageUiTest() throws TimeoutException {
 
         if (!Config.isUstabor()) {
             user.atHomePage.verifyHeaderCountriesListIsVisible();

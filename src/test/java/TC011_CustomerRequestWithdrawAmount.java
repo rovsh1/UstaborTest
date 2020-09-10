@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
 
+import java.util.concurrent.TimeoutException;
+
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true, addRequestQuestion = true)
 @AddMasters(masters = 1, addProject = false)
@@ -13,7 +15,7 @@ import utils.DataGenerator;
 public class TC011_CustomerRequestWithdrawAmount extends TestBase {
 
     @Test
-    public void verifyMasterClickPriceWithdraw() {
+    public void verifyMasterClickPriceWithdraw() throws TimeoutException {
         var customer = DataGenerator.getGuestCustomer();
         watcher.users.add(customer);
 

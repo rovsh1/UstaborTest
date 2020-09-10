@@ -6,6 +6,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import pages.HomePage;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 public class HomePageSteps extends ScenarioSteps {
 
@@ -23,7 +24,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openHomePage() {
+    public void openHomePage() throws TimeoutException {
         homePage.openPageWithConfigUrl();
     }
 
@@ -282,7 +283,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyLoginForm() {
+    public void verifyLoginForm() throws TimeoutException {
         openHomePage();
         homePage.openLoginForm();
         homePage.iAmCustomerBtnShouldBeVisible();
@@ -295,7 +296,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyRegistrationForm() {
+    public void verifyRegistrationForm() throws TimeoutException {
         openHomePage();
         homePage.openRegistrationForm();
         homePage.iAmCustomerBtnShouldBeVisible();
@@ -303,7 +304,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyMobileViewCustomerRegistrationForm() {
+    public void verifyMobileViewCustomerRegistrationForm() throws TimeoutException {
         openHomePage();
         openMobileViewMainMenu();
         homePage.openMobileViewCustomerRegistrationForm();
@@ -315,13 +316,13 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openPlaceOrderPage() {
+    public void openPlaceOrderPage() throws TimeoutException {
         openHomePage();
         homePage.openPlaceOrderForm();
     }
 
     @Step
-    public void verifyRandomFaqItem() {
+    public void verifyRandomFaqItem() throws TimeoutException {
         openHomePage();
         homePage.openRandomFaqItem();
         homePage.verifyFaqItemTextIsVisible();
@@ -351,7 +352,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyMobileViewContactsForm(String text) {
+    public void verifyMobileViewContactsForm(String text) throws TimeoutException {
         openHomePage();
         openMobileViewMainMenu();
         homePage.openMobileViewPhoneForm();
