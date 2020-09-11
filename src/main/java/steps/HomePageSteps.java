@@ -370,8 +370,9 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void logsOut() {
+    public void logsOut() throws TimeoutException {
         homePage.logsOut();
+        homePage.longWaitForDocument();
     }
 
     public void setLanguage(String lang) {
