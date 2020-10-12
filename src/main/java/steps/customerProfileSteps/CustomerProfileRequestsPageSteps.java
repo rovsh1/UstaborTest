@@ -9,7 +9,7 @@ public class CustomerProfileRequestsPageSteps extends ScenarioSteps {
     private CustomerProfileRequestsPage customerProfileRequestsPage;
 
     @Step
-    public void open() {
+    public void openRequestsPage() {
         customerProfileRequestsPage.openPage();
     }
 

@@ -15,7 +15,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
 
     @Test
     public void promoteWithMinPrice() throws Exception {
-        var master = DataGenerator.getMasterRandomEmail(category);
+        var master = DataGenerator.getMasterWithRandomEmail(category);
         watcher.users.add(master);
 
         user.registerAsMaster(master);
@@ -23,7 +23,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), true, true);
         user.atMasterProjectsPage.logsOut();

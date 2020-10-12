@@ -1,4 +1,3 @@
-import entities.CategoryCheckbox;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
@@ -15,22 +14,18 @@ public class TC002_MasterLogin extends TestBase {
 
     @Test
     public void verifyMasterAccountLogin() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddhhmm");
-        String userName = "Test " + dateFormat.format(new Date());
+        var userName = "Test " + new SimpleDateFormat("MMddhhmm").format(new Date());
 
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.selectIamMasterAndVerify();
-        user.atHomePage.loginAsMaster(
-                Config.getUsers().getDefaultMaster().getEmail(),
-                Config.getUsers().getDefaultMaster().getPassword(),
-                false);
+        user.atHomePage.loginAsMaster(Config.getUsers().getDefaultMaster(), false);
         user.atHomePage.verifyUserIsLoggedIn();
 
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterProfilePage.openProfileSettings();
 
         user.atMasterProfileSettingsPage.editUsername(userName);
-        CategoryCheckbox category = user.atMasterProfileSettingsPage.enableOrDisableRandomCategory();
+        var category = user.atMasterProfileSettingsPage.enableOrDisableRandomCategory();
         user.atMasterProfileSettingsPage.saveChanges();
 
         user.atMasterProfilePage.masterFullNameShouldContain(userName);
@@ -41,13 +36,10 @@ public class TC002_MasterLogin extends TestBase {
         user.atMasterProfileSettingsPage.changePassword(Config.getUsers().getDefaultMaster().getPassword());
 
         user.atMasterProfileSettingsPage.logsOut();
-        user.atHomePage.loginAsMaster(
-                Config.getUsers().getDefaultMaster().getEmail(),
-                Config.getUsers().getDefaultMaster().getPassword(),
-                true);
+        user.atHomePage.loginAsMaster(Config.getUsers().getDefaultMaster(), true);
         user.atHomePage.verifyUserIsLoggedIn();
 
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
 
         user.atMasterProfilePage.openProjectsTab();
         user.atMasterProjectsPage.pageShouldBeVisible();

@@ -26,32 +26,34 @@ public class UU201_CatalogTest extends TestBase {
         user.atCatalogPage.suggestionDropdownShouldBeVisible();
         user.atHomePage.openHomePage();
 
-        List<String> sitesNamesList = user.atCatalogPage.getSitesNames();
-        for (String siteName : sitesNamesList) {
-            user.atHomePage.openHomePage();
-            user.atCatalogPage.openSiteWithName(siteName);
-            user.atCatalogPage.correctSiteShouldBeVisible(siteName);
-        }
+        if (!Config.isFixListKg()) {
+            var sitesNamesList = user.atCatalogPage.getSitesNames();
+            for (String siteName : sitesNamesList) {
+                user.atHomePage.openHomePage();
+                user.atCatalogPage.openSiteWithName(siteName);
+                user.atCatalogPage.correctSiteShouldBeVisible(siteName);
+            }
 
-        user.atCatalogPage.openSiteWithName(getText("SiteDomainBuild_Short1"));
-        user.atCatalogPage.openSiteMap();
+            user.atCatalogPage.openSiteWithName(getText("SiteDomainBuild_Short1"));
+            user.atCatalogPage.openSiteMap();
 
-        if (!user.atSiteMapPage.isMapEmpty()) {
-            user.atSiteMapPage.openRandomUrl();
-            user.atCatalogPage.verifyFilterValues();
+            if (!user.atSiteMapPage.isMapEmpty()) {
+                user.atSiteMapPage.openRandomUrl();
+                user.atCatalogPage.verifyFilterValues();
 
-            var city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
-            var district = getText("FilterDistrict_" + Config.getCountryCode());
+                var city = getText("FilterCity_" + Config.getCountryCode() + "_" + Config.getEnv());
+                var district = getText("FilterDistrict_" + Config.getCountryCode());
 
-            user.atCatalogPage.selectFilterCityAndDistrict(city, district);
-            user.atCatalogPage.verifyFilterContainsValues(city, district);
-        }
+                user.atCatalogPage.selectFilterCityAndDistrict(city, district);
+                user.atCatalogPage.verifyFilterContainsValues(city, district);
+            }
 
-        for (int i = 0; i < 3; i++) {
-            user.atHomePage.openHomePage();
-            user.atHomePage.openRandomCategory();
-            if (!user.atCatalogPage.isSearchResultEmpty()) {
-                assertThat(user.atCatalogPage.getProjectsCounterValue()).isGreaterThan(0);
+            for (int i = 0; i < 3; i++) {
+                user.atHomePage.openHomePage();
+                user.atHomePage.openRandomCategory();
+                if (!user.atCatalogPage.isSearchResultEmpty()) {
+                    assertThat(user.atCatalogPage.getProjectsCounterValue()).isGreaterThan(0);
+                }
             }
         }
     }

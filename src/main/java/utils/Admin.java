@@ -85,69 +85,6 @@ public class Admin {
         }
     }
 
-    public void addMoneyToMaster(String id, String amount) {
-        var url = baseUrl +  "master/view/" + id + "/";
-
-        try {
-            var result = executor.execute(Request.Post(url)
-                    .bodyForm(Form.form()
-                            .add("balance[service]", "")
-                            .add("balance[sum]", amount)
-                            .build()))
-                    .returnResponse();
-
-            if (result.getStatusLine()
-                    .getStatusCode() != 200) {
-                throw new HttpResponseException(99, "Add money to master request failed");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addBadgesToMaster(String id) {
-        var url = baseUrl + baseUrl +  "master/edit/" + id + "/";
-        var data = NewXmlParser.getDataProperties(getEditMasterPage(id));
-
-        var body = Form.form();
-
-        for (Map.Entry<String, String> kvPair : data.entrySet()) {
-            body.add(kvPair.getKey(), kvPair.getValue());
-        }
-
-        for (int i = 1; i < 7; i++) {
-            body.add("data[badges][]", String.valueOf(i));
-        }
-
-        try {
-            var result = executor.execute(Request.Post(url)
-                    .bodyForm(body.build()))
-                    .returnResponse();
-
-            if (result.getStatusLine()
-                    .getStatusCode() != 200) {
-                throw new HttpResponseException(99, "Add bagdes to master request failed");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String getEditMasterPage(String id) {
-        var url = baseUrl +  "master/edit/" + id + "/";
-
-        try {
-            return executor.execute(Request.Get(url))
-                    .returnContent().asString();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public void deleteCategory(String id) {
         var url = baseUrl + String.format("category/delete/%s/", id);
 

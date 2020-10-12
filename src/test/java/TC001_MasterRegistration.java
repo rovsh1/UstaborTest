@@ -11,7 +11,7 @@ public class TC001_MasterRegistration extends TestBase {
 
     @Test
     public void verifyMasterCanCreateProfile() {
-        var master = DataGenerator.getMasterRandomEmail();
+        var master = DataGenerator.getMasterWithRandomEmail();
         watcher.users.add(master);
 
         user.atHomePage.registerAsMaster(master);

@@ -34,12 +34,12 @@ public class Config {
         return browser;
     }
 
-    public static boolean isProdEnv() {
-        return !getEnv().equals("test");
-    }
-
     public static boolean isUstabor() {
         return getEnv().equals("ustabor");
+    }
+
+    public static boolean isFixListKg() {
+        return getEnv().equals("fixinglist_kg");
     }
 
     public static Users getUsers() {
@@ -61,7 +61,7 @@ public class Config {
     }
 
     public static String getFullUrl() {
-        if (isUstabor()) return getBaseUrl();
+        if (isUstabor() || isFixListKg()) return getBaseUrl();
         return getBaseUrl() + String.format("%s-%s/", getLang(), getCountryCode());
     }
 
@@ -96,6 +96,8 @@ public class Config {
         if (countryCode == null) {
             if (isUstabor()) {
                 countryCode = "uz";
+            } else if (isFixListKg()) {
+                countryCode = "kg";
             } else {
                 countryCode = getEnvironmentVariableValue(COUNTRY, false);
             }

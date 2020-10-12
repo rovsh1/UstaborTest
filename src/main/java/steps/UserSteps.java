@@ -67,11 +67,7 @@ public class UserSteps extends ScenarioSteps {
     public MasterRequestPageSteps atMasterRequestPage;
 
     public void registerAsMaster(Master master) {
-        if (Config.isProdEnv()) {
-            atHomePage.registerAsMasterWithSpecifiedCategory(master);
-        } else {
-            atHomePage.registerAsMaster(master);
-        }
+        atHomePage.registerAsMasterWithSpecifiedCategory(master);
         atMasterProfilePage.waitForPageIsVisible();
         master.setProfileId(atMasterProfilePage.getProfileId());
         master.setProject(new Project(master.getCategoryName()));

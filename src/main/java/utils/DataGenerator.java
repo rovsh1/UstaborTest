@@ -42,7 +42,7 @@ public class DataGenerator {
         return user;
     }
 
-    public static Master getMasterRandomEmail() {
+    public static Master getMasterWithRandomEmail() {
         var faker = new Faker();
         var service = new FakeValuesService(new Locale("en-GB"), new RandomService());
 
@@ -59,24 +59,25 @@ public class DataGenerator {
         return user;
     }
 
-    public static Master getMasterRandomEmail(TestCategory category) {
-        var master = getMasterRandomEmail();
+    public static Master getMasterWithRandomEmail(TestCategory category) {
+        var master = getMasterWithRandomEmail();
         master.setCategoryId(category.getSystemId());
         master.setCategoryName(category.getName());
 
         return master;
     }
 
-    public static Master getMasterValidEmail(String email) {
+    public static Master getMasterWithEmail(Email email) {
         var faker = new Faker();
-
         var user = new Master();
-        user.setEmail(email);
+
+        user.setEmail(email.getEmailAddress());
         user.setPassword(password);
         user.setPhoneNumber("70" + getPhoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
+
         return user;
     }
 
@@ -105,6 +106,8 @@ public class DataGenerator {
     private static String getCountryCode() {
         if (Config.isUstabor()) {
             return "998";
+        } else if (Config.isFixListKg()) {
+            return "996";
         }
         return "770";
     }

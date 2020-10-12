@@ -2,6 +2,7 @@ package steps.masterProfileSteps;
 
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterWalletPage;
+import utils.Config;
 
 public class MasterWalletPageSteps extends MasterProfileSteps {
 
@@ -9,9 +10,14 @@ public class MasterWalletPageSteps extends MasterProfileSteps {
 
     @Step
     public void pageShouldBeVisible() {
-        masterWalletPage.balanceAmountShouldBeVisible();
-        masterWalletPage.amountInputShouldBeVisible();
-        masterWalletPage.paymentTypeSelectorShouldBeVisible();
-        masterWalletPage.submitBtnShouldBeVisible();
+        if (Config.isFixListKg()) {
+            masterWalletPage.transactionsHistoryShouldBeVisible();
+        } else {
+            masterWalletPage.balanceAmountShouldBeVisible();
+            masterWalletPage.amountInputShouldBeVisible();
+            masterWalletPage.paymentTypeSelectorShouldBeVisible();
+            masterWalletPage.submitBtnShouldBeVisible();
+        }
+
     }
 }

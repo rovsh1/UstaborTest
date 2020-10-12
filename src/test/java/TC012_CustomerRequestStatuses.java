@@ -37,16 +37,16 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMaster(watcher.getMaster().getEmail(), watcher.getMaster().getPassword(), true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestNew"));
         user.atMasterProfileRequestsPage.openRequest();
-        user.atMasterProfileRequestsPage.open();
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestWatched"));
         user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.clickConnectClientButton();
         user.atMasterRequestPage.closeConnectCustomerPopup();
-        user.atMasterProfileRequestsPage.open();
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestPaid"));
         user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.clickConnectClientButton();
@@ -63,7 +63,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atHomePage.logsOut();
 
         user.atHomePage.loginAsCustomer(customer.getPhoneNumber(), customer.getPassword());
-        user.atCustomerProfileRequestsPage.open();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerRequestPage.openRequest();
         user.atCustomerRequestPage.openAssignedMasters();
         user.atCustomerRequestPage.verifyMasterSmsText(getText("SmsTestMessage"));
@@ -72,21 +72,21 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atCustomerRequestPage.verifyOfferIsHidden();
         user.atHomePage.logsOut();
 
-        user.atHomePage.loginAsMaster(watcher.getMaster().getEmail(), watcher.getMaster().getPassword(), true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestDeclined"));
         user.atHomePage.logsOut();
 
         user.atHomePage.loginAsCustomer(customer.getPhoneNumber(), customer.getPassword());
-        user.atCustomerProfileRequestsPage.open();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.hideRequest();
         var decline = new Admin().getSmsByText(watcher.getMaster().getPhoneNumber(), getText("SmsRequestClosed"));
         assertThat(decline).isNotNull();
         user.atCustomerProfileRequestsPage.verifyRequestStatus(getText("RequestClosed"));
         user.atHomePage.logsOut();
 
-        user.atHomePage.loginAsMaster(watcher.getMaster().getEmail(), watcher.getMaster().getPassword(), true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestStatusSetByCustomer(getText("RequestClosed"));
         user.atHomePage.logsOut();
 
@@ -94,12 +94,12 @@ public class TC012_CustomerRequestStatuses extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsCustomer(customer.getPhoneNumber(), customer.getPassword());
-        user.atCustomerProfileRequestsPage.open();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
         user.atHomePage.logsOut();
 
-        user.atHomePage.loginAsMaster(watcher.getMaster().getEmail(), watcher.getMaster().getPassword(), true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestsTableIsEmpty();
     }
 

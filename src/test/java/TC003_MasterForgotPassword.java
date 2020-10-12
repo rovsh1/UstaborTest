@@ -1,6 +1,5 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
@@ -16,7 +15,7 @@ public class TC003_MasterForgotPassword extends TestBase {
     @Test
     public void verifyMasterCanResetPassword() throws Exception {
         var email = new Email();
-        var master = DataGenerator.getMasterValidEmail(email.getEmailAddress());
+        var master = DataGenerator.getMasterWithEmail(email);
         watcher.users.add(master);
 
         user.atHomePage.registerAsMaster(master);
@@ -32,13 +31,12 @@ public class TC003_MasterForgotPassword extends TestBase {
 
         user.atMasterProfileSettingsPage.open(email.getForgotPasswordUrl());
 
-        String newPassword = DataGenerator.getPassword();
+        var newPassword = DataGenerator.getPassword();
 
         user.atMasterProfileSettingsPage.changePassword(newPassword);
         user.atMasterProfileSettingsPage.logsOut();
 
-        assertThat(user.atHomePage.loginAsMaster(
-                master.getEmail(), master.getPassword(), true))
+        assertThat(user.atHomePage.loginAsMaster(master, true))
                 .isFalse();
 
         user.atHomePage.loginAsMaster(master.getEmail(), newPassword, false);

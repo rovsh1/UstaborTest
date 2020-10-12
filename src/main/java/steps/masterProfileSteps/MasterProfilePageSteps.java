@@ -10,7 +10,7 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     private MasterProfilePage masterProfilePage;
 
     @Step
-    public void open() {
+    public void openProfilePage() {
         masterProfilePage.openMasterProfilePage();
     }
 

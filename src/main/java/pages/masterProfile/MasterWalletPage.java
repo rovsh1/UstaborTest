@@ -14,6 +14,9 @@ public class MasterWalletPage extends MasterProfileBasePage{
     @FindBy(xpath = "//select[@id='form_wallet_payment']")
     private WebElementFacade paymentTypeSelector;
 
+    @FindBy(xpath = "//div[@class='l']")
+    private WebElementFacade transactionsHistorySpoiler;
+
     @FindBy(xpath = "//input[@id='wallet_button']")
     private WebElementFacade submitBtn;
 
@@ -31,5 +34,9 @@ public class MasterWalletPage extends MasterProfileBasePage{
 
     public void submitBtnShouldBeVisible() {
         submitBtn.shouldBeVisible();
+    }
+
+    public void transactionsHistoryShouldBeVisible() {
+        transactionsHistorySpoiler.shouldBeVisible();
     }
 }

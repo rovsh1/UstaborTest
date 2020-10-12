@@ -17,7 +17,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     @Test
     public void promoteWithRecommendedPrice() throws TimeoutException, InterruptedException {
-        var master = DataGenerator.getMasterRandomEmail(category);
+        var master = DataGenerator.getMasterWithRandomEmail(category);
         watcher.users.add(master);
 
         user.registerAsMaster(master);
@@ -26,7 +26,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
 
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), true, false);
         user.atMasterProjectsPage.logsOut();

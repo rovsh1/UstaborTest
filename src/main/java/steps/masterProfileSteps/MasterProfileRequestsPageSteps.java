@@ -8,7 +8,7 @@ public class MasterProfileRequestsPageSteps extends MasterProfileSteps {
     private MasterProfileRequestsPage masterProfileRequestsPage;
 
     @Step
-    public void open() {
+    public void openRequestsPage() {
         masterProfileRequestsPage.openPage();
     }
 

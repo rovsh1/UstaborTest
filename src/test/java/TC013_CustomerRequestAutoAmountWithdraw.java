@@ -47,31 +47,31 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         admin.atRequestsPage.assignRequestToAllMastersOfCategory();
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMaster(masters.get(0).getEmail(), masters.get(0).getPassword(), true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(masters.get(0), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyBalance(1000);
         user.atMasterProfileRequestsPage.clickPhoneButton();
         user.atMasterRequestPage.verifyCustomerInfo(customer);
         user.atMasterRequestPage.closeConnectCustomerPopup();
         user.atHomePage.logsOut();
 
-        user.atHomePage.loginAsMaster(masters.get(1).getEmail(), masters.get(1).getPassword(), true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(masters.get(1), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.verifyCustomerConnectButtonHasNoPrice();
         user.atMasterRequestPage.clickConnectClientButton();
         user.atMasterRequestPage.verifyCustomerInfo(customer);
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterProfilePage.verifyBalance(1000);
         user.atHomePage.logsOut();
 
         user.atHomePage.loginAsCustomer(customer.getEmail(), customer.getPassword());
-        user.atCustomerProfileRequestsPage.open();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerRequestPage.openRequest();
         user.atCustomerRequestPage.openAssignedMasters();
         masters.forEach(master -> user.atCustomerRequestPage.verifyMasterAssigned(master));
 
-        user.atCustomerProfileRequestsPage.open();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.deleteRequest();
         user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
     }

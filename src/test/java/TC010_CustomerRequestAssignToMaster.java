@@ -49,11 +49,8 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.logsOut();
-        user.atHomePage.loginAsMaster(
-                watcher.getMaster().getEmail(),
-                watcher.getMaster().getPassword(),
-                true);
-        user.atMasterProfileRequestsPage.open();
+        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestId(requestId);
     }
 }

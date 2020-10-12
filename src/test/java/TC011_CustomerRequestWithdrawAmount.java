@@ -34,12 +34,9 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
         admin.addMoneyToMaster(900, watcher.getMaster());
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMaster(
-                watcher.getMaster().getEmail(),
-                watcher.getMaster().getPassword(),
-                true);
+        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
 
-        user.atMasterProfileRequestsPage.open();
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.verifyClickPriceFirstPage("1000");
         user.atMasterRequestPage.verifyClickPriceSecondPage("1000");
@@ -51,13 +48,13 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
         admin.addMoneyToMaster(1000, watcher.getMaster());
 
         user.atHomePage.openHomePage();
-        user.atMasterProfileRequestsPage.open();
+        user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.clickConnectClientButton();
 
         user.atMasterRequestPage.verifyCustomerInfo(customer);
 
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterProfilePage.verifyBalance(900);
     }
 }

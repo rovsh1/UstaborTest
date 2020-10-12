@@ -17,15 +17,14 @@ public class TC005_AddBadgesToMaster extends TestBase {
 
     @Test
     public void verifyBadgesEnableMasterPromotion() throws TimeoutException, InterruptedException {
-        var master = DataGenerator.getMasterRandomEmail(category);
+        var master = DataGenerator.getMasterWithRandomEmail(category);
         watcher.users.add(master);
 
         user.registerAsMaster(master);
-
         user.atHomePage.openHomePage();
         user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
 
-        user.atMasterProfilePage.open();
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), false, false);
 

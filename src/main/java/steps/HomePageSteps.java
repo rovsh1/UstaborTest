@@ -1,6 +1,7 @@
 package steps;
 
 import entities.Master;
+import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.HomePage;
@@ -67,15 +68,20 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public boolean loginAsMaster(String login, String password, boolean openLoginForm) {
+    public boolean loginAsMaster(String email, String pass, boolean openLoginForm) {
         if (openLoginForm) {
             homePage.openLoginForm();
         }
         homePage.clickMasterBtnLogin();
-        homePage.signInFormEnterLogin(login);
-        homePage.signInFormEnterPassword(password);
+        homePage.signInFormEnterLogin(email);
+        homePage.signInFormEnterPassword(pass);
         homePage.signInFormClickLoginBtn();
         return homePage.isLoggedIn();
+    }
+
+    @Step
+    public boolean loginAsMaster(User master, boolean openLoginForm) {
+        return loginAsMaster(master.getEmail(), master.getPassword(), openLoginForm);
     }
 
     @Step
@@ -204,7 +210,6 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormSelectRandomCategory(master);
         enterSelectExperienceAndCity(master);
         homePage.regFormClickSubmit();
-//        homePage.registerFormShouldNotBeVisible();
     }
 
     @Step

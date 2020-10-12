@@ -122,7 +122,6 @@
                         <include>TC*.java</include>
                         <include>UU*.java</include>
                     </includes>
-                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
                 </configuration>
                 <executions>
                     <execution>
@@ -143,7 +142,6 @@
                         <artifactId>serenity-core</artifactId>
                         <version>${serenity.version}</version>
                     </dependency>
-
                 </dependencies>
                 <executions>
                     <execution>

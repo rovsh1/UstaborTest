@@ -63,13 +63,11 @@ public class TestBase {
 
             if (this.getClass().isAnnotationPresent(AddMasters.class)) {
                 user.atHomePage.openHomePage();
-                user.atHomePage.setLanguage(Config.getLang());
-                if (!Config.isUstabor()) {
-                    user.atHomePage.setCountry(Config.getCountry());
-                }
+                setCountryAndLanguage();
+
                 var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
                 for (int i = 0; i < mastersCount; i++) {
-                    var master = DataGenerator.getMasterRandomEmail(category);
+                    var master = DataGenerator.getMasterWithRandomEmail(category);
                     watcher.users.add(master);
 
                     user.atHomePage.openHomePage();
@@ -89,11 +87,7 @@ public class TestBase {
         } else {
             user.atHomePage.openHomePage();
             user.atHomePage.homePageShouldBeVisible();
-
-            user.atHomePage.setLanguage(Config.getLang());
-            if (!Config.isUstabor()) {
-                user.atHomePage.setCountry(Config.getCountry());
-            }
+            setCountryAndLanguage();
         }
     }
 
@@ -111,5 +105,15 @@ public class TestBase {
 
     void browserGoBack() {
         driver.navigate().back();
+    }
+
+    private void setCountryAndLanguage() {
+        if (!Config.isFixListKg()) {
+            user.atHomePage.setLanguage(Config.getLang());
+        }
+
+        if (!Config.isUstabor() && !Config.isFixListKg()) {
+            user.atHomePage.setCountry(Config.getCountry());
+        }
     }
 }

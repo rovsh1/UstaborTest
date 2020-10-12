@@ -14,13 +14,16 @@ public class UU293_MainPageUiTest extends TestBase {
     @Test
     public void mainPageUiTest() throws TimeoutException {
 
-        if (!Config.isUstabor()) {
+        if (!Config.isUstabor() && !Config.isFixListKg()) {
             user.atHomePage.verifyHeaderCountriesListIsVisible();
         }
 
-        user.atHomePage.verifySubdomainDropDown();
+        if (!Config.isFixListKg()) {
+            user.atHomePage.verifySubdomainDropDown();
+            user.atHomePage.verifyHeaderLanguagesListIsVisible();
+        }
+
         user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
-        user.atHomePage.verifyHeaderLanguagesListIsVisible();
 
         user.atHomePage.verifyLoginForm();
         user.atHomePage.verifyRegistrationForm();
@@ -29,22 +32,28 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyRandomFaqItem();
 
-        if (!Config.isUstabor()) {
+        if (!Config.isUstabor() && !Config.isFixListKg()) {
             user.atHomePage.verifyFooterCountriesListIsVisible();
         }
-        user.atHomePage.verifyFooterLanguagesListIsVisible();
+
+        if (!Config.isFixListKg()) {
+            user.atHomePage.verifyFooterLanguagesListIsVisible();
+        }
 
         setBrowserWindowSize(320, 800);
         user.atHomePage.openMobileViewMainMenu();
-        user.atHomePage.verifyMobileViewSitesMenu();
-        if (!Config.isUstabor()) {
+
+        if (!Config.isFixListKg()) {
+            user.atHomePage.verifyMobileViewSitesMenu();
+            user.atHomePage.verifyMobileViewLanguageMenu();
+        }
+
+        if (!Config.isUstabor() && !Config.isFixListKg()) {
             user.atHomePage.verifyMobileViewCountriesMenu();
         }
-        user.atHomePage.verifyMobileViewLanguageMenu();
 
         user.atHomePage.openPlaceOrderPage();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();
-
         user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));
     }
 }
