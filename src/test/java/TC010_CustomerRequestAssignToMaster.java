@@ -46,6 +46,11 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
         admin.atRequestsPage.openRequestById(requestId);
         admin.atRequestsPage.verifyRequest(customer, category, getText("Question"));
         admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         user.atHomePage.openHomePage();
         user.atHomePage.logsOut();
