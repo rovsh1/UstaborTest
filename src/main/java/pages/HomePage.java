@@ -227,7 +227,11 @@ public class HomePage extends SearchBlock {
     }
 
     public void regMasterFormSelectBuildSubDomain() {
-        regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Full"));
+        if (Config.isUstabor()) {
+            regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Short2"));
+        } else {
+            regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Full"));
+        }
         waitForLoaderDisappears();
     }
 
