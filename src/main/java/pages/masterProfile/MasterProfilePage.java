@@ -72,6 +72,6 @@ public class MasterProfilePage extends MasterProfileBasePage {
     }
 
     public void waitForPageIsVisible() {
-        withTimeoutOf(Duration.ofSeconds(30)).waitFor(profileSettingsBtn).isPresent();
+        withTimeoutOf(Duration.ofSeconds(120)).waitFor(profileSettingsBtn).isPresent();
     }
 }
