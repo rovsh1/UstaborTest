@@ -24,14 +24,18 @@ public class BaseAdminPage extends PageObject {
     @FindBy(xpath = loaderXpath)
     private WebElementFacade loader;
 
-    public void waitForLoaderDisappears() {
+    public void waitForLoaderDisappears(int timeoutMilliseconds) {
         setTimeouts(1, ChronoUnit.SECONDS);
         try {
-            WaitHelper.pollingWait(60000, 500, () -> !loader.isVisible());
+            WaitHelper.pollingWait(timeoutMilliseconds, 500, () -> !loader.isVisible());
         } catch (TimeoutException e) {
             e.printStackTrace();
         }
         resetTimeouts();
+    }
+
+    public void waitForLoaderDisappears() {
+        waitForLoaderDisappears(60000);
     }
 
     public void setTimeouts(int duration, TemporalUnit timeUnit) {

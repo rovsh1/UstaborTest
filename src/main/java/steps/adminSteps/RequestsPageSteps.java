@@ -31,7 +31,7 @@ public class RequestsPageSteps extends ScenarioSteps {
         requestsPage.openAssignMasterForm();
         requestsPage.findMaster(master.getProfileId());
         requestsPage.submitMasterAssign();
-        requestsPage.waitForLoaderDisappears();
+        requestsPage.waitForLoaderDisappears(180000);
     }
 
     @Step
