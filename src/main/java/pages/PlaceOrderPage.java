@@ -111,6 +111,7 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void enterSmsCode(String smsCode) {
+        codeInput.clear();
         codeInput.sendKeys(smsCode);
     }
 
