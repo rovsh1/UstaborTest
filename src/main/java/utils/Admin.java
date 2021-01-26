@@ -47,8 +47,8 @@ public class Admin {
         try {
             var result = executor.execute(Request.Post(url)
                 .bodyForm(Form.form()
-                        .add("auth[login]", Config.getUsers().getAdmin().getEmail())
-                        .add("auth[password]", Config.getUsers().getAdmin().getPassword())
+                        .add("data[login]", Config.getUsers().getAdmin().getEmail())
+                        .add("data[password]", Config.getUsers().getAdmin().getPassword())
                         .build()))
                     .returnResponse()
                     .getStatusLine()
@@ -66,7 +66,8 @@ public class Admin {
     }
 
     public void deleteMaster(String id) {
-        var url = baseUrl + String.format("master/delete/%s/", id);
+        // http://ka8rms.vtaminka.com/master/user/delete/65820/
+        var url = baseUrl + String.format("master/user/delete/%s/", id);
 
         try {
             var result = executor.execute(Request.Get(url))

@@ -17,7 +17,7 @@ public class MasterProjectsPage extends MasterProfileBasePage {
 
     //region Add new project form
 
-    @FindBy(xpath = "//div[@id='btn-project-add']")
+    @FindBy(xpath = "//div[@id='master-projects']/div[@class='item new']")
     private WebElementFacade addProjectBtn;
 
     @FindBy(xpath = "//input[@id='form_project_name']")

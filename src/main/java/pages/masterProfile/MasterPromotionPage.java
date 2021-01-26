@@ -8,7 +8,16 @@ import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MasterPromotionPage extends MasterProfileBasePage{
+public class MasterPromotionPage extends MasterProfileBasePage {
+
+    @FindBy(xpath = "//select[@id='promotion-form_category_id']")
+    private WebElementFacade categorySelector;
+
+    @FindBy(xpath = "//div[@class='profile-promotion']//button[@type='submit']")
+    private WebElementFacade sendToModerationBtn;
+
+    @FindBy(xpath = "//div[@class='button' and ./a[contains(@href, 'you')]]")
+    private WebElementFacade promotionManualBtn;
 
     @FindBy(xpath = "//div[@id='master-projects']/a")
     private List<WebElementFacade> projectsList;
@@ -52,11 +61,15 @@ public class MasterPromotionPage extends MasterProfileBasePage{
         successPopupOkButton.click();
     }
 
-    public void addProjectBtnShouldBeVisible() {
-        addProjectBtn.shouldBeVisible();
+    public void categorySelectorShouldBeVisible() {
+        categorySelector.shouldBeVisible();
     }
 
-    public void projectsListShouldBeVisible() {
-        assertThat(projectsList.stream().allMatch(WebElementFacade::isVisible)).isTrue();
+    public void sendToModerationBtnShouldBeVisible() {
+        sendToModerationBtn.shouldBeVisible();
+    }
+
+    public void promotionManualBtnShouldBeVisible() {
+        promotionManualBtn.shouldBeVisible();
     }
 }

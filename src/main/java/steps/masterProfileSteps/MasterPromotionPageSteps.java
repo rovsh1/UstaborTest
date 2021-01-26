@@ -33,7 +33,8 @@ public class MasterPromotionPageSteps extends MasterProfileSteps {
 
     @Step
     public void pageShouldBeVisible() {
-        masterPromotionPage.addProjectBtnShouldBeVisible();
-        masterPromotionPage.projectsListShouldBeVisible();
+        masterPromotionPage.categorySelectorShouldBeVisible();
+        masterPromotionPage.sendToModerationBtnShouldBeVisible();
+        masterPromotionPage.promotionManualBtnShouldBeVisible();
     }
 }

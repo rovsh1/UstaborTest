@@ -34,7 +34,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//a[contains(@href, 'logout')]")
     private WebElementFacade logoutBtn;
 
-    @FindBy(xpath = "//a[@href='#signInForm']")
+    @FindBy(xpath = "//a[@href='#form-login']")
     private WebElementFacade openLoginFormBtn;
 
     @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu sites']")
@@ -86,6 +86,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header']//div[@id='button-sitemap']")
     private WebElementFacade mobileViewMenuBtn;
     //endregion
+
+    @FindBy(xpath = "//div[@class='button-close']")
+    private WebElementFacade closePopupBtn;
 
     @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'/sitemap/')]")
     private WebElementFacade siteMapLink;
@@ -379,5 +382,9 @@ public class BasePage extends PageObject {
 
     public void openMobileViewMainMenu() {
         mobileViewMenuBtn.click();
+    }
+
+    public void clickCloseBtn() {
+        closePopupBtn.click();
     }
 }

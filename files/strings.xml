@@ -7,6 +7,7 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
+    <string name="CustomerRegEmailSubject_new_test">Регистрация пользователя</string>
     <string name="CustomerRegEmailSubject_uz_test">Регистрация пользователя</string>
     <string name="CustomerRegEmailSubject_kz_test">Регистрация пользователя</string>
     <string name="CustomerRegEmailSubject_uz_ustabor">Регистрация пользователя</string>

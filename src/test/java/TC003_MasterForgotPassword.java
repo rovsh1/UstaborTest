@@ -23,23 +23,27 @@ public class TC003_MasterForgotPassword extends TestBase {
 
         master.setProfileId(user.atMasterProfilePage.getProfileId());
 
-        user.atMasterProfilePage.logsOut();
+        user.atMasterProfilePage.open(email.getUrl(Email.EmailType.ConfirmRegister));
+
+        user.atHomePage.logsOut();
 
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.clickForgotPassword();
         user.atHomePage.requestNewPasswordAtEmail(master.getEmail());
 
-        user.atMasterProfileSettingsPage.open(email.getForgotPasswordUrl());
+        user.atMasterProfileSettingsPage.open(email.getUrl(Email.EmailType.ForgotPassword));
 
         var newPassword = DataGenerator.getPassword();
 
+        user.atMasterProfilePage.openProfileSettings();
+        user.atMasterProfileSettingsPage.openChangePasswordForm();
         user.atMasterProfileSettingsPage.changePassword(newPassword);
         user.atMasterProfileSettingsPage.logsOut();
 
-        assertThat(user.atHomePage.loginAsMaster(master, true))
+        assertThat(user.atHomePage.login(master, true))
                 .isFalse();
 
-        user.atHomePage.loginAsMaster(master.getEmail(), newPassword, false);
+        user.atHomePage.login(master.getEmail(), newPassword, false);
         user.atHomePage.verifyUserIsLoggedIn();
     }
 }

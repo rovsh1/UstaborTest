@@ -12,8 +12,7 @@ public class TC004_MasterLoginFailure extends TestBase {
     @Test
     public void verifyMasterCantLoginWithWrongPassword() {
         user.atHomePage.openLoginFormAndVerify();
-        user.atHomePage.selectIamMasterAndVerify();
-        user.atHomePage.loginAsMaster(
+        user.atHomePage.login(
                 Config.getUsers().getDefaultMaster().getEmail(),
                 "thisIsWrongPassword",
                 false);

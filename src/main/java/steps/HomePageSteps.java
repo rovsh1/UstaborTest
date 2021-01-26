@@ -68,23 +68,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public boolean loginAsMaster(String email, String pass, boolean openLoginForm) {
-        if (openLoginForm) {
-            homePage.openLoginForm();
-        }
-        homePage.clickMasterBtnLogin();
-        homePage.signInFormEnterLogin(email);
-        homePage.signInFormEnterPassword(pass);
-        homePage.signInFormClickLoginBtn();
-        return homePage.isLoggedIn();
-    }
-
-    @Step
-    public boolean loginAsMaster(User master, boolean openLoginForm) {
-        return loginAsMaster(master.getEmail(), master.getPassword(), openLoginForm);
-    }
-
-    @Step
     public boolean loginAsCustomer(String login, String password) {
         homePage.openLoginForm();
         homePage.clickCustomerBtn();
@@ -92,6 +75,22 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.signInFormEnterPassword(password);
         homePage.signInFormClickLoginBtn();
         return homePage.isLoggedIn();
+    }
+
+    @Step
+    public boolean login(String login, String password, boolean openLoginForm) {
+        if (openLoginForm) {
+            homePage.openLoginForm();
+        }
+        homePage.signInFormEnterLogin(login);
+        homePage.signInFormEnterPassword(password);
+        homePage.signInFormClickLoginBtn();
+        return homePage.isLoggedIn();
+    }
+
+    @Step
+    public boolean login(User user, boolean openLoginForm) {
+        return login(user.getEmail(), user.getPassword(), openLoginForm);
     }
 
     @Step
@@ -145,8 +144,10 @@ public class HomePageSteps extends ScenarioSteps {
     @Step
     public void openLoginFormAndVerify() {
         homePage.openLoginForm();
-        homePage.iAmCustomerBtnShouldBeVisible();
-        homePage.iAmMasterBtnShouldBeVisible();
+        homePage.loginInputShouldBeVisible();
+        homePage.passwordInputShouldBeVisible();
+        homePage.forgotPasswordLinkShouldBeVisible();
+        homePage.loginBtnShouldBeVisible();
         homePage.registerLinkShouldBeVisible();
     }
 
@@ -181,7 +182,6 @@ public class HomePageSteps extends ScenarioSteps {
     public void registerAsMasterWithSpecifiedCategory(Master master) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
-        //homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
@@ -200,7 +200,6 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
         homePage.registerFormShouldBeVisible();
-//        homePage.uploadAvatar();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
@@ -210,26 +209,6 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormSelectRandomCategory(master);
         enterSelectExperienceAndCity(master);
         homePage.regFormClickSubmit();
-    }
-
-    @Step
-    public void registerAsMasterWithCategory(Master master, String category) {
-        homePage.openRegistrationForm();
-        homePage.clickMasterBtnRegister();
-        homePage.registerFormShouldBeVisible();
-        //homePage.uploadAvatar();
-        homePage.regMasterFormSelectBuildSubDomain();
-        homePage.regMasterFormEnterFirstName(master.getFirstName());
-        homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterLogin(master.getEmail());
-        homePage.regFormEnterPassword(master.getPassword());
-        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectCategory(master, category);
-        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
-        homePage.regMasterFormSelectExperience();
-        master.setCity(homePage.regMasterFormSelectCity());
-        homePage.regFormClickSubmit();
-//        homePage.registerFormShouldNotBeVisible();
     }
 
     @Step

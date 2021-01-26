@@ -54,8 +54,8 @@ public class HomePage extends SearchBlock {
     //endregion
 
     //region Customer registration form
-    @FindBy(xpath = "//a[@href='#registrationForm']")
-    private WebElementFacade performRegistrationBtn;
+    @FindBy(xpath = "//a[@class='link-register']")
+    private WebElementFacade openRegistrationFormBtn;
 
     @FindBy(xpath = "//input[@type='email']")
     private WebElementFacade regFormEmailInput;
@@ -183,12 +183,16 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[@class='ad-banner-popup']/div")
     private WebElementFacade adBannerCloseBtn;
 
-
-    //region Customer registration form methods
-    public void openRegistrationForm() {
-        performRegistrationBtn.click();
+    public void clickRegistrationLink() {
+        openRegistrationFormBtn.click();
     }
 
+    public void openRegistrationForm() {
+        openLoginForm();
+        clickRegistrationLink();
+    }
+
+    //region Customer registration form methods
     public void regFormEnterLogin(String login) {
         regFormEmailInput.sendKeys(login);
     }
@@ -230,7 +234,7 @@ public class HomePage extends SearchBlock {
         if (Config.isUstabor()) {
             regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Short2"));
         } else {
-            regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Full"));
+            regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainMaterials"));
         }
         waitForLoaderDisappears();
     }
@@ -463,21 +467,6 @@ public class HomePage extends SearchBlock {
         var category = categoriesList.get(new Random().nextInt(categoriesList.size()));
         focusElementJS(category);
         category.click();
-    }
-
-    public void uploadAvatar() {
-        try {
-            String html = Files.readString(
-                    new File("files/avatar_input.js").toPath());
-            String script = Files.readString(
-                    new File("files/registration_form.js").toPath());
-            evaluateJavascript(html);
-            evaluateJavascript(script);
-            fileInput.sendKeys(new File("files/avatar.jpg").getAbsolutePath());
-        } catch (IOException e) {
-            Serenity.throwExceptionsImmediately();
-            e.printStackTrace();
-        }
     }
 
     public void openRandomFaqItem() {

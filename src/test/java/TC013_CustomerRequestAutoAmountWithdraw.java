@@ -47,7 +47,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         admin.atRequestsPage.assignRequestToAllMastersOfCategory();
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMaster(masters.get(0), true);
+        user.atHomePage.login(masters.get(0), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyBalance(1000);
         user.atMasterProfileRequestsPage.clickPhoneButton();
@@ -55,7 +55,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         user.atMasterRequestPage.closeConnectCustomerPopup();
         user.atHomePage.logsOut();
 
-        user.atHomePage.loginAsMaster(masters.get(1), true);
+        user.atHomePage.login(masters.get(1), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.verifyCustomerConnectButtonHasNoPrice();

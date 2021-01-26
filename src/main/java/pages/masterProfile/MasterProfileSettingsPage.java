@@ -21,10 +21,10 @@ public class MasterProfileSettingsPage extends MasterProfilePage {
     @FindBy(xpath = "//a[@id='button-password']")
     private WebElementFacade changePasswordBtn;
 
-    @FindBy(xpath = "//form[@id='form-password']//input[@id='form_password_password']")
+    @FindBy(xpath = "//form[@id='form-password']//input[@id='module_site_forms_profile_password_password_password']")
     private WebElementFacade newPasswordInput;
 
-    @FindBy(xpath = "//form[@id='form-password']//input[@id='form_password_password_confirm']")
+    @FindBy(xpath = "//form[@id='form-password']//input[@id='module_site_forms_profile_password_password_password_confirm']")
     private WebElementFacade confirmPasswordInput;
 
     @FindBy(xpath = "//form[@id='form-password']//button[@type='submit']")
@@ -32,9 +32,6 @@ public class MasterProfileSettingsPage extends MasterProfilePage {
 
     @FindBy(xpath = "//div[@class='window-body']")
     private WebElementFacade successPopup;
-
-    @FindBy(xpath = "//div[@class='button-close']")
-    private WebElementFacade closePopupBtn;
 
     @FindBy(xpath = "//form/h3//button[@type='submit']")
     private WebElementFacade saveChangesBtn;
@@ -57,10 +54,6 @@ public class MasterProfileSettingsPage extends MasterProfilePage {
 
     public void successPopupShouldBeVisible() {
         successPopup.shouldBeVisible();
-    }
-
-    public void closePopup() {
-        closePopupBtn.click();
     }
 
     public void editUsername(String username) {

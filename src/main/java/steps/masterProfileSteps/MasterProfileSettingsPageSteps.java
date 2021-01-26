@@ -21,7 +21,7 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
         masterProfileSettingsPage.confirmNewPassword(newPassword);
         masterProfileSettingsPage.clickSaveNewPasswordBtn();
         masterProfileSettingsPage.successPopupShouldBeVisible();
-        masterProfileSettingsPage.closePopup();
+        masterProfileSettingsPage.clickCloseBtn();
     }
 
     @Step

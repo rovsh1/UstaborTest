@@ -34,7 +34,7 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
         admin.addMoneyToMaster(900, watcher.getMaster());
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMaster(watcher.getMaster(), true);
+        user.atHomePage.login(watcher.getMaster(), true);
 
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.openRequest();

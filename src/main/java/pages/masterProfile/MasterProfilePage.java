@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MasterProfilePage extends MasterProfileBasePage {
 
-    @FindBy(xpath = "//div[@class='user-profile']//div[@class='h2']")
+    @FindBy(xpath = "//div[@class='user-profile']//div[@class='name']")
     private WebElementFacade masterName;
 
     @FindBy(xpath = "//div[@class='p about']")
