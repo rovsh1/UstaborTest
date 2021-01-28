@@ -23,7 +23,7 @@ public class TC008_CustomerRegistration extends TestBase {
         customer = DataGenerator.getCustomer(email.getEmailAddress());
         watcher.users.add(customer);
 
-        user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
+        user.atHomePage.registerAsCustomer(customer);
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
         user.atCustomerProfilePersonalInfoPage.verifyCustomerProfilePageIsOpened();
 

@@ -133,11 +133,6 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public Master openRandomProjectAndGetMasterInfo() {
-        return catalogPage.openRandomProject();
-    }
-
-    @Step
     public Master openRandomMasterProfile() {
         return catalogPage.openRandomMasterProfile();
     }

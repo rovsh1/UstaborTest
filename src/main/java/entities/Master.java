@@ -4,6 +4,9 @@ public class Master extends User {
 
     private String categoryName;
     private String categoryId;
+    private String rating;
+    private String feedback;
+
     private String projectUrl;
     private String profileUrl;
     private Project project;
@@ -12,6 +15,22 @@ public class Master extends User {
 
     public Master() {
         super();
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
     public String getCategoryName() {

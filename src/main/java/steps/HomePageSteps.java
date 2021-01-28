@@ -30,11 +30,12 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void registerAsCustomer(String login, String password) {
+    public void registerAsCustomer(User customer) {
         homePage.openRegistrationForm();
         homePage.clickCustomerBtn();
-        homePage.regFormEnterLogin(login);
-        homePage.regFormEnterPassword(password);
+        homePage.regFormEnterUserName(customer.getFirstName());
+        homePage.regFormEnterLogin(customer.getEmail());
+        homePage.regFormEnterPassword(customer.getPassword());
         homePage.regFormClickSubmit();
         homePage.waitForLoaderDisappears();
         homePage.authCodeFormShouldBeVisible();
@@ -53,17 +54,9 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void loginAsMasterIfNeed(String login, String password) {
+    public void loginIfNeeded(User user) {
         if (!homePage.isLoggedIn()) {
-            homePage.openLoginForm();
-            homePage.clickMasterBtnLogin();
-            homePage.signInFormEnterLogin(login);
-            homePage.signInFormEnterPassword(password);
-            homePage.signInFormClickLoginBtn();
-            homePage.loginErrorShouldBeVisible();
-            homePage.clickMasterBtnLogin();
-            homePage.signInFormClickLoginBtn();
-            homePage.waitForLoaderDisappears();
+            login(user.getEmail(), user.getPassword(), true);
         }
     }
 
@@ -270,8 +263,6 @@ public class HomePageSteps extends ScenarioSteps {
     public void verifyLoginForm() throws TimeoutException {
         openHomePage();
         homePage.openLoginForm();
-        homePage.iAmCustomerBtnShouldBeVisible();
-        homePage.iAmMasterBtnShouldBeVisible();
         homePage.loginInputShouldBeVisible();
         homePage.passwordInputShouldBeVisible();
         homePage.forgotPasswordLinkShouldBeVisible();

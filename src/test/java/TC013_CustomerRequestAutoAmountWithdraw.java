@@ -23,7 +23,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         var customer = DataGenerator.getCustomer(email.getEmailAddress());
         watcher.users.add(customer);
 
-        user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
+        user.atHomePage.registerAsCustomer(customer);
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
 
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());

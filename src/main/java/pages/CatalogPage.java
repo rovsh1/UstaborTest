@@ -21,10 +21,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CatalogPage extends SearchBlock {
 
-    private static String projectCategoryXpath = ".//div[@class='category']";
-    private static String projectMasterNameXpath = ".//div[@class='presentation']";
-    private static String projectMasterAvatarXpath = ".//div[@class='bottom']/div[@class='image']";
-    private static String ratingXpath = ".//div[@class='rating']";
+    private static final String masterNameXpath = ".//div[@class='presentation']";
+    private static final String ratingXpath = ".//div[contains(@class,'rating')]";
+    private static final String reviewsCountXpath = ".//span[@class='reviews-count']";
+    private static final String avatarXpath = ".//div[@class='image']";
+
     private static String badgesXpath = ".//span[contains(@class, 'master-badge')]";
     private static String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
 
@@ -107,6 +108,11 @@ public class CatalogPage extends SearchBlock {
     private WebElementFacade filterCategoryWindowCloseBtn;
     //endregion
 
+    //region New
+    @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item master']")
+    private List<WebElementFacade> mastersList;
+    //endregion
+
     public void verifySelectedCategoryEquals(String expectedCategory) {
         assertThat(selectedCategory.getText()).isEqualTo(expectedCategory);
     }
@@ -186,19 +192,10 @@ public class CatalogPage extends SearchBlock {
         closeContactPopup.click();
     }
 
-    public Master openRandomProject() {
-        WebElementFacade project = getRandomProject();
-        Master master = getProjectBaseInfo(project);
-        project.click();
-
-        return master;
-    }
-
     public Master openRandomMasterProfile() {
-        WebElementFacade project = getRandomProject();
-        Master master = getProjectBaseInfo(project);
-
-        project.findElement(By.xpath(projectMasterAvatarXpath)).click();
+        var randomMaster = mastersList.get(new Random().nextInt(mastersList.size()));
+        var master = getMasterInfo(randomMaster);
+        randomMaster.findElement(By.xpath(avatarXpath)).click();
 
         return master;
     }
@@ -318,7 +315,6 @@ public class CatalogPage extends SearchBlock {
         filterCitiesList.forEach(WebElementState::shouldBeVisible);
     }
 
-
     private WebElementFacade getRandomProject() {
         var elementNumber = new Random().nextInt(projectsList.size());
         focusElementJS("bottom", elementNumber);
@@ -326,18 +322,12 @@ public class CatalogPage extends SearchBlock {
         return projectsList.get(elementNumber);
     }
 
-    private Master getProjectBaseInfo(WebElementFacade projectElement) {
-        if (projectElement == null) {
-            throw new NullPointerException();
-        }
-
-        Master master = new Master();
-        master.setFirstName(projectElement.findElement(By.xpath(projectMasterNameXpath)).getText());
-        master.setCategoryName(projectElement.findElement(By.xpath(projectCategoryXpath)).getText());
-        master.setProjectUrl(projectElement.getAttribute("href"));
-        master.setProfileUrl(
-                projectElement.findElement(By.xpath(projectMasterAvatarXpath)).getAttribute("data-url"));
-
+    private Master getMasterInfo(WebElementFacade selectedMaster) {
+        var master = new Master();
+        master.setFirstName(selectedMaster.findElement(By.xpath(masterNameXpath)).getText());
+        master.setRating(selectedMaster.findElement(By.xpath(ratingXpath)).getAttribute("class"));
+        master.setFeedback(selectedMaster.findElement(By.xpath(reviewsCountXpath)).getText().replaceAll("[^0-9]", ""));
+        master.setCategoryName(selectedMaster.getText());
         return master;
     }
 

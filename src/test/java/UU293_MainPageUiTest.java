@@ -14,9 +14,9 @@ public class UU293_MainPageUiTest extends TestBase {
     @Test
     public void mainPageUiTest() throws TimeoutException {
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.verifyHeaderCountriesListIsVisible();
-        }
+//        if (!Config.isUstabor() && !Config.isFixListKg()) {
+//            user.atHomePage.verifyHeaderCountriesListIsVisible();
+//        }
 
         if (!Config.isFixListKg()) {
             user.atHomePage.verifySubdomainDropDown();
@@ -32,9 +32,9 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyRandomFaqItem();
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.verifyFooterCountriesListIsVisible();
-        }
+//        if (!Config.isUstabor() && !Config.isFixListKg()) {
+//            user.atHomePage.verifyFooterCountriesListIsVisible();
+//        }
 
         if (!Config.isFixListKg()) {
             user.atHomePage.verifyFooterLanguagesListIsVisible();
@@ -44,13 +44,14 @@ public class UU293_MainPageUiTest extends TestBase {
         user.atHomePage.openMobileViewMainMenu();
 
         if (!Config.isFixListKg()) {
-            user.atHomePage.verifyMobileViewSitesMenu();
+
+//            user.atHomePage.verifyMobileViewSitesMenu();
             user.atHomePage.verifyMobileViewLanguageMenu();
         }
-
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.verifyMobileViewCountriesMenu();
-        }
+//
+//        if (!Config.isUstabor() && !Config.isFixListKg()) {
+//            user.atHomePage.verifyMobileViewCountriesMenu();
+//        }
 
         user.atHomePage.openPlaceOrderPage();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();

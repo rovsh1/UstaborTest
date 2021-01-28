@@ -9,6 +9,7 @@ import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
 import steps.customerProfileSteps.CustomerProfileRequestsPageSteps;
 import steps.masterProfileSteps.*;
 import utils.Config;
+import utils.Email;
 
 public class UserSteps extends ScenarioSteps {
 
@@ -70,6 +71,5 @@ public class UserSteps extends ScenarioSteps {
         atHomePage.registerAsMasterWithSpecifiedCategory(master);
         atMasterProfilePage.waitForPageIsVisible();
         master.setProfileId(atMasterProfilePage.getProfileId());
-        master.setProject(new Project(master.getCategoryName()));
     }
 }

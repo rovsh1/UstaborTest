@@ -22,13 +22,7 @@ public class UU305_CatalogUiTest extends TestBase {
         user.atCatalogPage.closeFilterCategoryWindow();
         user.atCatalogPage.openFilterCityDropdownAndVerify();
 
-        var master = user.atCatalogPage.openRandomProjectAndGetMasterInfo();
-        user.atProjectPage.verifyProjectPageByMasterInfo(master);
-
-        browserGoBack();
-
-        var master1 = user.atCatalogPage.openRandomMasterProfile();
-        user.atMasterProfilePage.verifyProfilePage(master1);
-
+        var master = user.atCatalogPage.openRandomMasterProfile();
+        user.atMasterProfilePage.verifyProfilePage(master);
     }
 }

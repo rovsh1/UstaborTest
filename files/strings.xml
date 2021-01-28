@@ -7,7 +7,8 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
-    <string name="CustomerRegEmailSubject_new_test">Регистрация пользователя</string>
+    <string name="CustomerRegEmailSubject_kz_new_test">Регистрация пользователя</string>
+
     <string name="CustomerRegEmailSubject_uz_test">Регистрация пользователя</string>
     <string name="CustomerRegEmailSubject_kz_test">Регистрация пользователя</string>
     <string name="CustomerRegEmailSubject_uz_ustabor">Регистрация пользователя</string>
@@ -19,6 +20,7 @@
     <string name="AuthCode">Код вашей регистрации: </string>
     <string name="ForgotPassword">этой ссылке</string>
 
+    <string name="PhoneHintPopupText_new_test">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте их оператору</string>
     <string name="PhoneHintPopupText_test">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
     <string name="PhoneHintPopupText_ustabor">Звоните на "горячую" линию с 9:00 - 18:00</string>
     <string name="PhoneHintPopupText_fixinglist">C 9:00 - 18:00 Звони на нашу линию</string>
@@ -47,6 +49,10 @@
 
     <string name="FilterCategoriesDefault">Все Категории</string>
     <string name="FilterCityDefault">Город</string>
+
+    <string name="FilterCity_kz_new_test">Астана</string>
+    <string name="FilterCity_uz_new_test">Джизак</string>
+    <string name="FilterCity_ua_new_test">Одесса</string>
 
     <string name="FilterCity_kz_test">Астана</string>
     <string name="FilterCity_uz_test">Джизак</string>

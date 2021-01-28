@@ -28,6 +28,12 @@ public class MasterProfilePage extends MasterProfileBasePage {
     @FindBy(xpath = "//a[contains(@class, 'button-edit')]")
     private WebElementFacade profileSettingsBtn;
 
+    @FindBy(xpath = "//div[@class='user-profile']//div[contains(@class, 'rating-stars')]")
+    private WebElementFacade masterRating;
+
+    @FindBy(xpath = "//a[@href='#reviews']")
+    private WebElementFacade masterReviews;
+
     public void masterFullNameShouldContain(String firstName) {
         masterName.shouldContainText(firstName);
     }
@@ -45,12 +51,13 @@ public class MasterProfilePage extends MasterProfileBasePage {
     }
 
     public void masterCategoriesShouldContain(String category) {
-        assertThat(masterCategories
+        var masterCategoriesNames = masterCategories
                 .stream()
                 .map(WebElementFacade::getText)
                 .map(String::toLowerCase)
-                .collect(Collectors.toList()))
-                .contains(category.toLowerCase());
+                .collect(Collectors.toList());
+
+        assertThat(masterCategoriesNames.stream().anyMatch(c -> category.toLowerCase().contains(c))).isTrue();
     }
 
     public void openProfileSettings() {
@@ -73,5 +80,13 @@ public class MasterProfilePage extends MasterProfileBasePage {
 
     public void waitForPageIsVisible() {
         withTimeoutOf(Duration.ofSeconds(120)).waitFor(profileSettingsBtn).isPresent();
+    }
+
+    public void masterRatingShouldBe(String rating) {
+        assertThat(masterRating.getAttribute("class")).isEqualTo(rating);
+    }
+
+    public void masterFeedbackShouldContain(String feedback) {
+        masterReviews.shouldContainText(feedback);
     }
 }

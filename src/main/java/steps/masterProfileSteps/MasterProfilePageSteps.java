@@ -46,8 +46,9 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
 
     @Step
     public void verifyProfilePage(Master master) {
-        masterProfilePage.profilePageUrlShouldBeEqual(master.getProfileUrl());
         masterProfilePage.masterFullNameShouldContain(master.getFirstName());
+        masterProfilePage.masterRatingShouldBe(master.getRating());
+        masterProfilePage.masterFeedbackShouldContain(master.getFeedback());
         masterProfilePage.masterCategoriesShouldContain(master.getCategoryName());
     }
 

@@ -82,4 +82,12 @@ public class User {
     public void setProfileId(String profileId) {
         this.profileId = profileId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", profileId='" + profileId + '\'' +
+                '}';
+    }
 }

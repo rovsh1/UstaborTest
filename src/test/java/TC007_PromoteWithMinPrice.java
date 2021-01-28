@@ -22,7 +22,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         admin.addMoneyToMaster(10000, master);
 
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
+        user.atHomePage.loginIfNeeded(master);
         user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), true, true);

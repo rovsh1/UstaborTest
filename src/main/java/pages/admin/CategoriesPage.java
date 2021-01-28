@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class CategoriesPage extends BaseAdminPage {
 
     private static String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
-    private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a[@class='button-edit']";
+    private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
     private static String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
     private static String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
     private static String categoryUrlByNameXpath = "//td//a[text()='%s']";
@@ -65,11 +65,11 @@ public class CategoriesPage extends BaseAdminPage {
     //endregion
 
     public void openPage() {
-        getDriver().get(Config.getAdminUrl() + "category");
+        getDriver().get(Config.getAdminUrl() + "catalog/category/");
     }
 
     public void openEditCategoryPage(String categoryId) throws TimeoutException {
-        getDriver().get(Config.getAdminUrl() + String.format("category/edit/%s/#!tab-countries", categoryId));
+        getDriver().get(Config.getAdminUrl() + String.format("catalog/category/edit/%s/#!tab-countries", categoryId));
 
         if (!Config.isChrome()) {
             setTimeouts(1, ChronoUnit.SECONDS);

@@ -54,8 +54,8 @@ public class HomePage extends SearchBlock {
     //endregion
 
     //region Customer registration form
-    @FindBy(xpath = "//a[@class='link-register']")
-    private WebElementFacade openRegistrationFormBtn;
+    @FindBy(xpath = "//input[@id='form_registration_user_presentation']")
+    private WebElementFacade regFormUserNameInput;
 
     @FindBy(xpath = "//input[@type='email']")
     private WebElementFacade regFormEmailInput;
@@ -184,7 +184,7 @@ public class HomePage extends SearchBlock {
     private WebElementFacade adBannerCloseBtn;
 
     public void clickRegistrationLink() {
-        openRegistrationFormBtn.click();
+        signInFormRegisterLink.click();
     }
 
     public void openRegistrationForm() {
@@ -192,7 +192,11 @@ public class HomePage extends SearchBlock {
         clickRegistrationLink();
     }
 
-    //region Customer registration form methods
+    //region Customer registration form
+    public void regFormEnterUserName(String userName) {
+        regFormUserNameInput.sendKeys(userName);
+    }
+
     public void regFormEnterLogin(String login) {
         regFormEmailInput.sendKeys(login);
     }
@@ -205,7 +209,6 @@ public class HomePage extends SearchBlock {
     public void regFormClickSubmit() {
         focusElementJS(regFormSubmitBtn);
         regFormSubmitBtn.click();
-//        waitForLoaderDisappears();
     }
 
     public void regFormEnterAuthCode(String code) {
@@ -231,11 +234,7 @@ public class HomePage extends SearchBlock {
     }
 
     public void regMasterFormSelectBuildSubDomain() {
-        if (Config.isUstabor()) {
-            regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Short2"));
-        } else {
-            regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainMaterials"));
-        }
+        regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Short2"));
         waitForLoaderDisappears();
     }
 

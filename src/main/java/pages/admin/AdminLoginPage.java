@@ -9,10 +9,10 @@ import java.time.temporal.ChronoUnit;
 
 public class AdminLoginPage extends BaseAdminPage {
 
-    @FindBy(xpath = "//input[@id='form_auth_login']")
+    @FindBy(xpath = "//input[@id='form_data_login']")
     private WebElementFacade loginInput;
 
-    @FindBy(xpath = "//input[@id='form_auth_password']")
+    @FindBy(xpath = "//input[@id='form_data_password']")
     private WebElementFacade passwordInput;
 
     @FindBy(xpath = "//button[@type='submit']")

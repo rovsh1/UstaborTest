@@ -16,7 +16,7 @@ public class AddCategoryPage extends BaseAdminPage {
     private WebElementFacade submit;
 
     public void openPage() {
-        getDriver().get(Config.getAdminUrl() + "category/edit/new/");
+        getDriver().get(Config.getAdminUrl() + "catalog/category/edit/new/");
     }
 
     public void enterName(String name) {

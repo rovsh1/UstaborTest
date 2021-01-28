@@ -87,7 +87,7 @@ public class Admin {
     }
 
     public void deleteCategory(String id) {
-        var url = baseUrl + String.format("category/delete/%s/", id);
+        var url = baseUrl + String.format("catalog/category/delete/%s/", id);
 
         try {
             var result = executor.execute(Request.Get(url))

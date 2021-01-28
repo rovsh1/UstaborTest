@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException;
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
 @AddMasters(masters = 1)
-public class UU161_MasterFeedback extends TestBase {
+public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
     private Email email;
@@ -30,7 +30,7 @@ public class UU161_MasterFeedback extends TestBase {
         watcher.users.add(customer);
 
         user.atHomePage.openHomePage();
-        user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
+        user.atHomePage.registerAsCustomer(customer);
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
     }
 

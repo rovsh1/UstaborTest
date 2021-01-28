@@ -22,7 +22,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
 
         user.registerAsMaster(master);
         user.atHomePage.openHomePage();
-        user.atHomePage.loginAsMasterIfNeed(master.getEmail(), master.getPassword());
+        user.atHomePage.loginIfNeeded(master);
 
         user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();

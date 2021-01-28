@@ -29,7 +29,7 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
         user.atHomePage.openHomePage();
 
-        user.atHomePage.registerAsCustomer(customer.getEmail(), customer.getPassword());
+        user.atHomePage.registerAsCustomer(customer);
         user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());

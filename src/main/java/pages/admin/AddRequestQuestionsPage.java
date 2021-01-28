@@ -37,7 +37,7 @@ public class AddRequestQuestionsPage extends BaseAdminPage {
     private WebElementFacade maxPriceUstabor;
 
     public void openPage() {
-        getDriver().get(Config.getAdminUrl() + "requestanswer/");
+        getDriver().get(Config.getAdminUrl() + "customer/requestanswer/");
     }
 
     public void openQuestionsFormForCategory(TestCategory category) {
