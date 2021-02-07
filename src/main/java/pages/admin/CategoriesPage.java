@@ -84,7 +84,7 @@ public class CategoriesPage extends BaseAdminPage {
     }
 
     public void openViewCategoryPage(String categoryId) {
-        getDriver().get(Config.getAdminUrl() + String.format("category/view/%s/", categoryId));
+        getDriver().get(Config.getAdminUrl() + String.format("catalog/category/view/%s/", categoryId));
     }
 
     public void setPrice(String minimalPrice, String maximumPrice) {

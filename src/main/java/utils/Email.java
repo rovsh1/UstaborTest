@@ -6,6 +6,7 @@ import com.refactorable.guerrillamail.api.client.model.request.AddressRequest;
 import com.refactorable.guerrillamail.api.client.model.response.AddressResponse;
 import com.refactorable.guerrillamail.api.client.model.response.EmailResponse;
 
+import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -75,17 +76,26 @@ public class Email {
 
     private EmailResponse getEmailBySubject(String subject) throws TimeoutException {
         final EmailResponse[] response = new EmailResponse[1];
-        WaitHelper.pollingWait(5 * 60000, 10000, () -> {
-            var emails = guerrillaMailClient.emails(
-                    emails( addressResponse.getSessionId(), 0L, 0))
-                    .getEmails();
+        WaitHelper.pollingWait(5 * 60000, 15000, () -> {
 
-            var email = emails.stream()
-                    .filter(e -> e.getSubject().contains(subject))
-                    .findFirst();
-            email.ifPresent(emailResponse -> response[0] = emailResponse);
+            try {
+                var emails = guerrillaMailClient.emails(
+                        emails( addressResponse.getSessionId(), 0L, 0))
+                        .getEmails();
 
-            return email.isPresent();
+                if (emails.isEmpty()) {
+                    return false;
+                }
+
+                var email = emails.stream()
+                        .filter(e -> e.getSubject().contains(subject))
+                        .findFirst();
+                email.ifPresent(emailResponse -> response[0] = emailResponse);
+
+                return email.isPresent();
+            } catch (Exception exception) {
+                return false;
+            }
         });
 
         var email = guerrillaMailClient.email(

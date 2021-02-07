@@ -41,15 +41,15 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     @FindBy(xpath = "//div[@class='promotion-select']//div[contains(@class, 'item min')]//div[@class='price']")
     private WebElementFacade minimalPrice;
 
-    @FindBy(xpath = "//form[@id='project-form']//button[@type='submit']")
+    @FindBy(xpath = "//div[contains(@class, 'project-form')]//button[@class='button-submit']")
     private WebElementFacade saveNewProjectBtn;
 
-    @FindBy(xpath = "//input[@type='file']")
+    @FindBy(xpath = "//input[@type='file' and @class=' field-image 1']")
     private WebElementFacade fileInput;
 
     //endregion
 
-    @FindBy(xpath = "//div[@id='master-projects']/a")
+    @FindBy(xpath = "//div[@id='master-projects']/div[@class='item']")
     private List<WebElementFacade> projectsList;
 
     @FindBy(xpath = "//div[@id='master-projects']/a")
@@ -70,6 +70,10 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     public void selectCategory(String category) {
         projectCategorySelect.selectByVisibleText(category);
         waitForLoaderDisappears();
+    }
+
+    public void uploadProjectImage() {
+        fileInput.sendKeys(new File("files/projectImage.jpg").getAbsolutePath());
     }
 
     public void addProjectImage() {

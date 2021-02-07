@@ -26,7 +26,7 @@ public class CatalogPage extends SearchBlock {
     private static final String reviewsCountXpath = ".//span[@class='reviews-count']";
     private static final String avatarXpath = ".//div[@class='image']";
 
-    private static String badgesXpath = ".//span[contains(@class, 'master-badge')]";
+    private static String badgesXpath = ".//div[@class='master-advantages']//span";
     private static String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
 
     private static String promoAttribute = "data-promotion";
@@ -173,15 +173,15 @@ public class CatalogPage extends SearchBlock {
         );
     }
 
-    public void openProjectContactsByName(String projectName) {
-        WebElementFacade project = projectsWithFavoriteMark.stream()
-                .filter(p -> p.getText().contains(projectName)).findFirst().orElse(null);
+    public void openMasterContactsByName(String masterName) {
+        var master = mastersList.stream()
+                .filter(p -> p.getText().contains(masterName)).findFirst().orElse(null);
 
-        if (project == null) {
-            throw new NullPointerException(String.format("%s was not found", projectName));
+        if (master == null) {
+            throw new NullPointerException(String.format("%s was not found", masterName));
         }
 
-        project.findElement(By.xpath(".//div[@class='button-contact']")).click();
+        master.findElement(By.xpath(".//button[@class='button-contacts icon']")).click();
     }
 
     public void projectContactPopupShouldBeVisible(){
@@ -327,30 +327,12 @@ public class CatalogPage extends SearchBlock {
         master.setFirstName(selectedMaster.findElement(By.xpath(masterNameXpath)).getText());
         master.setRating(selectedMaster.findElement(By.xpath(ratingXpath)).getAttribute("class"));
         master.setFeedback(selectedMaster.findElement(By.xpath(reviewsCountXpath)).getText().replaceAll("[^0-9]", ""));
-        master.setCategoryName(selectedMaster.getText());
+        master.getCategory().setName(selectedMaster.getText());
         return master;
     }
 
-    public void verifyProjectsWithBadge(Project project, Master master) {
-        var noMorePromoProjects = false;
-
-        for (WebElementFacade proj: projectsList) {
-            if (proj.getAttribute(promoAttribute).equals("1") && !noMorePromoProjects) {
-            } else {
-                noMorePromoProjects = true;
-
-                var countOfBadges = proj.findElements(By.xpath(badgesXpath)).size();
-                if (countOfBadges == master.getCountOfBadges()) {
-                    var projectId = proj.getAttribute("data-id").replaceAll("\\D", "");
-                    if (project.getSystemId().equals(projectId)) {
-                        return;
-                    }
-                } else {
-                    throw new IllegalArgumentException("Project with badges order is wrong!");
-                }
-            }
-        }
-        assertThat(projectsList.get(0).getAttribute("data-id")).isEqualTo(project.getSystemId());
+    public void verifyMasterWithBadges(Master master) {
+        assertThat(mastersList.get(0).getAttribute("data-id")).isEqualTo(master.getProfileId());
     }
 
     public void verifyFoundProject(String projectSystemId) {
@@ -359,13 +341,13 @@ public class CatalogPage extends SearchBlock {
         assertThat(projectId).isEqualTo(projectSystemId);
     }
 
-    public void verifyProjectAtFirstPosition(Project project) {
-        var firstProject = projectsList.stream().findFirst();
-        int dataId = Integer.parseInt(firstProject.get().getAttribute("data-id"));
-        int promoId = Integer.parseInt(firstProject.get().getAttribute(promoAttribute));
+    public void verifyMasterAtFirstPosition(Master master) {
+        var firstMaster = mastersList.stream().findFirst();
+        int dataId = Integer.parseInt(firstMaster.get().getAttribute("data-id"));
+        int promoId = Integer.parseInt(firstMaster.get().getAttribute(promoAttribute));
 
-        assertThat(dataId).isEqualTo(Integer.parseInt(project.getSystemId()));
-        assertThat(promoId).isEqualTo(Integer.parseInt(project.getPromoId()));
+        assertThat(dataId).isEqualTo(Integer.parseInt(master.getProfileId()));
+        assertThat(promoId).isEqualTo(Integer.parseInt(master.getCategory().getPromoId()));
     }
 
     public void openProjectBySystemId(String systemId) {

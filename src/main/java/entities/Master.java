@@ -2,14 +2,13 @@ package entities;
 
 public class Master extends User {
 
-    private String categoryName;
-    private String categoryId;
     private String rating;
     private String feedback;
-
     private String projectUrl;
     private String profileUrl;
+
     private Project project;
+    private Category category;
 
     private int countOfBadges = 0;
 
@@ -31,22 +30,6 @@ public class Master extends User {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getProfileUrl() {
@@ -81,7 +64,17 @@ public class Master extends User {
         this.project = project;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public String toString() {
         return String.format("Login: '%s', SystemId: '%s'", getEmail(), getProfileId());
     }
+
+
 }

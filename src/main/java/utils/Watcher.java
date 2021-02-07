@@ -1,7 +1,7 @@
 package utils;
 
 import entities.Master;
-import entities.TestCategory;
+import entities.Category;
 import entities.User;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -13,7 +13,7 @@ public class Watcher extends TestWatcher {
 
     public List<User> users = new ArrayList<>();
     public User customer;
-    public TestCategory category;
+    public Category category;
 
     @Override
     protected void finished(Description description) {

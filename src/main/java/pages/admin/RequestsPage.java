@@ -40,7 +40,7 @@ public class RequestsPage extends BaseAdminPage {
     private WebElementFacade submitBtn;
 
     public void openPage(String requestId) {
-        getDriver().get(Config.getAdminUrl() + String.format("request/view/%s/",requestId));
+        getDriver().get(Config.getAdminUrl() + String.format("customer/request/view/%s/",requestId));
     }
 
     public void verifyCustomerLogin(String firstName) {

@@ -4,7 +4,8 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import entities.Master;
-import entities.TestCategory;
+import entities.Category;
+import entities.Project;
 import entities.User;
 
 import java.util.Arrays;
@@ -59,10 +60,10 @@ public class DataGenerator {
         return user;
     }
 
-    public static Master getMasterWithRandomEmail(TestCategory category) {
+    public static Master getMasterWithRandomEmail(Category category) {
         var master = getMasterWithRandomEmail();
-        master.setCategoryId(category.getSystemId());
-        master.setCategoryName(category.getName());
+        master.setCategory(category);
+        master.setProject(new Project(category.getName()));
 
         return master;
     }

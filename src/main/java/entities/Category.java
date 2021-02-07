@@ -1,10 +1,11 @@
 package entities;
 
-public class TestCategory {
+public class Category {
 
     private String name = "AutotestCategory";
-    private final String url = "autotest";
+    private String url = "autotest";
     private String systemId;
+    private String promoId;
 
     public String getSystemId() {
         return systemId;
@@ -24,5 +25,13 @@ public class TestCategory {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(String promoId) {
+        this.promoId = promoId;
     }
 }

@@ -39,8 +39,8 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void openProjectContactsAndVerify(String projectName) {
-        catalogPage.openProjectContactsByName(projectName);
+    public void openMasterContactsAndVerify(String projectName) {
+        catalogPage.openMasterContactsByName(projectName);
         catalogPage.projectContactPopupShouldBeVisible();
         catalogPage.closeContactPopup();
         catalogPage.contactPopupShouldNotBeVisible();
@@ -138,9 +138,8 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyProjectsWithBadge(Project project, Master master) throws InterruptedException {
-        catalogPage.loadAllResults();
-        catalogPage.verifyProjectsWithBadge(project, master);
+    public void verifyMasterWithBadgesPromoted(Master master) {
+        catalogPage.verifyMasterWithBadges(master);
     }
 
     @Step
@@ -149,9 +148,8 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyProjectPromoted(Project project) throws InterruptedException {
-        loadAllResults();
-        catalogPage.verifyProjectAtFirstPosition(project);
+    public void verifyMasterCategoryPromoted(Master master) {
+        catalogPage.verifyMasterAtFirstPosition(master);
     }
 
     @Step

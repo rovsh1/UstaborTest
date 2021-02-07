@@ -244,8 +244,8 @@ public class HomePage extends SearchBlock {
         focusElementJS(category);
         category.click();
 
-        master.setCategoryName(category.getText());
-        master.setCategoryId(category.getAttribute("data-id"));
+        master.getCategory().setName(category.getText());
+        master.getCategory().setSystemId(category.getAttribute("data-id"));
     }
 
     public void regMasterFormSelectCategory(Master master, String categoryName) {
@@ -262,19 +262,19 @@ public class HomePage extends SearchBlock {
         focusElementJS(category);
         category.click();
 
-        master.setCategoryName(category.getText());
-        master.setCategoryId(category.getAttribute("data-id"));
+        master.getCategory().setName(category.getText());
+        master.getCategory().setSystemId(category.getAttribute("data-id"));
     }
 
     public void regMasterFormSelectCategory(Master master) {
         withTimeoutOf(Duration.ofSeconds(25)).waitFor(firstCategory).isClickable();
         WebElementFacade category = regMasterCategoriesList.stream()
-                .filter(x -> x.getText().equals(master.getCategoryName()))
+                .filter(x -> x.getText().equals(master.getCategory().getName()))
                 .findFirst()
                 .orElse(null);
 
         if (category == null) {
-            throw new NullPointerException(String.format("No category found: %s", master.getCategoryName()));
+            throw new NullPointerException(String.format("No category found: %s", master.getCategory().getName()));
         }
 
         focusElementJS(category);

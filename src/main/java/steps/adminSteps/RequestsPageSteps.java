@@ -1,7 +1,7 @@
 package steps.adminSteps;
 
 import entities.Master;
-import entities.TestCategory;
+import entities.Category;
 import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -17,7 +17,7 @@ public class RequestsPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyRequest(User customer, TestCategory category, String question) {
+    public void verifyRequest(User customer, Category category, String question) {
         requestsPage.verifyCustomerLogin(customer.getFirstName());
         requestsPage.verifyCategory(category.getName());
         requestsPage.verifyWhatToDoQuestion(question);

@@ -2,14 +2,12 @@ package steps.adminSteps;
 
 import entities.Master;
 import entities.Project;
-import entities.TestCategory;
+import entities.Category;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
-import pages.admin.AddCategoryPage;
 import utils.Config;
 
 import java.util.concurrent.TimeoutException;
-
 
 public class AdminSteps extends ScenarioSteps {
 
@@ -34,7 +32,10 @@ public class AdminSteps extends ScenarioSteps {
     @Steps
     public RequestsPageSteps atRequestsPage;
 
-    public void addTestCategory(TestCategory category) {
+    @Steps
+    public AddServicePageSteps atAddEditServicePage;
+
+    public void addTestCategory(Category category) {
         atAdminHomePage.loginAsAdmin();
         atAddCategoryPage.addTestCategory(category);
         atCategoriesPage.getCategoryIdByName(category);
@@ -45,19 +46,24 @@ public class AdminSteps extends ScenarioSteps {
         atMastersPage.addMoneyToMaster(amount, master.getProfileId());
     }
 
-    public void approveProject(Project project) {
+    public void approvePromotion(Category category) {
         atAdminHomePage.loginAsAdmin();
-        atPromotionPage.approveProject(project);
+        atPromotionPage.approvePromotion(category);
     }
 
-    public void enablePromotion(Master master) throws TimeoutException {
-        atAdminHomePage.loginAsAdmin();
-        atCategoriesPage.enablePromotionAndSetPrice(master.getCategoryId(), "100", "500");
-    }
-
-    public void addTestCategoryRequestQuestions(TestCategory category, String question, String minPrice, String maxPrice) {
+    public void addServiceRequestQuestions(Category category, String question) {
         atAddRequestQuestionsPage.openPage();
         atAddRequestQuestionsPage.addQuestionToCategory(category, question);
-        atAddRequestQuestionsPage.setQuestionPriceForCurrentCountry(question, Config.getCountry(), minPrice, maxPrice);
+    }
+
+    public void addCategoryService(Category category) {
+        atAddEditServicePage.openPage();
+        atAddEditServicePage.fillAddServiceForm(category);
+        atAddEditServicePage.saveService();
+    }
+
+    public void setRequestPrices(Category category, String country, String minPrice, String maxPrice) {
+        atAddEditServicePage.openEditPage(category.getName());
+        atAddEditServicePage.setPriceForCurrentCountry(country, minPrice, maxPrice);
     }
 }

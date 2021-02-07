@@ -1,6 +1,5 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
-import entities.Master;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
@@ -37,20 +36,13 @@ public class TC005a_MasterFeedback extends TestBase {
     @Test
     public void verifyMasterFeedback() throws InterruptedException, TimeoutException {
         user.atCustomerProfilePersonalInfoPage.openHomePage();
-        user.atHomePage.openCatalog();
-        user.atCatalogPage.openRandomProjectWithNameNot(watcher.getMaster().getLastName());
-        user.atProjectPage.addProjectToFavorites();
+        user.atHomePage.openBuilderTab();
+        user.atHomePage.openCategory(watcher.getMaster().getCategory().getName());
 
-        user.atCustomerProfilePersonalInfoPage.openHomePage();
-        user.atHomePage.enterTextAndSearch(watcher.getMaster().getProject().getName());
-        user.atCatalogPage.openProjectContactsAndVerify(watcher.getMaster().getLastName());
-
-        user.atProjectPage.openCustomerProfilePage();
-        user.atCustomerProfilePersonalInfoPage.verifyCountOfFavouriteProjectsEquals(1);
-        user.atCustomerProfilePersonalInfoPage.removeRandomAndVerifyCountOfProjects(0);
+        user.atCatalogPage.openMasterContactsAndVerify(watcher.getMaster().getLastName());
 
         user.atCustomerProfilePersonalInfoPage.logsOut();
-        user.atHomePage.loginAsCustomer(customer.getEmail(), customer.getPassword());
+        user.atHomePage.login(customer, true);
 
         user.atHomePage.waitForFeedbackProposalAndOpen();
         user.atFeedbackPage.leftFeedback(5, "Testing Review");

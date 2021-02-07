@@ -1,6 +1,6 @@
 package steps;
 
-import entities.TestCategory;
+import entities.Category;
 import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -23,9 +23,13 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void placeOrder(User customer, TestCategory category) {
-        fillInFirstPage(customer.getFirstName(), category, XmlParser.getTextByKey("Question"))
-                .clickNextButton(RequestPages.First);
+    public void placeOrder(User customer, Category category) {
+        fillInFirstPage(
+                customer.getFirstName(),
+                category,
+                XmlParser.getTextByKey("Service"),
+                XmlParser.getTextByKey("Question"));
+        placeOrderPage.clickNextButton(RequestPages.First);
         fillInSecondPage()
                 .clickNextButton(RequestPages.Second);
         fillInThirdPage(customer.getCity(), customer.getPhoneNumber())
@@ -37,11 +41,11 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public PlaceOrderPageSteps fillInFirstPage(String userName, TestCategory category, String question) {
+    public void fillInFirstPage(String userName, Category category, String service, String question) {
         placeOrderPage.enterName(userName);
         placeOrderPage.selectCategory(category.getSystemId());
-        placeOrderPage.selectWhatToDo(question);
-        return this;
+        placeOrderPage.selectWhatToDo(service);
+        placeOrderPage.selectQuestion(question);
     }
 
     @Step

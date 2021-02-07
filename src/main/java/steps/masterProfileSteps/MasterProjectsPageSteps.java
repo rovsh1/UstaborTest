@@ -12,6 +12,17 @@ public class MasterProjectsPageSteps extends MasterProfileSteps {
     private MasterProjectsPage masterProjectsPage;
 
     @Step
+    public void addNewProject(Project project) throws TimeoutException {
+        int countOfProjects = masterProjectsPage.getCountOfProjects();
+        masterProjectsPage.openNewProjectForm();
+        masterProjectsPage.enterProjectName(project.getName());
+        masterProjectsPage.addProjectImage();
+        masterProjectsPage.saveNewProject();
+        WaitHelper.pollingWait(10000, 500, () ->
+                masterProjectsPage.getCountOfProjects() == countOfProjects + 1);
+    }
+
+    @Step
     public void addNewProjectInCategory(Project project, boolean promotion, boolean minPrice) throws TimeoutException {
         int countOfProjects = masterProjectsPage.getCountOfProjects();
         masterProjectsPage.openNewProjectForm();

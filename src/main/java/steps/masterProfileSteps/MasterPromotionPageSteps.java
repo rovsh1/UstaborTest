@@ -37,4 +37,11 @@ public class MasterPromotionPageSteps extends MasterProfileSteps {
         masterPromotionPage.sendToModerationBtnShouldBeVisible();
         masterPromotionPage.promotionManualBtnShouldBeVisible();
     }
+
+    @Step
+    public void promoteCategory(String categoryName, MasterPromotionPage.PromotionType promotionType) {
+        masterPromotionPage.selectCategoryToPromote(categoryName);
+        masterPromotionPage.selectPromotionType(promotionType);
+        masterPromotionPage.sendToModeration();
+    }
 }

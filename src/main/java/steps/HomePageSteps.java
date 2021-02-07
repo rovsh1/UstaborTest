@@ -61,16 +61,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public boolean loginAsCustomer(String login, String password) {
-        homePage.openLoginForm();
-        homePage.clickCustomerBtn();
-        homePage.signInFormEnterLogin(login);
-        homePage.signInFormEnterPassword(password);
-        homePage.signInFormClickLoginBtn();
-        return homePage.isLoggedIn();
-    }
-
-    @Step
     public boolean login(String login, String password, boolean openLoginForm) {
         if (openLoginForm) {
             homePage.openLoginForm();

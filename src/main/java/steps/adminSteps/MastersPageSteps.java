@@ -23,10 +23,6 @@ public class MastersPageSteps extends ScenarioSteps {
         mastersPage.addAllBadgesToMaster(master);
     }
 
-    public void deleteMaster(Master master) {
-        mastersPage.deleteMaster(master.getProfileId());
-    }
-
     public void performSearch(String text) {
         mastersPage.performSearch(text);
     }

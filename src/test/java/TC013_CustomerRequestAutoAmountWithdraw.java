@@ -65,7 +65,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         user.atMasterProfilePage.verifyBalance(1000);
         user.atHomePage.logsOut();
 
-        user.atHomePage.loginAsCustomer(customer.getEmail(), customer.getPassword());
+        user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerRequestPage.openRequest();
         user.atCustomerRequestPage.openAssignedMasters();

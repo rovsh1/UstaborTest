@@ -42,8 +42,8 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//table//tr/td[2]")
     private List<WebElementFacade> mastersIds;
 
-    private final String VIEWMASTERURL = "master/view/";
-    private final String EDITMASTERURL = "master/edit/";
+    private final String VIEWMASTERURL = "master/user/view/";
+    private final String EDITMASTERURL = "master/user/edit/";
 
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "master");
@@ -81,7 +81,6 @@ public class MastersPage extends BaseAdminPage {
         badges.forEach(WebElementFacade::click);
         master.setCountOfBadges(badges.size() - 2);
         submitBtn.click();
-        assertThat(mastersList.isEmpty()).isFalse();
     }
 
     public void deleteMaster(String profileId) {

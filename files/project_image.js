@@ -1,8 +1,8 @@
 var fileInput = $('<input/>', {
     type:'file',
-    name:'project[images][]',
-    id:'',
-    class:'field-image ui-sortable-handle',
-    multiple:'1'
+    name:'project[image]',
+    id:'form_project_image',
+    class:' field-image 1',
+    multiple:''
     });
-$('.thumbs').append(fileInput);
+$('#form_project_image_images').append(fileInput);

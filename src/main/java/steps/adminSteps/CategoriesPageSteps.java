@@ -1,6 +1,6 @@
 package steps.adminSteps;
 
-import entities.TestCategory;
+import entities.Category;
 import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -28,34 +28,14 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.openViewCategoryPage(categoryId);
     }
 
-    @Step
-    public void enablePromotionAndSetPrice(String categoryId, String minPrice, String maxPrice) throws TimeoutException {
-        openEditCategoryPage(categoryId);
-        categoriesPage.openPromotionForCurrentCountry();
-        categoriesPage.enablePromotion();
-        categoriesPage.setPrice(minPrice, maxPrice);
-        categoriesPage.submitPromotion();
-        categoriesPage.waitForLoaderDisappears();
-    }
-
-    public void getCategoryIdByName(TestCategory category) {
+    public void getCategoryIdByName(Category category) {
         categoriesPage.openPage();
         category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
         logger.info("Test category with id '{}' was created", category.getSystemId());
     }
 
     @Step
-    public void setRequestClickPrice(String categoryId, String clickPrice) throws TimeoutException {
-        openEditCategoryPage(categoryId);
-        categoriesPage.openPromotionForCurrentCountry();
-        categoriesPage.enablePromotion();
-        categoriesPage.setClickPrice(clickPrice);
-        categoriesPage.submitPromotion();
-        categoriesPage.waitForLoaderDisappears();
-    }
-
-    @Step
-    public void addMastersToCategoryRequest(TestCategory category, List<User> masters) {
+    public void addMastersToCategoryRequest(Category category, List<User> masters) {
         openViewCategoryPage(category.getSystemId());
         masters.forEach(m -> {
             categoriesPage.openAddMasterForm();

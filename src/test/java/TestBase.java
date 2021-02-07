@@ -1,7 +1,7 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
 import entities.Project;
-import entities.TestCategory;
+import entities.Category;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeoutException;
 
 public class TestBase {
 
-    public final TestCategory category = new TestCategory();
+    public final Category category = new Category();
 
     @Rule
     public Watcher watcher = new Watcher();
@@ -50,7 +50,9 @@ public class TestBase {
             admin.addTestCategory(category);
 
             if (this.getClass().getAnnotation(AddCategory.class).addRequestQuestion()) {
-                admin.addTestCategoryRequestQuestions(category, getText("Question"), "100", "200");
+                admin.addCategoryService(category);
+                admin.setRequestPrices(category, Config.getCountry(), "100", "200");
+                admin.addServiceRequestQuestions(category, getText("Question"));
             }
 
             if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
@@ -79,7 +81,7 @@ public class TestBase {
                         var project = new Project(category.getName());
                         master.setProject(project);
                         user.atMasterProjectsPage.openProjectsTab();
-                        user.atMasterProjectsPage.addNewProjectInCategory(project, false, false);
+                        user.atMasterProjectsPage.addNewProject(project);
                     }
                     user.atHomePage.logsOut();
                 }
@@ -93,10 +95,6 @@ public class TestBase {
 
     String getText(String key) {
         return XmlParser.getTextByKey(key);
-    }
-
-    List<String> getTextByPredicate(String predicate) {
-        return XmlParser.getAllValuesByPredicate(predicate);
     }
 
     void setBrowserWindowSize(int width, int height){

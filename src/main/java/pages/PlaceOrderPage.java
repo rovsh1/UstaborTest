@@ -19,6 +19,9 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//select[@id='cr_a_0']")
     private WebElementFacade whatToDoDropDown;
 
+    @FindBy(xpath = "//select[@id='cr_a_1']")
+    private WebElementFacade questionSelector;
+
     @FindBy(xpath = "//div[@class='dropzone-field']")
     private WebElementFacade photoForm;
 
@@ -129,6 +132,10 @@ public class PlaceOrderPage extends BasePage {
 
     public void selectWhatToDo(String question) {
         whatToDoDropDown.selectByVisibleText(question);
+    }
+
+    public void selectQuestion(String question) {
+        questionSelector.selectByVisibleText(question);
     }
 
     public void priceShouldBeVisible(String price) {

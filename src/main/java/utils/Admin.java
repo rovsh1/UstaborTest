@@ -107,7 +107,7 @@ public class Admin {
     }
 
     public String getSmsCode(String phoneNumber) {
-        var url = baseUrl + "log/sms/";
+        var url = baseUrl + "administration/log/sms/";
         String code = "N/A";
 
         try {
@@ -122,7 +122,7 @@ public class Admin {
     }
 
     public String getSmsPassword(String phoneNumber) {
-        var url = baseUrl + "log/sms/";
+        var url = baseUrl + "administration/log/sms/";
         String password = null;
 
         try {
@@ -137,7 +137,7 @@ public class Admin {
     }
 
     public String getSmsByText(String phoneNumber, String sms) {
-        var url = baseUrl + "log/sms/";
+        var url = baseUrl + "administration/log/sms/";
         String smsText = null;
 
         try {
@@ -152,7 +152,7 @@ public class Admin {
     }
 
     public void deleteCustomer(String customerId) {
-        var url = baseUrl + String.format("customer/delete/%s/", customerId);
+        var url = baseUrl + String.format("customer/user/delete/%s/", customerId);
 
         try {
             var result = executor.execute(Request.Get(url))

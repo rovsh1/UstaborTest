@@ -4,6 +4,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pages.masterProfile.MasterPromotionPage;
 import utils.DataGenerator;
 
 @WithTag("prod")
@@ -25,15 +26,17 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         user.atHomePage.loginIfNeeded(master);
         user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(master.getProject(), true, true);
+        user.atMasterProjectsPage.addNewProject(master.getProject());
+        user.atMasterPromotionPage.openPromotionTab();
+        user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.MinimalPrice);
         user.atMasterProjectsPage.logsOut();
 
         admin.atAdminHomePage.loginAsAdmin();
-        admin.atPromotionPage.approveProject(master.getProject());
+        admin.atPromotionPage.approvePromotion(master.getCategory());
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(master.getProject().getCategory());
-        user.atCatalogPage.verifyProjectPromoted(master.getProject());
+        user.atCatalogPage.verifyMasterCategoryPromoted(master);
     }
 }

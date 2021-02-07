@@ -10,8 +10,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MasterPromotionPage extends MasterProfileBasePage {
 
+    public enum PromotionType {
+        MinimalPrice,
+        RecommendedPrice
+    }
+
     @FindBy(xpath = "//select[@id='promotion-form_category_id']")
     private WebElementFacade categorySelector;
+
+    @FindBy(xpath = "//label[@for='mp_pf_recommended']")
+    private WebElementFacade recommendedPrice;
+
+    @FindBy(xpath = "//label[@for='mp_pf_min']")
+    private WebElementFacade minimumPrice;
 
     @FindBy(xpath = "//div[@class='profile-promotion']//button[@type='submit']")
     private WebElementFacade sendToModerationBtn;
@@ -71,5 +82,24 @@ public class MasterPromotionPage extends MasterProfileBasePage {
 
     public void promotionManualBtnShouldBeVisible() {
         promotionManualBtn.shouldBeVisible();
+    }
+
+    public void selectCategoryToPromote(String categoryName) {
+        categorySelector.selectByVisibleText(categoryName);
+    }
+
+    public void selectPromotionType(PromotionType type) {
+        switch (type) {
+            case MinimalPrice:
+                minimumPrice.click();
+                break;
+            case RecommendedPrice:
+                recommendedPrice.click();
+                break;
+        }
+    }
+
+    public void sendToModeration() {
+        sendToModerationBtn.click();
     }
 }
