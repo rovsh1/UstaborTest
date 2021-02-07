@@ -1,7 +1,5 @@
 package steps;
 
-import entities.Master;
-import entities.Project;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.ProjectPage;
@@ -18,22 +16,5 @@ public class ProjectPageSteps extends ScenarioSteps {
     @Step
     public void openCustomerProfilePage() {
         projectPage.openCustomerProfilePage();
-    }
-
-    @Step
-    public void verifyProjectPageByMasterInfo(Master master) {
-        projectPage.projectUrlShouldContain(master.getProjectUrl());
-        projectPage.masterNameShouldContain(master.getFirstName());
-        projectPage.masterCategoriesShouldContain(master.getCategory().getName());
-        projectPage.aboutMeShouldBeVisible();
-        projectPage.projectImageShouldBeVisible();
-    }
-
-    @Step
-    public void verifyProjectInfo(Project project, Master master) {
-        projectPage.masterCategoriesShouldContain(project.getCategory());
-        projectPage.projectDescriptionShouldBe(project.getDescription());
-        projectPage.projectUrlShouldContain(project.getSystemId());
-        projectPage.masterNameShouldContain(master.getLastName());
     }
 }

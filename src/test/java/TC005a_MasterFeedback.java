@@ -1,9 +1,11 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
+import cucumber.api.Pending;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeoutException;
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
 @AddMasters(masters = 1)
+@Ignore
 public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
@@ -53,10 +56,10 @@ public class TC005a_MasterFeedback extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
-        user.atHomePage.openCategory(watcher.getMaster().getProject().getCategory());
+        user.atHomePage.openCategory(watcher.getMaster().getCategory().getName());
         user.atCatalogPage.loadAllResults();
         user.atCatalogPage.sortProjectsByRating();
 
-        user.atCatalogPage.verifyProjectsSortedByRate(watcher.getMaster().getProject(), 5);
+        user.atCatalogPage.verifyProjectsSortedByRate(watcher.getMaster().getCategory().getProject(), 5);
     }
 }

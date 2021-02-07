@@ -49,7 +49,6 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
         masterProfilePage.masterFullNameShouldContain(master.getFirstName());
         masterProfilePage.masterRatingShouldBe(master.getRating());
         masterProfilePage.masterFeedbackShouldContain(master.getFeedback());
-        masterProfilePage.masterCategoriesShouldContain(master.getCategory().getName());
     }
 
     @Step

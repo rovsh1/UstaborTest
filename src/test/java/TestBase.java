@@ -78,10 +78,8 @@ public class TestBase {
                     master.setProfileId(user.atMasterProfilePage.getProfileId());
 
                     if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
-                        var project = new Project(category.getName());
-                        master.setProject(project);
                         user.atMasterProjectsPage.openProjectsTab();
-                        user.atMasterProjectsPage.addNewProject(project);
+                        user.atMasterProjectsPage.addNewProject(master.getCategory().getProject());
                     }
                     user.atHomePage.logsOut();
                 }
@@ -99,10 +97,6 @@ public class TestBase {
 
     void setBrowserWindowSize(int width, int height){
         driver.manage().window().setSize(new Dimension(width, height));
-    }
-
-    void browserGoBack() {
-        driver.navigate().back();
     }
 
     private void setCountryAndLanguage() {

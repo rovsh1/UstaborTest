@@ -26,7 +26,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         user.atHomePage.loginIfNeeded(master);
         user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProject(master.getProject());
+        user.atMasterProjectsPage.addNewProject(master.getCategory().getProject());
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.MinimalPrice);
         user.atMasterProjectsPage.logsOut();
@@ -36,7 +36,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
-        user.atHomePage.openCategory(master.getProject().getCategory());
+        user.atHomePage.openCategory(master.getCategory().getName());
         user.atCatalogPage.verifyMasterCategoryPromoted(master);
     }
 }

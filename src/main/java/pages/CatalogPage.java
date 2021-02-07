@@ -1,5 +1,6 @@
 package pages;
 
+import entities.Category;
 import entities.FavProject;
 import entities.Master;
 import entities.Project;
@@ -327,7 +328,6 @@ public class CatalogPage extends SearchBlock {
         master.setFirstName(selectedMaster.findElement(By.xpath(masterNameXpath)).getText());
         master.setRating(selectedMaster.findElement(By.xpath(ratingXpath)).getAttribute("class"));
         master.setFeedback(selectedMaster.findElement(By.xpath(reviewsCountXpath)).getText().replaceAll("[^0-9]", ""));
-        master.getCategory().setName(selectedMaster.getText());
         return master;
     }
 

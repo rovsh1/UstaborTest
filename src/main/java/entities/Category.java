@@ -6,6 +6,11 @@ public class Category {
     private String url = "autotest";
     private String systemId;
     private String promoId;
+    private Project project;
+
+    public Category() {
+        project = new Project();
+    }
 
     public String getSystemId() {
         return systemId;
@@ -33,5 +38,13 @@ public class Category {
 
     public void setPromoId(String promoId) {
         this.promoId = promoId;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

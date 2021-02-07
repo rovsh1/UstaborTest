@@ -63,8 +63,6 @@ public class DataGenerator {
     public static Master getMasterWithRandomEmail(Category category) {
         var master = getMasterWithRandomEmail();
         master.setCategory(category);
-        master.setProject(new Project(category.getName()));
-
         return master;
     }
 

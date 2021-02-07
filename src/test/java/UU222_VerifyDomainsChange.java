@@ -1,5 +1,6 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
@@ -14,7 +15,7 @@ public class UU222_VerifyDomainsChange extends TestBase {
     @Test
     public void verifyDomainsChangingWorksCorrectly() {
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
+        if (!Config.isNewTest() || !Config.isUstabor() && !Config.isFixListKg()) {
             List<String> countriesList = user.atHomePage.getCountriesList();
             for (String country: countriesList) {
                 user.atHomePage.setCountryByCode(country);

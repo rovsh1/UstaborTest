@@ -21,7 +21,7 @@
     <string name="AuthCode">Код вашей регистрации: </string>
     <string name="ForgotPassword">этой ссылке</string>
 
-    <string name="PhoneHintPopupText_new_test">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте их оператору</string>
+    <string name="PhoneHintPopupText_new_test">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте вопросы оператору</string>
     <string name="PhoneHintPopupText_test">C 10:00 - 19:00 Звони на нашу линию, наш менеджер ответит.</string>
     <string name="PhoneHintPopupText_ustabor">Звоните на "горячую" линию с 9:00 - 18:00</string>
     <string name="PhoneHintPopupText_fixinglist">C 9:00 - 18:00 Звони на нашу линию</string>
@@ -69,7 +69,8 @@
     <string name="FilterDistrict_kz"></string>
     <string name="FilterDistrict_ua"></string>
 
-    <string name="LoginFailedError">Неверные логин или пароль</string>
+<!--    <string name="LoginFailedError">Неверные логин или пароль</string>-->
+    <string name="LoginFailedError">login_failed</string>
 
     <string name="Service">Autotest</string>
     <string name="Question">This is a test question</string>

@@ -42,6 +42,10 @@ public class Config {
         return getEnv().equals("fixinglist_kg");
     }
 
+    public static boolean isNewTest() {
+        return true;
+    }
+
     public static Users getUsers() {
         if (users == null) {
             users = new Users(getEnvironmentVariableValue(SITE, true));

@@ -23,7 +23,6 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
         var email = new Email();
         var master = DataGenerator.getMasterWithEmail(email);
         master.setCategory(category);
-        master.setProject(new Project(category.getName()));
         watcher.users.add(master);
 
         user.registerAsMaster(master);
@@ -35,7 +34,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
         user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProject(master.getProject());
+        user.atMasterProjectsPage.addNewProject(master.getCategory().getProject());
 
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.RecommendedPrice);

@@ -1,3 +1,4 @@
+import entities.Category;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class TC003_MasterForgotPassword extends TestBase {
 
         master.setProfileId(user.atMasterProfilePage.getProfileId());
 
-        user.atMasterProfilePage.open(email.getUrl(Email.EmailType.ConfirmRegister));
+        //user.atMasterProfilePage.open(email.getUrl(Email.EmailType.ConfirmRegister));
 
         user.atHomePage.logsOut();
 
