@@ -69,8 +69,8 @@
     <string name="FilterDistrict_kz"></string>
     <string name="FilterDistrict_ua"></string>
 
-<!--    <string name="LoginFailedError">Неверные логин или пароль</string>-->
-    <string name="LoginFailedError">login_failed</string>
+    <string name="LoginFailedError">Неверные логин или пароль</string>
+<!--    <string name="LoginFailedError">login_failed</string>-->
 
     <string name="Service">Autotest</string>
     <string name="Question">This is a test question</string>
