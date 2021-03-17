@@ -34,8 +34,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.openRegistrationForm();
         homePage.clickCustomerBtn();
         homePage.regFormEnterUserName(customer.getFirstName());
-        homePage.regFormEnterLogin(customer.getEmail());
-        homePage.regFormEnterPassword(customer.getPassword());
+        homePage.regFormEnterUserPhone(customer.getPhoneNumber());
         homePage.regFormClickSubmit();
         homePage.waitForLoaderDisappears();
         homePage.authCodeFormShouldBeVisible();
@@ -273,9 +272,8 @@ public class HomePageSteps extends ScenarioSteps {
         openHomePage();
         openMobileViewMainMenu();
         homePage.openMobileViewCustomerRegistrationForm();
-        homePage.regFormLoginInputShouldBeVisible();
-        homePage.regFormPassInputShouldBeVisible();
-        homePage.regFormConfirmPassInputShouldBeVisible();
+        homePage.regFormUserNameInputShouldBeVisible();
+        homePage.regFormPhoneNumberInputShouldBeVisible();
         homePage.regFormConditionsLinkShouldBeVisible();
         homePage.regFormSubmitBtnShouldBeVisible();
     }

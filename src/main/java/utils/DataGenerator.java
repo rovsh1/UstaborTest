@@ -32,6 +32,17 @@ public class DataGenerator {
         return user;
     }
 
+    public static User getCustomer() {
+        var faker = new Faker();
+        var user = new User();
+        user.setPassword(password);
+        user.setPhoneNumber(getCountryCode() + getPhoneNumber());
+        user.setFirstName(faker.name().firstName());
+        user.setCity(faker.address().cityName());
+
+        return user;
+    }
+
     public static User getGuestCustomer() {
         var faker = new Faker();
         var user = new User();

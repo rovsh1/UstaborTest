@@ -62,7 +62,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class, 'district')]//div[@class='item']")
     private WebElementFacade firstDistrict;
 
-    @FindBy(xpath = "//div[@class='results']/span")
+    @FindBy(xpath = "//div[@class='results']")
     private WebElementFacade projectsCounter;
 
     @FindBy(xpath = "//div[@class='catalog-search-empty']//div[@class='text']")
@@ -110,7 +110,7 @@ public class CatalogPage extends SearchBlock {
     //endregion
 
     //region New
-    @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item master']")
+    @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item master full']")
     private List<WebElementFacade> mastersList;
     //endregion
 

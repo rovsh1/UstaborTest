@@ -1,6 +1,5 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
-import entities.Project;
 import entities.Category;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
@@ -18,7 +17,6 @@ import utils.DataGenerator;
 import utils.Watcher;
 import utils.XmlParser;
 
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class TestBase {
@@ -79,7 +77,7 @@ public class TestBase {
 
                     if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
                         user.atMasterProjectsPage.openProjectsTab();
-                        user.atMasterProjectsPage.addNewProject(master.getCategory().getProject());
+                        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
                     }
                     user.atHomePage.logsOut();
                 }

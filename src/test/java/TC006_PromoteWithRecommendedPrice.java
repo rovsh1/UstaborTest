@@ -1,6 +1,5 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
-import entities.Project;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
@@ -34,7 +33,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
         user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProject(master.getCategory().getProject());
+        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
 
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.RecommendedPrice);

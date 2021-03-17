@@ -57,6 +57,9 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//input[@id='form_registration_user_presentation']")
     private WebElementFacade regFormUserNameInput;
 
+    @FindBy(xpath = "//input[@id='form_registration_user_phone']")
+    private WebElementFacade regFormUserPhoneNumberInput;
+
     @FindBy(xpath = "//input[@type='email']")
     private WebElementFacade regFormEmailInput;
 
@@ -69,7 +72,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//form[contains(@id, 'form-registration')]//button[@type='submit']")
     private WebElementFacade regFormSubmitBtn;
 
-    @FindBy(xpath = "//input[@id='form_confirm_code']")
+    @FindBy(xpath = "//input[@id='form_registration_user_code']")
     private WebElementFacade regFormConfirmationCodeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@type='submit']")
@@ -195,6 +198,10 @@ public class HomePage extends SearchBlock {
     //region Customer registration form
     public void regFormEnterUserName(String userName) {
         regFormUserNameInput.sendKeys(userName);
+    }
+
+    public void regFormEnterUserPhone(String phone) {
+        regFormUserPhoneNumberInput.sendKeys(phone);
     }
 
     public void regFormEnterLogin(String login) {
@@ -477,6 +484,14 @@ public class HomePage extends SearchBlock {
 
     public void regFormSubmitBtnShouldBeVisible() {
         regFormSubmitBtn.shouldBeVisible();
+    }
+
+    public void regFormUserNameInputShouldBeVisible() {
+        regFormUserNameInput.shouldBeVisible();
+    }
+
+    public void regFormPhoneNumberInputShouldBeVisible() {
+        regFormUserPhoneNumberInput.shouldBeVisible();
     }
 
     public void regFormLoginInputShouldBeVisible() {

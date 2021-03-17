@@ -2,11 +2,10 @@ import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Admin;
 import utils.DataGenerator;
-import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 
@@ -15,16 +14,18 @@ import java.util.concurrent.TimeoutException;
 @RunWith(SerenityRunner.class)
 public class TC008_CustomerRegistration extends TestBase {
 
-    protected Email email = new Email();
     private User customer;
 
     @Test
-    public void customerRegistration() throws TimeoutException {
-        customer = DataGenerator.getCustomer(email.getEmailAddress());
+    public void customerRegistration() {
+        customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
         user.atHomePage.registerAsCustomer(customer);
-        user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
+
+        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
         user.atCustomerProfilePersonalInfoPage.verifyCustomerProfilePageIsOpened();
 
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());

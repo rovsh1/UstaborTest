@@ -1,5 +1,6 @@
 package steps.masterProfileSteps;
 
+import entities.Category;
 import entities.Project;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProjectsPage;
@@ -12,10 +13,11 @@ public class MasterProjectsPageSteps extends MasterProfileSteps {
     private MasterProjectsPage masterProjectsPage;
 
     @Step
-    public void addNewProject(Project project) throws TimeoutException {
+    public void addNewProjectInCategory(Category category) throws TimeoutException {
         int countOfProjects = masterProjectsPage.getCountOfProjects();
         masterProjectsPage.openNewProjectForm();
-        masterProjectsPage.enterProjectName(project.getName());
+        masterProjectsPage.enterProjectName(category.getProject().getName());
+        masterProjectsPage.selectCategory(category.getName());
         masterProjectsPage.addProjectImage();
         masterProjectsPage.saveNewProject();
         WaitHelper.pollingWait(10000, 500, () ->
