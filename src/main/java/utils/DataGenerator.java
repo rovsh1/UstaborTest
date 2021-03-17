@@ -5,7 +5,6 @@ import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import entities.Master;
 import entities.Category;
-import entities.Project;
 import entities.User;
 
 import java.util.Arrays;

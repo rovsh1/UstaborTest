@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePage;
 
 import java.util.List;
 import java.util.Objects;

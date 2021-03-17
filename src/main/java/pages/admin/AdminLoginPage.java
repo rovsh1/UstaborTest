@@ -4,7 +4,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
-import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 public class AdminLoginPage extends BaseAdminPage {

@@ -8,8 +8,6 @@ import utils.Config;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-
 public class MastersPage extends BaseAdminPage {
 
     @FindBy(xpath = "//a[contains(@href,'master/view')]")

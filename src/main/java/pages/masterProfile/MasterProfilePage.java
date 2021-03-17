@@ -3,7 +3,6 @@ package pages.masterProfile;
 import entities.CategoryCheckbox;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePage;
 
 import java.time.Duration;
 import java.util.List;

@@ -1,15 +1,11 @@
 package steps;
 
 import entities.Master;
-import entities.Project;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
-import pages.masterProfile.MasterProfileRequestsPage;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
 import steps.customerProfileSteps.CustomerProfileRequestsPageSteps;
 import steps.masterProfileSteps.*;
-import utils.Config;
-import utils.Email;
 
 public class UserSteps extends ScenarioSteps {
 

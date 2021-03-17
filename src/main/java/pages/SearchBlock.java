@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class SearchBlock extends BasePage {
 
     @FindBy(xpath = "//input[@name='quicksearch']")

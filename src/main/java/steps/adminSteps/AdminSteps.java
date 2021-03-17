@@ -1,13 +1,9 @@
 package steps.adminSteps;
 
 import entities.Master;
-import entities.Project;
 import entities.Category;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
-import utils.Config;
-
-import java.util.concurrent.TimeoutException;
 
 public class AdminSteps extends ScenarioSteps {
 

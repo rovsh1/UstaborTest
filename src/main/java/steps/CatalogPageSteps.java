@@ -158,7 +158,7 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void loadAllResults() throws InterruptedException {
+    public void loadAllResults() {
         catalogPage.loadAllResults();
     }
 

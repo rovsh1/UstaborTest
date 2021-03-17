@@ -1,7 +1,6 @@
 package steps.adminSteps;
 
 import entities.Project;
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.ProjectsPage;
 

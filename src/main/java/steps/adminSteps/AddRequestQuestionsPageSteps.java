@@ -3,7 +3,6 @@ package steps.adminSteps;
 import entities.Category;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.AddRequestQuestionsPage;
-import utils.Config;
 
 public class AddRequestQuestionsPageSteps extends ScenarioSteps {
 

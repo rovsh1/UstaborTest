@@ -6,7 +6,6 @@ import com.refactorable.guerrillamail.api.client.model.request.AddressRequest;
 import com.refactorable.guerrillamail.api.client.model.response.AddressResponse;
 import com.refactorable.guerrillamail.api.client.model.response.EmailResponse;
 
-import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;

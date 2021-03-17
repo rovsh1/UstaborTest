@@ -8,18 +8,17 @@ import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
 
-import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
 public class CategoriesPage extends BaseAdminPage {
 
-    private static String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
-    private static String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
-    private static String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
-    private static String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
-    private static String categoryUrlByNameXpath = "//td//a[text()='%s']";
+    private static final String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
+    private static final String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
+    private static final String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
+    private static final String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
+    private static final String categoryUrlByNameXpath = "//td//a[text()='%s']";
 
     //region Edit category page
     @FindBy(xpath = "//li[@data-tab='tab-countries']")

@@ -4,7 +4,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
-import java.util.Random;
 
 public class FeedbackPage extends BasePage {
 

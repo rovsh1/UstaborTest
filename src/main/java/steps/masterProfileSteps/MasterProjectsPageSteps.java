@@ -1,7 +1,6 @@
 package steps.masterProfileSteps;
 
 import entities.Category;
-import entities.Project;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProjectsPage;
 import utils.WaitHelper;

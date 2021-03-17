@@ -3,7 +3,7 @@ package entities;
 public class Category {
 
     private String name = "AutotestCategory";
-    private String url = "autotest";
+    private final String url = "autotest";
     private String systemId;
     private String promoId;
     private Project project;

@@ -1,6 +1,5 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
-import cucumber.api.Pending;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;

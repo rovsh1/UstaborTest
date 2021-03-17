@@ -4,8 +4,6 @@ import entities.CategoryCheckbox;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfileSettingsPage;
 
-import java.util.HashMap;
-
 public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
 
     private MasterProfileSettingsPage masterProfileSettingsPage;

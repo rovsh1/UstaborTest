@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class MasterPromotionPage extends MasterProfileBasePage {
 
     public enum PromotionType {

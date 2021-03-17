@@ -1,7 +1,6 @@
 package pages;
 
 import entities.Master;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
@@ -10,9 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
 import utils.XmlParser;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;

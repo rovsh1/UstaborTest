@@ -2,7 +2,6 @@ package steps.masterProfileSteps;
 
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterWalletPage;
-import utils.Config;
 
 public class MasterWalletPageSteps extends MasterProfileSteps {
 

@@ -1,6 +1,5 @@
 package pages;
 
-import entities.Category;
 import entities.FavProject;
 import entities.Master;
 import entities.Project;
@@ -27,10 +26,10 @@ public class CatalogPage extends SearchBlock {
     private static final String reviewsCountXpath = ".//span[@class='reviews-count']";
     private static final String avatarXpath = ".//div[@class='image']";
 
-    private static String badgesXpath = ".//div[@class='master-advantages']//span";
-    private static String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
+    private static final String badgesXpath = ".//div[@class='master-advantages']//span";
+    private static final String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
 
-    private static String promoAttribute = "data-promotion";
+    private static final String promoAttribute = "data-promotion";
 
     @FindBy(xpath = "//h1")
     private WebElementFacade pageHeader;
