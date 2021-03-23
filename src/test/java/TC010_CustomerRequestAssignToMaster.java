@@ -6,6 +6,7 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Admin;
 import utils.DataGenerator;
 import utils.Email;
 
@@ -17,20 +18,19 @@ import java.util.concurrent.TimeoutException;
 @WithTag("new")
 public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
-    protected Email email;
     protected User customer;
 
     @Before
     public void setUp() throws TimeoutException {
         super.setUp();
-        email = new Email();
-        customer = DataGenerator.getCustomer(email.getEmailAddress());
+        customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
         user.atHomePage.openHomePage();
 
         user.atHomePage.registerAsCustomer(customer);
-        user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
+        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
     }

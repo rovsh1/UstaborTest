@@ -66,4 +66,10 @@ public class CustomerProfilePersonalInfoPageSteps extends ScenarioSteps {
     public String getCustomerProfileId() {
         return customerProfilePersonalInfoPage.getCustomerId();
     }
+
+    @Step
+    public void updateUserEmail(String email) {
+        customerProfilePersonalInfoPage.setUserEmail(email);
+        customerProfilePersonalInfoPage.clickSaveProfile();
+    }
 }

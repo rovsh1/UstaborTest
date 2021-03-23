@@ -40,30 +40,6 @@ public class Admin {
         login();
     }
 
-    public void login() {
-        var url = baseUrl + "account/auth/";
-
-        try {
-            var result = executor.execute(Request.Post(url)
-                .bodyForm(Form.form()
-                        .add("data[login]", Config.getUsers().getAdmin().getEmail())
-                        .add("data[password]", Config.getUsers().getAdmin().getPassword())
-                        .build()))
-                    .returnResponse()
-                    .getStatusLine()
-                    .getStatusCode();
-
-            if (result != 200) {
-                logger.info("Admin login failed");
-                throw new HttpResponseException(result, "Login failed");
-            }
-            logger.info("Admin login successfully");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void deleteMaster(String id) {
         // http://ka8rms.vtaminka.com/master/user/delete/65820/
         var url = baseUrl + String.format("master/user/delete/%s/", id);
@@ -105,51 +81,6 @@ public class Admin {
         }
     }
 
-    public String getSmsCode(String phoneNumber) {
-        var url = baseUrl + "administration/log/sms/";
-        String code = "N/A";
-
-        try {
-            var html = executor.execute(Request.Get(url)).returnContent().asString();
-            code = NewXmlParser.getSmsCode(html, phoneNumber);
-            logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return code;
-    }
-
-    public String getSmsPassword(String phoneNumber) {
-        var url = baseUrl + "administration/log/sms/";
-        String password = null;
-
-        try {
-            var html = executor.execute(Request.Get(url)).returnContent().asString();
-            password = NewXmlParser.getSmsPassword(html, phoneNumber, XmlParser.getTextByKey("SmsRegistration"));
-            logger.info("Get SMS password {} for phone number: {}", password, phoneNumber);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return password;
-    }
-
-    public String getSmsByText(String phoneNumber, String sms) {
-        var url = baseUrl + "administration/log/sms/";
-        String smsText = null;
-
-        try {
-            var html = executor.execute(Request.Get(url)).returnContent().asString();
-            smsText = NewXmlParser.getSmsByText(html, phoneNumber, sms);
-            logger.info("Get SMS by piece of text for phone number: {}", phoneNumber);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return smsText;
-    }
-
     public void deleteCustomer(String customerId) {
         var url = baseUrl + String.format("customer/user/delete/%s/", customerId);
 
@@ -168,5 +99,64 @@ public class Admin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getSmsCode(String phoneNumber) {
+        var smsLog = getSmsLogPage();
+        var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);
+        logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
+
+        return code;
+    }
+
+    public String getSmsPassword(String phoneNumber) {
+        var smsLog = getSmsLogPage();
+        var password = new NewXmlParser(smsLog).getSmsPassword(phoneNumber, XmlParser.getTextByKey("SmsRegistration"));
+        logger.info("Get SMS password {} for phone number: {}", password, phoneNumber);
+
+        return password;
+    }
+
+    public String getSmsByText(String phoneNumber, String sms) {
+        var smsLog = getSmsLogPage();
+        var smsText = new NewXmlParser(smsLog).getSmsText(phoneNumber, sms);
+        logger.info("Get SMS by piece of text for phone number: {}", phoneNumber);
+
+        return smsText;
+    }
+
+    private void login() {
+        var url = baseUrl + "account/auth/";
+
+        try {
+            var result = executor.execute(Request.Post(url)
+                    .bodyForm(Form.form()
+                            .add("data[login]", Config.getUsers().getAdmin().getEmail())
+                            .add("data[password]", Config.getUsers().getAdmin().getPassword())
+                            .build()))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
+            if (result != 200) {
+                logger.info("Admin login failed");
+                throw new HttpResponseException(result, "Login failed");
+            }
+            logger.info("Admin login successfully");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getSmsLogPage() {
+        var url = baseUrl + "administration/log/sms/";
+
+        try {
+            return executor.execute(Request.Get(url)).returnContent().asString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

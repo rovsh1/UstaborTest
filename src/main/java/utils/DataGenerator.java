@@ -33,11 +33,15 @@ public class DataGenerator {
 
     public static User getCustomer() {
         var faker = new Faker();
+        var service = new FakeValuesService(new Locale("en-GB"), new RandomService());
         var user = new User();
         user.setPassword(password);
         user.setPhoneNumber(getCountryCode() + getPhoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setCity(faker.address().cityName());
+
+        String randomEmail = service.bothify(".????####@fakeDomain.com");
+        user.setEmail(user.getFirstName() + "." + user.getLastName() + randomEmail);
 
         return user;
     }
@@ -82,7 +86,7 @@ public class DataGenerator {
 
         user.setEmail(email.getEmailAddress());
         user.setPassword(password);
-        user.setPhoneNumber("70" + getPhoneNumber());
+        user.setPhoneNumber(getCountryCode() + getPhoneNumber());
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());

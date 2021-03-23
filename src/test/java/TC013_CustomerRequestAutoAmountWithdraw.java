@@ -4,8 +4,8 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Admin;
 import utils.DataGenerator;
-import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -16,17 +16,19 @@ import java.util.stream.Collectors;
 @WithTag("new")
 public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
 
-    protected Email email = new Email();
-
     @Test
     public void verifyAutoWithdrawForRequest() throws TimeoutException {
-        var customer = DataGenerator.getCustomer(email.getEmailAddress());
+        var customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
         user.atHomePage.registerAsCustomer(customer);
-        user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
+        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
 
+        var password = new Admin().getSmsPassword(customer.getPhoneNumber());
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
+        user.atCustomerProfilePersonalInfoPage.updateUserEmail(customer.getEmail());
+        customer.setPassword(password);
 
         user.atHomePage.openHomePage();
         user.atHomePage.openPlaceOrderPage();

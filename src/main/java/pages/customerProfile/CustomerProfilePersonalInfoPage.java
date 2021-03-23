@@ -15,6 +15,9 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
     @FindBy(xpath = "//input[@id='form_user_presentation']")
     private WebElementFacade userNameInput;
 
+    @FindBy(xpath = "//input[@id='form_user_email']")
+    private WebElementFacade userEmailInput;
+
     @FindBy(xpath = "//input[@id='form_user_phone']")
     private WebElementFacade phoneNumberInput;
 
@@ -23,6 +26,9 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
 
     @FindBy(xpath = "//div[.//div[text()='Удалить профиль']]//button[@class='button-submit']")
     private WebElementFacade submitButton;
+
+    @FindBy(xpath = "//button[@class='button-submit']")
+    private WebElementFacade saveProfileBtn;
 
     @FindBy(xpath = "//div[@id='projects-gallery']//a[not(contains(@style, 'display: none'))]")
     private List<WebElementFacade> favoriteProjects;
@@ -74,5 +80,13 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
 
     public void verifyPhoneNumber(String phoneNumber) {
         assertThat(phoneNumberInput.getValue().replaceAll("\\s+", "")).contains(phoneNumber);
+    }
+
+    public void setUserEmail(String email) {
+        userEmailInput.sendKeys(email);
+    }
+
+    public void clickSaveProfile() {
+        saveProfileBtn.click();
     }
 }

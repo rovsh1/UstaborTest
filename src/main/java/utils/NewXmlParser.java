@@ -1,43 +1,34 @@
 package utils;
 
 import org.seimicrawler.xpath.JXDocument;
-import org.seimicrawler.xpath.JXNode;
 import java.util.regex.Pattern;
 
 public class NewXmlParser {
+    private final JXDocument document;
+    private final String textXpath = "//tr[./td[contains(text(), '%s')]]//td[contains(text(), '%s')]";
 
-    public static String getSmsCode(String html, String phoneNumber) {
-        JXDocument document = JXDocument.create(html);
-        String xpath = String.format("//tr[./td[contains(text(), '%s')]]//td[4]", phoneNumber);
+    public NewXmlParser(String html) {
+        document = JXDocument.create(html);
+    }
 
-        JXNode node = document.selNOne(xpath);
+    public String getSmsCode(String phoneNumber) {
+        var sms = getSmsText(phoneNumber, XmlParser.getTextByKey("SmsAuthCode"));
 
-        var result = Pattern.compile("\\d{2,}").matcher(node.toString());
+        var result = Pattern.compile("\\d{2,}").matcher(sms);
         if (result.find()) {
             return result.group(0);
         }
         throw new NullPointerException("Getting email auth code failed");
     }
 
-    public static String getSmsPassword(String html, String phoneNumber, String text) {
-        JXDocument document = JXDocument.create(html);
-        String xpath = String.format("//tr[./td[contains(text(), '%s')]]//td[contains(text(), '%s')]",
-                phoneNumber,
-                text);
-
-        JXNode node = document.selNOne(xpath);
-
-        return node.toString().substring(node.toString().lastIndexOf(':') + 2, node.toString().lastIndexOf('<'));
+    public String getSmsPassword(String phoneNumber, String text) {
+        var sms = getSmsText(phoneNumber, text);
+        return sms.substring(sms.lastIndexOf(':') + 2, sms.lastIndexOf('<'));
     }
 
-    public static String getSmsByText(String html, String phoneNumber, String text) {
-        JXDocument document = JXDocument.create(html);
-        String xpath = String.format("//tr[./td[contains(text(), '%s')]]//td[contains(text(), '%s')]",
-                phoneNumber,
-                text);
-
-        JXNode node = document.selNOne(xpath);
-
+    public String getSmsText(String phoneNumber, String text) {
+        String xpath = String.format(textXpath, phoneNumber, text);
+        var node = document.selNOne(xpath);
         return node.toString();
     }
 }
