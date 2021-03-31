@@ -52,7 +52,7 @@ public class PlaceOrderPage extends BasePage {
     //endregion
 
     //region Confirmation form
-    @FindBy(xpath = "//input[@id='form_registration_user_code']")
+    @FindBy(xpath = "//input[@id='form_phone_confirmation_code']")
     private WebElementFacade codeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@class='button-submit']")

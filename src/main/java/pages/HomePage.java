@@ -65,10 +65,10 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//input[@type='password' and contains(@name, 'password_confirm')]")
     private WebElementFacade regFormConfirmPasswordInput;
 
-    @FindBy(xpath = "//form[contains(@id, 'form-registration')]//button[@type='submit']")
+    @FindBy(xpath = "//form[@id='form-registration-customer']//button[@type='submit']")
     private WebElementFacade regFormSubmitBtn;
 
-    @FindBy(xpath = "//input[@id='form_registration_user_code']")
+    @FindBy(xpath = "//input[@id='form_phone_confirmation_code']")
     private WebElementFacade regFormConfirmationCodeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@type='submit']")
@@ -118,6 +118,9 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//select[@id='form_registration_master_city_id']")
     private WebElementFacade regMasterCitySelector;
+
+    @FindBy(xpath = "//form[@id='form-registration-master']//button[@type='submit']")
+    private WebElementFacade regMasterSubmitBtn;
     //endregion
 
     //region Mobile view elements
@@ -295,6 +298,11 @@ public class HomePage extends SearchBlock {
     public String regMasterFormSelectCity() {
         regMasterCitySelector.selectByIndex(1);
         return regMasterCitySelector.getSelectedVisibleTextValue();
+    }
+
+    public void regMasterClickSubmit() {
+        focusElementJS(regMasterSubmitBtn);
+        regMasterSubmitBtn.click();
     }
     //endregion
 

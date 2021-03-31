@@ -174,7 +174,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
         homePage.regMasterFormSelectExperience();
         master.setCity(homePage.regMasterFormSelectCity());
-        homePage.regFormClickSubmit();
+        homePage.regMasterClickSubmit();
     }
 
     @Step
@@ -190,7 +190,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectRandomCategory(master);
         enterSelectExperienceAndCity(master);
-        homePage.regFormClickSubmit();
+        homePage.regMasterClickSubmit();
     }
 
     @Step
