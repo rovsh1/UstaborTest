@@ -75,7 +75,7 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
     }
 
     public void verifyUserName(String phoneNumber) {
-        assertThat(userNameInput.getValue()).isEqualTo(phoneNumber);
+        assertThat(userNameInput.getValue()).contains(phoneNumber);
     }
 
     public void verifyPhoneNumber(String phoneNumber) {
