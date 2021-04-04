@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Admin;
 import utils.DataGenerator;
-import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 
@@ -21,22 +21,23 @@ import java.util.concurrent.TimeoutException;
 public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
-    private Email email;
 
     @Before
     public void setUp() throws TimeoutException {
         super.setUp();
-        email = new Email();
-        customer = DataGenerator.getCustomer(email.getEmailAddress());
+        customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
         user.atHomePage.openHomePage();
         user.atHomePage.registerAsCustomer(customer);
-        user.atHomePage.enterAuthCodeAndSubmit(email.getAuthCode());
+
+        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
     }
 
     @Test
-    public void verifyMasterFeedback() throws InterruptedException, TimeoutException {
+    public void verifyMasterFeedback() throws TimeoutException {
         user.atCustomerProfilePersonalInfoPage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(watcher.getMaster().getCategory().getName());

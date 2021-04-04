@@ -544,4 +544,12 @@ public class HomePage extends SearchBlock {
         openHeaderLangDropDown();
         selectLanguage(lang);
     }
+
+    public String getMasterPhoneCountryCode() {
+        return regMasterPhoneNumber.getAttribute("placeholder").replaceAll("[^\\d]", "");
+    }
+
+    public String getCustomerPhoneCountryCode() {
+        return regFormUserPhoneNumberInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
+    }
 }

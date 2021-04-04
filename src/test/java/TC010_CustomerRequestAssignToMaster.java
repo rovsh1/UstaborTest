@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Admin;
 import utils.DataGenerator;
-import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 

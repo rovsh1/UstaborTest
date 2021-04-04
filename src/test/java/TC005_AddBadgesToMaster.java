@@ -17,7 +17,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
 
     @Test
     public void verifyBadgesEnableMasterPromotion() throws TimeoutException {
-        var master = DataGenerator.getMasterWithRandomEmail(category);
+        var master = DataGenerator.getMaster(category);
         watcher.users.add(master);
 
         user.registerAsMaster(master);

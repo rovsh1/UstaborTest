@@ -6,6 +6,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
 import steps.customerProfileSteps.CustomerProfileRequestsPageSteps;
 import steps.masterProfileSteps.*;
+import utils.DataGenerator;
+import utils.Watcher;
 
 public class UserSteps extends ScenarioSteps {
 

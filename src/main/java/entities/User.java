@@ -4,7 +4,9 @@ public class User {
 
     private String email;
     private String password;
+    private String phoneCode;
     private String phoneNumber;
+    private String login;
     private String firstName;
     private String lastName;
     private String aboutMe;
@@ -17,6 +19,22 @@ public class User {
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getLogin() {
+        return getPhoneCode() + getPhoneNumber();
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPhoneCode() {
+        return phoneCode;
+    }
+
+    public void setPhoneCode(String phoneCode) {
+        this.phoneCode = phoneCode;
     }
 
     public String getCity() {

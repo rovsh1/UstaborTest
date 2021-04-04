@@ -41,6 +41,7 @@ public class TestBase {
         if (!Config.isChrome()) {
             driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
             driver.manage().window().fullscreen();
+            driver.manage().window().maximize();
         }
 
         if (this.getClass().isAnnotationPresent(AddCategory.class)) {
@@ -67,7 +68,7 @@ public class TestBase {
 
                 var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
                 for (int i = 0; i < mastersCount; i++) {
-                    var master = DataGenerator.getMasterWithRandomEmail(category);
+                    var master = DataGenerator.getMaster(category);
                     watcher.users.add(master);
 
                     user.atHomePage.openHomePage();

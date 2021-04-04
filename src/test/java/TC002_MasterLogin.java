@@ -3,6 +3,7 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
+import utils.DataGenerator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,10 +15,18 @@ public class TC002_MasterLogin extends TestBase {
 
     @Test
     public void verifyMasterAccountLogin() {
+        var master = DataGenerator.getMaster();
+        watcher.users.add(master);
+        user.atHomePage.registerAsMaster(master);
+        user.atMasterProfilePage.waitForPageIsVisible();
+        user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
+        master.setProfileId(user.atMasterProfilePage.getProfileId());
+        user.atMasterProfilePage.logsOut();
+
         var userName = "Test " + new SimpleDateFormat("MMddhhmm").format(new Date());
 
         user.atHomePage.openLoginFormAndVerify();
-        user.atHomePage.login(Config.getUsers().getDefaultMaster(), false);
+        user.atHomePage.login(master, false);
         user.atHomePage.verifyUserIsLoggedIn();
 
         user.atMasterProfilePage.openProfilePage();
@@ -29,10 +38,10 @@ public class TC002_MasterLogin extends TestBase {
 
         user.atMasterProfilePage.openProfileSettings();
         user.atMasterProfileSettingsPage.openChangePasswordForm();
-        user.atMasterProfileSettingsPage.changePassword(Config.getUsers().getDefaultMaster().getPassword());
+        user.atMasterProfileSettingsPage.changePassword(master.getPassword());
 
         user.atMasterProfileSettingsPage.logsOut();
-        user.atHomePage.login(Config.getUsers().getDefaultMaster(), true);
+        user.atHomePage.login(master, true);
         user.atHomePage.verifyUserIsLoggedIn();
 
         user.atMasterProfilePage.openProfilePage();

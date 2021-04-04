@@ -127,10 +127,6 @@ public class BasePage extends PageObject {
         scrollPageUpJS();
     }
 
-    public void goToUrl(String url) {
-        getDriver().get(url);
-    }
-
     public void openHomePage() {
         logoutBtn.waitUntilClickable();
         logoBtn.click();

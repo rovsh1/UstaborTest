@@ -64,9 +64,4 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     public String getProfileId() {
         return masterProfilePage.getProfileId();
     }
-
-    @Step
-    public void open(String url) {
-        masterProfilePage.goToUrl(url);
-    }
 }

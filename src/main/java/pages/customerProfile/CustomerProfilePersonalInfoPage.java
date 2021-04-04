@@ -81,12 +81,4 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
     public void verifyPhoneNumber(String phoneNumber) {
         assertThat(phoneNumberInput.getValue().replaceAll("\\s+", "")).contains(phoneNumber);
     }
-
-    public void setUserEmail(String email) {
-        userEmailInput.sendKeys(email);
-    }
-
-    public void clickSaveProfile() {
-        saveProfileBtn.click();
-    }
 }

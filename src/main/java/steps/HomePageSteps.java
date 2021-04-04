@@ -34,6 +34,9 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.openRegistrationForm();
         homePage.clickCustomerBtn();
         homePage.regFormEnterUserName(customer.getFirstName());
+
+        customer.setPhoneCode(homePage.getCustomerPhoneCountryCode());
+
         homePage.regFormEnterUserPhone(customer.getPhoneNumber());
         homePage.regFormClickSubmit();
         homePage.waitForLoaderDisappears();
@@ -55,7 +58,7 @@ public class HomePageSteps extends ScenarioSteps {
     @Step
     public void loginIfNeeded(User user) {
         if (!homePage.isLoggedIn()) {
-            login(user.getEmail(), user.getPassword(), true);
+            login(user.getLogin(), user.getPassword(), true);
         }
     }
 
@@ -72,7 +75,7 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public boolean login(User user, boolean openLoginForm) {
-        return login(user.getEmail(), user.getPassword(), openLoginForm);
+        return login(user.getLogin(), user.getPassword(), openLoginForm);
     }
 
     @Step
@@ -154,7 +157,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void enterSelectExperienceAndCity(Master master) {
+    public void setMasterExperienceCityAndPhone(Master master) {
         homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
         homePage.regMasterFormSelectExperience();
         master.setCity(homePage.regMasterFormSelectCity());
@@ -164,16 +167,17 @@ public class HomePageSteps extends ScenarioSteps {
     public void registerAsMasterWithSpecifiedCategory(Master master) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
+        homePage.registerFormShouldBeVisible();
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterLogin(master.getEmail());
         homePage.regFormEnterPassword(master.getPassword());
+
+        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
+
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectCategory(master);
-        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
-        homePage.regMasterFormSelectExperience();
-        master.setCity(homePage.regMasterFormSelectCity());
+        setMasterExperienceCityAndPhone(master);
         homePage.regMasterClickSubmit();
     }
 
@@ -185,11 +189,13 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterLogin(master.getEmail());
         homePage.regFormEnterPassword(master.getPassword());
+
+        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
+
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectRandomCategory(master);
-        enterSelectExperienceAndCity(master);
+        setMasterExperienceCityAndPhone(master);
         homePage.regMasterClickSubmit();
     }
 
@@ -199,7 +205,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void requestNewPasswordAtEmail(String email) {
+    public void requestNewPassword(String email) {
         homePage.forgotPasswordEnterEmail(email);
         homePage.forgotPasswordClickRestoreBtn();
         homePage.waitForLoaderDisappears();

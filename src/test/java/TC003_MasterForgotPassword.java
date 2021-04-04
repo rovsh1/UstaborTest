@@ -2,8 +2,8 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Admin;
 import utils.DataGenerator;
-import utils.Email;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,25 +13,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TC003_MasterForgotPassword extends TestBase {
 
     @Test
-    public void verifyMasterCanResetPassword() throws Exception {
-        var email = new Email();
-        var master = DataGenerator.getMasterWithEmail(email);
+    public void verifyMasterCanResetPassword() {
+        var master = DataGenerator.getMaster();
         watcher.users.add(master);
-
         user.atHomePage.registerAsMaster(master);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
-
         master.setProfileId(user.atMasterProfilePage.getProfileId());
-
-        //user.atMasterProfilePage.open(email.getUrl(Email.EmailType.ConfirmRegister));
-
-        user.atHomePage.logsOut();
+        user.atMasterProfilePage.logsOut();
 
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.clickForgotPassword();
-        user.atHomePage.requestNewPasswordAtEmail(master.getEmail());
+        user.atHomePage.requestNewPassword(master.getLogin());
 
-        user.atMasterProfileSettingsPage.open(email.getUrl(Email.EmailType.ForgotPassword));
+        var smsCode = new Admin().getSmsCode(master.getLogin());
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
 
         var newPassword = DataGenerator.getPassword();
 
@@ -40,10 +35,10 @@ public class TC003_MasterForgotPassword extends TestBase {
         user.atMasterProfileSettingsPage.changePassword(newPassword);
         user.atMasterProfileSettingsPage.logsOut();
 
-        assertThat(user.atHomePage.login(master, true))
+        assertThat(user.atHomePage.login(master.getLogin(), master.getPassword(), true))
                 .isFalse();
 
-        user.atHomePage.login(master.getEmail(), newPassword, false);
+        user.atHomePage.login(master.getLogin(), newPassword, false);
         user.atHomePage.verifyUserIsLoggedIn();
     }
 }

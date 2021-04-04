@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import pages.masterProfile.MasterPromotionPage;
 import utils.DataGenerator;
-import utils.Email;
 
 import java.util.concurrent.TimeoutException;
 
@@ -19,8 +18,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     @Test
     public void promoteWithRecommendedPrice() throws TimeoutException {
-        var email = new Email();
-        var master = DataGenerator.getMasterWithEmail(email);
+        var master = DataGenerator.getMaster();
         master.setCategory(category);
         watcher.users.add(master);
 

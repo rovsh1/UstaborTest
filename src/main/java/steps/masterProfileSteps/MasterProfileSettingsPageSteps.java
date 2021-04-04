@@ -9,11 +9,6 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
     private MasterProfileSettingsPage masterProfileSettingsPage;
 
     @Step
-    public void open(String url) {
-        masterProfileSettingsPage.goToUrl(url);
-    }
-
-    @Step
     public void changePassword(String newPassword) {
         masterProfileSettingsPage.enterNewPassword(newPassword);
         masterProfileSettingsPage.confirmNewPassword(newPassword);
