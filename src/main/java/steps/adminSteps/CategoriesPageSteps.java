@@ -39,7 +39,7 @@ public class CategoriesPageSteps extends ScenarioSteps {
         openViewCategoryPage(category.getSystemId());
         masters.forEach(m -> {
             categoriesPage.openAddMasterForm();
-            categoriesPage.addMasterToCategoryRequest(m.getProfileId());
+            categoriesPage.addMasterToCategoryRequest(m.getLastName());
             categoriesPage.submitMasterAssign();
             categoriesPage.waitForLoaderDisappears();
         });

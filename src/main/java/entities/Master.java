@@ -46,7 +46,7 @@ public class Master extends User {
     }
 
     public String toString() {
-        return String.format("Login: '%s', SystemId: '%s'", getEmail(), getProfileId());
+        return String.format("Phone number: '%s'", getPhoneNumber());
     }
 
 

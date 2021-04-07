@@ -16,9 +16,8 @@ public class TC003_MasterForgotPassword extends TestBase {
     public void verifyMasterCanResetPassword() {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
-        user.atHomePage.registerAsMaster(master);
-        user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
-        master.setProfileId(user.atMasterProfilePage.getProfileId());
+
+        user.register(master);
         user.atMasterProfilePage.logsOut();
 
         user.atHomePage.openLoginFormAndVerify();

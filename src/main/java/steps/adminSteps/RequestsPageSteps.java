@@ -29,7 +29,7 @@ public class RequestsPageSteps extends ScenarioSteps {
     @Step
     public void addAssignRequestToMaster(Master master) {
         requestsPage.openAssignMasterForm();
-        requestsPage.findMaster(master.getProfileId());
+        requestsPage.findMaster(master.getLastName());
         requestsPage.submitMasterAssign();
         requestsPage.waitForLoaderDisappears(180000);
     }

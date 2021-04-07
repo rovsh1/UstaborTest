@@ -21,10 +21,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
         watcher.users.add(master);
 
         user.registerAsMaster(master);
-        user.atHomePage.openHomePage();
-        user.atHomePage.loginIfNeeded(master);
 
-        user.atMasterProfilePage.openProfilePage();
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
 

@@ -72,14 +72,13 @@ public class TestBase {
                     watcher.users.add(master);
 
                     user.atHomePage.openHomePage();
-                    user.atHomePage.registerAsMasterWithSpecifiedCategory(master);
-                    user.atMasterProfilePage.waitForPageIsVisible();
-                    master.setProfileId(user.atMasterProfilePage.getProfileId());
+                    user.registerAsMaster(master);
 
                     if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
                         user.atMasterProjectsPage.openProjectsTab();
                         user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
                     }
+
                     user.atHomePage.logsOut();
                 }
             }

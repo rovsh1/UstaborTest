@@ -6,6 +6,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
 import steps.customerProfileSteps.CustomerProfileRequestsPageSteps;
 import steps.masterProfileSteps.*;
+import utils.Admin;
 import utils.DataGenerator;
 import utils.Watcher;
 
@@ -65,9 +66,25 @@ public class UserSteps extends ScenarioSteps {
     @Steps
     public MasterRequestPageSteps atMasterRequestPage;
 
+    public void register(Master master) {
+        atHomePage.registerAsMaster(master);
+
+        var smsCode = new Admin().getSmsCode(master.getPhoneNumber());
+
+        atHomePage.enterAuthCodeAndSubmit(smsCode);
+        atMasterProfilePage.masterProfilePagePageShouldBeVisible();
+
+        master.setProfileId(atMasterProfilePage.getProfileId());
+    }
+
     public void registerAsMaster(Master master) {
         atHomePage.registerAsMasterWithSpecifiedCategory(master);
-        atMasterProfilePage.waitForPageIsVisible();
+
+        var smsCode = new Admin().getSmsCode(master.getPhoneNumber());
+
+        atHomePage.enterAuthCodeAndSubmit(smsCode);
+        atMasterProfilePage.masterProfilePagePageShouldBeVisible();
+
         master.setProfileId(atMasterProfilePage.getProfileId());
     }
 }
