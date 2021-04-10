@@ -64,6 +64,7 @@ public class MastersPage extends BaseAdminPage {
     }
 
     public void addMoneyToAccount(int amount) {
+        scrollIntoView(addMoneyBnt);
         addMoneyBnt.click();
         amountInput.sendKeys(String.valueOf(amount));
         submitBtn.click();

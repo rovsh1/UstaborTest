@@ -47,4 +47,8 @@ public class BaseAdminPage extends PageObject {
     public void waitForLogin() {
         withTimeoutOf(Duration.ofSeconds(25)).waitFor(quickSearchInput).isPresent();
     }
+
+    public void scrollIntoView(WebElementFacade element) {
+        evaluateJavascript("arguments[0].scrollIntoView(true);", element);
+    }
 }

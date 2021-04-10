@@ -35,6 +35,7 @@ public class MasterProfileSettingsPage extends MasterProfilePage {
     private WebElementFacade saveChangesBtn;
 
     public void clickChangePasswordBtn() {
+        focusElementJS(changePasswordBtn);
         changePasswordBtn.click();
     }
 
