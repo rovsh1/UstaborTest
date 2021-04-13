@@ -51,4 +51,8 @@ public class BaseAdminPage extends PageObject {
     public void scrollIntoView(WebElementFacade element) {
         evaluateJavascript("arguments[0].scrollIntoView(true);", element);
     }
+
+    public void scrollPageToBottom() {
+        evaluateJavascript("window.scrollTo(0,document.body.scrollHeight);");
+    }
 }
