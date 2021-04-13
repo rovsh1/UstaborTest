@@ -20,7 +20,7 @@ public class CustomDriver implements DriverSource {
                     System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--headless");
-                    options.addArguments("window-size=1920x1080");
+                    options.addArguments("--window-size=1920,1080");
                     options.addArguments("start-maximized");
                     options.addArguments("--start-fullscreen");
                     options.addArguments("user-agent=qatesting");
