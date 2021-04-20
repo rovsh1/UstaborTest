@@ -17,7 +17,6 @@ import java.util.concurrent.TimeoutException;
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
 @AddMasters(masters = 1)
-@Ignore
 public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
