@@ -200,6 +200,7 @@ public class HomePage extends SearchBlock {
     }
 
     public void regFormEnterUserPhone(String phone) {
+        regFormUserPhoneNumberInput.click();
         regFormUserPhoneNumberInput.sendKeys(phone);
     }
 
