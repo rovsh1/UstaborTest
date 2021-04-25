@@ -83,9 +83,7 @@ public class AddServicePage extends BaseAdminPage {
     }
 
     public void setQuestionPriceForCountry(String countryName, String minPrice, String maxPrice) {
-        if (!Config.isUstabor()) {
-            countrySelector.selectByVisibleText(countryName);
-        }
+        countrySelector.selectByVisibleText(countryName);
         contractPrice.sendKeys(minPrice);
         minimalPrice.sendKeys(minPrice);
         maximumPrice.sendKeys(maxPrice);
