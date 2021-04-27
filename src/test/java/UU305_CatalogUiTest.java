@@ -1,10 +1,12 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
 
 @WithTag("smoke")
+@Ignore
 
 @RunWith(SerenityRunner.class)
 public class UU305_CatalogUiTest extends TestBase {
