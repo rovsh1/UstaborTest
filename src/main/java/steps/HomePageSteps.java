@@ -310,12 +310,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyMobileViewSitesMenu() {
-        homePage.openMobileViewSitesMenu();
-        homePage.verifyMobileViewSitesMenu();
-    }
-
-    @Step
     public void openMobileViewMainMenu() {
         homePage.openMobileViewMainMenu();
     }

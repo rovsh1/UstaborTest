@@ -14,7 +14,7 @@ public class AddRequestQuestionsPage extends BaseAdminPage {
     @FindBy(xpath = "//nav[@id='main-categories']/div[@class='item']")
     private List<WebElementFacade> categories;
 
-    @FindBy(xpath = "//div[@class='item empty']")
+    @FindBy(xpath = "//div[./span[text()='Autotest']]")
     private WebElementFacade categoryService;
 
     @FindBy(xpath = "//textarea")

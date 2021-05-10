@@ -23,10 +23,6 @@ public final class Users {
         );
     }
 
-    public User getDefaultMaster() {
-        return getUser("defaultMaster");
-    }
-
     public User getAdmin() {
         return getUser("admin");
     }

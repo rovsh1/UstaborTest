@@ -65,9 +65,8 @@ public class Config {
     }
 
     public static String getFullUrl() {
-        //if (isUstabor() || isFixListKg()) return getBaseUrl();
-        //return getBaseUrl() + String.format("%s-%s/", getLang(), getCountryCode());
-        return getBaseUrl();
+        if (isUstabor() || isFixListKg()) return getBaseUrl();
+        return getBaseUrl() + String.format("%s-%s/", getCountryCode(), getLang());
     }
 
     private static String getBaseUrl() {

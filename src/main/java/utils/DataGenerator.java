@@ -24,7 +24,7 @@ public class DataGenerator {
         var user = new User(
                 email,
                 password,
-                getCountryCode() + getPhoneNumber());
+                faker.number().digits(9));
         user.setFirstName(faker.name().firstName());
         user.setCity(faker.address().cityName());
 
@@ -36,7 +36,7 @@ public class DataGenerator {
         var user = new User();
 
         user.setPassword(password);
-        user.setPhoneNumber(getPhoneNumber());
+        user.setPhoneNumber(faker.number().digits(9));
         user.setFirstName(faker.name().firstName());
         user.setCity(faker.address().cityName());
 
@@ -48,7 +48,7 @@ public class DataGenerator {
         var user = new User();
 
         user.setFirstName(faker.name().firstName());
-        user.setPhoneNumber(getCountryCode() + getPhoneNumber());
+        user.setPhoneNumber(faker.number().digits(9));
         user.setCity(faker.address().cityName());
 
         return user;
@@ -59,7 +59,7 @@ public class DataGenerator {
         var user = new Master();
 
         user.setPassword(password);
-        user.setPhoneNumber(getPhoneNumber());
+        user.setPhoneNumber(faker.number().digits(9));
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
         user.setAboutMe(faker.name().fullName());
@@ -71,36 +71,5 @@ public class DataGenerator {
         var master = getMaster();
         master.setCategory(category);
         return master;
-    }
-
-    private static String getPhoneNumber() {
-        if (Config.isUstabor()) {
-            var faker = new Faker();
-            return faker.number().digits(9);
-        }
-        var exclude = Arrays.asList(3, 4, 9);
-        var sb = new StringBuilder();
-        var rand = new Random();
-
-        while (true) {
-            var firstDigit = rand.nextInt(10);
-            if (exclude.contains(firstDigit)) continue;
-
-            sb.append(firstDigit);
-
-            var lastDigits = rand.nextInt((9999999 - 1000000) + 1) + 1000000;
-            sb.append(lastDigits);
-
-            return sb.toString();
-        }
-    }
-
-    private static String getCountryCode() {
-        if (Config.isUstabor()) {
-            return "998";
-        } else if (Config.isFixListKg()) {
-            return "996";
-        }
-        return "770";
     }
 }

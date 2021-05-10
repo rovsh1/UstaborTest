@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import utils.Config;
 
 @WithTag("smoke")
-@Ignore
 
 @RunWith(SerenityRunner.class)
 public class UU305_CatalogUiTest extends TestBase {

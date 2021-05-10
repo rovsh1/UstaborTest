@@ -98,7 +98,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         admin.atRequestsPage.deleteRequest(requestId);
 
         user.atHomePage.openHomePage();
-        user.atHomePage.login("998"+customer.getPhoneNumber(), customer.getPassword(), true);
+        user.atHomePage.login(customer.getPhoneNumber(), customer.getPassword(), true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
         user.atHomePage.logsOut();

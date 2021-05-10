@@ -396,10 +396,6 @@ public class HomePage extends SearchBlock {
         mobileMenuLangsList.forEach(WebElementState::shouldBeVisible);
     }
 
-    public void verifyMobileViewSitesMenu() {
-        mobileMenuSitesList.forEach(WebElementFacade::shouldBeVisible);
-    }
-
     public void verifyMobileViewPhoneFormText(String text) {
         mobileMenuPhonePopup.shouldContainText(text);
     }
@@ -420,10 +416,6 @@ public class HomePage extends SearchBlock {
 
     public void openMobileViewLangMenu() {
         mobileMenuLangBtn.click();
-    }
-
-    public void openMobileViewSitesMenu() {
-        mobileMenuSitesBtn.click();
     }
 
     public void openMobileViewPhoneForm() {
