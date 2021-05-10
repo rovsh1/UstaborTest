@@ -29,8 +29,8 @@ public class TC009_CustomerRequest extends TestBase {
         user.atPlaceOrderPage.priceRangeShouldBeVisible("100", "200")
                 .fillInSecondPage()
                 .clickNextButton(RequestPages.Second);
-        user.atPlaceOrderPage.fillInThirdPage(guest.getCity(), guest.getPhoneNumber())
-                .clickNextButton(RequestPages.Last);
+        user.atPlaceOrderPage.fillInThirdPage(guest.getCity(), guest.getPhoneNumber());
+        user.atPlaceOrderPage.clickNextButton(RequestPages.Last);
 
         var smsCode = new Admin().getSmsCode(guest.getPhoneNumber());
 

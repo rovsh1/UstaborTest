@@ -67,7 +67,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atMasterRequestPage.closeConnectCustomerPopup();
         user.atHomePage.logsOut();
 
-        user.atHomePage.login(customer.getPhoneNumber(), customer.getPassword(), true);
+        user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerRequestPage.openRequest();
         user.atCustomerRequestPage.openAssignedMasters();
@@ -82,7 +82,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestDeclined"));
         user.atHomePage.logsOut();
 
-        user.atHomePage.login(customer.getPhoneNumber(), customer.getPassword(), true);
+        user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.hideRequest();
         var decline = new Admin().getSmsByText(watcher.getMaster().getPhoneNumber(), getText("SmsRequestClosed"));
@@ -98,7 +98,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         admin.atRequestsPage.deleteRequest(requestId);
 
         user.atHomePage.openHomePage();
-        user.atHomePage.login(customer.getPhoneNumber(), customer.getPassword(), true);
+        user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
         user.atHomePage.logsOut();

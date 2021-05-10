@@ -141,4 +141,8 @@ public class PlaceOrderPage extends BasePage {
     public void priceShouldBeVisible(String price) {
         pricesRangeDisclaimer.shouldContainText(price);
     }
+
+    public String getCountryCode() {
+        return phoneInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
+    }
 }

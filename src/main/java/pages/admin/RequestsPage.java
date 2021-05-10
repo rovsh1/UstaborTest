@@ -68,6 +68,7 @@ public class RequestsPage extends BaseAdminPage {
     public void findMaster(String masterId) {
         masterNameInput.sendKeys(masterId);
         autocompleteSuggestion.waitUntilPresent();
+        autocompleteSuggestion.click();
     }
 
     public void submitMasterAssign() {
