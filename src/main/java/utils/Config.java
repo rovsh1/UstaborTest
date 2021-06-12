@@ -42,8 +42,8 @@ public class Config {
         return getEnv().equals("fixinglist_kg");
     }
 
-    public static boolean isNewTest() {
-        return true;
+    public static boolean isFixinglist() {
+        return getEnv().equals("fixinglist");
     }
 
     public static Users getUsers() {
@@ -65,8 +65,10 @@ public class Config {
     }
 
     public static String getFullUrl() {
+        var langCountryCode = String.format("%s-%s/", getCountryCode(), getLang());
         if (isUstabor() || isFixListKg()) return getBaseUrl();
-        return getBaseUrl() + String.format("%s-%s/", getCountryCode(), getLang());
+        if (isFixinglist()) langCountryCode =  String.format("%s-%s/", getLang(), getCountryCode());
+        return getBaseUrl() + langCountryCode;
     }
 
     private static String getBaseUrl() {
