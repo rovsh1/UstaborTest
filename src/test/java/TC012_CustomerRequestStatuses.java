@@ -41,6 +41,8 @@ public class TC012_CustomerRequestStatuses extends TestBase {
             e.printStackTrace();
         }
 
+        admin.addMoneyToMaster(900, watcher.getMaster());
+
         user.atHomePage.openHomePage();
         user.atHomePage.login(watcher.getMaster(), true);
         user.atMasterProfileRequestsPage.openRequestsPage();

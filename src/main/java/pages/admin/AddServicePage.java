@@ -1,6 +1,7 @@
 package pages.admin;
 
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
@@ -22,11 +23,11 @@ public class AddServicePage extends BaseAdminPage {
     @FindBy(xpath = "//input[@type='submit']")
     private WebElementFacade submit;
 
-    @FindBy(xpath = "//tr[./td[text()='AutotestCategory']]")
-    private WebElementFacade serviceRow;
+//    @FindBy(xpath = "//tr[./td[text()='AutotestCategory']]")
+//    private WebElementFacade serviceRow;
 
-    @FindBy(xpath = "//tr[./td[text()='AutotestCategory']]//a")
-    private WebElementFacade editService;
+//    @FindBy(xpath = "//tr[./td[text()='AutotestCategory']]//a")
+//    private WebElementFacade editService;
 
     @FindBy(xpath = "//li[@data-tab='tab-prices']")
     private WebElementFacade pricesTab;
@@ -71,11 +72,11 @@ public class AddServicePage extends BaseAdminPage {
 
     public void openEditPage(String categoryName) {
         var builder = new Actions(getDriver());
-        builder.moveToElement(serviceRow)
+        builder.moveToElement(getDriver().findElement(By.xpath(String.format("//tr[./td[text()='%s']]", categoryName))))
                 .click()
                 .build()
                 .perform();
-        editService.click();
+        getDriver().findElement(By.xpath(String.format("//tr[./td[text()='%s']]//a", categoryName))).click();
     }
 
     public void openPricesPopup() {

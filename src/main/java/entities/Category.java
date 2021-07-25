@@ -1,15 +1,20 @@
 package entities;
 
+import java.util.Random;
+
 public class Category {
 
-    private String name = "AutotestCategory";
-    private final String url = "autotest";
+    private String name = "Autotest" ;
+    private String url = "autotest";
     private String systemId;
     private String promoId;
     private Project project;
 
     public Category() {
         project = new Project();
+        var random = + new Random().nextInt(999999);
+        name += random;
+        url += random;
     }
 
     public String getSystemId() {
