@@ -22,6 +22,9 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//*[@type='submit']")
     private WebElementFacade submitBtn;
 
+    @FindBy(xpath = "//form[@id='payment-form']//*[@type='submit']")
+    private WebElementFacade submitPaymentBtn;
+
     @FindBy(xpath = "//div[@title='Actions']")
     private WebElementFacade actionsBtn;
     
@@ -68,7 +71,7 @@ public class MastersPage extends BaseAdminPage {
         scrollIntoView(addMoneyBnt);
         addMoneyBnt.click();
         amountInput.sendKeys(String.valueOf(amount));
-        submitBtn.click();
+        submitPaymentBtn.click();
         waitForLoaderDisappears();
     }
 
