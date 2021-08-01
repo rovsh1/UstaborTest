@@ -5,6 +5,8 @@ import entities.Category;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 
+import java.util.concurrent.TimeoutException;
+
 public class AdminSteps extends ScenarioSteps {
 
     @Steps
@@ -61,5 +63,12 @@ public class AdminSteps extends ScenarioSteps {
     public void setRequestPrices(Category category, String country, String minPrice, String maxPrice) {
         atAddEditServicePage.openEditPage(category.getName());
         atAddEditServicePage.setPriceForCurrentCountry(country, minPrice, maxPrice);
+    }
+
+    public void addTagToCategory(Category category, String tagName) throws TimeoutException {
+        atCategoriesPage.openEditCategoryPage(category.getSystemId());
+        atCategoriesPage.openAddTagsPage();
+        atCategoriesPage.addTag(tagName);
+
     }
 }

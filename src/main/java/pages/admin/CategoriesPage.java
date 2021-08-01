@@ -14,10 +14,8 @@ import java.util.regex.Pattern;
 
 public class CategoriesPage extends BaseAdminPage {
 
-    private static final String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
     private static final String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
     private static final String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
-    private static final String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
     private static final String categoryUrlByNameXpath = "//td//a[text()='%s']";
 
     //region Edit category page
@@ -63,6 +61,20 @@ public class CategoriesPage extends BaseAdminPage {
     private WebElementFacade submitMasterAssignBtn;
     //endregion
 
+    //region Tags page
+    @FindBy(xpath = "//li[@data-tab='tab-tags']")
+    private WebElementFacade tabsPage;
+
+    @FindBy(xpath = "//li[@class='btn-add edit']")
+    private WebElementFacade addTagBtn;
+
+    @FindBy(xpath = "//li[@data-id='new']//input")
+    private WebElementFacade tagNameInput;
+
+    @FindBy(xpath = "//input[@type='submit']")
+    private WebElementFacade saveTag;
+    //endregion
+
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "catalog/category/");
     }
@@ -84,6 +96,10 @@ public class CategoriesPage extends BaseAdminPage {
 
     public void openViewCategoryPage(String categoryId) {
         getDriver().get(Config.getAdminUrl() + String.format("catalog/category/view/%s/", categoryId));
+    }
+
+    public void openAddTagPage() {
+        tabsPage.click();
     }
 
     public void setPrice(String minimalPrice, String maximumPrice) {
@@ -141,5 +157,17 @@ public class CategoriesPage extends BaseAdminPage {
         if (!enablePromoCheckbox.isSelected()) {
             enablePromoCheckbox.click();
         }
+    }
+
+    public void clickAddButton() {
+        addTagBtn.click();
+    }
+
+    public void enterTagName(String tagName) {
+        tagNameInput.sendKeys(tagName);
+    }
+
+    public void clickSave() {
+        saveTag.click();
     }
 }

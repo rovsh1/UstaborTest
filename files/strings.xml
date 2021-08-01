@@ -90,4 +90,9 @@
     <string name="SmsRequestClosed">закрыта для предложений</string>
     <string name="SmsTestMessage">This is test message</string>
 
+    <string name="Tag">testTag</string>
+    <string name="Tag_ustabor">Santehnik</string>
+    <string name="Domain_ustabor">Qurilish Ishlari</string>
+    <string name="Category_ustabor">Chilangarlar</string>
+
 </resources>

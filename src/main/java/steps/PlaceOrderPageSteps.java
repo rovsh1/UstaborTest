@@ -89,4 +89,14 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.priceShouldBeVisible(maxPrice);
         return this;
     }
+
+    @Step
+    public void verifyDomain(String name) {
+        placeOrderPage.verifyDomain(name);
+    }
+
+    @Step
+    public void verifyCategory(String category) {
+        placeOrderPage.verifyCategory(category);
+    }
 }

@@ -28,6 +28,11 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.openViewCategoryPage(categoryId);
     }
 
+    @Step
+    public void openAddTagsPage() {
+        categoriesPage.openAddTagPage();
+    }
+
     public void getCategoryIdByName(Category category) {
         categoriesPage.openPage();
         category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
@@ -54,5 +59,12 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.setClickPrice(clickPrice);
         categoriesPage.submitPromotion();
         categoriesPage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void addTag(String tagName) {
+        categoriesPage.clickAddButton();
+        categoriesPage.enterTagName(tagName);
+        categoriesPage.clickSave();
     }
 }

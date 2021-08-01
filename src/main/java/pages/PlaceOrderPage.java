@@ -4,6 +4,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import enums.RequestPages;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PlaceOrderPage extends BasePage {
 
     //region First page
@@ -144,5 +146,13 @@ public class PlaceOrderPage extends BasePage {
 
     public String getCountryCode() {
         return phoneInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
+    }
+
+    public void verifyDomain(String name) {
+        assertThat(domainDropdown.getSelectedVisibleTextValue()).isEqualTo(name);
+    }
+
+    public void verifyCategory(String name) {
+        assertThat(categoryDropdown.getSelectedVisibleTextValue()).isEqualTo(name);
     }
 }

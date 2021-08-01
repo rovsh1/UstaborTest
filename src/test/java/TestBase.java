@@ -48,6 +48,10 @@ public class TestBase {
             watcher.category = category;
             admin.addTestCategory(category);
 
+            if (this.getClass().getAnnotation(AddCategory.class).addTags()) {
+                admin.addTagToCategory(category, "testTag");
+            }
+
             if (this.getClass().getAnnotation(AddCategory.class).addRequestQuestion()) {
                 admin.addCategoryService(category);
                 admin.setRequestPrices(category, Config.getCountry(), "100", "200");

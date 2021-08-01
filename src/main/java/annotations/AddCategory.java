@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 public @interface AddCategory {
     boolean promotionAndClickPrice() default false;
     boolean addRequestQuestion() default false;
+    boolean addTags() default false;
 }
