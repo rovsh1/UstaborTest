@@ -545,4 +545,8 @@ public class HomePage extends SearchBlock {
     public String getCustomerPhoneCountryCode() {
         return regFormUserPhoneNumberInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
     }
+
+    public void verifyCurrentLanguage(String lang) {
+        assertThat(getCurrentLang()).isEqualTo(lang);
+    }
 }

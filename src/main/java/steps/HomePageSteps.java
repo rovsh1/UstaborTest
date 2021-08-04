@@ -341,4 +341,8 @@ public class HomePageSteps extends ScenarioSteps {
     public void setLanguage(String lang) {
         homePage.setLanguage(lang);
     }
+
+    public void verifyCurrentLanguage(String lang) {
+        homePage.verifyCurrentLanguage(lang);
+    }
 }

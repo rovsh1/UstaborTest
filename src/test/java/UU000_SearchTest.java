@@ -27,5 +27,6 @@ public class UU000_SearchTest extends TestBase {
         user.atHomePage.enterTextAndSearch(tag);
         user.atPlaceOrderPage.verifyDomain(domain);
         user.atPlaceOrderPage.verifyCategory(category);
+        user.atHomePage.verifyCurrentLanguage("UZ");
     }
 }
