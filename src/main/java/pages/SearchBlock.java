@@ -10,7 +10,7 @@ public class SearchBlock extends BasePage {
     @FindBy(xpath = "//input[@name='quicksearch']")
     private WebElementFacade searchInput;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//div[@class='search']//button[@type='submit']")
     private WebElementFacade searchBtn;
 
 

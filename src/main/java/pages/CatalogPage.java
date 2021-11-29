@@ -31,6 +31,9 @@ public class CatalogPage extends SearchBlock {
 
     private static final String promoAttribute = "data-promotion";
 
+    @FindBy(xpath = "//div[@class='nav']//nav//a[contains(@href, 'catalog')]")
+    private WebElementFacade mastersCatalog;
+
     @FindBy(xpath = "//h1")
     private WebElementFacade pageHeader;
 
@@ -404,5 +407,9 @@ public class CatalogPage extends SearchBlock {
 
     public boolean isBreadcrumbsLongEnough() {
         return headerNavigationElements.size() > 3;
+    }
+
+    public void openPage() {
+        mastersCatalog.click();
     }
 }

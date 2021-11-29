@@ -177,4 +177,14 @@ public class CatalogPageSteps extends CommonSteps {
         catalogPage.openFilter();
         catalogPage.applyFilter();
     }
+
+    public void openMastersCatalog() {
+        catalogPage.openPage();
+    }
+
+    @Step
+    public void enterTextAndSearch(String text) {
+        enterSearchText(text);
+        catalogPage.ClickSearchBtn();
+    }
 }
