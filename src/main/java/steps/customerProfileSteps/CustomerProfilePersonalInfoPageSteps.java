@@ -11,6 +11,7 @@ public class CustomerProfilePersonalInfoPageSteps extends ScenarioSteps {
 
     @Step
     public void verifyCustomerProfilePageIsOpened() {
+        customerProfilePersonalInfoPage.openPersonalInfo();
         customerProfilePersonalInfoPage.deleteBtnShouldBeVisible();
     }
 
@@ -43,6 +44,7 @@ public class CustomerProfilePersonalInfoPageSteps extends ScenarioSteps {
     @Step
     public void openCustomerProfilePage() {
         customerProfilePersonalInfoPage.clickProfileBtn();
+        customerProfilePersonalInfoPage.openPersonalInfo();
     }
 
     @Step

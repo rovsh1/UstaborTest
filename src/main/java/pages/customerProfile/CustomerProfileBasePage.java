@@ -9,7 +9,7 @@ public class CustomerProfileBasePage extends BasePage {
     @FindBy(xpath = "//span[@class='ID']")
     private WebElementFacade customerProfileId;
 
-    @FindBy(xpath = "//div[@class='profile-menu']/a[@class='info']")
+    @FindBy(xpath = "//a[contains(@href, 'info')]")
     private WebElementFacade personalInfoBtn;
 
     public void openPersonalInfo() {
