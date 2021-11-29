@@ -42,7 +42,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         var masters = watcher.users.stream()
                 .filter(master -> master.getClass().getSimpleName().equals("Master"))
                 .collect(Collectors.toList());
-        masters.forEach(m -> admin.atMastersPage.addMoneyToMaster(2000, m.getProfileId()));
+        masters.forEach(m -> admin.atMastersPage.addMoneyToMaster(20000, m.getProfileId()));
         admin.atCategoriesPage.addMastersToCategoryRequest(category, masters);
         admin.atRequestsPage.openRequestById(requestId);
         admin.atRequestsPage.assignRequestToAllMastersOfCategory();
@@ -50,7 +50,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.login(masters.get(0), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
-        user.atMasterProfileRequestsPage.verifyBalance(1000);
+        user.atMasterProfileRequestsPage.verifyBalance(19000);
         user.atMasterProfileRequestsPage.clickPhoneButton();
         user.atMasterRequestPage.verifyCustomerInfo(customer);
         user.atMasterRequestPage.closeConnectCustomerPopup();
@@ -63,13 +63,12 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
         user.atMasterRequestPage.clickConnectClientButton();
         user.atMasterRequestPage.verifyCustomerInfo(customer);
         user.atMasterProfilePage.openProfilePage();
-        user.atMasterProfilePage.verifyBalance(1000);
+        user.atMasterProfilePage.verifyBalance(19000);
         user.atHomePage.logsOut();
 
         user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerRequestPage.openRequest();
-        user.atCustomerRequestPage.openAssignedMasters();
         masters.forEach(master -> user.atCustomerRequestPage.verifyMasterAssigned(master));
 
         user.atCustomerProfileRequestsPage.openRequestsPage();

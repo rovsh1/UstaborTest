@@ -70,7 +70,6 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerRequestPage.openRequest();
-        user.atCustomerRequestPage.openAssignedMasters();
         user.atCustomerRequestPage.verifyMasterSmsText(getText("SmsTestMessage"));
         user.atCustomerRequestPage.verifyMasterOffer("1000");
         user.atCustomerRequestPage.hideMasterOffer();
