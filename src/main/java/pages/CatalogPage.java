@@ -343,10 +343,10 @@ public class CatalogPage extends SearchBlock {
     public void verifyMasterAtFirstPosition(Master master) {
         var firstMaster = mastersList.stream().findFirst();
         int dataId = Integer.parseInt(firstMaster.get().getAttribute("data-id"));
-        int promoId = Integer.parseInt(firstMaster.get().getAttribute(promoAttribute));
+        int promoId = Integer.parseInt(firstMaster.get().getAttribute(promoAttribute).replaceAll("\\s", ""));
 
         assertThat(dataId).isEqualTo(Integer.parseInt(master.getProfileId()));
-        assertThat(promoId).isEqualTo(Integer.parseInt(master.getCategory().getPromoId()));
+        assertThat(promoId).isEqualTo(Integer.parseInt(master.getCategory().getPromoId().replaceAll("\\s", "")));
     }
 
     public void openProjectBySystemId(String systemId) {
