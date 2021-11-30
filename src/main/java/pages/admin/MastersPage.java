@@ -22,6 +22,9 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElementFacade submitBtn;
 
+    @FindBy(xpath = "//*[@type='submit']")
+    private WebElementFacade saveBtn;
+
     @FindBy(xpath = "//div[@title='Actions']")
     private WebElementFacade actionsBtn;
     
@@ -80,7 +83,7 @@ public class MastersPage extends BaseAdminPage {
     public void addAllBadgesToMaster(Master master) {
         badges.forEach(WebElementFacade::click);
         master.setCountOfBadges(badges.size() - 2);
-        submitBtn.click();
+        saveBtn.click();
     }
 
     public void deleteMaster(String profileId) {

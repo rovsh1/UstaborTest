@@ -33,6 +33,7 @@ public class CustomerProfilePersonalInfoPageSteps extends ScenarioSteps {
 
     @Step
     public void verifyMyMastersListContains(String projectName) {
+        customerProfilePersonalInfoPage.openMastersTab();
         customerProfilePersonalInfoPage.verifyMyMastersListContains(projectName);
     }
 
