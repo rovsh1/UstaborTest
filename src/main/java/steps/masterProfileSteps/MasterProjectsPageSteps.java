@@ -19,7 +19,7 @@ public class MasterProjectsPageSteps extends MasterProfileSteps {
         masterProjectsPage.selectCategory(category.getName());
         masterProjectsPage.addProjectImage();
         masterProjectsPage.saveNewProject();
-        WaitHelper.pollingWait(10000, 500, () ->
+        WaitHelper.pollingWait(20000, 1000, () ->
                 masterProjectsPage.getCountOfProjects() == countOfProjects + 1);
     }
 

@@ -14,7 +14,7 @@ public class UU222_VerifyDomainsChange extends TestBase {
     @Test
     public void verifyDomainsChangingWorksCorrectly() {
 
-        if (!Config.isNewTest() || !Config.isUstabor()) {
+        if (!Config.isNewTest() && !Config.isUstabor()) {
             List<String> countriesList = user.atHomePage.getCountriesList();
             for (String country: countriesList) {
                 user.atHomePage.setCountryByCode(country);
