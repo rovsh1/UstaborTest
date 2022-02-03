@@ -28,7 +28,8 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
                 customer.getFirstName(),
                 category,
                 XmlParser.getTextByKey("Service"),
-                XmlParser.getTextByKey("Question"));
+                XmlParser.getTextByKey("Question"),
+                "test request");
         placeOrderPage.clickNextButton(RequestPages.First);
         fillInSecondPage()
                 .clickNextButton(RequestPages.Second);
@@ -42,11 +43,12 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void fillInFirstPage(String userName, Category category, String service, String question) {
+    public void fillInFirstPage(String userName, Category category, String service, String question, String info) {
         placeOrderPage.enterName(userName);
         placeOrderPage.selectCategory(category.getSystemId());
         placeOrderPage.selectWhatToDo(service);
         placeOrderPage.selectQuestion(question);
+        placeOrderPage.enterAdditionalInfo(info);
     }
 
     @Step

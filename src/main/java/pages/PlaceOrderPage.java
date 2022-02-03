@@ -145,4 +145,8 @@ public class PlaceOrderPage extends BasePage {
     public String getCountryCode() {
         return phoneInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
     }
+
+    public void enterAdditionalInfo(String info) {
+        additionalInfoInput.sendKeys(info);
+    }
 }

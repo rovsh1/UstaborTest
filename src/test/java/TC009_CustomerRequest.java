@@ -24,7 +24,8 @@ public class TC009_CustomerRequest extends TestBase {
         user.atPlaceOrderPage.fillInFirstPage(
                 guest.getFirstName(),
                 category,XmlParser.getTextByKey("Service"),
-                XmlParser.getTextByKey("Question"));
+                XmlParser.getTextByKey("Question"),
+                "test request");
         user.atPlaceOrderPage.clickNextButton(RequestPages.First);
         user.atPlaceOrderPage.priceRangeShouldBeVisible("100", "200")
                 .fillInSecondPage()
