@@ -196,6 +196,11 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectRandomCategory(master);
         setMasterExperienceCityAndPhone(master);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         homePage.regMasterClickSubmit();
     }
 
