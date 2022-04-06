@@ -59,10 +59,8 @@ public class Config {
     }
 
     public static String getAdminUrl() {
-        var prefix = getEnvironmentVariableValue(SITE, true);
-
         if (adminUrl == null) {
-            adminUrl = PropertyReader.getInstance().getProperty(prefix + ".site.admin", props);
+            adminUrl = getBaseUrl().replace("www", "ka8rms");
         }
 
         return adminUrl;
