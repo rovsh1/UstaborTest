@@ -14,7 +14,7 @@ public class BaseAdminPage extends PageObject {
 
     private final String loaderXpath = "//div[contains(@class, 'loading')]";
 
-    @FindBy(xpath = "//form[@id='grid-filter-form']//input[@id='quicksearch']")
+    @FindBy(xpath = "//input[@type='search']")
     private WebElementFacade quickSearchInput;
 
     @FindBy(xpath = loaderXpath)

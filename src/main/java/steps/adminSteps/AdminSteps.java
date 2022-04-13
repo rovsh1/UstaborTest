@@ -34,7 +34,7 @@ public class AdminSteps extends ScenarioSteps {
     public void addTestCategory(Category category) {
         atAdminHomePage.loginAsAdmin();
         atAddCategoryPage.addTestCategory(category);
-        atCategoriesPage.getCategoryIdByName(category);
+        atCategoriesPage.getCategoryId(category);
     }
 
     public void addMoneyToMaster(int amount, Master master) {

@@ -28,10 +28,12 @@ public class CategoriesPageSteps extends ScenarioSteps {
         categoriesPage.openViewCategoryPage(categoryId);
     }
 
-    public void getCategoryIdByName(Category category) {
-        categoriesPage.openPage();
-        category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
-        logger.info("Test category with id '{}' was created", category.getSystemId());
+    public void getCategoryId(Category category) {
+        categoriesPage.findCategory(category.getName());
+        var id = categoriesPage.getCategoryIdByName(category.getName());
+
+        category.setSystemId(id);
+        logger.info("Test category with id '{}' has been created", id);
     }
 
     @Step

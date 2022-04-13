@@ -126,7 +126,7 @@ public class Admin {
     }
 
     private void login() {
-        var url = baseUrl + "account/auth/";
+        var url =  baseUrl + "login?url=%2F";
 
         try {
             var result = executor.execute(Request.Post(url)

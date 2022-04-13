@@ -18,7 +18,8 @@ public class AdminLoginPage extends BaseAdminPage {
     private WebElementFacade loginBtn;
 
     public void openPage() {
-        getDriver().get(Config.getAdminUrl() + "account/auth/");
+        var url = (Config.getAdminUrl() + "login?url=%2F");
+        getDriver().get(url);
     }
 
     public void enterLogin(String login) {
@@ -31,16 +32,5 @@ public class AdminLoginPage extends BaseAdminPage {
 
     public void clickLoginBtn() {
         loginBtn.click();
-    }
-
-    public void openPageFromConfigUrl() {
-        getDriver().get(Config.getAdminUrl());
-    }
-
-    public boolean isLoginInputVisible() {
-        setImplicitTimeout(1, ChronoUnit.SECONDS);
-        boolean result = loginInput.isPresent();
-        resetImplicitTimeout();
-        return result;
     }
 }

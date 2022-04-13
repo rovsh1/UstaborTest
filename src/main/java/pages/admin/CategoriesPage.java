@@ -18,7 +18,13 @@ public class CategoriesPage extends BaseAdminPage {
     private static final String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
     private static final String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
     private static final String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
-    private static final String categoryUrlByNameXpath = "//td//a[text()='%s']";
+    private static final String categoryUrlByNameXpath = "//tr[./td[text()='%s']]//a";
+
+    @FindBy(xpath = "//input[@id='quicksearch']")
+    private WebElementFacade categoriesSearch;
+
+    @FindBy(xpath = "//form[@class='quicksearch']//button[@type='submit']")
+    private WebElementFacade searchBtn;
 
     //region Edit category page
     @FindBy(xpath = "//li[@data-tab='tab-countries']")
@@ -64,7 +70,7 @@ public class CategoriesPage extends BaseAdminPage {
     //endregion
 
     public void openPage() {
-        getDriver().get(Config.getAdminUrl() + "catalog/category/");
+        getDriver().get(Config.getAdminUrl() + "/reference/category");
     }
 
     public void openEditCategoryPage(String categoryId) throws TimeoutException {
@@ -141,5 +147,10 @@ public class CategoriesPage extends BaseAdminPage {
         if (!enablePromoCheckbox.isSelected()) {
             enablePromoCheckbox.click();
         }
+    }
+
+    public void findCategory(String name) {
+        categoriesSearch.sendKeys(name);
+        searchBtn.click();
     }
 }
