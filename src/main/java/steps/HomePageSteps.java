@@ -19,12 +19,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void enterTextAndSearch(String text) {
-        enterSearchText(text);
-        homePage.ClickSearchBtn();
-    }
-
-    @Step
     public void openHomePage() throws TimeoutException {
         homePage.openPageWithConfigUrl();
     }
@@ -137,16 +131,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void selectIamMasterAndVerify() {
-        homePage.clickMasterBtnLogin();
-        homePage.loginInputShouldBeVisible();
-        homePage.passwordInputShouldBeVisible();
-        homePage.loginBtnShouldBeVisible();
-        homePage.forgotPasswordLinkShouldBeVisible();
-        homePage.registerLinkShouldBeVisible();
-    }
-
-    @Step
     public void verifyUserIsLoggedIn() {
         homePage.logoutBtnShouldBeVisible();
     }
@@ -210,8 +194,8 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void requestNewPassword(String email) {
-        homePage.forgotPasswordEnterEmail(email);
+    public void requestNewPassword(String phoneNumber) {
+        homePage.forgotPasswordEnterPhone(phoneNumber);
         homePage.forgotPasswordClickRestoreBtn();
         homePage.waitForLoaderDisappears();
     }

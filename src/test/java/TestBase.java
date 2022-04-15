@@ -48,10 +48,10 @@ public class TestBase {
             watcher.category = category;
             admin.addTestCategory(category);
 
-            if (this.getClass().getAnnotation(AddCategory.class).addRequestQuestion()) {
+            if (this.getClass().getAnnotation(AddCategory.class).addServiceQuestion()) {
                 admin.addCategoryService(category);
-                admin.setRequestPrices(category, Config.getCountry(), "100", "200");
-                admin.addServiceRequestQuestions(category, getText("Question"));
+                admin.addServiceQuestions(category, getText("Question"));
+                admin.setServicePrices(Config.getCountry(), "100", "200");
             }
 
             if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
@@ -93,8 +93,8 @@ public class TestBase {
         return XmlParser.getTextByKey(key);
     }
 
-    void setBrowserWindowSize(int width, int height){
-        driver.manage().window().setSize(new Dimension(width, height));
+    void setBrowserMobileWindowSize(){
+        driver.manage().window().setSize(new Dimension(320, 800));
     }
 
     private void setCountryAndLanguage() {

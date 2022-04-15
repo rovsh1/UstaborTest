@@ -87,7 +87,7 @@ public class BasePage extends PageObject {
     private WebElementFacade mobileViewMenuBtn;
     //endregion
 
-    @FindBy(xpath = "//div[@class='button-close']")
+    @FindBy(xpath = "//div[@class='btn-close']")
     private WebElementFacade closePopupBtn;
 
     @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'/sitemap/')]")
@@ -137,7 +137,7 @@ public class BasePage extends PageObject {
     }
 
     public void openMasterProfilePage() {
-        getDriver().get(Config.getFullUrl() + "profile");
+        getDriver().get(Config.getFullUrl() + "master");
     }
 
     public void logsOut() {
@@ -157,10 +157,6 @@ public class BasePage extends PageObject {
 
     public void logoutBtnShouldBeVisible() {
         assertThat(isLogoutBtnVisible()).isTrue();
-    }
-
-    protected void clickPopupOkBtn() {
-        popupOkBtn.click();
     }
 
     void focusElementJS(String className, int elementCount) {
@@ -302,10 +298,6 @@ public class BasePage extends PageObject {
 
     public void clickProfileBtn() {
         profileBtn.click();
-    }
-
-    public boolean isOpenLoginFormBtnVisible() {
-        return openLoginFormBtn.isVisible();
     }
 
     public void openLoginFormBtnShouldBeVisible() {

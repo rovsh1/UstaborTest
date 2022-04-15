@@ -9,7 +9,7 @@ import utils.DataGenerator;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(promotionAndClickPrice = true, addRequestQuestion = true)
+@AddCategory(promotionAndClickPrice = true, addServiceQuestion = true)
 @AddMasters(masters = 1, addProject = false)
 @WithTag("new")
 public class TC011_CustomerRequestWithdrawAmount extends TestBase {

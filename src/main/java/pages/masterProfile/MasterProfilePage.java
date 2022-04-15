@@ -12,13 +12,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MasterProfilePage extends MasterProfileBasePage {
 
-    @FindBy(xpath = "//div[@class='user-profile']//div[@class='name']")
+    @FindBy(xpath = "//div[@class='name']")
     private WebElementFacade masterName;
 
     @FindBy(xpath = "//div[@class='p about']")
     private WebElementFacade aboutMeText;
 
-    @FindBy(xpath = "//div[@class='user-profile']//ul[@class='cities']")
+    @FindBy(xpath = "//ul[@class='cities']")
     private WebElementFacade masterCity;
 
     @FindBy(xpath = "//ul[@class='categories']//li")
@@ -38,47 +38,15 @@ public class MasterProfilePage extends MasterProfileBasePage {
     }
 
     public void aboutMeTextShouldBeEqual(String aboutMe) {
-        aboutMeText.shouldContainOnlyText(aboutMe);
+        aboutMeText.shouldContainText(aboutMe);
     }
 
     public void masterCityShouldBeEqual(String city) {
         masterCity.shouldContainText(city);
     }
 
-    public void profilePageUrlShouldBeEqual(String profileUrl) {
-        assertThat(getDriver().getCurrentUrl()).contains(profileUrl);
-    }
-
-    public void masterCategoriesShouldContain(String category) {
-        var masterCategoriesNames = masterCategories
-                .stream()
-                .map(WebElementFacade::getText)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
-
-        assertThat(masterCategoriesNames.stream().anyMatch(c -> category.toLowerCase().contains(c))).isTrue();
-    }
-
     public void openProfileSettings() {
         profileSettingsBtn.click();
-    }
-
-    public void verifyCategories(CategoryCheckbox category) {
-        List<String> categories = masterCategories
-                .stream()
-                .map(WebElementFacade::getText)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
-
-        if (category.getEnabled()) {
-            assertThat(categories.contains(category.getName().toLowerCase())).isTrue();
-        } else {
-            assertThat(categories.contains(category.getName().toLowerCase())).isFalse();
-        }
-    }
-
-    public void waitForPageIsVisible() {
-        withTimeoutOf(Duration.ofSeconds(120)).waitFor(profileSettingsBtn).isPresent();
     }
 
     public void masterRatingShouldBe(String rating) {

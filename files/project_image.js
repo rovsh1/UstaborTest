@@ -4,5 +4,5 @@ var fileInput = $('<input/>', {
     id:'form_project_image',
     class:' field-image 1',
     multiple:''
-    });
-$('#form_project_image_images').append(fileInput);
+});
+$('.ui-image-input').replaceWith(fileInput)

@@ -28,11 +28,6 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
     }
 
     @Step
-    public CategoryCheckbox enableOrDisableRandomCategory() {
-        return masterProfileSettingsPage.enableOrDisableRandomCategory();
-    }
-
-    @Step
     public void saveChanges() {
         masterProfileSettingsPage.saveChanges();
     }

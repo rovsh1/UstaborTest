@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters(masters = 1)
+@AddMasters(masters = 2)
 public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
@@ -50,7 +50,8 @@ public class TC005a_MasterFeedback extends TestBase {
 
         user.atHomePage.waitForFeedbackProposalAndOpen();
         user.atFeedbackPage.leftFeedback(5, "Testing Review");
-        user.atHomePage.pageShouldBeVisible();
+
+        user.atHomePage.openHomePage();
 
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atCustomerProfilePersonalInfoPage.verifyMyMastersListContains(watcher.getMaster().getLastName());
@@ -58,7 +59,6 @@ public class TC005a_MasterFeedback extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(watcher.getMaster().getCategory().getName());
-        user.atCatalogPage.loadAllResults();
         user.atCatalogPage.sortProjectsByRating();
 
         user.atCatalogPage.verifyProjectsSortedByRate(watcher.getMaster().getCategory().getProject(), 5);

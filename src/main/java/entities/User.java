@@ -6,7 +6,6 @@ public class User {
     private String password;
     private String phoneCode;
     private String phoneNumber;
-    private String login;
     private String firstName;
     private String lastName;
     private String aboutMe;
@@ -23,10 +22,6 @@ public class User {
 
     public String getLogin() {
         return getPhoneCode() + getPhoneNumber();
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPhoneCode() {
@@ -73,10 +68,6 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -103,9 +94,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", profileId='" + profileId + '\'' +
-                '}';
+        return "User{ " +
+                String.format("phoneNumber: %s, ", phoneNumber) +
+                String.format("profileId: %s }", profileId);
     }
 }

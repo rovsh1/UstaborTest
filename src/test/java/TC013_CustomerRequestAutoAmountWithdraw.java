@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(promotionAndClickPrice = true, addRequestQuestion = true)
+@AddCategory(promotionAndClickPrice = true, addServiceQuestion = true)
 @AddMasters(addProject = false)
 @WithTag("new")
 public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {

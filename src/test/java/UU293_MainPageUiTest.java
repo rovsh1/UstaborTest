@@ -40,7 +40,7 @@ public class UU293_MainPageUiTest extends TestBase {
             user.atHomePage.verifyFooterLanguagesListIsVisible();
         }
 
-        setBrowserWindowSize(320, 800);
+        setBrowserMobileWindowSize();
         user.atHomePage.openMobileViewMainMenu();
 
         if (!Config.isFixListKg()) {

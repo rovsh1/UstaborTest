@@ -41,8 +41,7 @@ public class Admin {
     }
 
     public void deleteMaster(String id) {
-        // http://ka8rms.vtaminka.com/master/user/delete/65820/
-        var url = baseUrl + String.format("master/user/delete/%s/", id);
+        var url = baseUrl + String.format("master/%s/delete", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -62,7 +61,7 @@ public class Admin {
     }
 
     public void deleteCategory(String id) {
-        var url = baseUrl + String.format("catalog/category/delete/%s/", id);
+        var url = baseUrl + String.format("reference/category/%s/delete", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -82,7 +81,7 @@ public class Admin {
     }
 
     public void deleteCustomer(String customerId) {
-        var url = baseUrl + String.format("customer/user/delete/%s/", customerId);
+        var url = baseUrl + String.format("customer/%s/delete", customerId);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -150,7 +149,7 @@ public class Admin {
     }
 
     private String getSmsLogPage() {
-        var url = baseUrl + "administration/log/sms/";
+        var url = baseUrl + "logs/sms";
 
         try {
             return executor.execute(Request.Get(url)).returnContent().asString();

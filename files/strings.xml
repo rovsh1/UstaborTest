@@ -84,7 +84,7 @@
     <string name="RequestClosed">Закрыта для предложений</string>
 
     <string name="SmsAuthCode">Код подтверждения</string>
-    <string name="SmsRegistration">Ваш логин</string>
+    <string name="SmsRegistration">Вы зарегистрированы Логин</string>
     <string name="SmsMasterMessage">сообщение</string>
     <string name="SmsMasterPrice">Мастер предложил свою цену</string>
     <string name="SmsRequestClosed">закрыта для предложений</string>

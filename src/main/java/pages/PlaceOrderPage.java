@@ -13,13 +13,13 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//select[@id='form_order_site_id']")
     private WebElementFacade domainDropdown;
 
-    @FindBy(xpath = "//select[@id='form_order_category_id']")
+    @FindBy(xpath = "//select[@name='order[category_id]']")
     private WebElementFacade categoryDropdown;
 
-    @FindBy(xpath = "//select[@id='cr_a_0']")
+    @FindBy(xpath = "//select[./option[text()='Autotest']]")
     private WebElementFacade whatToDoDropDown;
 
-    @FindBy(xpath = "//select[@id='cr_a_1']")
+    @FindBy(xpath = "//div[./label[text()='Test']]/select")
     private WebElementFacade questionSelector;
 
     @FindBy(xpath = "//div[@class='dropzone-field']")
@@ -28,7 +28,7 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//textarea[@id='form_order_text']")
     private WebElementFacade additionalInfoInput;
 
-    @FindBy(xpath = "//div[@class='step step-1']//button[@class='button-submit']")
+    @FindBy(xpath = "//div[@class='step step-1']//button[@class='btn-submit']")
     private WebElementFacade nextButtonFirst;
     //endregion
 
@@ -36,7 +36,7 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//div[@id='prices-title']")
     private WebElementFacade pricesRangeDisclaimer;
 
-    @FindBy(xpath = "//div[@class='step step-2']//button[@class='button-submit']")
+    @FindBy(xpath = "//div[@class='step step-2']//button[@class='btn-submit']")
     private WebElementFacade nextButtonSecond;
     //endregion
 
@@ -47,7 +47,7 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//input[@id='form_order_contact_phone']")
     private WebElementFacade phoneInput;
 
-    @FindBy(xpath = "//div[@class='step step-3']//button[@class='button-submit']")
+    @FindBy(xpath = "//div[@class='step step-3']//button[@class='btn-submit']")
     private WebElementFacade nextButtonLast;
     //endregion
 
@@ -130,7 +130,7 @@ public class PlaceOrderPage extends BasePage {
         myRequestsBtn.click();
     }
 
-    public void selectWhatToDo(String question) {
+    public void selectService(String question) {
         whatToDoDropDown.selectByVisibleText(question);
     }
 

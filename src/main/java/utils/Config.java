@@ -73,23 +73,12 @@ public class Config {
     }
 
     public static String getFullUrl() {
-        if (isUstabor() || isFixListKg()) return getBaseUrl();
-        if (isBildrlist())  {
-            return getBaseUrl() + getLang();
-        }
-        var langCountryCode = String.format("%s-%s/", getCountryCode(), getLang());
-        if (isFixinglist() || isNewTest()) langCountryCode =  String.format("%s-%s/", getLang(), getCountryCode());
-        return getBaseUrl() + langCountryCode;
+        return getBaseUrl() + getLang() + "/";
     }
 
     private static String getBaseUrl() {
         if (site == null) {
             site = getPropertyFromEnvVariable(SITE, true);
-        }
-
-        if (isUstabor()) {
-            country = getUzCountry();
-            countryCode = getUzCountryCode();
         }
 
         return site + "/";
@@ -113,9 +102,14 @@ public class Config {
         if (countryCode == null) {
             if (isUstabor()) {
                 countryCode = "uz";
-            } else if (isFixListKg()) {
+            }
+            else if (isBildrlist()) {
+                countryCode = "uz";
+            }
+            else if (isFixListKg()) {
                 countryCode = "kg";
-            } else {
+            }
+            else {
                 countryCode = getEnvironmentVariableValue(COUNTRY, false);
             }
         }
@@ -146,14 +140,6 @@ public class Config {
             }
         }
         return varValue;
-    }
-
-    private static String getUzCountry() {
-        return PropertyReader.getInstance().getProperty("country.uz", props);
-    }
-
-    private static String getUzCountryCode() {
-        return PropertyReader.getInstance().getProperty("lang.uz", props);
     }
 
     public static boolean isMobileTag() {

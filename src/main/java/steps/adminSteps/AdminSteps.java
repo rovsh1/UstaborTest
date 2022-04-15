@@ -47,7 +47,7 @@ public class AdminSteps extends ScenarioSteps {
         atPromotionPage.approvePromotion(category);
     }
 
-    public void addServiceRequestQuestions(Category category, String question) {
+    public void addServiceQuestions(Category category, String question) {
         atAddRequestQuestionsPage.openPage();
         atAddRequestQuestionsPage.addQuestionToCategory(category, question);
     }
@@ -58,8 +58,7 @@ public class AdminSteps extends ScenarioSteps {
         atAddEditServicePage.saveService();
     }
 
-    public void setRequestPrices(Category category, String country, String minPrice, String maxPrice) {
-        atAddEditServicePage.openEditPage(category.getName());
-        atAddEditServicePage.setPriceForCurrentCountry(country, minPrice, maxPrice);
+    public void setServicePrices(String country, String minPrice, String maxPrice) {
+        atAddRequestQuestionsPage.setPriceForCurrentCountry(country, minPrice, maxPrice);
     }
 }

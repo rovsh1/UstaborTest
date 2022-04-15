@@ -14,10 +14,6 @@ import java.util.regex.Pattern;
 
 public class CategoriesPage extends BaseAdminPage {
 
-    private static final String categoryXpath = "//td[.//a[contains(@href, '%s')]]";
-    private static final String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
-    private static final String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
-    private static final String countriesAndPromotionXpath = "//li[@data-tab='tab-countries' and @class='current']";
     private static final String categoryUrlByNameXpath = "//tr[./td[text()='%s']]//a";
 
     @FindBy(xpath = "//input[@id='quicksearch']")
@@ -26,34 +22,6 @@ public class CategoriesPage extends BaseAdminPage {
     @FindBy(xpath = "//form[@class='quicksearch']//button[@type='submit']")
     private WebElementFacade searchBtn;
 
-    //region Edit category page
-    @FindBy(xpath = "//li[@data-tab='tab-countries']")
-    private WebElementFacade promotionTab;
-
-    @FindBy(xpath = "//input[@id='form_data_enabled']")
-    private WebElementFacade enablePromoCheckbox;
-
-    @FindBy(xpath = "//input[@id='form_data_price_min']")
-    private WebElementFacade minPrice;
-
-    @FindBy(xpath = "//input[@id='form_data_price_max']")
-    private WebElementFacade maxPrice;
-
-    @FindBy(xpath = "//input[@id='form_data_request_price']")
-    private WebElementFacade requestClickPrice;
-
-    @FindBy(xpath = "//button[@class='button-submit']")
-    private WebElementFacade submitBtn;
-
-    @FindBy(xpath = "//td[.//a[@class='button-edit']]")
-    private WebElementFacade editBtn;
-
-    @FindBy(xpath = "//li[@data-tab='tab-countries' and @class='current']")
-    private WebElementFacade countriesAndPromotionTabSelected;
-
-    @FindBy(xpath = "//li[@data-tab='tab-countries']")
-    private WebElementFacade countriesAndPromotionTab;
-    //endregion
 
     //region View category page
     @FindBy(xpath = "//a[@id='btn-master-add']")
@@ -69,23 +37,30 @@ public class CategoriesPage extends BaseAdminPage {
     private WebElementFacade submitMasterAssignBtn;
     //endregion
 
+
+    //region New admin
+    @FindBy(xpath = "//input[@id='form_data_request_price']")
+    private WebElementFacade requestClickPrice;
+
+    @FindBy(xpath = "//input[@id='form_data_price_min']")
+    private WebElementFacade minPrice;
+
+    @FindBy(xpath = "//input[@id='form_data_price_max']")
+    private WebElementFacade maxPrice;
+
+    @FindBy(xpath = "//select[@id='form_data_category_id']")
+    private WebElementFacade selectCategory;
+
+    @FindBy(xpath = "//select[@id='form_data_country_id']")
+    private WebElementFacade selectCountry;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElementFacade submitBtn;
+    //endregion
+
+
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "/reference/category");
-    }
-
-    public void openEditCategoryPage(String categoryId) throws TimeoutException {
-        getDriver().get(Config.getAdminUrl() + String.format("catalog/category/edit/%s/#!tab-countries", categoryId));
-
-        if (!Config.isChrome()) {
-            setTimeouts(1, ChronoUnit.SECONDS);
-            WaitHelper.pollingWait(60000, 1000, () -> {
-                if (!countriesAndPromotionTabSelected.isPresent()) {
-                    countriesAndPromotionTab.click();
-                }
-                return countriesAndPromotionTabSelected.isPresent();
-            });
-            resetTimeouts();
-        }
     }
 
     public void openViewCategoryPage(String categoryId) {
@@ -93,10 +68,8 @@ public class CategoriesPage extends BaseAdminPage {
     }
 
     public void setPrice(String minimalPrice, String maximumPrice) {
-        minPrice.clear();
-        minPrice.sendKeys(String.valueOf(minimalPrice));
-        maxPrice.clear();
-        maxPrice.sendKeys(String.valueOf(maximumPrice));
+        minPrice.sendKeys(minimalPrice);
+        maxPrice.sendKeys(maximumPrice);
     }
 
     public void setClickPrice(String clickPrice) {
@@ -105,15 +78,6 @@ public class CategoriesPage extends BaseAdminPage {
 
     public void submitPromotion() {
         submitBtn.click();
-    }
-
-    public void openPromotionForCurrentCountry() {
-        WebElement countryRow = getDriver().findElement(By.xpath(String.format(countryXpath, Config.getCountry())));
-
-        Actions builder = new Actions(getDriver());
-        builder.moveToElement(countryRow).build().perform();
-
-        getDriver().findElement(By.xpath(String.format(promotionXpath, Config.getCountry()))).click();
     }
 
     public String getCategoryIdByName(String categoryName) {
@@ -143,14 +107,20 @@ public class CategoriesPage extends BaseAdminPage {
         submitMasterAssignBtn.click();
     }
 
-    public void enablePromotion() {
-        if (!enablePromoCheckbox.isSelected()) {
-            enablePromoCheckbox.click();
-        }
-    }
-
     public void findCategory(String name) {
         categoriesSearch.sendKeys(name);
         searchBtn.click();
+    }
+
+    public void openPromotionPage() {
+        getDriver().get(Config.getAdminUrl() + "reference/category-country/create");
+    }
+
+    public void selectCategory(String categoryId) {
+        selectCategory.selectByValue(categoryId);
+    }
+
+    public void selectCurrentCountry() {
+        selectCountry.selectByVisibleText(Config.getCountry());
     }
 }

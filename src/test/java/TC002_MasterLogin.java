@@ -42,7 +42,6 @@ public class TC002_MasterLogin extends TestBase {
         user.atHomePage.verifyUserIsLoggedIn();
 
         user.atMasterProfilePage.openProfilePage();
-
         user.atMasterProfilePage.openProjectsTab();
         user.atMasterProjectsPage.pageShouldBeVisible();
 

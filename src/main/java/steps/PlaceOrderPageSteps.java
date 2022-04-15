@@ -46,7 +46,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     public void fillInFirstPage(String userName, Category category, String service, String question, String info) {
         placeOrderPage.enterName(userName);
         placeOrderPage.selectCategory(category.getSystemId());
-        placeOrderPage.selectWhatToDo(service);
+        placeOrderPage.selectService(service);
         placeOrderPage.selectQuestion(question);
         placeOrderPage.enterAdditionalInfo(info);
     }

@@ -13,6 +13,5 @@ public class FeedbackPageSteps extends ScenarioSteps {
         feedbackPage.setRating(rating);
         feedbackPage.enterFeedbackComment(comment);
         feedbackPage.submitFeedback();
-        feedbackPage.closePopup();
     }
 }

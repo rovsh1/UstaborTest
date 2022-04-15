@@ -12,7 +12,7 @@ import utils.DataGenerator;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(addRequestQuestion = true)
+@AddCategory(addServiceQuestion = true)
 @AddMasters(masters = 1, addProject = false)
 @WithTag("new")
 public class TC010_CustomerRequestAssignToMaster extends TestBase {

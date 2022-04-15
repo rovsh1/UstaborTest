@@ -29,8 +29,6 @@ public class TC003_MasterForgotPassword extends TestBase {
 
         var newPassword = DataGenerator.getPassword();
 
-        user.atMasterProfilePage.openProfileSettings();
-        user.atMasterProfileSettingsPage.openChangePasswordForm();
         user.atMasterProfileSettingsPage.changePassword(newPassword);
         user.atMasterProfileSettingsPage.logsOut();
 

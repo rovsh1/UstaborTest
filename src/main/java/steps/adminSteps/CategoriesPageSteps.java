@@ -19,11 +19,6 @@ public class CategoriesPageSteps extends ScenarioSteps {
     private CategoriesPage categoriesPage;
 
     @Step
-    public void openEditCategoryPage(String categoryId) throws TimeoutException {
-        categoriesPage.openEditCategoryPage(categoryId);
-    }
-
-    @Step
     public void openViewCategoryPage(String categoryId) {
         categoriesPage.openViewCategoryPage(categoryId);
     }
@@ -49,12 +44,12 @@ public class CategoriesPageSteps extends ScenarioSteps {
 
     @Step
     public void setPromotionAndClickPrice(String categoryId, String minPrice, String maxPrice, String clickPrice) throws TimeoutException {
-        openEditCategoryPage(categoryId);
-        categoriesPage.openPromotionForCurrentCountry();
-        categoriesPage.enablePromotion();
+        categoriesPage.openPromotionPage();
+        categoriesPage.selectCategory(categoryId);
+        categoriesPage.selectCurrentCountry();
         categoriesPage.setPrice(minPrice, maxPrice);
         categoriesPage.setClickPrice(clickPrice);
         categoriesPage.submitPromotion();
-        categoriesPage.waitForLoaderDisappears();
+//        categoriesPage.waitForLoaderDisappears();
     }
 }

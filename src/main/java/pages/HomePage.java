@@ -68,7 +68,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//form[@id='form-registration-customer']//button[@type='submit']")
     private WebElementFacade regFormSubmitBtn;
 
-    @FindBy(xpath = "//input[@id='form_phone_confirmation_code']")
+    @FindBy(xpath = "//input[@id='form_data_code']")
     private WebElementFacade regFormConfirmationCodeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@type='submit']")
@@ -158,7 +158,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class, 'categories-tabs')]//a[@id='categories-catalog-btn']")
     private WebElementFacade viewFullCatalogBtn;
 
-    @FindBy(xpath = "//div[@class='window feedback-window']//a[@class='button button-submit']")
+    @FindBy(xpath = "//div[@class='window feedback-window']//a[@class='button btn-submit']")
     private WebElementFacade leaveFeedbackBtn;
 
     @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
@@ -167,7 +167,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
     private List<WebElementFacade> categoriesList;
 
-    @FindBy(xpath = "//input[@id='form_password_login']")
+    @FindBy(xpath = "//input[@id='form_data_login']")
     private WebElementFacade forgotPasswordEmailInput;
 
     @FindBy(xpath = "//form[@id='form-password']//button[@type='submit']")
@@ -202,10 +202,6 @@ public class HomePage extends SearchBlock {
     public void regFormEnterUserPhone(String phone) {
         regFormUserPhoneNumberInput.click();
         regFormUserPhoneNumberInput.sendKeys(phone);
-    }
-
-    public void regFormEnterLogin(String login) {
-        regFormEmailInput.sendKeys(login);
     }
 
     public void regFormEnterPassword(String password) {
@@ -248,24 +244,6 @@ public class HomePage extends SearchBlock {
     public void regMasterFormSelectRandomCategory(Master master) {
         regMasterCategory.waitUntilVisible();
         WebElementFacade category = regMasterCategoriesList.get(new Random().nextInt(regMasterCategoriesList.size()));
-        focusElementJS(category);
-        category.click();
-
-        master.getCategory().setName(category.getText());
-        master.getCategory().setSystemId(category.getAttribute("data-id"));
-    }
-
-    public void regMasterFormSelectCategory(Master master, String categoryName) {
-        regMasterCategory.waitUntilVisible();
-        WebElementFacade category = regMasterCategoriesList.stream()
-                .filter(x -> x.getText().equals(categoryName))
-                .findFirst()
-                .orElse(null);
-
-        if (category == null) {
-            throw new NullPointerException(String.format("No category found: %s", categoryName));
-        }
-
         focusElementJS(category);
         category.click();
 
@@ -328,7 +306,7 @@ public class HomePage extends SearchBlock {
         forgotPasswordLink.click();
     }
 
-    public void forgotPasswordEnterEmail(String email) {
+    public void forgotPasswordEnterPhone(String email) {
         forgotPasswordEmailInput.sendKeys(email);
     }
 
@@ -373,11 +351,6 @@ public class HomePage extends SearchBlock {
 
     public void authCodeFormShouldBeVisible() {
         regFormConfirmationCodeInput.shouldBeVisible();
-    }
-
-    public void registerFormShouldNotBeVisible() {
-        new WebDriverWait(getDriver(), 30)
-                .until(driver -> driver.findElements(By.xpath(registrationFormXpath)).size() == 0);
     }
 
     public void registerFormShouldBeVisible() {
@@ -438,11 +411,6 @@ public class HomePage extends SearchBlock {
 //        waitForLoaderDisappears();
     }
 
-    public void clickMasterBtnLogin() {
-        iAmMasterBtn.click();
-        withTimeoutOf(Duration.ofSeconds(25)).waitFor(signInFormLoginInput).isPresent();
-    }
-
     public void clickCatalogBtn() {
         if (Config.isChrome()) {
             viewFullCatalogBtn.click();
@@ -491,18 +459,6 @@ public class HomePage extends SearchBlock {
         regFormUserPhoneNumberInput.shouldBeVisible();
     }
 
-    public void regFormLoginInputShouldBeVisible() {
-        regFormEmailInput.shouldBeVisible();
-    }
-
-    public void regFormPassInputShouldBeVisible() {
-        regFormPasswordInput.shouldBeVisible();
-    }
-
-    public void regFormConfirmPassInputShouldBeVisible() {
-        regFormConfirmPasswordInput.shouldBeVisible();
-    }
-
     public void regFormConditionsLinkShouldBeVisible() {
         regFormRulesLink.shouldBeVisible();
     }
@@ -523,10 +479,6 @@ public class HomePage extends SearchBlock {
 
         focusElementJS(foundCategory);
         foundCategory.click();
-    }
-
-    public void loginErrorShouldBeVisible() {
-        loginError.shouldBeVisible();
     }
 
     public void setLanguage(String lang) {

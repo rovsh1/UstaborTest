@@ -1,13 +1,11 @@
 package pages;
 
-import entities.FavProject;
 import entities.Master;
 import entities.Project;
 import freemarker.template.utility.NullArgumentException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
@@ -58,7 +56,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class,'window-contacts')]")
     private WebElementFacade projectContactPopup;
 
-    @FindBy(xpath = "//div[contains(@class,'window-contacts')]//div[@class='button-close']")
+    @FindBy(xpath = "//div[contains(@class,'window-contacts')]//div[@class='btn-close']")
     private WebElementFacade closeContactPopup;
 
     @FindBy(xpath = "//div[contains(@class, 'district')]//div[@class='item']")
@@ -128,17 +126,6 @@ public class CatalogPage extends SearchBlock {
         categories.forEach(c -> assertThat(c).isEqualTo(expectedCategory));
     }
 
-    public void openRandomProfile() {
-        WebElementFacade project = projectsList.get(new Random().nextInt(projectsList.size()));
-        WebElement projectOwner = project.findElement(By.xpath(".//div[@class='bottom']//img"));
-
-        projectOwner.click();
-    }
-
-    public void verifyHeaderText(String text) {
-        assertThat(pageHeader.getText()).isEqualTo(text);
-    }
-
     public void openFilter() {
         scrollPageUpJS();
         filterBtn.click();
@@ -160,20 +147,6 @@ public class CatalogPage extends SearchBlock {
 
     public void closeFilter() {
         filterCloseBtn.click();
-    }
-
-    public FavProject addRandomProjectToFavorites() {
-        WebElementFacade project = projectsWithFavoriteMark
-                .get(new Random().nextInt(projectsWithFavoriteMark.size()));
-
-        focusElementJS(project);
-
-        project.findElement(By.xpath(".//i")).click();
-
-        return new FavProject(
-                project.findElement(By.xpath(".//div[@class='presentation']")).getText(),
-                project.findElement(By.xpath(".//div[@class='category']")).getText()
-        );
     }
 
     public void openMasterContactsByName(String masterName) {
@@ -202,20 +175,6 @@ public class CatalogPage extends SearchBlock {
 
         return master;
     }
-
-    public void openRandomFavProjectWithNameNot(String projectName) {
-        List<WebElementFacade> projects = projectsWithFavoriteMark.stream()
-                .filter(p -> !p.getText().contains(projectName)).collect(Collectors.toList());
-
-        if (projects.isEmpty()) {
-            throw new NullPointerException("Projects list is empty");
-        }
-
-        int elementNumber = new Random().nextInt(projects.size());
-        focusElementJS("bottom", elementNumber);
-        projects.get(elementNumber).click();
-    }
-
 
     public void contactPopupShouldNotBeVisible() {
         projectContactPopup.shouldNotBeVisible();
@@ -318,13 +277,6 @@ public class CatalogPage extends SearchBlock {
         filterCitiesList.forEach(WebElementState::shouldBeVisible);
     }
 
-    private WebElementFacade getRandomProject() {
-        var elementNumber = new Random().nextInt(projectsList.size());
-        focusElementJS("bottom", elementNumber);
-
-        return projectsList.get(elementNumber);
-    }
-
     private Master getMasterInfo(WebElementFacade selectedMaster) {
         var master = new Master();
         master.setFirstName(selectedMaster.findElement(By.xpath(masterNameXpath)).getText());
@@ -337,12 +289,6 @@ public class CatalogPage extends SearchBlock {
         assertThat(mastersList.get(0).getAttribute("data-id")).isEqualTo(master.getProfileId());
     }
 
-    public void verifyFoundProject(String projectSystemId) {
-        assertThat(projectsList.size()).isEqualTo(1);
-        var projectId = projectsList.get(0).getAttribute("data-id");
-        assertThat(projectId).isEqualTo(projectSystemId);
-    }
-
     public void verifyMasterAtFirstPosition(Master master) {
         var firstMaster = mastersList.stream().findFirst();
         int dataId = Integer.parseInt(firstMaster.get().getAttribute("data-id"));
@@ -350,19 +296,6 @@ public class CatalogPage extends SearchBlock {
 
         assertThat(dataId).isEqualTo(Integer.parseInt(master.getProfileId()));
         assertThat(promoId).isEqualTo(Integer.parseInt(master.getCategory().getPromoId().replaceAll("\\s", "")));
-    }
-
-    public void openProjectBySystemId(String systemId) {
-        WebElementFacade element = projectsList.stream()
-                .filter(x -> x.getAttribute("data-id").equals(systemId))
-                .findFirst()
-                .orElse(null);
-
-        if (element == null) {
-            throw new NullPointerException(String.format("No such project with system id: %s", systemId));
-        }
-
-        element.click();
     }
 
     public void loadAllResults() {
@@ -376,20 +309,18 @@ public class CatalogPage extends SearchBlock {
         }
     }
 
-    public void verifyLastAddedProject(Project project) {
-        assertThat(projectsList.stream()
-                        .map(x -> x.getAttribute("data-id"))
-                        .anyMatch(y -> y.equals(project.getSystemId())))
-                .isTrue();
-    }
-
     public void verifyProjectsSortedByRate(Project project, int rating) {
         var projectsWithoutPromoAndBadges = projectsWithoutBadges.stream()
                 .filter(x -> x.getAttribute("data-promotion").equals("0"))
                 .collect(Collectors.toList());
 
         for (WebElementFacade proj : projectsWithoutPromoAndBadges) {
-            var projectRating = Integer.valueOf(proj.findElements(By.xpath(ratingXpath)).get(0).getText());
+            var projectRating = 0;
+            var ratingString = proj.findElements(By.xpath(ratingXpath)).get(0).getText();
+
+            if (!ratingString.equals("")) {
+                projectRating = Integer.parseInt(ratingString);
+            }
 
             if (projectRating >= rating) {
                 if (proj.getAttribute("data-id").equals(project.getSystemId())) {

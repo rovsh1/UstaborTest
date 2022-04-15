@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(addRequestQuestion = true)
+@AddCategory(addServiceQuestion = true)
 @AddMasters(masters = 1, addProject = false)
 @WithTag("new")
 public class TC012_CustomerRequestStatuses extends TestBase {

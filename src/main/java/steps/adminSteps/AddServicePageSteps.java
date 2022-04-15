@@ -21,15 +21,4 @@ public class AddServicePageSteps extends ScenarioSteps {
     public void saveService() {
         servicePage.saveService();
     }
-
-    public void openEditPage(String categoryName) {
-        servicePage.openEditPage(categoryName);
-        servicePage.clickPricesTab();
-    }
-
-    public void setPriceForCurrentCountry(String countryName, String minPrice, String maxPrice) {
-        servicePage.openPricesPopup();
-        servicePage.setQuestionPriceForCountry(countryName, minPrice, maxPrice);
-        servicePage.waitForLoaderDisappears();
-    }
 }

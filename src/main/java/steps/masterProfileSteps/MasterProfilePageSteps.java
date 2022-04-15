@@ -1,6 +1,5 @@
 package steps.masterProfileSteps;
 
-import entities.CategoryCheckbox;
 import entities.Master;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfilePage;
@@ -17,11 +16,6 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     @Step
     public void masterProfilePagePageShouldBeVisible() {
         masterProfilePage.projectsTabShouldBeVisible();
-    }
-
-    @Step
-    public void waitForPageIsVisible() {
-        masterProfilePage.waitForPageIsVisible();
     }
 
     @Step
@@ -54,11 +48,6 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     @Step
     public void openProfileSettings() {
         masterProfilePage.openProfileSettings();
-    }
-
-    @Step
-    public void verifyCategoriesListValue(CategoryCheckbox category) {
-        masterProfilePage.verifyCategories(category);
     }
 
     public String getProfileId() {
