@@ -7,6 +7,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utils.Admin;
 import utils.Config;
 
 import java.time.temporal.ChronoUnit;
@@ -24,10 +27,11 @@ public class CatalogPage extends SearchBlock {
     private static final String reviewsCountXpath = ".//span[@class='reviews-count']";
     private static final String avatarXpath = ".//div[@class='image']";
 
-    private static final String badgesXpath = ".//div[@class='master-advantages']//span";
     private static final String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
 
     private static final String promoAttribute = "data-promotion";
+
+    private static final Logger logger = LoggerFactory.getLogger(CatalogPage.class);
 
     @FindBy(xpath = "//div[@class='nav']//nav//a[contains(@href, 'catalog')]")
     private WebElementFacade mastersCatalog;
@@ -290,23 +294,14 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void verifyMasterAtFirstPosition(Master master) {
+        logger.info("Master id: " + master.getProfileId());
+        logger.info("Promo id: " + master.getCategory().getPromoId());
         var firstMaster = mastersList.stream().findFirst();
         int dataId = Integer.parseInt(firstMaster.get().getAttribute("data-id"));
         int promoId = Integer.parseInt(firstMaster.get().getAttribute(promoAttribute).replaceAll("\\s", ""));
 
         assertThat(dataId).isEqualTo(Integer.parseInt(master.getProfileId()));
-        assertThat(promoId).isEqualTo(Integer.parseInt(master.getCategory().getPromoId().replaceAll("\\s", "")));
-    }
-
-    public void loadAllResults() {
-        while (loadMoreBtn.isPresent()) {
-            if (loadMoreBtn.isVisible()) {
-                focusElementJS(loadMoreBtn);
-                loadMoreBtn.click();
-                continue;
-            }
-            return;
-        }
+        assertThat(promoId).isEqualTo(1);
     }
 
     public void verifyProjectsSortedByRate(Project project, int rating) {

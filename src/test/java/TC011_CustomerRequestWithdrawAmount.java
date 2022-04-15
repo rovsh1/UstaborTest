@@ -21,7 +21,7 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
 
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.placeOrder(customer, category);
-        user.atPlaceOrderPage.openRequestsPage();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
 
         customer.setProfileId(user.atCustomerProfileRequestsPage.getCustomerProfileId());
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();
@@ -29,32 +29,16 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
         user.atHomePage.logsOut();
 
         admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
-
-        admin.addMoneyToMaster(900, watcher.getMaster());
+        admin.atRequestsPage.assignRequestToMaster(watcher.getMaster());
 
         user.atHomePage.openHomePage();
         user.atHomePage.login(watcher.getMaster(), true);
 
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.openRequest();
-//        user.atMasterRequestPage.verifyClickPriceFirstPage("1000");
-//        user.atMasterRequestPage.verifyClickPriceSecondPage("1000");
-//        user.atMasterRequestPage.verifyClickPriceLastPage("1000");
 
-        user.atMasterRequestPage.clickConnectClientButton();
-//        user.atMasterRequestPage.verifyErrorMessage(getText("WithdrawError"));
-
-        admin.addMoneyToMaster(1000, watcher.getMaster());
-
-        user.atHomePage.openHomePage();
-        user.atMasterProfileRequestsPage.openRequestsPage();
-        user.atMasterProfileRequestsPage.openRequest();
         user.atMasterRequestPage.clickConnectClientButton();
 
         user.atMasterRequestPage.verifyCustomerInfo(customer);
-
-        user.atMasterProfilePage.openProfilePage();
-        user.atMasterProfilePage.verifyBalance(1900);
     }
 }

@@ -1,16 +1,24 @@
 package pages.admin;
 
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
 public class RequestsPage extends BaseAdminPage {
 
-    @FindBy(xpath = "//a[@id='btn-master-add']")
+    @FindBy(xpath = "//a[@id='btn-master-find']")
     private WebElementFacade assignMasterBtn;
 
-    @FindBy(xpath = "//div[contains(@class, 'field-master_id')]//input[@class='ui-autocomplete-input']")
+    @FindBy(xpath = "//form//input[@class='ui-autocomplete-input']")
     private WebElementFacade masterNameInput;
+
+    @FindBy(xpath = "//div[@class='exists-block']//div[@class='menu-btn']")
+    private WebElementFacade actionsBtn;
+
+    @FindBy(xpath = "//a[@data-action='add']")
+    private WebElementFacade freeAdd;
+
 
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitMasterAssignBtn;
@@ -40,7 +48,7 @@ public class RequestsPage extends BaseAdminPage {
     private WebElementFacade submitBtn;
 
     public void openPage(String requestId) {
-        getDriver().get(Config.getAdminUrl() + String.format("customer/request/view/%s/",requestId));
+        getDriver().get(Config.getAdminUrl() + String.format("request/%s",requestId));
     }
 
     public void verifyCustomerLogin(String firstName) {
@@ -67,8 +75,6 @@ public class RequestsPage extends BaseAdminPage {
 
     public void findMaster(String masterId) {
         masterNameInput.sendKeys(masterId);
-        autocompleteSuggestion.waitUntilPresent();
-        autocompleteSuggestion.click();
     }
 
     public void submitMasterAssign() {
@@ -87,5 +93,10 @@ public class RequestsPage extends BaseAdminPage {
         prodDeleteBtn.click();
         prodDeleteReason.sendKeys("test");
         submitBtn.click();
+    }
+
+    public void assignForFree() {
+        actionsBtn.click();
+        freeAdd.click();
     }
 }

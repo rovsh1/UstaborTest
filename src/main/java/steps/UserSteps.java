@@ -22,9 +22,6 @@ public class UserSteps extends ScenarioSteps {
     public CustomerProfilePersonalInfoPageSteps atCustomerProfilePersonalInfoPage;
 
     @Steps
-    public ProjectPageSteps atProjectPage;
-
-    @Steps
     public FeedbackPageSteps atFeedbackPage;
 
     @Steps

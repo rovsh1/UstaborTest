@@ -20,20 +20,20 @@ public class MasterProfileRequestsPage extends BasePage {
     @FindBy(xpath = "//span[@class='id']")
     private WebElementFacade requestIdForm;
 
-    @FindBy(xpath = "//a[contains(@href, '/request/')]")
+    @FindBy(xpath = "//a[contains(@href, '/requests/')]")
     private WebElementFacade requestDetailsBtn;
 
     @FindBy(xpath = "//div[@class='btn-contact']")
     private WebElementFacade phoneButton;
 
-    @FindBy(xpath = "//span[contains(@class, 'CUSTOMER_REQUEST_MASTER_STATUS')]")
+    @FindBy(xpath = "//span[contains(@class, 'ui-master-status')]")
     private WebElementFacade requestStatus;
 
     @FindBy(xpath = "//span[contains(@class, 'CUSTOMER_REQUEST_STATUS')]")
     private WebElementFacade customerRequestStatus;
 
     public void openPage() {
-        getDriver().get(Config.getFullUrl() + "profile/requests/");
+        getDriver().get(Config.getFullUrl() + "master/requests");
     }
 
     public void verifyRequestId(String requestId) {

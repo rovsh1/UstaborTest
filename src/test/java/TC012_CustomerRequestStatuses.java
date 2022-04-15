@@ -25,7 +25,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.placeOrder(customer, category);
-        user.atPlaceOrderPage.openRequestsPage();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
 
         customer.setPassword(new Admin().getSmsPassword(customer.getPhoneNumber()));
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();
@@ -34,7 +34,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atHomePage.logsOut();
 
         admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
+        admin.atRequestsPage.assignRequestToMaster(watcher.getMaster());
         try {
             Thread.sleep(15000);
         } catch (InterruptedException e) {
@@ -73,6 +73,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atCustomerRequestPage.verifyMasterSmsText(getText("SmsTestMessage"));
         user.atCustomerRequestPage.verifyMasterOffer("1000");
         user.atCustomerRequestPage.hideMasterOffer();
+        user.atCustomerProfileRequestsPage.closePopup();
         user.atCustomerRequestPage.verifyOfferIsHidden();
         user.atHomePage.logsOut();
 

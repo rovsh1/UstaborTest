@@ -9,10 +9,10 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//a[@id='btn-master-balance']")
     private WebElementFacade addMoneyBnt;
 
-    @FindBy(xpath = "//input[@id='form_balance_sum']")
+    @FindBy(xpath = "//input[@id='form_data_sum']")
     private WebElementFacade amountInput;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//div[./button[@data-action='close']]//button[@type='submit']")
     private WebElementFacade submitBtn;
 
     @FindBy(xpath = "//button[@type='submit']")

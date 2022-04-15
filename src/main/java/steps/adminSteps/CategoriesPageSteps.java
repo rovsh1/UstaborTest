@@ -37,7 +37,6 @@ public class CategoriesPageSteps extends ScenarioSteps {
         masters.forEach(m -> {
             categoriesPage.openAddMasterForm();
             categoriesPage.addMasterToCategoryRequest(m.getLastName());
-            categoriesPage.submitMasterAssign();
             categoriesPage.waitForLoaderDisappears();
         });
     }

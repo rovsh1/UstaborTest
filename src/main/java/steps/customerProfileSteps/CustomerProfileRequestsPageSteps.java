@@ -46,4 +46,9 @@ public class CustomerProfileRequestsPageSteps extends ScenarioSteps {
     public void verifyRequestStatus(String status) {
         customerProfileRequestsPage.verifyRequestStatus(status);
     }
+
+    @Step
+    public void closePopup() {
+        customerProfileRequestsPage.closePopup();
+    }
 }

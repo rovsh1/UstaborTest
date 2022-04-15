@@ -127,11 +127,6 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void loadAllResults() {
-        catalogPage.loadAllResults();
-    }
-
-    @Step
     public void verifyProjectsSortedByRate(Project project, int rating) {
         catalogPage.verifyProjectsSortedByRate(project, rating);
     }

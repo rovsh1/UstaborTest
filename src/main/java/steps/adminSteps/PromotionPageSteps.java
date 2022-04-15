@@ -17,11 +17,4 @@ public class PromotionPageSteps extends ScenarioSteps {
         category.setPromoId(promoId);
         promotionPage.approvePromotionByCategoryName(category.getName());
     }
-
-    @Step
-    public void approveProject(Project project) {
-        promotionPage.openPage();
-        project.setPromoId(promotionPage.getProjectPromoId(project.getSystemId()));
-        promotionPage.approvePromotionByProjectSystemId(project.getSystemId());
-    }
 }

@@ -30,7 +30,7 @@ public class MasterRequestPage extends BasePage {
     @FindBy(xpath = "//li[@data-tab='tab-3']")
     private WebElementFacade requestLastPage;
 
-    @FindBy(xpath = "//div[@class='button-close']")
+    @FindBy(xpath = "//div[@class='btn-close']")
     private WebElementFacade closePopupButton;
 
     @FindBy(xpath = "//div[@class='msg']//textarea")

@@ -37,7 +37,7 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     }
 
     public void openPage() {
-        getDriver().get(Config.getFullUrl() + "customer/requests/");
+        getDriver().get(Config.getFullUrl() + "customer/requests");
     }
 
     public void deleteRequest() {
@@ -54,5 +54,9 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
 
     public void verifyRequestStatus(String status) {
         requestStatus.shouldContainOnlyText(status);
+    }
+
+    public void closePopup() {
+        clickCloseBtn();
     }
 }

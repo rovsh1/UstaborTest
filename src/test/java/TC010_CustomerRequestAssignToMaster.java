@@ -38,13 +38,13 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
     public void verifyRequestAssignToMaster() throws TimeoutException {
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.placeOrder(customer, category);
-        user.atPlaceOrderPage.openRequestsPage();
+        user.atCustomerProfileRequestsPage.openRequestsPage();
 
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();
 
         admin.atRequestsPage.openRequestById(requestId);
         admin.atRequestsPage.verifyRequest(customer, category, getText("Question"));
-        admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
+        admin.atRequestsPage.assignRequestToMaster(watcher.getMaster());
         try {
             Thread.sleep(15000);
         } catch (InterruptedException e) {

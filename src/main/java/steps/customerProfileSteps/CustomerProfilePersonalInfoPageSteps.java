@@ -21,17 +21,6 @@ public class CustomerProfilePersonalInfoPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyCountOfFavouriteProjectsEquals(int countOfProjects) {
-        customerProfilePersonalInfoPage.verifyCountOfFavouriteProjectsEquals(countOfProjects);
-    }
-
-    @Step
-    public void removeRandomAndVerifyCountOfProjects(int countOfProjects) {
-        customerProfilePersonalInfoPage.removeRandomFavoriteProject();
-        customerProfilePersonalInfoPage.verifyCountOfFavouriteProjectsEquals(countOfProjects);
-    }
-
-    @Step
     public void verifyMyMastersListContains(String projectName) {
         customerProfilePersonalInfoPage.openMastersTab();
         customerProfilePersonalInfoPage.verifyMyMastersListContains(projectName);

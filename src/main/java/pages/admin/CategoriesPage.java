@@ -2,14 +2,9 @@ package pages.admin;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
-import utils.WaitHelper;
 
-import java.time.temporal.ChronoUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
 public class CategoriesPage extends BaseAdminPage {

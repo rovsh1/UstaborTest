@@ -33,7 +33,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.clickNextButton(RequestPages.First);
         fillInSecondPage()
                 .clickNextButton(RequestPages.Second);
-        fillInThirdPage(customer.getCity(), customer.getPhoneNumber());
+        fillInThirdPage(customer.getCity());
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
@@ -63,9 +63,8 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void fillInThirdPage(String address, String phone) {
+    public void fillInThirdPage(String address) {
         placeOrderPage.enterAddress(address);
-        placeOrderPage.enterPhoneNumber(phone);
     }
 
     @Step
