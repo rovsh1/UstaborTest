@@ -13,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters(masters = 1)
+@AddMasters(masters = 1, addProject = false)
 public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     @Test
@@ -28,10 +28,6 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginIfNeeded(master);
-
-        user.atMasterProfilePage.openProfilePage();
-        user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
 
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.RecommendedPrice);

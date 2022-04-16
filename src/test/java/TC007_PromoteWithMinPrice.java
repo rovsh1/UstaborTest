@@ -11,7 +11,7 @@ import utils.DataGenerator;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters
+@AddMasters(addProject = false)
 public class TC007_PromoteWithMinPrice extends TestBase {
 
     @Test
@@ -25,8 +25,6 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.loginIfNeeded(master);
         user.atMasterProfilePage.openProfilePage();
-        user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.MinimalPrice);
         user.atMasterProjectsPage.logsOut();

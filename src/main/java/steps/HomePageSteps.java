@@ -148,7 +148,7 @@ public class HomePageSteps extends ScenarioSteps {
         master.setPhoneCode(homePage.getMasterPhoneCountryCode());
 
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectRandomCategory(master);
+        homePage.regMasterFormSelectCategory(master);
         setMasterExperienceCityAndPhone(master);
         try {
             Thread.sleep(5000);

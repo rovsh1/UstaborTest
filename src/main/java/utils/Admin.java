@@ -109,6 +109,27 @@ public class Admin {
         }
     }
 
+    public void runCron(String id) {
+        var url = baseUrl + String.format("system/cron/%s/run", id);
+
+        try {
+            logger.info("Run cron task");
+            var result = executor.execute(Request.Get(url))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
+            if (result != 200) {
+                logger.info("Cron task has been failed");
+                throw new HttpResponseException(result, "Cron task has been failed");
+            }
+            logger.info("Cron task completed");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getSmsCode(String phoneNumber) {
         var smsLog = getSmsLogPage();
         var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);

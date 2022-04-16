@@ -4,6 +4,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import utils.Admin;
 import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
@@ -11,8 +12,8 @@ import java.util.concurrent.TimeoutException;
 @WithTag("prod")
 
 @RunWith(SerenityRunner.class)
-@AddCategory(promotionAndClickPrice = true)
-@AddMasters(masters = 1)
+@AddCategory()
+@AddMasters(masters = 1, addProject = false)
 public class TC005_AddBadgesToMaster extends TestBase {
 
     @Test
@@ -22,11 +23,10 @@ public class TC005_AddBadgesToMaster extends TestBase {
 
         user.register(master);
 
-        user.atMasterProjectsPage.openProjectsTab();
-        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
-
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addAllBadgesToMaster(master);
+
+//        Admin.getInstance().runCron("2");
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
