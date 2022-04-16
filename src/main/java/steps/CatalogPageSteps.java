@@ -1,7 +1,6 @@
 package steps;
 
 import entities.Master;
-import entities.Project;
 import net.thucydides.core.annotations.Step;
 import pages.CatalogPage;
 import utils.XmlParser;
@@ -127,12 +126,12 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyProjectsSortedByRate(Project project, int rating) {
-        catalogPage.verifyProjectsSortedByRate(project, rating);
+    public void verifyMastersSortedByRate(Master master, int rating) {
+        catalogPage.verifyMastersSortedByRate(master, rating);
     }
 
     @Step
-    public void sortProjectsByRating() {
+    public void sortMastersByRating() {
         catalogPage.openFilter();
         catalogPage.applyFilter();
     }

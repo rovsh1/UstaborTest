@@ -13,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters
+@AddMasters(masters = 1)
 public class TC006_PromoteWithRecommendedPrice extends TestBase {
 
     @Test

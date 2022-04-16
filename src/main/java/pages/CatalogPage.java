@@ -26,18 +26,12 @@ public class CatalogPage extends SearchBlock {
     private static final String ratingXpath = ".//div[contains(@class,'rating')]";
     private static final String reviewsCountXpath = ".//span[@class='reviews-count']";
     private static final String avatarXpath = ".//div[@class='image']";
-
     private static final String districtXpath = "//div[contains(@class, 'district expanded')]//div[@class='item'and text()='%s']";
-
-    private static final String promoAttribute = "data-promotion";
 
     private static final Logger logger = LoggerFactory.getLogger(CatalogPage.class);
 
     @FindBy(xpath = "//div[@class='nav']//nav//a[contains(@href, 'catalog')]")
     private WebElementFacade mastersCatalog;
-
-    @FindBy(xpath = "//h1")
-    private WebElementFacade pageHeader;
 
     @FindBy(xpath = "//nav[@class='breadcrumbs']/a")
     private List<WebElementFacade> headerNavigationElements;
@@ -48,35 +42,17 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item project']")
     private List<WebElementFacade> projectsList;
 
-    @FindBy(xpath = "//div[@id='projects-gallery']/a[.//div[@class='stats'] and not(.//div[@class='master-badges icons'])]")
-    private List<WebElementFacade> projectsWithoutBadges;
-
-    @FindBy(xpath = "//div[@id='projects-gallery']/a[.//i]")
-    private List<WebElementFacade> projectsWithFavoriteMark;
-
-    @FindBy(xpath = "//div[@id='projects-gallery']/a[last()]")
-    private WebElementFacade lastAddedProject;
-
     @FindBy(xpath = "//div[contains(@class,'window-contacts')]")
     private WebElementFacade projectContactPopup;
 
     @FindBy(xpath = "//div[contains(@class,'window-contacts')]//div[@class='btn-close']")
     private WebElementFacade closeContactPopup;
 
-    @FindBy(xpath = "//div[contains(@class, 'district')]//div[@class='item']")
-    private WebElementFacade firstDistrict;
-
     @FindBy(xpath = "//div[@class='results']")
     private WebElementFacade projectsCounter;
 
     @FindBy(xpath = "//div[@class='catalog-search-empty']//div[@class='text']")
     private WebElementFacade emptyCatalogMessage;
-
-    @FindBy(xpath = "//button[@id='load-more' and not(@disabled='disabled')]")
-    private WebElementFacade loadMoreBtn;
-
-    @FindBy(xpath = "//button[@id='load-more' and @disabled='disabled']")
-    private WebElementFacade disabledLoadMoreBtn;
 
     //region Filter elements
     @FindBy(xpath = "//div[@id='catalog-search-menu']")
@@ -114,7 +90,7 @@ public class CatalogPage extends SearchBlock {
     //endregion
 
     //region New
-    @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item master full']")
+    @FindBy(xpath = "//div[@id='projects-gallery']/a")
     private List<WebElementFacade> mastersList;
     //endregion
 
@@ -298,33 +274,22 @@ public class CatalogPage extends SearchBlock {
         logger.info("Promo id: " + master.getCategory().getPromoId());
         var firstMaster = mastersList.stream().findFirst();
         int dataId = Integer.parseInt(firstMaster.get().getAttribute("data-id"));
-        int promoId = Integer.parseInt(firstMaster.get().getAttribute(promoAttribute).replaceAll("\\s", ""));
+        int promoId = Integer.parseInt(firstMaster.get().getAttribute("data-promotion").replaceAll("\\s", ""));
 
         assertThat(dataId).isEqualTo(Integer.parseInt(master.getProfileId()));
         assertThat(promoId).isEqualTo(1);
     }
 
-    public void verifyProjectsSortedByRate(Project project, int rating) {
-        var projectsWithoutPromoAndBadges = projectsWithoutBadges.stream()
-                .filter(x -> x.getAttribute("data-promotion").equals("0"))
-                .collect(Collectors.toList());
+    public void verifyMastersSortedByRate(Master master, int rating) {
+        var masterRating = 0;
 
-        for (WebElementFacade proj : projectsWithoutPromoAndBadges) {
-            var projectRating = 0;
-            var ratingString = proj.findElements(By.xpath(ratingXpath)).get(0).getText();
-
-            if (!ratingString.equals("")) {
-                projectRating = Integer.parseInt(ratingString);
-            }
-
-            if (projectRating >= rating) {
-                if (proj.getAttribute("data-id").equals(project.getSystemId())) {
-                    return;
-                }
-            } else {
-                throw new IllegalArgumentException("Ratings order is wrong");
-            }
+        var ratingString = mastersList.get(0).findElements(By.xpath(ratingXpath)).get(0).getText();
+        if (!ratingString.equals("")) {
+            masterRating = Integer.parseInt(ratingString);
         }
+
+        assertThat(mastersList.get(0).getAttribute("data-id")).isEqualTo(master.getProfileId());
+        assertThat(masterRating).isEqualTo(rating);
     }
 
     public void applyFilter() {
