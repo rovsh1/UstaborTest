@@ -17,7 +17,7 @@ public class TC002_MasterLogin extends TestBase {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
-        user.register(master);
+        user.register(master, true);
         user.atMasterProfilePage.logsOut();
 
         var userName = "Test " + new SimpleDateFormat("MMddhhmm").format(new Date());

@@ -29,6 +29,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//input[@id='form_data_code']")
     private WebElementFacade submitCodeInput;
 
+    @FindBy(xpath = "//div[@class='refresh-wrap']/a")
+    private WebElementFacade repeatSendCode;
+
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
     private WebElementFacade logoBtn;
@@ -384,5 +387,9 @@ public class BasePage extends PageObject {
 
     public void waitForSubmitCodeForm(){
         withTimeoutOf(Duration.ofSeconds(25)).waitFor(submitCodeInput).isPresent();
+    }
+
+    public void resendCode() {
+        repeatSendCode.click();
     }
 }

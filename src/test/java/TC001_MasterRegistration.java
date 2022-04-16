@@ -14,7 +14,7 @@ public class TC001_MasterRegistration extends TestBase {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
-        user.register(master);
+        user.register(master, true);
         user.atMasterProfilePage.masterProfilePagePageShouldBeVisible();
 
         master.setProfileId(user.atMasterProfilePage.getProfileId());

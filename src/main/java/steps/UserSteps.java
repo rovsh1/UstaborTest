@@ -1,6 +1,7 @@
 package steps;
 
 import entities.Master;
+import entities.User;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
@@ -63,8 +64,8 @@ public class UserSteps extends ScenarioSteps {
     @Steps
     public MasterRequestPageSteps atMasterRequestPage;
 
-    public void register(Master master) {
-        atHomePage.registerAsMaster(master);
+    public void register(Master master, boolean randomCategory) {
+        atHomePage.registerAsMaster(master, randomCategory);
 
         var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());
 
@@ -73,4 +74,16 @@ public class UserSteps extends ScenarioSteps {
 
         master.setProfileId(atMasterProfilePage.getProfileId());
     }
+
+    public String getSmsCode(User user) {
+        var smsCode = Admin.getInstance().getSmsCode(user.getPhoneNumber());
+
+        if (smsCode == null) {
+            atHomePage.resendCode();
+            atHomePage.waitForLoaderDisappears();
+        }
+
+        return Admin.getInstance().getSmsCode(user.getPhoneNumber());
+    }
+
 }

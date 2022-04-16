@@ -136,7 +136,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void registerAsMaster(Master master) {
+    public void registerAsMaster(Master master, boolean randomCategory) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
         homePage.registerFormShouldBeVisible();
@@ -148,7 +148,13 @@ public class HomePageSteps extends ScenarioSteps {
         master.setPhoneCode(homePage.getMasterPhoneCountryCode());
 
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectCategory(master);
+
+        if (randomCategory) {
+            homePage.regMasterFormSelectRandomCategory(master);
+        } else {
+            homePage.regMasterFormSelectCategory(master);
+        }
+
         setMasterExperienceCityAndPhone(master);
         try {
             Thread.sleep(5000);
@@ -298,7 +304,16 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.longWaitForDocument();
     }
 
+    @Step
+    public void resendCode() {
+        homePage.resendCode();
+    }
+
     public void setLanguage(String lang) {
         homePage.setLanguage(lang);
+    }
+
+    public void waitForLoaderDisappears() {
+        homePage.waitForLoaderDisappears();
     }
 }

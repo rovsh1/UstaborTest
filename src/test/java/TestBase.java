@@ -72,7 +72,7 @@ public class TestBase {
                     watcher.users.add(master);
 
                     user.atHomePage.openHomePage();
-                    user.register(master);
+                    user.register(master, false);
 
                     if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
                         user.atMasterProjectsPage.openProjectsTab();

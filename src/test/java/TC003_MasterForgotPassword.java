@@ -17,7 +17,7 @@ public class TC003_MasterForgotPassword extends TestBase {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
-        user.register(master);
+        user.register(master, true);
         user.atMasterProfilePage.logsOut();
 
         user.atHomePage.openLoginFormAndVerify();
