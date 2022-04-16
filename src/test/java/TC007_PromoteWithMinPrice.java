@@ -19,7 +19,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
         var master = DataGenerator.getMaster(category);
         watcher.users.add(master);
 
-        user.registerAsMaster(master);
+        user.register(master);
         admin.addMoneyToMaster(10000, master);
 
         user.atHomePage.openHomePage();

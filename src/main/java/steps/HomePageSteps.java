@@ -14,11 +14,6 @@ public class HomePageSteps extends ScenarioSteps {
     private HomePage homePage;
 
     @Step
-    public void enterSearchText(String text) {
-        homePage.enterSearchText(text);
-    }
-
-    @Step
     public void openHomePage() throws TimeoutException {
         homePage.openPageWithConfigUrl();
     }
@@ -33,8 +28,7 @@ public class HomePageSteps extends ScenarioSteps {
 
         homePage.regFormEnterUserPhone(customer.getPhoneNumber());
         homePage.regFormClickSubmit();
-        homePage.waitForLoaderDisappears();
-        homePage.authCodeFormShouldBeVisible();
+        homePage.waitForSubmitCodeForm();
     }
 
     @Step
@@ -77,12 +71,6 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.waitUntilFeedbackPopupIsVisible();
         homePage.clickLeaveFeedback();
     }
-
-    @Step
-    public void pageShouldBeVisible() {
-        homePage.viewFullCatalogBtnShouldBeVisible();
-    }
-
 
     @Step
     public void selectSuggestionCategoryAndSearch(String suggestion) {
@@ -148,24 +136,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void registerAsMasterWithSpecifiedCategory(Master master) {
-        homePage.openRegistrationForm();
-        homePage.clickMasterBtnRegister();
-        homePage.registerFormShouldBeVisible();
-        homePage.regMasterFormSelectBuildSubDomain();
-        homePage.regMasterFormEnterFirstName(master.getFirstName());
-        homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterPassword(master.getPassword());
-
-        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
-
-        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectCategory(master);
-        setMasterExperienceCityAndPhone(master);
-        homePage.regMasterClickSubmit();
-    }
-
-    @Step
     public void registerAsMaster(Master master) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
@@ -186,6 +156,7 @@ public class HomePageSteps extends ScenarioSteps {
             e.printStackTrace();
         }
         homePage.regMasterClickSubmit();
+        homePage.waitForSubmitCodeForm();
     }
 
     @Step

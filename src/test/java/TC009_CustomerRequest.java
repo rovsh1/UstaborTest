@@ -36,6 +36,8 @@ public class TC009_CustomerRequest extends TestBase {
         user.atPlaceOrderPage.fillInThirdPage(guest);
         user.atPlaceOrderPage.clickNextButton(RequestPages.Last);
 
+        user.atPlaceOrderPage.waitForCodeForm();
+
         var smsCode = Admin.getInstance().getSmsCode(guest.getPhoneNumber());
 
         user.atPlaceOrderPage

@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
 import utils.XmlParser;
+
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
@@ -23,6 +25,9 @@ public class BasePage extends PageObject {
 
     @FindBy(xpath = loaderXpath)
     private WebElementFacade loader;
+
+    @FindBy(xpath = "//input[@id='form_data_code']")
+    private WebElementFacade submitCodeInput;
 
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
@@ -375,5 +380,9 @@ public class BasePage extends PageObject {
 
     public void clickCloseBtn() {
         closePopupBtn.click();
+    }
+
+    public void waitForSubmitCodeForm(){
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(submitCodeInput).isPresent();
     }
 }

@@ -325,10 +325,6 @@ public class HomePage extends SearchBlock {
         iAmCustomerBtn.shouldBeVisible();
     }
 
-    public void viewFullCatalogBtnShouldBeVisible() {
-        viewFullCatalogBtn.shouldBeVisible();
-    }
-
     public void registerLinkShouldBeVisible() {
         signInFormRegisterLink.shouldBeVisible();
     }
@@ -347,10 +343,6 @@ public class HomePage extends SearchBlock {
 
     public void forgotPasswordLinkShouldBeVisible() {
         forgotPasswordLink.shouldBeVisible();
-    }
-
-    public void authCodeFormShouldBeVisible() {
-        regFormConfirmationCodeInput.shouldBeVisible();
     }
 
     public void registerFormShouldBeVisible() {

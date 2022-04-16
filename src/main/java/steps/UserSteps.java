@@ -73,15 +73,4 @@ public class UserSteps extends ScenarioSteps {
 
         master.setProfileId(atMasterProfilePage.getProfileId());
     }
-
-    public void registerAsMaster(Master master) {
-        atHomePage.registerAsMasterWithSpecifiedCategory(master);
-
-        var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());
-
-        atHomePage.enterAuthCodeAndSubmit(smsCode);
-        atMasterProfilePage.masterProfilePagePageShouldBeVisible();
-
-        master.setProfileId(atMasterProfilePage.getProfileId());
-    }
 }

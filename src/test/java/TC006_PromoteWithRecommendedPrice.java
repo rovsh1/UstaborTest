@@ -22,7 +22,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
         master.setCategory(category);
         watcher.users.add(master);
 
-        user.registerAsMaster(master);
+        user.register(master);
 
         admin.addMoneyToMaster(10000, master);
 

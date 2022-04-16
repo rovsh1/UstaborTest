@@ -38,8 +38,8 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
+        placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-
         confirmPhoneNumber(smsCode);
     }
 
@@ -59,8 +59,8 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
+        placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-
         confirmPhoneNumber(smsCode);
     }
 
@@ -115,5 +115,10 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.priceShouldBeVisible(minPrice);
         placeOrderPage.priceShouldBeVisible(maxPrice);
         return this;
+    }
+
+    @Step
+    public void waitForCodeForm() {
+        placeOrderPage.waitForSubmitCodeForm();
     }
 }

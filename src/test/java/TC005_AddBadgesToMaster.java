@@ -20,7 +20,7 @@ public class TC005_AddBadgesToMaster extends TestBase {
         var master = DataGenerator.getMaster(category);
         watcher.users.add(master);
 
-        user.registerAsMaster(master);
+        user.register(master);
 
         user.atMasterProjectsPage.openProjectsTab();
         user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
