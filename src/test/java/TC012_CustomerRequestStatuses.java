@@ -27,7 +27,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atPlaceOrderPage.placeOrder(customer, category);
         user.atCustomerProfileRequestsPage.openRequestsPage();
 
-        customer.setPassword(new Admin().getSmsPassword(customer.getPhoneNumber()));
+        customer.setPassword(Admin.getInstance().getSmsPassword(customer.getPhoneNumber()));
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();
         customer.setProfileId(user.atCustomerProfileRequestsPage.getCustomerProfileId());
 
@@ -57,11 +57,11 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atMasterRequestPage.clickConnectClientButton();
 
         user.atMasterRequestPage.sendMessageToCustomer(getText("SmsTestMessage"));
-        var msg = new Admin().getSmsByText(customer.getPhoneNumber(), getText("SmsMasterMessage"));
+        var msg = Admin.getInstance().getSmsByText(customer.getPhoneNumber(), getText("SmsMasterMessage"));
         assertThat(msg).isNotNull();
 
         user.atMasterRequestPage.makeOfferToCustomer("1000");
-        var offer = new Admin().getSmsByText(customer.getPhoneNumber(), getText("SmsMasterPrice"));
+        var offer = Admin.getInstance().getSmsByText(customer.getPhoneNumber(), getText("SmsMasterPrice"));
         assertThat(offer).isNotNull();
 
         user.atMasterRequestPage.closeConnectCustomerPopup();
@@ -85,7 +85,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.hideRequest();
-        var decline = new Admin().getSmsByText(watcher.getMaster().getPhoneNumber(), getText("SmsRequestClosed"));
+        var decline = Admin.getInstance().getSmsByText(watcher.getMaster().getPhoneNumber(), getText("SmsRequestClosed"));
         assertThat(decline).isNotNull();
         user.atCustomerProfileRequestsPage.verifyRequestStatus(getText("RequestClosed"));
         user.atHomePage.logsOut();

@@ -66,7 +66,7 @@ public class UserSteps extends ScenarioSteps {
     public void register(Master master) {
         atHomePage.registerAsMaster(master);
 
-        var smsCode = new Admin().getSmsCode(master.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());
 
         atHomePage.enterAuthCodeAndSubmit(smsCode);
         atMasterProfilePage.masterProfilePagePageShouldBeVisible();
@@ -77,7 +77,7 @@ public class UserSteps extends ScenarioSteps {
     public void registerAsMaster(Master master) {
         atHomePage.registerAsMasterWithSpecifiedCategory(master);
 
-        var smsCode = new Admin().getSmsCode(master.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());
 
         atHomePage.enterAuthCodeAndSubmit(smsCode);
         atMasterProfilePage.masterProfilePagePageShouldBeVisible();

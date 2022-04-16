@@ -30,16 +30,46 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
                 XmlParser.getTextByKey("Service"),
                 XmlParser.getTextByKey("Question"),
                 "test request");
+
         placeOrderPage.clickNextButton(RequestPages.First);
-        fillInSecondPage()
-                .clickNextButton(RequestPages.Second);
-        fillInThirdPage(customer.getCity());
+        placeOrderPage.clickNextButton(RequestPages.Second);
+
+        fillInThirdPage(customer);
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
 
         confirmPhoneNumber(smsCode);
+    }
+
+    @Step
+    public void placeOrderForLoggedUser(User customer, Category category) {
+        fillInFirstPage(
+                category,
+                XmlParser.getTextByKey("Service"),
+                XmlParser.getTextByKey("Question"),
+                "test request");
+
+        placeOrderPage.clickNextButton(RequestPages.First);
+        placeOrderPage.clickNextButton(RequestPages.Second);
+
+        placeOrderPage.enterAddress(customer.getCity());
+
+        customer.setPhoneCode(placeOrderPage.getCountryCode());
+        placeOrderPage.clickNextButton(RequestPages.Last);
+
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
+
+        confirmPhoneNumber(smsCode);
+    }
+
+    @Step
+    public void fillInFirstPage(Category category, String service, String question, String info) {
+        placeOrderPage.selectCategory(category.getSystemId());
+        placeOrderPage.selectService(service);
+        placeOrderPage.selectQuestion(question);
+        placeOrderPage.enterAdditionalInfo(info);
     }
 
     @Step
@@ -58,13 +88,9 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public PlaceOrderPageSteps fillInSecondPage() {
-        return this;
-    }
-
-    @Step
-    public void fillInThirdPage(String address) {
-        placeOrderPage.enterAddress(address);
+    public void fillInThirdPage(User customer) {
+        placeOrderPage.enterAddress(customer.getCity());
+        placeOrderPage.enterPhoneNumber(customer.getPhoneNumber());
     }
 
     @Step

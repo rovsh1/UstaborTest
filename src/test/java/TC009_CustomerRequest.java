@@ -23,19 +23,23 @@ public class TC009_CustomerRequest extends TestBase {
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.fillInFirstPage(
                 guest.getFirstName(),
-                category,XmlParser.getTextByKey("Service"),
+                category,
+                XmlParser.getTextByKey("Service"),
                 XmlParser.getTextByKey("Question"),
                 "test request");
         user.atPlaceOrderPage.clickNextButton(RequestPages.First);
-        user.atPlaceOrderPage.priceRangeShouldBeVisible("100", "200")
-                .fillInSecondPage()
+
+        user.atPlaceOrderPage
+                .priceRangeShouldBeVisible("100", "200")
                 .clickNextButton(RequestPages.Second);
-        user.atPlaceOrderPage.fillInThirdPage(guest.getCity());
+
+        user.atPlaceOrderPage.fillInThirdPage(guest);
         user.atPlaceOrderPage.clickNextButton(RequestPages.Last);
 
-        var smsCode = new Admin().getSmsCode(guest.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(guest.getPhoneNumber());
 
-        user.atPlaceOrderPage.confirmPhoneNumber(smsCode)
+        user.atPlaceOrderPage
+                .confirmPhoneNumber(smsCode)
                 .successPageShouldBeVisible();
 
         user.atPlaceOrderPage.openRequestsPage();
@@ -44,7 +48,8 @@ public class TC009_CustomerRequest extends TestBase {
 
         user.atCustomerProfileRequestsPage.newRequestShouldBeVisible();
 
-        user.atCustomerProfilePersonalInfoPage.openPersonalInfo()
+        user.atCustomerProfilePersonalInfoPage
+                .openPersonalInfo()
                 .verifyProfileData(guest);
     }
 }

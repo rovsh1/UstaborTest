@@ -24,7 +24,7 @@ public class TC003_MasterForgotPassword extends TestBase {
         user.atHomePage.clickForgotPassword();
         user.atHomePage.requestNewPassword(master.getLogin());
 
-        var smsCode = new Admin().getSmsCode(master.getLogin());
+        var smsCode = Admin.getInstance().getSmsCode(master.getLogin());
         user.atHomePage.enterAuthCodeAndSubmit(smsCode);
 
         var newPassword = DataGenerator.getPassword();

@@ -23,8 +23,9 @@ public class Admin {
 
     private Executor executor;
     private final String baseUrl;
+    private static Admin instance;
 
-    public Admin() {
+    private Admin() {
         try {
             executor = Executor.newInstance(
                     HttpClientBuilder
@@ -38,6 +39,14 @@ public class Admin {
         }
         baseUrl = Config.getAdminUrl();
         login();
+    }
+
+    public static Admin getInstance() {
+        if (instance == null) {
+            instance = new Admin();
+        }
+
+        return instance;
     }
 
     public void deleteMaster(String id) {

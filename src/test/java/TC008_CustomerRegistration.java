@@ -23,7 +23,7 @@ public class TC008_CustomerRegistration extends TestBase {
 
         user.atHomePage.registerAsCustomer(customer);
 
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
 
         user.atHomePage.enterAuthCodeAndSubmit(smsCode);
         user.atCustomerProfilePersonalInfoPage.verifyCustomerProfilePageIsOpened();

@@ -28,7 +28,7 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
         user.atHomePage.openHomePage();
 
         user.atHomePage.registerAsCustomer(customer);
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
         user.atHomePage.enterAuthCodeAndSubmit(smsCode);
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
@@ -37,7 +37,7 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
     @Test
     public void verifyRequestAssignToMaster() throws TimeoutException {
         user.atHomePage.openPlaceOrderPage();
-        user.atPlaceOrderPage.placeOrder(customer, category);
+        user.atPlaceOrderPage.placeOrderForLoggedUser(customer, category);
         user.atCustomerProfileRequestsPage.openRequestsPage();
 
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();

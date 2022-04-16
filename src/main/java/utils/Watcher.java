@@ -21,23 +21,22 @@ public class Watcher extends TestWatcher {
     }
 
     private void cleanUp() {
-        var admin = new Admin();
         users.forEach((user) -> {
             if (user.getProfileId() != null) {
 
                 switch (user.getClass().getSimpleName()) {
                     case "Master":
-                        admin.deleteMaster(user.getProfileId());
+                        Admin.getInstance().deleteMaster(user.getProfileId());
                         break;
                     case "User":
-                        admin.deleteCustomer(user.getProfileId());
+                        Admin.getInstance().deleteCustomer(user.getProfileId());
                         break;
                 }
             }
         });
 
         if (category != null && category.getSystemId() != null) {
-            admin.deleteCategory(category.getSystemId());
+            Admin.getInstance().deleteCategory(category.getSystemId());
         }
     }
 

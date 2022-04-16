@@ -29,10 +29,10 @@ public class TC005a_MasterFeedback extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.registerAsCustomer(customer);
 
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
         user.atHomePage.enterAuthCodeAndSubmit(smsCode);
 
-        var password = new Admin().getSmsPassword(customer.getPhoneNumber());
+        var password = Admin.getInstance().getSmsPassword(customer.getPhoneNumber());
         customer.setPassword(password);
     }
 
