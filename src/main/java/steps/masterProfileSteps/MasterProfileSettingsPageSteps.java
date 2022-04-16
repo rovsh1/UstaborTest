@@ -1,6 +1,5 @@
 package steps.masterProfileSteps;
 
-import entities.CategoryCheckbox;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfileSettingsPage;
 
