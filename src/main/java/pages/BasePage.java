@@ -4,7 +4,6 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
-import org.openqa.selenium.devtools.v85.network.Network;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
@@ -15,7 +14,6 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -400,36 +398,5 @@ public class BasePage extends PageObject {
 
     public void resendCode() {
         repeatSendCode.click();
-    }
-
-    public void setupListener() {
-        var dt = getDevTools();
-        dt.createSession();
-
-        dt.send(Network.enable(Optional.empty(), Optional.empty(), Optional.of(100000000)));
-        dt.addListener(Network.responseReceived(), responseReceived -> {
-
-            String url = responseReceived.getResponse().getUrl();
-
-            if (url.contains("registration")) {
-                var status = responseReceived.getResponse().getStatus();
-//                var payload = dt.send(Network.getRequestPostData(responseReceived.getRequestId()));
-//                var body = dt.send(Network.getResponseBody(responseReceived.getRequestId())).getBody();
-
-                System.out.println(url);
-                System.out.println(status);
-//                System.out.println(payload);
-//                System.out.println(body);
-            }
-
-            if (url.contains("phoneconfirm")) {
-                var status = responseReceived.getResponse().getStatus();
-//                var body = dt.send(Network.getResponseBody(responseReceived.getRequestId())).getBody();
-
-                System.out.println(url);
-                System.out.println(status);
-//                System.out.println(body);
-            }
-        });
     }
 }

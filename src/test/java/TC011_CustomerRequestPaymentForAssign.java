@@ -12,12 +12,14 @@ import java.util.concurrent.TimeoutException;
 @AddCategory(promotionAndClickPrice = true, addServiceQuestion = true)
 @AddMasters(masters = 1, addProject = false)
 @WithTag("new")
-public class TC011_CustomerRequestWithdrawAmount extends TestBase {
+public class TC011_CustomerRequestPaymentForAssign extends TestBase {
 
     @Test
     public void verifyMasterClickPriceWithdraw() throws TimeoutException {
         var customer = DataGenerator.getGuestCustomer();
         watcher.users.add(customer);
+
+        admin.addMoneyToMaster(10000, watcher.getMaster());
 
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.placeOrder(customer, category);
@@ -29,12 +31,13 @@ public class TC011_CustomerRequestWithdrawAmount extends TestBase {
         user.atHomePage.logsOut();
 
         admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.assignRequestToMaster(watcher.getMaster());
+        admin.atRequestsPage.assignRequestToMasterForPayment(watcher.getMaster());
 
         user.atHomePage.openHomePage();
         user.atHomePage.login(watcher.getMaster(), true);
 
         user.atMasterProfileRequestsPage.openRequestsPage();
+        user.atMasterProfileRequestsPage.verifyBalance(9000);
         user.atMasterProfileRequestsPage.openRequest();
 
         user.atMasterRequestPage.clickConnectClientButton();

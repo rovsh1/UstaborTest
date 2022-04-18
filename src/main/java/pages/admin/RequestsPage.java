@@ -19,6 +19,8 @@ public class RequestsPage extends BaseAdminPage {
     @FindBy(xpath = "//a[@data-action='add']")
     private WebElementFacade freeAdd;
 
+    @FindBy(xpath = "//a[@data-action='add-pay']")
+    private WebElementFacade paymentAdd;
 
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitMasterAssignBtn;
@@ -99,5 +101,10 @@ public class RequestsPage extends BaseAdminPage {
 
     public void clickMenu() {
         menuBtn.click();
+    }
+
+    public void assignForPayment() {
+        actionsBtn.click();
+        paymentAdd.click();
     }
 }

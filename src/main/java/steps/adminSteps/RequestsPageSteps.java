@@ -27,10 +27,18 @@ public class RequestsPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assignRequestToMaster(Master master) {
+    public void assignRequestToMasterForFree(Master master) {
         requestsPage.openAssignMasterForm();
         requestsPage.findMaster(master.getLastName());
         requestsPage.assignForFree();
+        requestsPage.waitForLoaderDisappears(180000);
+    }
+
+    @Step
+    public void assignRequestToMasterForPayment(Master master) {
+        requestsPage.openAssignMasterForm();
+        requestsPage.findMaster(master.getLastName());
+        requestsPage.assignForPayment();
         requestsPage.waitForLoaderDisappears(180000);
     }
 

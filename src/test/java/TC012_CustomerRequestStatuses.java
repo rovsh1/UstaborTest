@@ -34,7 +34,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atHomePage.logsOut();
 
         admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.assignRequestToMaster(watcher.getMaster());
+        admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
         try {
             Thread.sleep(15000);
         } catch (InterruptedException e) {

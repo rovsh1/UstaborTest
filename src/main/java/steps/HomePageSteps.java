@@ -316,8 +316,4 @@ public class HomePageSteps extends ScenarioSteps {
     public void waitForLoaderDisappears() {
         homePage.waitForLoaderDisappears();
     }
-
-    public void setupListener() {
-        homePage.setupListener();
-    }
 }
