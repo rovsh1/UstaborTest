@@ -121,4 +121,9 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     public void waitForCodeForm() {
         placeOrderPage.waitForSubmitCodeForm();
     }
+
+    @Step
+    public String getSmsCode(String phoneNumber) throws InterruptedException {
+        return placeOrderPage.getSmsCode(phoneNumber);
+    }
 }

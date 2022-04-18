@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 public class TC009_CustomerRequest extends TestBase {
 
     @Test
-    public void verifyUserCanCreateCustomerRequest() throws TimeoutException {
+    public void verifyUserCanCreateCustomerRequest() throws TimeoutException, InterruptedException {
         var guest = DataGenerator.getGuestCustomer();
         watcher.users.add(guest);
 
@@ -38,7 +38,7 @@ public class TC009_CustomerRequest extends TestBase {
 
         user.atPlaceOrderPage.waitForCodeForm();
 
-        var smsCode = Admin.getInstance().getSmsCode(guest.getPhoneNumber());
+        var smsCode = user.atPlaceOrderPage.getSmsCode(guest.getPhoneNumber());
 
         user.atPlaceOrderPage
                 .confirmPhoneNumber(smsCode)

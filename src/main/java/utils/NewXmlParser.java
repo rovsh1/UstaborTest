@@ -18,7 +18,7 @@ public class NewXmlParser {
         if (result.find()) {
             return result.group(0);
         } else {
-            return null;
+            return "";
         }
     }
 

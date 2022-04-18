@@ -3,6 +3,7 @@ package pages;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import enums.RequestPages;
+import utils.Admin;
 
 public class PlaceOrderPage extends BasePage {
 
@@ -148,5 +149,16 @@ public class PlaceOrderPage extends BasePage {
 
     public void enterAdditionalInfo(String info) {
         additionalInfoInput.sendKeys(info);
+    }
+
+    public String getSmsCode(String phoneNumber) throws InterruptedException {
+        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+
+        if (smsCode.isEmpty()) {
+            clickResendCode();
+            Thread.sleep(3000);
+        }
+
+        return Admin.getInstance().getSmsCode(phoneNumber);
     }
 }

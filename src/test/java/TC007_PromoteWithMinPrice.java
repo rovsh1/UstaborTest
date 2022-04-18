@@ -24,6 +24,7 @@ public class TC007_PromoteWithMinPrice extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginIfNeeded(master);
+
         user.atMasterProfilePage.openProfilePage();
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.MinimalPrice);

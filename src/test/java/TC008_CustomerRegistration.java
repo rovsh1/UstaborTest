@@ -17,7 +17,7 @@ public class TC008_CustomerRegistration extends TestBase {
     private User customer;
 
     @Test
-    public void customerRegistration() {
+    public void customerRegistration() throws InterruptedException {
         customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 

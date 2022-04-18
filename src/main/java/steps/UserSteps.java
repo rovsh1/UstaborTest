@@ -2,6 +2,7 @@ package steps;
 
 import entities.Master;
 import entities.User;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
@@ -75,12 +76,13 @@ public class UserSteps extends ScenarioSteps {
         master.setProfileId(atMasterProfilePage.getProfileId());
     }
 
-    public String getSmsCode(User user) {
+    @Step
+    public String getSmsCode(User user) throws InterruptedException {
         var smsCode = Admin.getInstance().getSmsCode(user.getPhoneNumber());
 
         if (smsCode == null) {
             atHomePage.resendCode();
-            atHomePage.waitForLoaderDisappears();
+            Thread.sleep(5000);
         }
 
         return Admin.getInstance().getSmsCode(user.getPhoneNumber());

@@ -103,6 +103,13 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'/sitemap/')]")
     private WebElementFacade siteMapLink;
 
+    @FindBy(xpath = "//div[@class='refresh-wrap']/a")
+    private WebElementFacade resendCode;
+
+    public void clickResendCode() {
+        resendCode.click();
+    }
+
     public void setTimeouts(int duration, TemporalUnit timeUnit) {
         setImplicitTimeout(duration, timeUnit);
         setWaitForTimeout(duration * 1000);
@@ -406,12 +413,12 @@ public class BasePage extends PageObject {
 
             if (url.contains("registration")) {
                 var status = responseReceived.getResponse().getStatus();
-                var payload = dt.send(Network.getRequestPostData(responseReceived.getRequestId()));
+//                var payload = dt.send(Network.getRequestPostData(responseReceived.getRequestId()));
 //                var body = dt.send(Network.getResponseBody(responseReceived.getRequestId())).getBody();
 
                 System.out.println(url);
                 System.out.println(status);
-                System.out.println(payload);
+//                System.out.println(payload);
 //                System.out.println(body);
             }
 

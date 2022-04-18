@@ -29,6 +29,7 @@ public class TC006_PromoteWithRecommendedPrice extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.loginIfNeeded(master);
 
+        user.atMasterProfilePage.openProfilePage();
         user.atMasterPromotionPage.openPromotionTab();
         user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.RecommendedPrice);
         user.atMasterProjectsPage.logsOut();
