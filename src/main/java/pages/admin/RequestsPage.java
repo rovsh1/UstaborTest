@@ -35,16 +35,13 @@ public class RequestsPage extends BaseAdminPage {
     @FindBy(xpath = "//div[@class='btn-menu']")
     private WebElementFacade menuBtn;
 
-    @FindBy(xpath = "//a[@class='delete']")
+    @FindBy(xpath = "//a[contains(@href, 'delete')]")
     private WebElementFacade deleteBtn;
 
-    @FindBy(xpath = "//a[@id='btn-request-delete']")
-    private WebElementFacade prodDeleteBtn;
-
     @FindBy(xpath = "//textarea[@id='form_data_note']")
-    private WebElementFacade prodDeleteReason;
+    private WebElementFacade deleteReason;
 
-    @FindBy(xpath = "//button[contains(@class, 'button-submit')]")
+    @FindBy(xpath = "//button[contains(@class, 'btn-submit')]")
     private WebElementFacade submitBtn;
 
     public void openPage(String requestId) {
@@ -90,13 +87,17 @@ public class RequestsPage extends BaseAdminPage {
     }
 
     public void deleteRequest() {
-        prodDeleteBtn.click();
-        prodDeleteReason.sendKeys("test");
+        deleteBtn.click();
+        deleteReason.sendKeys("test");
         submitBtn.click();
     }
 
     public void assignForFree() {
         actionsBtn.click();
         freeAdd.click();
+    }
+
+    public void clickMenu() {
+        menuBtn.click();
     }
 }

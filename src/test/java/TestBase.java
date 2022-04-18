@@ -87,6 +87,8 @@ public class TestBase {
             user.atHomePage.homePageShouldBeVisible();
             setCountryAndLanguage();
         }
+
+        user.atHomePage.setupListener();
     }
 
     String getText(String key) {

@@ -25,7 +25,7 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     @FindBy(xpath = "//a[contains(@href,'close')]")
     private WebElementFacade hideRequest;
 
-    @FindBy(xpath = "//span[contains(@class, 'CUSTOMER_REQUEST_STATUS')]")
+    @FindBy(xpath = "//span[contains(@class, 'ui-request-status')]")
     private WebElementFacade requestStatus;
 
     public void requestShouldBeVisible() {
@@ -53,7 +53,7 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     }
 
     public void verifyRequestStatus(String status) {
-        requestStatus.shouldContainOnlyText(status);
+        requestStatus.shouldContainText(status);
     }
 
     public void closePopup() {

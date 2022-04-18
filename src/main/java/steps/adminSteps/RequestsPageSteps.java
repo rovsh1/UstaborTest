@@ -46,6 +46,7 @@ public class RequestsPageSteps extends ScenarioSteps {
     @Step
     public void deleteRequest(String requestId) {
         openRequestById(requestId);
+        requestsPage.clickMenu();
         requestsPage.deleteRequest();
         requestsPage.waitForLoaderDisappears();
     }
