@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public class CronTasksPage extends BaseAdminPage {
 
-    private String cronTaskXpath = "//tr[.//a[@data-id='%s']]//td[@class='column-run column-text']";
+    private String cronTaskXpath = "//a[@data-id='%s' and not(@style='display: none;')]";
 
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "system/cron");

@@ -114,15 +114,10 @@ public class Admin {
 
         try {
             logger.info("Run cron task");
-            var result = executor.execute(Request.Get(url))
+            executor.execute(Request.Get(url))
                     .returnResponse()
                     .getStatusLine()
                     .getStatusCode();
-
-            if (result != 200) {
-                logger.info("Cron task has been failed");
-                throw new HttpResponseException(result, "Cron task has been failed");
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
