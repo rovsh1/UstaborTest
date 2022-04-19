@@ -14,7 +14,7 @@ public class UU293_MainPageUiTest extends TestBase {
     @Test
     public void mainPageUiTest() throws TimeoutException {
 
-        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest()) {
+        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest() && !Config.isBildrlist()) {
             user.atHomePage.verifyHeaderCountriesListIsVisible();
         }
 
@@ -32,7 +32,7 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyRandomFaqItem();
 
-        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest()) {
+        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest() && !Config.isBildrlist()) {
             user.atHomePage.verifyFooterCountriesListIsVisible();
         }
 
@@ -47,7 +47,7 @@ public class UU293_MainPageUiTest extends TestBase {
             user.atHomePage.verifyMobileViewLanguageMenu();
         }
 
-        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest()) {
+        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest() && !Config.isBildrlist()) {
             user.atHomePage.verifyMobileViewCountriesMenu();
         }
 

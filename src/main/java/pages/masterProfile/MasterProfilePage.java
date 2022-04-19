@@ -27,7 +27,7 @@ public class MasterProfilePage extends MasterProfileBasePage {
     @FindBy(xpath = "//a[contains(@class, 'button-edit')]")
     private WebElementFacade profileSettingsBtn;
 
-    @FindBy(xpath = "//div[@class='user-profile']//div[contains(@class, 'rating-stars')]")
+    @FindBy(xpath = "//div[@class=' user-profile']//div[contains(@class, 'rating-stars')]")
     private WebElementFacade masterRating;
 
     @FindBy(xpath = "//a[@href='#reviews']")
@@ -50,7 +50,7 @@ public class MasterProfilePage extends MasterProfileBasePage {
     }
 
     public void masterRatingShouldBe(String rating) {
-        assertThat(masterRating.getAttribute("class")).isEqualTo(rating);
+        assertThat(masterRating.getAttribute("class")).contains(rating);
     }
 
     public void masterFeedbackShouldContain(String feedback) {

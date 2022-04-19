@@ -98,7 +98,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='btn-close']")
     private WebElementFacade closePopupBtn;
 
-    @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'/sitemap/')]")
+    @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'sitemap')]")
     private WebElementFacade siteMapLink;
 
     @FindBy(xpath = "//div[@class='refresh-wrap']/a")

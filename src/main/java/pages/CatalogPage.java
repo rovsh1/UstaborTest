@@ -36,7 +36,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//nav[@class='breadcrumbs']/a")
     private List<WebElementFacade> headerNavigationElements;
 
-    @FindBy(xpath = "//div[contains(@class, 'category selected')]")
+    @FindBy(xpath = "//div[@class='control selectbox icon category']")
     private WebElementFacade selectedCategory;
 
     @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item project']")
@@ -76,16 +76,16 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@class='menu-popup']//button[@type='submit']")
     private WebElementFacade filterSubmitBtn;
 
-    @FindBy(xpath = "//div[@class='menu-popup']//div[@class='button-close']")
+    @FindBy(xpath = "//div[@class='menu-popup']//div[@class='btn-close']")
     private WebElementFacade filterCloseBtn;
 
     @FindBy(xpath = "//div[@class='menu-popup']//button[@type='reset']")
     private WebElementFacade filterResetBtn;
 
-    @FindBy(xpath = "//div[@class='window-categories categories-tabs']")
+    @FindBy(xpath = "//div[@class='window window-categories']//div[@id='categories']")
     private WebElementFacade filterCategoryWindow;
 
-    @FindBy(xpath = "//div[@class='window-categories categories-tabs']//div[@class='button-close']")
+    @FindBy(xpath = "//div[@class='window window-categories']//div[@class='btn-close']")
     private WebElementFacade filterCategoryWindowCloseBtn;
     //endregion
 
@@ -149,7 +149,7 @@ public class CatalogPage extends SearchBlock {
     }
 
     public Master openRandomMasterProfile() {
-        var randomMaster = mastersList.get(new Random().nextInt(mastersList.size()));
+        var randomMaster = mastersList.get(new Random().nextInt(mastersList.size() - 5) + 5);
         var master = getMasterInfo(randomMaster);
         randomMaster.findElement(By.xpath(avatarXpath)).click();
 

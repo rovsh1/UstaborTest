@@ -2,6 +2,7 @@ import annotations.AddCategory;
 import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Admin;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @AddCategory(promotionAndClickPrice = true, addServiceQuestion = true)
 @AddMasters(addProject = false)
 @WithTag("new")
+@Ignore
 public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
 
     @Test

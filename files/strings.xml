@@ -22,7 +22,7 @@
     <string name="ForgotPassword">этой ссылке</string>
 
     <string name="PhoneHintPopupText_new_test">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте вопросы оператору</string>
-    <string name="PhoneHintPopupText_test">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте вопросы оператору</string>
+    <string name="PhoneHintPopupText_test"></string>
     <string name="PhoneHintPopupText_ustabor">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте вопросы оператору</string>
     <string name="PhoneHintPopupText_fixinglist">Звоните на нашу "горячую" линию с 9:00 до 18:00, и задайте вопросы оператору</string>
     <string name="PhoneHintPopupText_fixinglist_kg">C 9:00 - 18:00 Звони на нашу линию, наш менеджер ответит.</string>
@@ -39,7 +39,7 @@
     <string name="SiteDomainBuild_Full">Строительный</string>
     <string name="SiteDomainAuto">Авто</string>
     <string name="SiteDomainTech">Техника</string>
-    <string name="SiteDomainHome">Дом быта</string>
+    <string name="SiteDomainHome">Бытовые услуги</string>
     <string name="SiteDomainMaterials">Стройматериалы</string>
 
     <string name="DomainBuild_MinPromo_Landscape">Ландшафтный дизайн</string>
