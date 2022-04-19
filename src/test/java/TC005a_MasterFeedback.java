@@ -55,10 +55,12 @@ public class TC005a_MasterFeedback extends TestBase {
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atCustomerProfilePersonalInfoPage.verifyMyMastersListContains(watcher.getMaster().getLastName());
 
+        Admin.getInstance().runCron("2");
+        admin.waitForCronTaskCompleted("2");
+
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(watcher.getMaster().getCategory().getName());
-        user.atCatalogPage.sortMastersByRating();
 
         user.atCatalogPage.verifyMastersSortedByRate(watcher.getMaster(), 5);
     }

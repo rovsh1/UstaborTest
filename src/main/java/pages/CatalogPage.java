@@ -283,7 +283,14 @@ public class CatalogPage extends SearchBlock {
     public void verifyMastersSortedByRate(Master master, int rating) {
         var masterRating = 0;
 
-        var ratingString = mastersList.get(0).findElements(By.xpath(ratingXpath)).get(0).getText();
+        var attribute = mastersList
+                .get(0)
+                .findElements(By.xpath(ratingXpath))
+                .get(0)
+                .getAttribute("class");
+
+        var ratingString = attribute.substring(attribute.length() - 1);
+
         if (!ratingString.equals("")) {
             masterRating = Integer.parseInt(ratingString);
         }

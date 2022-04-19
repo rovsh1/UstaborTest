@@ -2,6 +2,7 @@ package steps.adminSteps;
 
 import entities.Master;
 import entities.Category;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -30,6 +31,9 @@ public class AdminSteps extends ScenarioSteps {
 
     @Steps
     public AddServicePageSteps atAddEditServicePage;
+
+    @Steps
+    public CronTasksPageSteps atCronTasksPage;
 
     public void addTestCategory(Category category) {
         atAdminHomePage.loginAsAdmin();
@@ -60,5 +64,10 @@ public class AdminSteps extends ScenarioSteps {
 
     public void setServicePrices(String country, String minPrice, String maxPrice) {
         atAddRequestQuestionsPage.setPriceForCurrentCountry(country, minPrice, maxPrice);
+    }
+
+    @Step
+    public void waitForCronTaskCompleted(String taskId) {
+        atCronTasksPage.waitForCronTaskCompleted(taskId);
     }
 }

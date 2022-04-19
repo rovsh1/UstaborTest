@@ -123,7 +123,6 @@ public class Admin {
                 logger.info("Cron task has been failed");
                 throw new HttpResponseException(result, "Cron task has been failed");
             }
-            logger.info("Cron task completed");
 
         } catch (IOException e) {
             e.printStackTrace();
