@@ -9,6 +9,7 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
 
     @Step
     public void changePassword(String newPassword) {
+        masterProfileSettingsPage.openPasswordFormIfNeeded();
         masterProfileSettingsPage.enterNewPassword(newPassword);
         masterProfileSettingsPage.confirmNewPassword(newPassword);
         masterProfileSettingsPage.clickSaveNewPasswordBtn();
@@ -33,6 +34,6 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
 
     @Step
     public void openChangePasswordForm() {
-        masterProfileSettingsPage.clickChangePasswordBtn();
+        masterProfileSettingsPage.openPasswordFormIfNeeded();
     }
 }

@@ -389,7 +389,9 @@ public class BasePage extends PageObject {
     }
 
     public void clickCloseBtn() {
-        closePopupBtn.click();
+        if (closePopupBtn.isVisible()) {
+            closePopupBtn.click();
+        }
     }
 
     public void waitForSubmitCodeForm(){

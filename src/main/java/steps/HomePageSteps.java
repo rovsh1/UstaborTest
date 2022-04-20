@@ -58,6 +58,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.signInFormEnterLogin(login);
         homePage.signInFormEnterPassword(password);
         homePage.signInFormClickLoginBtn();
+        homePage.waitForLoaderDisappears();
         return homePage.isLoggedIn();
     }
 

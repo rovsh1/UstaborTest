@@ -60,8 +60,8 @@ public class DataGenerator {
 
         user.setPassword(password);
         user.setPhoneNumber(faker.number().digits(9));
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
+        user.setFirstName(faker.name().firstName() + faker.number().digits(4));
+        user.setLastName(faker.name().lastName() + faker.number().digits(4));
         user.setAboutMe(faker.name().fullName());
 
         return user;

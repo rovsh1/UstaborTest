@@ -67,7 +67,7 @@ public class AdminSteps extends ScenarioSteps {
     }
 
     @Step
-    public void waitForCronTaskCompleted(String taskId) {
-        atCronTasksPage.waitForCronTaskCompleted(taskId);
+    public void waitForCronTaskCompleted(String taskId, int timeout) {
+        atCronTasksPage.waitForCronTaskCompleted(taskId, timeout);
     }
 }

@@ -149,7 +149,9 @@ public class CatalogPage extends SearchBlock {
     }
 
     public Master openRandomMasterProfile() {
-        var randomMaster = mastersList.get(new Random().nextInt(mastersList.size() - 5) + 5);
+        var number = new Random().nextInt(mastersList.size() - 5) + 5;
+        logger.info("Master number: " + number);
+        var randomMaster = mastersList.get(number);
         var master = getMasterInfo(randomMaster);
         randomMaster.findElement(By.xpath(avatarXpath)).click();
 

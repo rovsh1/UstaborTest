@@ -35,6 +35,7 @@ public class TC011_CustomerRequestFreeAssign extends TestBase {
 
         user.atHomePage.openHomePage();
         user.atHomePage.login(watcher.getMaster(), true);
+        user.atHomePage.waitForLoaderDisappears();
 
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyBalance(10000);

@@ -41,6 +41,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
         confirmPhoneNumber(smsCode);
+        placeOrderPage.waitForLoaderDisappears();
     }
 
     @Step
@@ -62,6 +63,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
         confirmPhoneNumber(smsCode);
+        placeOrderPage.waitForLoaderDisappears();
     }
 
     @Step
