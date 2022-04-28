@@ -11,6 +11,8 @@ public class HomePageSteps extends ScenarioSteps {
     public void loginAsAdmin() {
         homePage.openPage();
         homePage.enterLogin(Config.getUsers().getAdmin().getEmail());
+        System.out.println(Config.getUsers().getAdmin().getEmail());
+        System.out.println(Config.getUsers().getAdmin().getPassword());
         homePage.enterPassword(Config.getUsers().getAdmin().getPassword());
         homePage.clickLoginBtn();
         homePage.waitForLogin();
