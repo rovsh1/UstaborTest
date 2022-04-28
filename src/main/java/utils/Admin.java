@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeoutException;
 
 public class Admin {
 
@@ -126,6 +127,7 @@ public class Admin {
 
     public String getSmsCode(String phoneNumber) {
         var smsLog = getSmsLogPage();
+        logger.info(smsLog);
         var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);
         logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
 
@@ -166,6 +168,7 @@ public class Admin {
                 throw new HttpResponseException(result, "Login failed");
             }
             logger.info("Admin login successfully");
+
 
         } catch (IOException e) {
             e.printStackTrace();
