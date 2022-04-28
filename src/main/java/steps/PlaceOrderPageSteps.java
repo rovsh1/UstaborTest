@@ -106,11 +106,6 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void successPageShouldBeVisible() {
-        placeOrderPage.successPageShouldBeVisible();
-    }
-
-    @Step
     public void openRequestsPage() {
         placeOrderPage.clickMyRequestsBtn();
     }
