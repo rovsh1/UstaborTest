@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import enums.RequestPages;
 import utils.Admin;
 
+import java.time.Duration;
+
 public class PlaceOrderPage extends BasePage {
 
     //region First page
@@ -60,7 +62,7 @@ public class PlaceOrderPage extends BasePage {
     private WebElementFacade confirmBtn;
     //endregion
 
-    @FindBy(xpath = "//a[contains(@href, '/customer/requests/')]")
+    @FindBy(xpath = "//a[contains(@href, '/customer/requests')]")
     private WebElementFacade myRequestsBtn;
 
     public void nameInputShouldBeVisible() {
@@ -68,7 +70,7 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void domainDropdownShouldBeVisible() {
-        domainDropdown.shouldBeVisible();
+        domainDropdown.shouldBePresent();
     }
 
     public void categoryDropdownShouldBeVisible() {
@@ -89,7 +91,6 @@ public class PlaceOrderPage extends BasePage {
 
     public void selectCategory(String systemId) {
         categoryDropdown.selectByValue(systemId);
-        waitForLoaderDisappears();
     }
 
     public void clickNextButton(RequestPages pageNumber) {
@@ -160,5 +161,13 @@ public class PlaceOrderPage extends BasePage {
         }
 
         return Admin.getInstance().getSmsCode(phoneNumber);
+    }
+
+    public void makeSureFormIsVisible() {
+        if (categoryDropdown.isVisible()) {
+            return;
+        }
+
+        getDriver().navigate().refresh();
     }
 }

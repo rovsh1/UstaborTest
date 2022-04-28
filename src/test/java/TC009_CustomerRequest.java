@@ -40,10 +40,9 @@ public class TC009_CustomerRequest extends TestBase {
 
         var smsCode = user.atPlaceOrderPage.getSmsCode(guest.getPhoneNumber());
 
-        user.atPlaceOrderPage
-                .confirmPhoneNumber(smsCode)
-                .successPageShouldBeVisible();
+        user.atPlaceOrderPage.confirmPhoneNumber(smsCode);
 
+        user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atPlaceOrderPage.openRequestsPage();
 
         guest.setProfileId(user.atCustomerProfileRequestsPage.getCustomerProfileId());

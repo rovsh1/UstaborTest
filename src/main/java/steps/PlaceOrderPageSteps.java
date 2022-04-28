@@ -15,6 +15,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
     @Step
     public void verifyPage() {
+        placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.nameInputShouldBeVisible();
         placeOrderPage.domainDropdownShouldBeVisible();
         placeOrderPage.categoryDropdownShouldBeVisible();
@@ -68,6 +69,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
     @Step
     public void fillInFirstPage(Category category, String service, String question, String info) {
+        placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.selectCategory(category.getSystemId());
         placeOrderPage.selectService(service);
         placeOrderPage.selectQuestion(question);
@@ -76,6 +78,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
     @Step
     public void fillInFirstPage(String userName, Category category, String service, String question, String info) {
+        placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.enterName(userName);
         placeOrderPage.selectCategory(category.getSystemId());
         placeOrderPage.selectService(service);

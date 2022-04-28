@@ -26,10 +26,8 @@ public class TC005_AddBadgesToMaster extends TestBase {
         admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addAllBadgesToMaster(master);
 
-        Admin.getInstance().runCron("2");
-        Admin.getInstance().runCron("3");
-        admin.waitForCronTaskCompleted("2", 600);
-        admin.waitForCronTaskCompleted("3", 600);
+        Admin.getInstance().runCron("1");
+        admin.waitForCronTaskCompleted("1", 200);
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();

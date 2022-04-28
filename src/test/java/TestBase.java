@@ -12,10 +12,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import steps.UserSteps;
 import steps.adminSteps.AdminSteps;
-import utils.Config;
-import utils.DataGenerator;
-import utils.Watcher;
-import utils.XmlParser;
+import utils.*;
 
 import java.util.concurrent.TimeoutException;
 
@@ -87,6 +84,8 @@ public class TestBase {
             user.atHomePage.homePageShouldBeVisible();
             setCountryAndLanguage();
         }
+
+        Admin.getInstance();
     }
 
     String getText(String key) {

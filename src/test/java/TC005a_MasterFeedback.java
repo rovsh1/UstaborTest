@@ -55,8 +55,8 @@ public class TC005a_MasterFeedback extends TestBase {
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atCustomerProfilePersonalInfoPage.verifyMyMastersListContains(watcher.getMaster().getLastName());
 
-        Admin.getInstance().runCron("2");
-        admin.waitForCronTaskCompleted("2", 600);
+        Admin.getInstance().runCron("1");
+        admin.waitForCronTaskCompleted("1", 200);
 
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
