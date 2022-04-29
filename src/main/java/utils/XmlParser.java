@@ -1,5 +1,7 @@
 package utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -15,12 +17,14 @@ import java.util.List;
 
 public class XmlParser {
 
+    private static final Logger logger = LoggerFactory.getLogger(XmlParser.class);
+
     public static String getTextByKey(String attribute) {
-        System.setProperty("file.encoding","UTF-8");
+//        System.setProperty("file.encoding","UTF-8");
         try {
-            Field charset = Charset.class.getDeclaredField("defaultCharset");
-            charset.setAccessible(true);
-            charset.set(null,null);
+//            Field charset = Charset.class.getDeclaredField("defaultCharset");
+//            charset.setAccessible(true);
+//            charset.set(null,null);
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setNamespaceAware(true);
@@ -45,44 +49,9 @@ public class XmlParser {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.info(e.getLocalizedMessage());
         }
 
         return null;
-    }
-
-    public static List<String> getAllValuesByPredicate(String attributePredicate) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        DocumentBuilder builder;
-        String xml = null;
-        var results = new ArrayList<String>();
-        try {
-            builder = factory.newDocumentBuilder();
-
-            xml = "files/strings.xml";
-
-            Document document = builder.parse(new File(xml));
-            NodeList nl = document.getElementsByTagName("string");
-
-            for (int i = 0; i < nl.getLength(); i++) {
-                Node node = nl.item(i);
-                NamedNodeMap nm = node.getAttributes();
-                if (nm != null) {
-                    String name = nm.getNamedItem("name").getNodeValue();
-
-                    if (name.startsWith(attributePredicate)) {
-                        results.add(node.getTextContent());
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return results;
     }
 }
