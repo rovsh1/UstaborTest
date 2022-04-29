@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.Admin;
 import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
@@ -25,7 +24,7 @@ public class TC008_CustomerRegistration extends TestBase {
 
         var smsCode = user.getSmsCode(customer);
 
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, customer.getPhoneNumber());
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
 
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());

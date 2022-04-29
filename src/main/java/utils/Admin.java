@@ -127,7 +127,6 @@ public class Admin {
 
     public String getSmsCode(String phoneNumber) {
         var smsLog = getSmsLogPage();
-        logger.info(smsLog);
         var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);
         logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
 

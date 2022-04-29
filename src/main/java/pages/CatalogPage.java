@@ -15,6 +15,7 @@ import utils.Config;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -149,7 +150,7 @@ public class CatalogPage extends SearchBlock {
     }
 
     public Master openRandomMasterProfile() {
-        var number = new Random().nextInt(mastersList.size() - 5) + 5;
+        var number = ThreadLocalRandom.current().nextInt(5, mastersList.size() - 5);
         logger.info("Master number: " + number);
         var randomMaster = mastersList.get(number);
         var master = getMasterInfo(randomMaster);

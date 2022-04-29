@@ -25,7 +25,7 @@ public class TC013_CustomerRequestAutoAmountWithdraw extends TestBase {
 
         user.atHomePage.registerAsCustomer(customer);
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, customer.getPhoneNumber());
 
         var password = Admin.getInstance().getSmsPassword(customer.getPhoneNumber());
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();

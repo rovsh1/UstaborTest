@@ -108,6 +108,13 @@ public class BasePage extends PageObject {
         resendCode.click();
     }
 
+    public boolean isRefreshLinkVisible() {
+        setTimeouts(2, ChronoUnit.SECONDS);
+        var state = resendCode.isVisible();
+        resetTimeouts();
+        return state;
+    }
+
     public void setTimeouts(int duration, TemporalUnit timeUnit) {
         setImplicitTimeout(duration, timeUnit);
         setWaitForTimeout(duration * 1000);

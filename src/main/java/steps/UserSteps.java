@@ -70,7 +70,7 @@ public class UserSteps extends ScenarioSteps {
 
         var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());
 
-        atHomePage.enterAuthCodeAndSubmit(smsCode);
+        atHomePage.enterAuthCodeAndSubmit(smsCode, master.getPhoneNumber());
         atMasterProfilePage.masterProfilePagePageShouldBeVisible();
 
         master.setProfileId(atMasterProfilePage.getProfileId());

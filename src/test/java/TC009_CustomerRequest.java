@@ -37,10 +37,8 @@ public class TC009_CustomerRequest extends TestBase {
         user.atPlaceOrderPage.clickNextButton(RequestPages.Last);
 
         user.atPlaceOrderPage.waitForCodeForm();
-
         var smsCode = user.atPlaceOrderPage.getSmsCode(guest.getPhoneNumber());
-
-        user.atPlaceOrderPage.confirmPhoneNumber(smsCode);
+        user.atPlaceOrderPage.confirmPhoneNumber(smsCode, guest.getPhoneNumber());
 
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atPlaceOrderPage.openRequestsPage();

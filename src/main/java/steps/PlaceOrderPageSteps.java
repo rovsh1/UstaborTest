@@ -41,7 +41,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
         placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-        confirmPhoneNumber(smsCode);
+        confirmPhoneNumber(smsCode, smsCode);
         placeOrderPage.waitForLoaderDisappears();
     }
 
@@ -63,7 +63,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
         placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-        confirmPhoneNumber(smsCode);
+        confirmPhoneNumber(smsCode, smsCode);
         placeOrderPage.waitForLoaderDisappears();
     }
 
@@ -99,10 +99,21 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public PlaceOrderPageSteps confirmPhoneNumber(String smsCode) {
-        placeOrderPage.enterSmsCode(smsCode);
+    public void confirmPhoneNumber(String code, String number) {
+        placeOrderPage.enterSmsCode(code);
         placeOrderPage.clickConfirmButton();
-        return this;
+
+        if (placeOrderPage.isRefreshLinkVisible()) {
+            placeOrderPage.resendCode();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            var smsCode = Admin.getInstance().getSmsCode(number);
+            placeOrderPage.enterSmsCode(smsCode);
+            placeOrderPage.clickConfirmButton();
+        }
     }
 
     @Step

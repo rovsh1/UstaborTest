@@ -29,7 +29,7 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
         user.atHomePage.registerAsCustomer(customer);
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, customer.getPhoneNumber());
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
     }

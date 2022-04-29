@@ -5,6 +5,7 @@ import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.HomePage;
+import utils.Admin;
 
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -32,9 +33,22 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void enterAuthCodeAndSubmit(String code) {
+    public void enterAuthCodeAndSubmit(String code, String phoneNumber) {
         homePage.regFormEnterAuthCode(code);
         homePage.regFormClickSubmitAuthCode();
+
+        if (homePage.isRefreshLinkVisible()) {
+            homePage.resendCode();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+            homePage.regFormEnterAuthCode(smsCode);
+            homePage.regFormClickSubmitAuthCode();
+        }
+
         homePage.waitForLoaderDisappears();
     }
 
