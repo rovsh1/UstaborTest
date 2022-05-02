@@ -38,18 +38,23 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.regFormClickSubmitAuthCode();
 
         if (homePage.isRefreshLinkVisible()) {
-            homePage.resendCode();
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
-            homePage.regFormEnterAuthCode(smsCode);
-            homePage.regFormClickSubmitAuthCode();
+            retryEnterCode(phoneNumber);
         }
 
         homePage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void retryEnterCode(String phoneNumber) {
+        homePage.resendCode();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+        homePage.regFormEnterAuthCode(smsCode);
+        homePage.regFormClickSubmitAuthCode();
     }
 
     @Step

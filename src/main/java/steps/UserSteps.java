@@ -65,6 +65,7 @@ public class UserSteps extends ScenarioSteps {
     @Steps
     public MasterRequestPageSteps atMasterRequestPage;
 
+    @Step
     public void register(Master master, boolean randomCategory) {
         atHomePage.registerAsMaster(master, randomCategory);
 
