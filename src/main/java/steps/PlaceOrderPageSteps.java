@@ -112,11 +112,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     public void retryEnterCode(String phoneNumber) {
         placeOrderPage.resendCode();
         placeOrderPage.waitForLoaderDisappears();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
         placeOrderPage.enterSmsCode(smsCode);
         placeOrderPage.clickConfirmButton();

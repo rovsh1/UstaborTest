@@ -34,8 +34,8 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void enterAuthCodeAndSubmit(String code, String phoneNumber) {
-        homePage.regFormEnterAuthCode(code);
-        homePage.regFormClickSubmitAuthCode();
+//        homePage.regFormEnterAuthCode(code);
+//        homePage.regFormClickSubmitAuthCode();
 
         if (homePage.isRefreshLinkVisible()) {
             retryEnterCode(phoneNumber);
@@ -47,11 +47,7 @@ public class HomePageSteps extends ScenarioSteps {
     @Step
     public void retryEnterCode(String phoneNumber) {
         homePage.resendCode();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        homePage.waitForLoaderDisappears();
         var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
         homePage.regFormEnterAuthCode(smsCode);
         homePage.regFormClickSubmitAuthCode();
