@@ -104,16 +104,22 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.clickConfirmButton();
 
         if (placeOrderPage.isRefreshLinkVisible()) {
-            placeOrderPage.resendCode();
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            var smsCode = Admin.getInstance().getSmsCode(number);
-            placeOrderPage.enterSmsCode(smsCode);
-            placeOrderPage.clickConfirmButton();
+            retryEnterCode(number);
         }
+    }
+
+    @Step
+    public void retryEnterCode(String phoneNumber) {
+        placeOrderPage.resendCode();
+        placeOrderPage.waitForLoaderDisappears();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+        placeOrderPage.enterSmsCode(smsCode);
+        placeOrderPage.clickConfirmButton();
     }
 
     @Step
