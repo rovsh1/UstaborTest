@@ -22,8 +22,11 @@
     </appender>
 
     <logger name="root" level="DEBUG"/>
+    <logger name="root" level="ERROR"/>
     <logger name="net.serenitybdd" level="INFO"/>
+    <logger name="net.serenitybdd" level="ERROR"/>
     <logger name="net.thucydides" level="INFO"/>
+    <logger name="net.thucydides" level="ERROR"/>
 
     <logger name="org.apache" level="WARN" />
     <logger name="httpclient" level="WARN" />

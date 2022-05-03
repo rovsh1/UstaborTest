@@ -34,8 +34,8 @@ public class HomePageSteps extends ScenarioSteps {
 
     @Step
     public void enterAuthCodeAndSubmit(String code, String phoneNumber) {
-//        homePage.regFormEnterAuthCode(code);
-//        homePage.regFormClickSubmitAuthCode();
+        homePage.regFormEnterAuthCode(code);
+        homePage.regFormClickSubmitAuthCode();
 
         if (homePage.isRefreshLinkVisible()) {
             retryEnterCode(phoneNumber);
