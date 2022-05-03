@@ -18,14 +18,14 @@ public class CustomDriver implements DriverSource {
             case chrome:
                 try {
                     System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
-                    ChromeOptions options = new ChromeOptions();
+                    var options = new ChromeOptions();
                     options.addArguments("--headless");
                     options.addArguments("--window-size=1920,1080");
                     options.addArguments("start-maximized");
                     options.addArguments("--start-fullscreen");
                     options.addArguments("user-agent=qatesting");
                     options.addArguments("--ignore-certificate-errors");
-                    DesiredCapabilities capabilities = new DesiredCapabilities();
+                    var capabilities = new DesiredCapabilities();
                     capabilities.setCapability(ChromeOptions.CAPABILITY, options);
                     return new ChromeDriver(options);
                 } catch (Exception e) {
@@ -35,7 +35,7 @@ public class CustomDriver implements DriverSource {
             case ie:
                 try {
                     System.setProperty("webdriver.ie.driver", "driver/IEDriverServer.exe");
-                    InternetExplorerOptions options = new InternetExplorerOptions();
+                    var options = new InternetExplorerOptions();
                     options.destructivelyEnsureCleanSession();
                     options.ignoreZoomSettings();
                     options.introduceFlakinessByIgnoringSecurityDomains();
