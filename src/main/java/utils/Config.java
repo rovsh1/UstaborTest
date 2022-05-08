@@ -64,9 +64,11 @@ public class Config {
 
     public static String getAdminUrl() {
         if (adminUrl == null) {
-            adminUrl = getBaseUrl()
-                    .replace("www", "ka8rms")
-                    .replace("https", "http");
+            adminUrl = getBaseUrl().replace("www", "ka8rms");
+
+            if (Config.isBildrlist()) {
+                adminUrl = adminUrl.replace("https", "http");
+            }
         }
 
         return adminUrl;

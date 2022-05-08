@@ -16,14 +16,12 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.TimeoutException;
 
 public class Admin {
 
     private static final Logger logger = LoggerFactory.getLogger(Admin.class);
 
     private Executor executor;
-    private final String baseUrl;
     private static Admin instance;
 
     private Admin() {
@@ -38,7 +36,6 @@ public class Admin {
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
             e.printStackTrace();
         }
-        baseUrl = Config.getAdminUrl();
         login();
     }
 
@@ -51,7 +48,7 @@ public class Admin {
     }
 
     public void deleteMaster(String id) {
-        var url = baseUrl + String.format("master/%s/delete", id);
+        var url = Config.getAdminUrl() + String.format("master/%s/delete", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -71,7 +68,7 @@ public class Admin {
     }
 
     public void deleteCategory(String id) {
-        var url = baseUrl + String.format("reference/category/%s/delete", id);
+        var url = Config.getAdminUrl() + String.format("reference/category/%s/delete", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -91,7 +88,7 @@ public class Admin {
     }
 
     public void deleteCustomer(String customerId) {
-        var url = baseUrl + String.format("customer/%s/delete", customerId);
+        var url = Config.getAdminUrl() + String.format("customer/%s/delete", customerId);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -111,7 +108,7 @@ public class Admin {
     }
 
     public void runCron(String id) {
-        var url = baseUrl + String.format("system/cron/%s/run", id);
+        var url = Config.getAdminUrl() + String.format("system/cron/%s/run", id);
 
         try {
             logger.info("Run cron task");
@@ -150,7 +147,7 @@ public class Admin {
     }
 
     private void login() {
-        var url =  baseUrl + "login?url=%2F";
+        var url = Config.getAdminUrl() + "login";
 
         try {
             var result = executor.execute(Request.Post(url)
@@ -175,7 +172,7 @@ public class Admin {
     }
 
     private String getSmsLogPage() {
-        var url = baseUrl + "logs/sms";
+        var url = Config.getAdminUrl() + "logs/sms";
 
         try {
             return executor.execute(Request.Get(url)).returnContent().asString();
