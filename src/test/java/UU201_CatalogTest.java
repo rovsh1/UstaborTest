@@ -20,7 +20,6 @@ public class UU201_CatalogTest extends TestBase {
         user.atCatalogPage.enterSearchText(getText("SearchRequestFurniture"));
         user.atHomePage.selectSuggestionCategoryAndSearch(getText("SearchRequestSuggestion"));
         user.atCatalogPage.verifySelectedCategoryEquals(getText("CategoryBathroom"));
-//        user.atCatalogPage.verifyAllFoundProjectsHaveCategory(getText("CategoryBathroom"));
 
         user.atCatalogPage.enterSearchText(getText("SearchRequestFurnitureShort"));
         user.atCatalogPage.suggestionDropdownShouldBeVisible();

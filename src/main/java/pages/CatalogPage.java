@@ -124,6 +124,8 @@ public class CatalogPage extends SearchBlock {
                 counter++;
             }
         }
+
+        waitForLoaderDisappears();
     }
 
     public void closeFilter() {
