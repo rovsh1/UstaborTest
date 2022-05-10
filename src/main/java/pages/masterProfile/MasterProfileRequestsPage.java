@@ -20,7 +20,7 @@ public class MasterProfileRequestsPage extends BasePage {
     @FindBy(xpath = "//span[@class='id']")
     private WebElementFacade requestIdForm;
 
-    @FindBy(xpath = "//a[contains(@href, '/requests/')]")
+    @FindBy(xpath = "//div[contains(@class,'requests-list')]//a[@class='btn-more']")
     private WebElementFacade requestDetailsBtn;
 
     @FindBy(xpath = "//div[@class='btn-contact']")
