@@ -13,7 +13,7 @@ public class FeedbackPage extends BasePage {
     @FindBy(xpath = "//div[@class='master']//textarea")
     private WebElementFacade masterFeedbackInput;
 
-    @FindBy(xpath = "//input[@type='submit']")
+    @FindBy(xpath = "//*[@id='feedback-submit']")
     private WebElementFacade submitFeedbackBtn;
 
     @FindBy(xpath = "//button[text()='OK']")
