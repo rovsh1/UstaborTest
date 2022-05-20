@@ -166,7 +166,7 @@ public class Config {
 
         } else if (os.contains("nux")) {
 
-            return "/var/lib/jenkins/workspace/chromedriver_linux";
+            return "/var/lib/jenkins/workspace/chromedriver";
 
         } else {
             throw new IndexOutOfBoundsException();
