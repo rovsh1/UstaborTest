@@ -91,7 +91,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
 
         user.atHomePage.login(watcher.getMaster(), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
-        user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestDeclined"));
+        user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestClosed"));
         user.atHomePage.logsOut();
 
         admin.atRequestsPage.deleteRequest(requestId);

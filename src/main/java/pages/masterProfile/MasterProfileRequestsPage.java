@@ -26,7 +26,7 @@ public class MasterProfileRequestsPage extends BasePage {
     @FindBy(xpath = "//div[@class='btn-contact']")
     private WebElementFacade phoneButton;
 
-    @FindBy(xpath = "//span[contains(@class, 'ui-master-status')]")
+    @FindBy(xpath = "//span[contains(@class, '-status')]")
     private WebElementFacade requestStatus;
 
     @FindBy(xpath = "//span[contains(@class, 'CUSTOMER_REQUEST_STATUS')]")
