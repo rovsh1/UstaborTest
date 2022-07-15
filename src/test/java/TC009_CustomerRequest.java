@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import enums.RequestPages;
-import utils.Admin;
 import utils.DataGenerator;
 import utils.XmlParser;
 

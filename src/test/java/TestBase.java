@@ -35,6 +35,8 @@ public class TestBase {
     @Before
     public void setUp() throws TimeoutException {
         Serenity.throwExceptionsImmediately();
+        Admin.getInstance();
+
         if (!Config.isChrome()) {
             driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
             driver.manage().window().fullscreen();
@@ -44,59 +46,52 @@ public class TestBase {
         if (this.getClass().isAnnotationPresent(AddCategory.class)) {
             watcher.category = category;
             admin.addTestCategory(category);
+        }
 
-            if (this.getClass().getAnnotation(AddCategory.class).addServiceQuestion()) {
-                admin.addCategoryService(category);
-                admin.addServiceQuestions(category, getText("Question"));
-                admin.setServicePrices(Config.getCountry(), "100", "200");
-            }
+        if (this.getClass().getAnnotation(AddCategory.class).addServiceQuestion()) {
+            admin.addCategoryService(category);
+            admin.addServiceQuestions(category, getText("Question"));
+            admin.setServicePrices(Config.getCountry(), "100", "200");
+        }
 
-            if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
-                admin.atCategoriesPage.setPromotionAndClickPrice(
-                        category.getSystemId(),
-                        "100",
-                        "200",
-                        "1000");
-            }
+        if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
+            admin.atCategoriesPage.setPromotionAndClickPrice(category.getSystemId(),"100", "200", "1000");
+        }
 
-            if (this.getClass().isAnnotationPresent(AddMasters.class)) {
+        if (this.getClass().isAnnotationPresent(AddMasters.class)) {
+            user.atHomePage.openHomePage();
+            setCountryLanguageAndLocation();
+
+            var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
+            for (int i = 0; i < mastersCount; i++) {
+                var master = DataGenerator.getMaster(category);
+                watcher.users.add(master);
+
                 user.atHomePage.openHomePage();
-                setCountryAndLanguage();
+                user.register(master, false);
 
-                var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
-                for (int i = 0; i < mastersCount; i++) {
-                    var master = DataGenerator.getMaster(category);
-                    watcher.users.add(master);
-
-                    user.atHomePage.openHomePage();
-                    user.register(master, false);
-
-                    if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
-                        user.atMasterProjectsPage.openProjectsTab();
-                        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
-                    }
-
-                    user.atHomePage.logsOut();
+                if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
+                    user.atMasterProjectsPage.openProjectsTab();
+                    user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
                 }
+
+                user.atHomePage.logsOut();
             }
         } else {
             user.atHomePage.openHomePage();
-            user.atHomePage.homePageShouldBeVisible();
-            setCountryAndLanguage();
+            setCountryLanguageAndLocation();
         }
-
-        Admin.getInstance();
     }
 
     String getText(String key) {
         return XmlParser.getTextByKey(key);
     }
 
-    void setBrowserMobileWindowSize(){
+    void setBrowserMobileWindowSize() {
         driver.manage().window().setSize(new Dimension(320, 800));
     }
 
-    private void setCountryAndLanguage() {
+    private void setCountryLanguageAndLocation() {
         if (!Config.isFixListKg()) {
             user.atHomePage.setLanguage(Config.getLang());
         }
@@ -104,5 +99,7 @@ public class TestBase {
         if (!Config.isUstabor() && !Config.isFixListKg()) {
             user.atHomePage.setCountry(Config.getCountry());
         }
+
+        user.atHomePage.selectDefaultLocation();
     }
 }

@@ -332,4 +332,8 @@ public class HomePageSteps extends ScenarioSteps {
     public void waitForLoaderDisappears() {
         homePage.waitForLoaderDisappears();
     }
+
+    public void selectDefaultLocation() {
+        homePage.selectDefaultLocation();
+    }
 }

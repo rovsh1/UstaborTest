@@ -5,7 +5,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Config;
 import utils.XmlParser;
 
@@ -13,7 +12,6 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,6 +26,9 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//li[@data-i='1']")
     private WebElementFacade builderTab;
+
+    @FindBy(xpath = "//div[@class='popup region-popup']//button[@class='btn btn-submit']")
+    private WebElementFacade defaultLocation;
     //endregion
 
     //region Login form
@@ -489,5 +490,9 @@ public class HomePage extends SearchBlock {
 
     public String getCustomerPhoneCountryCode() {
         return regFormUserPhoneNumberInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
+    }
+
+    public void selectDefaultLocation() {
+        defaultLocation.click();
     }
 }
