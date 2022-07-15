@@ -44,33 +44,36 @@ public class TestBase {
         }
 
         if (this.getClass().isAnnotationPresent(AddCategory.class)) {
+            var annotation = this.getClass().getAnnotation(AddCategory.class);
+
             watcher.category = category;
             admin.addTestCategory(category);
-        }
 
-        if (this.getClass().getAnnotation(AddCategory.class).addServiceQuestion()) {
-            admin.addCategoryService(category);
-            admin.addServiceQuestions(category, getText("Question"));
-            admin.setServicePrices(Config.getCountry(), "100", "200");
-        }
+            if (annotation.addServiceQuestion()) {
+                admin.addCategoryService(category);
+                admin.addServiceQuestions(category, getText("Question"));
+                admin.setServicePrices(Config.getCountry(), "100", "200");
+            }
 
-        if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
-            admin.atCategoriesPage.setPromotionAndClickPrice(category.getSystemId(),"100", "200", "1000");
+            if (annotation.promotionAndClickPrice()) {
+                admin.atCategoriesPage.setPromotionAndClickPrice(category.getSystemId(),"100", "200", "1000");
+            }
         }
 
         if (this.getClass().isAnnotationPresent(AddMasters.class)) {
+            var anno = this.getClass().getAnnotation(AddMasters.class);
+
             user.atHomePage.openHomePage();
             setCountryLanguageAndLocation();
 
-            var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
-            for (int i = 0; i < mastersCount; i++) {
+            for (int i = 0; i < anno.masters(); i++) {
                 var master = DataGenerator.getMaster(category);
                 watcher.users.add(master);
 
                 user.atHomePage.openHomePage();
                 user.register(master, false);
 
-                if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
+                if (anno.addProject()) {
                     user.atMasterProjectsPage.openProjectsTab();
                     user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
                 }
