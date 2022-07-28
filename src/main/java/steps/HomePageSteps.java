@@ -336,4 +336,8 @@ public class HomePageSteps extends ScenarioSteps {
     public void selectDefaultLocation() {
         homePage.selectDefaultLocation();
     }
+
+    public void selectLocation(String country, String city) {
+        homePage.selectLocation(country, city);
+    }
 }

@@ -7,6 +7,9 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
+    <string name="kz_city">Нур-Султан</string>
+    <string name="uz_city">Ташкент</string>
+
     <string name="CustomerRegEmailSubject_new_test">Регистрация на сайте Ustabor.uz</string>
 
     <string name="CustomerRegEmailSubject_uz_new_test">Регистрация пользователя</string>

@@ -103,6 +103,6 @@ public class TestBase {
             user.atHomePage.setCountry(Config.getCountry());
         }
 
-        user.atHomePage.selectDefaultLocation();
+        user.atHomePage.selectLocation(Config.getCountry(), getText(Config.getCountryCode() + "_city"));
     }
 }

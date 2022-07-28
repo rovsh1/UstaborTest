@@ -17,6 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HomePage extends SearchBlock {
 
+    private static final String countryCityXpath = "//div[@class='window window-region']//li[text()='%s']";
+
     //region Common elements
     @FindBy(xpath = "//div[contains(@class,'customer')]")
     private WebElementFacade iAmCustomerBtn;
@@ -29,6 +31,9 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//div[@class='popup region-popup']//button[@class='btn btn-submit']")
     private WebElementFacade defaultLocation;
+
+    @FindBy(xpath = "//div[@class='popup region-popup']//button[@class='btn btn-default']")
+    private WebElementFacade changeLocation;
     //endregion
 
     //region Login form
@@ -494,5 +499,15 @@ public class HomePage extends SearchBlock {
 
     public void selectDefaultLocation() {
         defaultLocation.click();
+    }
+
+    public void selectLocation(String country, String city) {
+        changeLocation.click();
+        getDriver()
+                .findElement(By.xpath(String.format(countryCityXpath, country)))
+                .click();
+        getDriver()
+                .findElement(By.xpath(String.format(countryCityXpath, city)))
+                .click();
     }
 }
