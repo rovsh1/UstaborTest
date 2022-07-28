@@ -75,6 +75,7 @@ public class Config {
     }
 
     public static String getFullUrl() {
+        if (isNewTest()) { return getBaseUrl() + getLang() + "-" + getCountryCode() + "/"; }
         return getBaseUrl() + getLang() + "/";
     }
 

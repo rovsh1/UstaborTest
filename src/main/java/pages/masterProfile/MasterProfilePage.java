@@ -1,12 +1,9 @@
 package pages.masterProfile;
 
-import entities.CategoryCheckbox;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

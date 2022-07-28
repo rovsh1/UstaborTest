@@ -1,15 +1,9 @@
 package utils;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.service.FakeValuesService;
-import com.github.javafaker.service.RandomService;
 import entities.Master;
 import entities.Category;
 import entities.User;
-
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Random;
 
 public class DataGenerator {
     private static final String password = "Password1!";
