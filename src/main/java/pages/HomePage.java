@@ -23,7 +23,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class,'customer')]")
     private WebElementFacade iAmCustomerBtn;
 
-    @FindBy(xpath = "//div[contains(@class,'master')]")
+    @FindBy(xpath = "//form//div[@class='master']")
     private WebElementFacade iAmMasterBtn;
 
     @FindBy(xpath = "//li[@data-i='1']")
@@ -407,7 +407,6 @@ public class HomePage extends SearchBlock {
     public void clickMasterBtnRegister() {
         iAmMasterBtn.click();
         withTimeoutOf(Duration.ofSeconds(25)).waitFor(regFormEmailInput).isPresent();
-//        waitForLoaderDisappears();
     }
 
     public void clickCatalogBtn() {

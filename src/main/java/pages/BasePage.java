@@ -66,7 +66,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header-phone']//div[@class='hint']")
     private WebElementFacade phonePopup;
 
-    @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
+    @FindBy(xpath = "//div[@class='header-inner']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
     private WebElementFacade headerLangBtn;
 
     @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']//a")
