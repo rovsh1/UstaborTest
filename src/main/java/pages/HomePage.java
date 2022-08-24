@@ -168,7 +168,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[@class='window feedback-window']//a[@class='button btn-submit']")
     private WebElementFacade leaveFeedbackBtn;
 
-    @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
+    @FindBy(xpath = "//div[contains(@id,'categories')]//div[@class='item']/a")
     private WebElementFacade firstCategory;
 
     @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
