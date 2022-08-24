@@ -36,7 +36,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
     private WebElementFacade logoBtn;
 
-    @FindBy(xpath = "//nav[@id='user-menu']/a[1]")
+    @FindBy(xpath = "//nav[@class='user']/a[1]")
     private WebElementFacade profileBtn;
 
     @FindBy(xpath = "//a[contains(@href, 'logout')]")
