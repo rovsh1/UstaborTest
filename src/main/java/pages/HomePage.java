@@ -4,6 +4,7 @@ import entities.Master;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.XmlParser;
@@ -26,7 +27,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//form//div[@class='master']")
     private WebElementFacade iAmMasterBtn;
 
-    @FindBy(xpath = "//li[@data-i='1']")
+    @FindBy(xpath = "//div[contains(@class,'item site-www')]/div[@class='name']")
     private WebElementFacade builderTab;
 
     @FindBy(xpath = "//div[@class='popup region-popup']//button[@class='btn btn-submit']")
@@ -171,7 +172,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@id,'categories')]//div[@class='item']/a")
     private WebElementFacade firstCategory;
 
-    @FindBy(xpath = "//div[@id='categories']//div[@class='item']/a")
+    @FindBy(xpath = "//div[@class='site-categories-popup']//div[@class='items']/a")
     private List<WebElementFacade> categoriesList;
 
     @FindBy(xpath = "//input[@id='form_data_login']")
@@ -466,7 +467,8 @@ public class HomePage extends SearchBlock {
     }
 
     public void openCategory(String category) {
-        WebElementFacade foundCategory = categoriesList.stream()
+        var foundCategory = categoriesList
+                .stream()
                 .filter(e -> e.getText().equals(category))
                 .findAny()
                 .orElse(null);
