@@ -156,7 +156,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[@class='window-body']")
     private WebElementFacade mobileMenuPhonePopup;
 
-    @FindBy(xpath = "//div[@class='sitemap']//a[contains(@class, 'btn-customer')]")
+    @FindBy(xpath = "///div[@class='btn-contact']/a[@class='btn-login']")
     private WebElementFacade mobileMenuCustomerRegistrationBtn;
 
     @FindBy(xpath = "//div[@class='sitemap']//a[contains(@class, 'btn-master')]")
