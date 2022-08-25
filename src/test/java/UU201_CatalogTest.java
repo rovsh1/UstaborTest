@@ -49,7 +49,7 @@ public class UU201_CatalogTest extends TestBase {
 
             for (int i = 0; i < 3; i++) {
                 user.atHomePage.openHomePage();
-                user.atHomePage.openRandomCategory();
+                user.atHomePage.openBuilderTab();
                 if (!user.atCatalogPage.isSearchResultEmpty()) {
                     assertThat(user.atCatalogPage.getProjectsCounterValue()).isGreaterThan(0);
                 }
