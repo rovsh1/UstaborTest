@@ -138,7 +138,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'countries')]//a")
     private List<WebElementFacade> mobileCountryList;
 
-    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'language')]")
+    @FindBy(xpath = "//div[@class='header-inner']//nav[contains(@class, 'language')]")
     private WebElementFacade mobileMenuLangBtn;
 
     @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'language')]//a")

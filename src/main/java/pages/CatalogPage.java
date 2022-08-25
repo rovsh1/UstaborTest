@@ -31,7 +31,7 @@ public class CatalogPage extends SearchBlock {
 
     private static final Logger logger = LoggerFactory.getLogger(CatalogPage.class);
 
-    @FindBy(xpath = "//div[@class='nav']//nav//a[contains(@href, 'catalog')]")
+    @FindBy(xpath = "//a[@class='btn-catalog']")
     private WebElementFacade mastersCatalog;
 
     @FindBy(xpath = "//nav[@class='breadcrumbs']/a")

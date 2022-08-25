@@ -42,7 +42,7 @@
     <string name="SiteDomainBuild_Full">Строительный</string>
     <string name="SiteDomainAuto">Авто</string>
     <string name="SiteDomainTech">Техника</string>
-    <string name="SiteDomainHome">Бытовые услуги</string>
+    <string name="SiteDomainHome">Дом быта</string>
     <string name="SiteDomainMaterials">Стройматериалы</string>
 
     <string name="DomainBuild_MinPromo_Landscape">Ландшафтный дизайн</string>

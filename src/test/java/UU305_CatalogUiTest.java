@@ -15,7 +15,7 @@ public class UU305_CatalogUiTest extends TestBase {
             setBrowserMobileWindowSize();
         }
 
-        user.atHomePage.openCatalog();
+        user.atCatalogPage.openMastersCatalog();
 
         user.atCatalogPage.openFilterAndVerify();
         user.atCatalogPage.openFilterCategoriesAndVerify();
