@@ -51,6 +51,7 @@ public class MasterProfilePage extends MasterProfileBasePage {
     }
 
     public void masterFeedbackShouldContain(String feedback) {
+
         masterReviews.shouldContainText(feedback);
     }
 }

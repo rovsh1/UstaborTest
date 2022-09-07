@@ -266,7 +266,11 @@ public class CatalogPage extends SearchBlock {
         var master = new Master();
         master.setFirstName(selectedMaster.findElement(By.xpath(masterNameXpath)).getText());
         master.setRating(selectedMaster.findElement(By.xpath(ratingXpath)).getAttribute("class"));
-        master.setFeedback(selectedMaster.findElement(By.xpath(reviewsCountXpath)).getText().replaceAll("[^0-9]", ""));
+
+        if (!selectedMaster.findElements(By.xpath(reviewsCountXpath)).isEmpty()) {
+            master.setFeedback(selectedMaster.findElement(By.xpath(reviewsCountXpath)).getText().replaceAll("[^0-9]", ""));
+        }
+
         return master;
     }
 

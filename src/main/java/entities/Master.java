@@ -3,7 +3,7 @@ package entities;
 public class Master extends User {
 
     private String rating;
-    private String feedback;
+    private String feedback = "";
     private String profileUrl;
     private Category category;
 

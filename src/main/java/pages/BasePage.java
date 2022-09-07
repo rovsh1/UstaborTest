@@ -4,6 +4,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
@@ -201,6 +202,10 @@ public class BasePage extends PageObject {
     }
 
     void clickElementJS(WebElementFacade element) {
+        evaluateJavascript("arguments[0].click();", element);
+    }
+
+    void clickElementJS(WebElement element) {
         evaluateJavascript("arguments[0].click();", element);
     }
 

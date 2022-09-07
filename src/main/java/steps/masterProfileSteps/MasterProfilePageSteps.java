@@ -42,7 +42,9 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     public void verifyProfilePage(Master master) {
         masterProfilePage.masterFullNameShouldContain(master.getFirstName());
         masterProfilePage.masterRatingShouldBe(master.getRating());
-        masterProfilePage.masterFeedbackShouldContain(master.getFeedback());
+        if (!master.getFeedback().isBlank()) {
+            masterProfilePage.masterFeedbackShouldContain(master.getFeedback());
+        }
     }
 
     @Step
