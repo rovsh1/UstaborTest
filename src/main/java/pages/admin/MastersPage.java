@@ -15,7 +15,7 @@ public class MastersPage extends BaseAdminPage {
     @FindBy(xpath = "//div[./button[@data-action='close']]//button[@type='submit']")
     private WebElementFacade submitBtn;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//div[@class='form-buttons']//button[@type='submit']")
     private WebElementFacade saveBtn;
 
     @FindBy(xpath = "//div[@class='multiselect']")
@@ -23,6 +23,12 @@ public class MastersPage extends BaseAdminPage {
 
     @FindBy(xpath = "//div[contains(@class, 'multiselect')]//span[@class='select']")
     private WebElementFacade selectAll;
+
+    @FindBy(xpath = "//a[@id='btn-master-badges']")
+    private WebElementFacade bagesPopup;
+
+    @FindBy(xpath = "//input[contains(@name,'badges')]")
+    private WebElementFacade badge;
 
 
     public void openPage() {
@@ -47,8 +53,10 @@ public class MastersPage extends BaseAdminPage {
     }
 
     public void addAllBadgesToMaster() {
-        badgesSelector.click();
-        selectAll.click();
+        bagesPopup.click();
+//        badgesSelector.click();
+//        selectAll.click();
+        badge.click();
         saveBtn.click();
     }
 }

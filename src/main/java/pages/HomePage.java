@@ -132,11 +132,11 @@ public class HomePage extends SearchBlock {
     //endregion
 
     //region Mobile view elements
-    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'countries')]")
+    @FindBy(xpath = "//div[@class='sitemap']//div[contains(@class, 'btn-region')]")
     private WebElementFacade mobileMenuCountryBtn;
 
-    @FindBy(xpath = "//div[@class='sitemap']//nav[contains(@class, 'countries')]//a")
-    private List<WebElementFacade> mobileCountryList;
+    @FindBy(xpath = "//div[@class='window window-region']")
+    private WebElementFacade mobileCountryPopup;
 
     @FindBy(xpath = "//div[@class='header-inner']//nav[contains(@class, 'language')]")
     private WebElementFacade mobileMenuLangBtn;
@@ -158,6 +158,9 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//div[@class='btn-contact']/a[@class='btn-login']")
     private WebElementFacade mobileMenuCustomerRegistrationBtn;
+
+    @FindBy(xpath = "//a[@class='link-register']")
+    private WebElementFacade mobileRegisterLink;
 
     @FindBy(xpath = "//div[@class='sitemap']//a[contains(@class, 'btn-master')]")
     private WebElementFacade mobileMenuMasterRegistrationBtn;
@@ -362,7 +365,7 @@ public class HomePage extends SearchBlock {
     }
 
     public void verifyMobileViewCountriesMenu() {
-        mobileCountryList.forEach(WebElementState::shouldBeVisible);
+        mobileCountryPopup.shouldBeVisible();
     }
 
     public void verifyMobileViewLanguagesMenu() {
@@ -397,6 +400,7 @@ public class HomePage extends SearchBlock {
 
     public void openMobileViewCustomerRegistrationForm() {
         mobileMenuCustomerRegistrationBtn.click();
+        mobileRegisterLink.click();
     }
     //endregion
 

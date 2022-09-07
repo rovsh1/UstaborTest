@@ -36,23 +36,23 @@ public class UU293_MainPageUiTest extends TestBase {
             user.atHomePage.verifyFooterCountriesListIsVisible();
         }
 
-        if (!Config.isFixListKg()) {
+        if (!Config.isFixListKg() && !Config.isNewTest()) {
             user.atHomePage.verifyFooterLanguagesListIsVisible();
         }
 
         setBrowserMobileWindowSize();
         user.atHomePage.openMobileViewMainMenu();
 
-        if (!Config.isFixListKg()) {
+        if (!Config.isFixListKg() || !Config.isNewTest()) {
             user.atHomePage.verifyMobileViewLanguageMenu();
         }
 
-        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest() && !Config.isBildrlist()) {
+        if (!Config.isUstabor() && !Config.isBildrlist()) {
             user.atHomePage.verifyMobileViewCountriesMenu();
         }
 
         user.atHomePage.openPlaceOrderPage();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();
-        user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));
+//        user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));
     }
 }

@@ -17,7 +17,7 @@ public class MastersPageSteps extends ScenarioSteps {
 
     @Step
     public void addAllBadgesToMaster(Master master) {
-        mastersPage.openEditMasterPage(master.getProfileId());
+        mastersPage.openMasterPageByDirectUrl(master.getProfileId());
         mastersPage.addAllBadgesToMaster();
     }
 }
