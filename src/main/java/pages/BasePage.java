@@ -27,7 +27,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = loaderXpath)
     private WebElementFacade loader;
 
-    @FindBy(xpath = "//input[@id='form_data_code']")
+    @FindBy(xpath = "//input[@id='form_confirmation_code']")
     private WebElementFacade submitCodeInput;
 
     @FindBy(xpath = "//div[@class='refresh-wrap']/a")

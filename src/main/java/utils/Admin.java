@@ -1,11 +1,14 @@
 package utils;
 
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.TrustAllStrategy;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
@@ -26,12 +29,16 @@ public class Admin {
 
     private Admin() {
         try {
+            var redirect = new LaxRedirectStrategy();
+            var ssl = new SSLContextBuilder().loadTrustMaterial(null, TrustAllStrategy.INSTANCE).build();
+            var config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
             executor = Executor.newInstance(
                     HttpClientBuilder
                             .create()
-                            .setRedirectStrategy(new LaxRedirectStrategy())
-                            .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, TrustAllStrategy.INSTANCE).build())
+                            .setRedirectStrategy(redirect)
+                            .setSSLContext(ssl)
                             .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                            .setDefaultRequestConfig(config)
                             .build());
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
             e.printStackTrace();

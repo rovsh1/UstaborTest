@@ -4,10 +4,8 @@ import entities.Master;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
-import utils.XmlParser;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -76,7 +74,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//form[@id='form-registration-customer']//button[@type='submit']")
     private WebElementFacade regFormSubmitBtn;
 
-    @FindBy(xpath = "//input[@id='form_data_code']")
+    @FindBy(xpath = "//input[@id='form_confirmation_code']")
     private WebElementFacade regFormConfirmationCodeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@type='submit']")
@@ -94,40 +92,43 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = registrationFormXpath)
     private List<WebElementFacade> masterRegistrationForm1;
 
-    @FindBy(xpath = "//input[@type='file']")
-    private WebElementFacade fileInput;
-
     @FindBy(xpath = "//input[@id='form_registration_master_name']")
     private WebElementFacade regMasterNameInput;
 
     @FindBy(xpath = "//input[@id='form_registration_master_surname']")
     private WebElementFacade regMasterSurnameInput;
 
-    @FindBy(xpath = "//textarea[@id='form_registration_master_about']")
-    private WebElementFacade regMasterAboutMeInput;
-
-    @FindBy(xpath = "//select[@id='form_registration_master_site_id']")
-    private WebElementFacade regMasterDomainSelector;
-
-    @FindBy(xpath = "//div[@id='rfm-categories']//a")
-    private WebElementFacade regMasterCategory;
-
-    @FindBy(xpath = "//a[@data-id='901']")
-    private WebElementFacade regMasterDesignCategory;
-
-    @FindBy(xpath = "//div[@id='rfm-categories']//a")
-    private List<WebElementFacade> regMasterCategoriesList;
-
     @FindBy(xpath = "//input[@id='form_registration_master_phone']")
     private WebElementFacade regMasterPhoneNumber;
 
-    @FindBy(xpath = "//select[@id='form_registration_master_experience']")
+    @FindBy(xpath = "//textarea[@id='form_registration_master_about']")
+    private WebElementFacade regMasterAboutMeInput;
+
+    @FindBy(xpath = "//select[@id='form_registration_master_site_id']/../div")
+    private WebElementFacade regMasterDomainSelector;
+
+    @FindBy(xpath = "//li[1]")
+    private WebElementFacade regMasterDomainSelectorFirst;
+
+    @FindBy(xpath = "//div[@class='categories-list']//a")
+    private List<WebElementFacade> regMasterCategoriesList;
+
+    @FindBy(xpath = "//div[@class='categories-list']//a")
+    private WebElementFacade regMasterFirstCategory;
+
+    @FindBy(xpath = "//select[@id='form_registration_master_experience']/../div")
     private WebElementFacade regMasterExperienceSelector;
 
-    @FindBy(xpath = "//select[@id='form_registration_master_city_id']")
+    @FindBy(xpath = "//li[2]")
+    private WebElementFacade regMasterExperienceSelectorFirst;
+
+    @FindBy(xpath = "//select[@id='form_registration_master_city_id']/../div")
     private WebElementFacade regMasterCitySelector;
 
-    @FindBy(xpath = "//form[@id='form-registration-master']//button[@type='submit']")
+    @FindBy(xpath = "//li[1]")
+    private WebElementFacade regMasterCitySelectorFirst;
+
+    @FindBy(xpath = "//form[@method='post']//button[@type='submit']")
     private WebElementFacade regMasterSubmitBtn;
     //endregion
 
@@ -171,9 +172,6 @@ public class HomePage extends SearchBlock {
 
     @FindBy(xpath = "//div[@class='window feedback-window']//a[@class='button btn-submit']")
     private WebElementFacade leaveFeedbackBtn;
-
-    @FindBy(xpath = "//div[contains(@id,'categories')]//div[@class='item']/a")
-    private WebElementFacade firstCategory;
 
     @FindBy(xpath = "//div[@class='site-categories-popup']//div[@class='items']/a")
     private List<WebElementFacade> categoriesList;
@@ -248,12 +246,12 @@ public class HomePage extends SearchBlock {
     }
 
     public void regMasterFormSelectBuildSubDomain() {
-        regMasterDomainSelector.selectByVisibleText(XmlParser.getTextByKey("SiteDomainBuild_Short2"));
-        waitForLoaderDisappears();
+        regMasterDomainSelector.click();
+        regMasterDomainSelectorFirst.click();
     }
 
     public void regMasterFormSelectRandomCategory(Master master) {
-        regMasterCategory.waitUntilVisible();
+        regMasterFirstCategory.waitUntilVisible();
         WebElementFacade category = regMasterCategoriesList.get(new Random().nextInt(regMasterCategoriesList.size()));
         focusElementJS(category);
         category.click();
@@ -263,7 +261,7 @@ public class HomePage extends SearchBlock {
     }
 
     public void regMasterFormSelectCategory(Master master) {
-        withTimeoutOf(Duration.ofSeconds(25)).waitFor(firstCategory).isClickable();
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(regMasterFirstCategory).isClickable();
         WebElementFacade category = regMasterCategoriesList.stream()
                 .filter(x -> x.getText().equals(master.getCategory().getName()))
                 .findFirst()
@@ -282,12 +280,14 @@ public class HomePage extends SearchBlock {
     }
 
     public void regMasterFormSelectExperience() {
-        regMasterExperienceSelector.selectByIndex(1);
+        regMasterExperienceSelector.click();
+        regMasterExperienceSelectorFirst.click();
     }
 
     public String regMasterFormSelectCity() {
-        regMasterCitySelector.selectByIndex(1);
-        return regMasterCitySelector.getSelectedVisibleTextValue();
+        regMasterCitySelector.click();
+        regMasterCitySelectorFirst.click();
+        return regMasterCitySelector.getText();
     }
 
     public void regMasterClickSubmit() {
@@ -511,6 +511,13 @@ public class HomePage extends SearchBlock {
         getDriver()
                 .findElement(By.xpath(String.format(countryCityXpath, country)))
                 .click();
+        getDriver()
+                .findElement(By.xpath(String.format(countryCityXpath, city)))
+                .click();
+    }
+
+    public void selectCity(String city) {
+        changeLocation.click();
         getDriver()
                 .findElement(By.xpath(String.format(countryCityXpath, city)))
                 .click();

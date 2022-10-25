@@ -145,25 +145,24 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void setMasterExperienceCityAndPhone(Master master) {
-        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
-        homePage.regMasterFormSelectExperience();
-        master.setCity(homePage.regMasterFormSelectCity());
-    }
-
-    @Step
     public void registerAsMaster(Master master, boolean randomCategory) {
         homePage.openRegistrationForm();
         homePage.clickMasterBtnRegister();
-        homePage.registerFormShouldBeVisible();
-        homePage.regMasterFormSelectBuildSubDomain();
         homePage.regMasterFormEnterFirstName(master.getFirstName());
         homePage.regMasterFormEnterLastName(master.getLastName());
+        homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
+        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
         homePage.regFormEnterPassword(master.getPassword());
 
-        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
+        homePage.regMasterClickSubmit();
 
         homePage.regMasterFormEnterAboutMe(master.getAboutMe());
+        homePage.regMasterFormSelectExperience();
+        master.setCity(homePage.regMasterFormSelectCity());
+
+        homePage.regMasterClickSubmit();
+
+        homePage.regMasterFormSelectBuildSubDomain();
 
         if (randomCategory) {
             homePage.regMasterFormSelectRandomCategory(master);
@@ -171,12 +170,6 @@ public class HomePageSteps extends ScenarioSteps {
             homePage.regMasterFormSelectCategory(master);
         }
 
-        setMasterExperienceCityAndPhone(master);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         homePage.regMasterClickSubmit();
         homePage.waitForSubmitCodeForm();
     }
@@ -325,6 +318,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.resendCode();
     }
 
+    @Step
     public void setLanguage(String lang) {
         homePage.setLanguage(lang);
     }
@@ -337,7 +331,13 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.selectDefaultLocation();
     }
 
+    @Step
     public void selectLocation(String country, String city) {
         homePage.selectLocation(country, city);
+    }
+
+    @Step
+    public void selectCity(String city) {
+        homePage.selectCity(city);
     }
 }

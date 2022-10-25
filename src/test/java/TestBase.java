@@ -80,10 +80,12 @@ public class TestBase {
 
                 user.atHomePage.logsOut();
             }
-        } else {
-            user.atHomePage.openHomePage();
-            setCountryLanguageAndLocation();
+
+            return;
         }
+
+        user.atHomePage.openHomePage();
+        setCountryLanguageAndLocation();
     }
 
     String getText(String key) {
@@ -95,12 +97,11 @@ public class TestBase {
     }
 
     private void setCountryLanguageAndLocation() {
-        if (!Config.isFixListKg()) {
-            user.atHomePage.setLanguage(Config.getLang());
-        }
+        user.atHomePage.setLanguage(Config.getLang());
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.setCountry(Config.getCountry());
+        if (Config.isUstabor()) {
+            user.atHomePage.selectCity(getText(Config.getCountryCode() + "_city"));
+            return;
         }
 
         user.atHomePage.selectLocation(Config.getCountry(), getText(Config.getCountryCode() + "_city"));
