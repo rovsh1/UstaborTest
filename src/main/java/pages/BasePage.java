@@ -127,13 +127,17 @@ public class BasePage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
+        waitForLoaderDisappears(120000);
+    }
+
+    public void waitForLoaderDisappears(int timeoutMilli) {
         Serenity.throwExceptionsImmediately();
         setTimeouts(2, ChronoUnit.SECONDS);
-            try {
-                WaitHelper.pollingWait(120000, 500, () -> !loader.isVisible());
-            } catch (TimeoutException e) {
-                e.printStackTrace();
-            }
+        try {
+            WaitHelper.pollingWait(timeoutMilli, 500, () -> !loader.isVisible());
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
         resetTimeouts();
     }
 
@@ -242,17 +246,13 @@ public class BasePage extends PageObject {
         if (siteName.equals(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainBuild_Short2"))) ||
                 siteName.equals(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainBuild_Full")))) {
             assertThat(getDriver().getCurrentUrl()).contains(expectedUrl);
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainAuto")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainAuto")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//auto.");
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainTech")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainTech")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//tech.");
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainHome")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainHome")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//home.");
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainMaterials")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainMaterials")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//materials.");
         } else {
             throw new IllegalArgumentException(String.format("No such site with name %s found", siteName));

@@ -54,11 +54,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openCatalog() {
-        homePage.clickCatalogBtn();
-    }
-
-    @Step
     public void loginIfNeeded(User user) {
         if (!homePage.isLoggedIn()) {
             login(user.getLogin(), user.getPassword(), true);
@@ -95,18 +90,8 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openRandomCategory() {
-        homePage.openRandomCategory();
-    }
-
-    @Step
     public List<String> getCountriesList() {
         return homePage.getCountries();
-    }
-
-    @Step
-    public void setCountry(String country) {
-        homePage.setCountry(country);
     }
 
     @Step
@@ -117,11 +102,6 @@ public class HomePageSteps extends ScenarioSteps {
     @Step
     public void currentDomainNameShouldBe(String country) {
         homePage.currentDomainNameShouldBe(country);
-    }
-
-    @Step
-    public void homePageShouldBeVisible() {
-        homePage.openLoginFormBtnShouldBeVisible();
     }
 
     @Step
@@ -171,6 +151,13 @@ public class HomePageSteps extends ScenarioSteps {
         }
 
         homePage.regMasterClickSubmit();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         homePage.waitForSubmitCodeForm();
     }
 
@@ -184,11 +171,6 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.forgotPasswordEnterPhone(phoneNumber);
         homePage.forgotPasswordClickRestoreBtn();
         homePage.waitForLoaderDisappears();
-    }
-
-    @Step
-    public boolean isCountrySelectorAvailable() {
-        return homePage.isCountrySelectorVisible();
     }
 
     @Step
@@ -325,10 +307,6 @@ public class HomePageSteps extends ScenarioSteps {
 
     public void waitForLoaderDisappears() {
         homePage.waitForLoaderDisappears();
-    }
-
-    public void selectDefaultLocation() {
-        homePage.selectDefaultLocation();
     }
 
     @Step

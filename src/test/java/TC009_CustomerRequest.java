@@ -11,7 +11,6 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(addServiceQuestion = true)
-@WithTag("new")
 public class TC009_CustomerRequest extends TestBase {
 
     @Test

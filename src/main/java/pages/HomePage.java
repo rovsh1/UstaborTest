@@ -173,7 +173,7 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[@class='window feedback-window']//a[@class='button btn-submit']")
     private WebElementFacade leaveFeedbackBtn;
 
-    @FindBy(xpath = "//div[@class='site-categories-popup']//div[@class='items']/a")
+    @FindBy(xpath = "//div[@class='site-categories-popup']//div[contains(@class,'items')]/a")
     private List<WebElementFacade> categoriesList;
 
     @FindBy(xpath = "//input[@id='form_data_login']")
@@ -221,6 +221,12 @@ public class HomePage extends SearchBlock {
     public void regFormClickSubmit() {
         focusElementJS(regFormSubmitBtn);
         regFormSubmitBtn.click();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void regFormEnterAuthCode(String code) {
@@ -262,8 +268,9 @@ public class HomePage extends SearchBlock {
 
     public void regMasterFormSelectCategory(Master master) {
         withTimeoutOf(Duration.ofSeconds(25)).waitFor(regMasterFirstCategory).isClickable();
-        WebElementFacade category = regMasterCategoriesList.stream()
-                .filter(x -> x.getText().equals(master.getCategory().getName()))
+        WebElementFacade category = regMasterCategoriesList
+                .stream()
+                .filter(x -> x.getText().trim().equals(master.getCategory().getName()))
                 .findFirst()
                 .orElse(null);
 
@@ -473,7 +480,7 @@ public class HomePage extends SearchBlock {
     public void openCategory(String category) {
         var foundCategory = categoriesList
                 .stream()
-                .filter(e -> e.getText().equals(category))
+                .filter(e -> e.getText().trim().equals(category))
                 .findAny()
                 .orElse(null);
 

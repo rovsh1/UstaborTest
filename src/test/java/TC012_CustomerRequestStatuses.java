@@ -33,12 +33,15 @@ public class TC012_CustomerRequestStatuses extends TestBase {
 
         user.atHomePage.logsOut();
 
-        admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (getTashkentHour() > 9 && getTashkentHour() < 18) {
+            admin.atRequestsPage.openRequestById(requestId);
+            admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
+
+            try {
+                Thread.sleep(15000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         user.atHomePage.openHomePage();

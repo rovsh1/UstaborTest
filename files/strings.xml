@@ -42,7 +42,7 @@
     <string name="SiteDomainBuild_Full">Строительный</string>
     <string name="SiteDomainAuto">Авто</string>
     <string name="SiteDomainTech">Техника</string>
-    <string name="SiteDomainHome">Дом быта</string>
+    <string name="SiteDomainHome">Бытовые услуги</string>
     <string name="SiteDomainMaterials">Стройматериалы</string>
 
     <string name="DomainBuild_MinPromo_Landscape">Ландшафтный дизайн</string>
@@ -87,7 +87,7 @@
     <string name="RequestClosed">Закрыта для предложений</string>
 
     <string name="SmsAuthCode">Код подтверждения</string>
-    <string name="SmsRegistration">Вы зарегистрированы Ваш логин</string>
+    <string name="SmsRegistration">Вы зарегистрированы Логин</string>
     <string name="SmsMasterMessage">сообщение</string>
     <string name="SmsMasterPrice">Мастер предложил свою цену</string>
     <string name="SmsRequestClosed">закрыта для предложений</string>

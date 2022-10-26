@@ -54,7 +54,8 @@ public class MasterRequestPage extends BasePage {
     }
 
     public void verifyCustomerNumber(String phoneNumber) {
-        customerPhoneNumber.shouldContainText(phoneNumber);
+        var phone = customerPhoneNumber.getText().replace("-", "").replace(" ", "");
+        assertThat(phone).contains(phoneNumber);
     }
 
     public void verifyCustomerName(String firstName) {

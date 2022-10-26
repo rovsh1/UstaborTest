@@ -22,6 +22,9 @@ public class RequestsPage extends BaseAdminPage {
     @FindBy(xpath = "//a[@data-action='add-pay']")
     private WebElementFacade paymentAdd;
 
+    @FindBy(xpath = "//a[@data-action='remove']")
+    private WebElementFacade remove;
+
     @FindBy(xpath = "//button[@class='button-submit']")
     private WebElementFacade submitMasterAssignBtn;
 
@@ -107,5 +110,11 @@ public class RequestsPage extends BaseAdminPage {
     public void assignForPayment() {
         actionsBtn.click();
         paymentAdd.click();
+    }
+
+    public void resetAssign() {
+        actionsBtn.click();
+        remove.click();
+        waitForLoaderDisappears(3000);
     }
 }

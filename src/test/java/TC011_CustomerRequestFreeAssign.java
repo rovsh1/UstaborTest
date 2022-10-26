@@ -30,14 +30,17 @@ public class TC011_CustomerRequestFreeAssign extends TestBase {
 
         user.atHomePage.logsOut();
 
-        admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
+        if (getTashkentHour() > 9 && getTashkentHour() < 18) {
+            admin.atRequestsPage.openRequestById(requestId);
+            admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
+        }
 
         user.atHomePage.openHomePage();
         user.atHomePage.login(watcher.getMaster(), true);
         user.atHomePage.waitForLoaderDisappears();
 
         user.atMasterProfileRequestsPage.openRequestsPage();
+        user.atMasterProfileRequestsPage.verifyRequestId(requestId);
         user.atMasterProfileRequestsPage.verifyBalance(10000);
         user.atMasterProfileRequestsPage.openRequest();
 

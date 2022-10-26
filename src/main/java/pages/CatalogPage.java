@@ -37,7 +37,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//nav[@class='breadcrumbs']/a")
     private List<WebElementFacade> headerNavigationElements;
 
-    @FindBy(xpath = "//div[@class='control selectbox icon category']")
+    @FindBy(xpath = "//div[@class='ui-selectbox icon category']")
     private WebElementFacade selectedCategory;
 
     @FindBy(xpath = "//div[@id='projects-gallery']/a[@class='item project']")
@@ -68,7 +68,7 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'district')]")
     private WebElementFacade filterDistrictBtn;
 
-    @FindBy(xpath = "//div[contains(@class, 'city')]//div[contains(@class,'item')]")
+    @FindBy(xpath = "//div[contains(@class,'item')]")
     private List<WebElementFacade> filterCitiesList;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'order')]")

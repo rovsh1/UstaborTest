@@ -10,7 +10,7 @@
 
     <properties>
         <serenity.version>3.2.4</serenity.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.2</junit.version>
         <surefire.verson>3.0.0-M3</surefire.verson>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
@@ -108,7 +108,7 @@
                         <include>TC*.java</include>
                         <include>UU*.java</include>
                     </includes>
-                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
+<!--                    <rerunFailingTestsCount>1</rerunFailingTestsCount>-->
                 </configuration>
                 <executions>
                     <execution>

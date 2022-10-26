@@ -114,21 +114,6 @@ public class Admin {
         }
     }
 
-    public void runCron(String id) {
-        var url = Config.getAdminUrl() + String.format("system/cron/%s/run", id);
-
-        try {
-            logger.info("Run cron task");
-            executor.execute(Request.Get(url))
-                    .returnResponse()
-                    .getStatusLine()
-                    .getStatusCode();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getSmsCode(String phoneNumber) {
         var smsLog = getSmsLogPage();
         var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);

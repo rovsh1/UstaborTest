@@ -43,6 +43,15 @@ public class RequestsPageSteps extends ScenarioSteps {
     }
 
     @Step
+    public void reassignRequestToMasterForPayment(Master master) {
+        requestsPage.openAssignMasterForm();
+        requestsPage.findMaster(master.getLastName());
+        requestsPage.resetAssign();
+        requestsPage.assignForPayment();
+        requestsPage.waitForLoaderDisappears(180000);
+    }
+
+    @Step
     public void assignRequestToAllMastersOfCategory() {
         requestsPage.openAssignMasterForm();
         requestsPage.setAssignToAllMasters();

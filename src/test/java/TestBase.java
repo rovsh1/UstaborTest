@@ -14,7 +14,12 @@ import steps.UserSteps;
 import steps.adminSteps.AdminSteps;
 import utils.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeoutException;
+
+import static net.serenitybdd.core.Serenity.getDriver;
 
 public class TestBase {
 
@@ -64,9 +69,9 @@ public class TestBase {
             var anno = this.getClass().getAnnotation(AddMasters.class);
 
             user.atHomePage.openHomePage();
-            setCountryLanguageAndLocation();
 
             for (int i = 0; i < anno.masters(); i++) {
+                setCountryLanguageAndLocation();
                 var master = DataGenerator.getMaster(category);
                 watcher.users.add(master);
 
@@ -78,9 +83,11 @@ public class TestBase {
                     user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
                 }
 
+                getDriver().manage().deleteAllCookies();
                 user.atHomePage.logsOut();
             }
 
+            setCountryLanguageAndLocation();
             return;
         }
 
@@ -92,6 +99,13 @@ public class TestBase {
         return XmlParser.getTextByKey(key);
     }
 
+    int getTashkentHour() {
+        var date = new Date();
+        var df = new SimpleDateFormat("HH");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Tashkent"));
+        return Integer.parseInt(df.format(date));
+    }
+
     void setBrowserMobileWindowSize() {
         driver.manage().window().setSize(new Dimension(320, 800));
     }
@@ -99,7 +113,7 @@ public class TestBase {
     private void setCountryLanguageAndLocation() {
         user.atHomePage.setLanguage(Config.getLang());
 
-        if (Config.isUstabor()) {
+        if (Config.isUstabor() || Config.isBildrlist()) {
             user.atHomePage.selectCity(getText(Config.getCountryCode() + "_city"));
             return;
         }

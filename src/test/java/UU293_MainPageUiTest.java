@@ -36,10 +36,6 @@ public class UU293_MainPageUiTest extends TestBase {
             user.atHomePage.verifyFooterCountriesListIsVisible();
         }
 
-        if (!Config.isFixListKg() && !Config.isNewTest()) {
-            user.atHomePage.verifyFooterLanguagesListIsVisible();
-        }
-
         setBrowserMobileWindowSize();
         user.atHomePage.openMobileViewMainMenu();
 

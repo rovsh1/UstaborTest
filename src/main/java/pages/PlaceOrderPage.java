@@ -1,6 +1,7 @@
 package pages;
 
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import enums.RequestPages;
 import utils.Admin;
@@ -16,13 +17,13 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//select[@id='form_order_site_id']")
     private WebElementFacade domainDropdown;
 
-    @FindBy(xpath = "//select[@name='order[category_id]']")
+    @FindBy(xpath = "//input[@name='order[category_id]']/../div")
     private WebElementFacade categoryDropdown;
 
-    @FindBy(xpath = "//select[./option[text()='Autotest']]")
+    @FindBy(xpath = "//div[@class='form-field']/div")
     private WebElementFacade whatToDoDropDown;
 
-    @FindBy(xpath = "//div[./label[text()='Test']]/select")
+    @FindBy(xpath = "//div[@class='form-field'][last()]/div")
     private WebElementFacade questionSelector;
 
     @FindBy(xpath = "//div[@class='dropzone-field']")
@@ -55,7 +56,7 @@ public class PlaceOrderPage extends BasePage {
     //endregion
 
     //region Confirmation form
-    @FindBy(xpath = "//input[@id='form_data_code']")
+    @FindBy(xpath = "//input[@id='form_confirmation_code']")
     private WebElementFacade codeInput;
 
     @FindBy(xpath = "//form[@id='form-confirmation']//button[@class='btn-submit']")
@@ -90,7 +91,9 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void selectCategory(String systemId) {
-        categoryDropdown.selectByValue(systemId);
+        categoryDropdown.click();
+        getDriver().findElement(By.xpath(String.format("//li[@data-value='%s']", systemId))).click();
+        waitForLoaderDisappears(3000);
     }
 
     public void clickNextButton(RequestPages pageNumber) {
@@ -124,20 +127,19 @@ public class PlaceOrderPage extends BasePage {
         confirmBtn.click();
     }
 
-    public void successPageShouldBeVisible() {
-        myRequestsBtn.shouldBeVisible();
-    }
-
     public void clickMyRequestsBtn() {
         myRequestsBtn.click();
     }
 
-    public void selectService(String question) {
-        whatToDoDropDown.selectByVisibleText(question);
+    public void selectWhatToDo(String question) {
+        whatToDoDropDown.click();
+        getDriver().findElement(By.xpath(String.format("//li[./div[text()='%s']]", question))).click();
+        waitForLoaderDisappears(3000);
     }
 
     public void selectQuestion(String question) {
-        questionSelector.selectByVisibleText(question);
+        questionSelector.click();
+        getDriver().findElement(By.xpath(String.format("//li[./div[text()='%s']]", question))).click();
     }
 
     public void priceShouldBeVisible(String price) {

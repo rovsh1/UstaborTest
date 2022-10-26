@@ -39,6 +39,12 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
         confirmPhoneNumber(smsCode, smsCode);
@@ -61,6 +67,12 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         placeOrderPage.waitForSubmitCodeForm();
         var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
         confirmPhoneNumber(smsCode, smsCode);
@@ -71,7 +83,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     public void fillInFirstPage(Category category, String service, String question, String info) {
         placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.selectCategory(category.getSystemId());
-        placeOrderPage.selectService(service);
+        placeOrderPage.selectWhatToDo(service);
         placeOrderPage.selectQuestion(question);
         placeOrderPage.enterAdditionalInfo(info);
     }
@@ -81,7 +93,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.enterName(userName);
         placeOrderPage.selectCategory(category.getSystemId());
-        placeOrderPage.selectService(service);
+        placeOrderPage.selectWhatToDo(service);
         placeOrderPage.selectQuestion(question);
         placeOrderPage.enterAdditionalInfo(info);
     }
