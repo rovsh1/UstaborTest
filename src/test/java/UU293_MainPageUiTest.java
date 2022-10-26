@@ -13,16 +13,12 @@ public class UU293_MainPageUiTest extends TestBase {
 
     @Test
     public void mainPageUiTest() throws TimeoutException {
-
-        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest() && !Config.isBildrlist()) {
+        if (Config.isFixinglist()) {
             user.atHomePage.verifyHeaderCountriesListIsVisible();
         }
 
-        if (!Config.isFixListKg()) {
-            user.atHomePage.verifySubdomainDropDown();
-            user.atHomePage.verifyHeaderLanguagesListIsVisible();
-        }
-
+        user.atHomePage.verifySubdomainDropDown();
+        user.atHomePage.verifyHeaderLanguagesListIsVisible();
         user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
 
         user.atHomePage.verifyLoginForm();
@@ -32,7 +28,7 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyRandomFaqItem();
 
-        if (!Config.isUstabor() && !Config.isFixListKg() && !Config.isNewTest() && !Config.isBildrlist()) {
+        if (Config.isFixinglist()) {
             user.atHomePage.verifyFooterCountriesListIsVisible();
         }
 
@@ -49,6 +45,5 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.openPlaceOrderPage();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();
-//        user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));
     }
 }

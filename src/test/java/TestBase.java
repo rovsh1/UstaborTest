@@ -19,8 +19,8 @@ import java.util.concurrent.TimeoutException;
 
 import static net.serenitybdd.core.Serenity.getDriver;
 
-public class TestBase {
 
+public class TestBase {
     public final Category category = new Category();
 
     @Rule
@@ -37,6 +37,7 @@ public class TestBase {
 
     @Before
     public void setUp() throws TimeoutException {
+        Config.setAgentNeeded(this.toString().contains("UU293"));
         Serenity.throwExceptionsImmediately();
         Admin.getInstance();
 
@@ -99,7 +100,8 @@ public class TestBase {
     }
 
     void setBrowserMobileWindowSize() {
-        driver.manage().window().setSize(new Dimension(320, 800));
+        driver.manage().window().setSize(new Dimension(375, 667));
+        driver.navigate().refresh();
     }
 
     private void setCountryLanguageAndLocation() {

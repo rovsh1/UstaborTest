@@ -20,6 +20,7 @@ public class Config {
     private static String adminUrl;
     private static Users users;
     private static Browsers browser;
+    private static boolean agent = false;
 
     public static Browsers getBrowser() {
         if (browser == null) {
@@ -168,5 +169,13 @@ public class Config {
         } else {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    public static void setAgentNeeded(boolean value) {
+        agent = value;
+    }
+
+    public static boolean getAgentNeeded() {
+        return agent;
     }
 }
