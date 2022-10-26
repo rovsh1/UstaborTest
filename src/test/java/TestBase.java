@@ -6,9 +6,7 @@ import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
 import org.junit.Rule;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import steps.UserSteps;
 import steps.adminSteps.AdminSteps;
@@ -41,12 +39,6 @@ public class TestBase {
     public void setUp() throws TimeoutException {
         Serenity.throwExceptionsImmediately();
         Admin.getInstance();
-
-        if (!Config.isChrome()) {
-            driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
-            driver.manage().window().fullscreen();
-            driver.manage().window().maximize();
-        }
 
         if (this.getClass().isAnnotationPresent(AddCategory.class)) {
             var annotation = this.getClass().getAnnotation(AddCategory.class);

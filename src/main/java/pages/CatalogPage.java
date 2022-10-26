@@ -110,21 +110,6 @@ public class CatalogPage extends SearchBlock {
     public void openFilter() {
         scrollPageUpJS();
         filterBtn.click();
-
-        if (!Config.isChrome()) {
-            var counter = 0;
-            while (!filterCategoryBtn.isVisible() && counter < 10) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                filterBtn.click();
-                counter++;
-            }
-        }
-
         waitForLoaderDisappears();
     }
 

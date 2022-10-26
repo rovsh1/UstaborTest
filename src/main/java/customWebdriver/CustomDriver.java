@@ -13,40 +13,24 @@ public class CustomDriver implements DriverSource {
 
     @Override
     public WebDriver newDriver() {
+        try {
+            System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
 
-        switch (Config.getBrowser()) {
-            case chrome:
-                try {
-                    System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
-                    var options = new ChromeOptions();
-                    options.addArguments("--headless");
-                    options.addArguments("--window-size=1920,1080");
-                    options.addArguments("start-maximized");
-                    options.addArguments("--start-fullscreen");
-                    options.addArguments("user-agent=qatesting");
-                    options.addArguments("--ignore-certificate-errors");
-                    var capabilities = new DesiredCapabilities();
-                    capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-                    return new ChromeDriver(options);
-                } catch (Exception e) {
-                    throw new Error(e);
-                }
+            var options = new ChromeOptions();
+            options.addArguments("--headless");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("start-maximized");
+            options.addArguments("--start-fullscreen");
+            options.addArguments("user-agent=qatesting");
+            options.addArguments("--ignore-certificate-errors");
 
-            case ie:
-                try {
-                    System.setProperty("webdriver.ie.driver", "driver/IEDriverServer.exe");
-                    var options = new InternetExplorerOptions();
-                    options.destructivelyEnsureCleanSession();
-                    options.ignoreZoomSettings();
-                    options.introduceFlakinessByIgnoringSecurityDomains();
+            var capabilities = new DesiredCapabilities();
+            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
-                    return new InternetExplorerDriver(options);
-                } catch (Exception e) {
-                    throw new Error(e);
-                }
+            return new ChromeDriver(options);
+        } catch (Exception e) {
+            throw new Error(e);
         }
-
-        return null;
     }
 
     @Override

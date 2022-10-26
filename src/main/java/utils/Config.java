@@ -150,10 +150,6 @@ public class Config {
         return properties.getProperty("tags") != null && properties.getProperty("tags").contains("mobile");
     }
 
-    public static boolean isChrome() {
-        return getBrowser().equals(Browsers.chrome);
-    }
-
     public static String getChromeDriverPath() {
         var os = System.getProperty("os.name").toLowerCase();
 

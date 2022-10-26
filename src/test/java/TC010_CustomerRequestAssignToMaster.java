@@ -25,6 +25,8 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
         customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
+        admin.addMoneyToMaster(10000, watcher.getMaster());
+
         user.atHomePage.openHomePage();
 
         user.atHomePage.registerAsCustomer(customer);
@@ -59,5 +61,6 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
         user.atHomePage.login(watcher.getMaster(), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestId(requestId);
+        user.atMasterProfileRequestsPage.verifyBalance(10000);
     }
 }

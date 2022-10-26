@@ -163,6 +163,21 @@ public class Admin {
         }
     }
 
+    public void runCron(String id) {
+        var url = Config.getAdminUrl() + String.format("system/cron/%s/run", id);
+
+        try {
+            logger.info("Run cron task");
+            executor.execute(Request.Get(url))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private String getSmsLogPage() {
         var url = Config.getAdminUrl() + "logs/sms";
 

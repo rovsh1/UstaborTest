@@ -421,33 +421,12 @@ public class HomePage extends SearchBlock {
         withTimeoutOf(Duration.ofSeconds(25)).waitFor(regFormEmailInput).isPresent();
     }
 
-    public void clickCatalogBtn() {
-        if (Config.isChrome()) {
-            viewFullCatalogBtn.click();
-        } else {
-            clickElementJS(viewFullCatalogBtn);
-        }
-
-        setTimeouts(1, ChronoUnit.SECONDS);
-        if (adBanner.isPresent()) {
-            adBannerCloseBtn.click();
-        }
-        resetTimeouts();
-
-    }
-
     public boolean isLoggedIn() {
         return isLogoutBtnVisible();
     }
 
     public void clickLeaveFeedback() {
         leaveFeedbackBtn.click();
-    }
-
-    public void openRandomCategory() {
-        var category = categoriesList.get(new Random().nextInt(categoriesList.size()));
-        focusElementJS(category);
-        category.click();
     }
 
     public void openRandomFaqItem() {
