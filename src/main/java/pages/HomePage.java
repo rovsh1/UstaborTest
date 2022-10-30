@@ -28,8 +28,8 @@ public class HomePage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class,'item site-www')]/div[@class='name']")
     private WebElementFacade builderTab;
 
-    @FindBy(xpath = "//div[@class='popup region-popup']//button[@class='btn btn-submit']")
-    private WebElementFacade defaultLocation;
+    @FindBy(xpath = "//div[@id='btn-region']")
+    private WebElementFacade locationBtn;
 
     @FindBy(xpath = "//div[@class='popup region-popup']//button[@class='btn btn-default']")
     private WebElementFacade changeLocation;
@@ -488,8 +488,8 @@ public class HomePage extends SearchBlock {
         return regFormUserPhoneNumberInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
     }
 
-    public void selectDefaultLocation() {
-        defaultLocation.click();
+    public void openLocationPopup() {
+        locationBtn.click();
     }
 
     public void selectLocation(String country, String city) {

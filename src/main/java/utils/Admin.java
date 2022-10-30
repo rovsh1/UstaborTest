@@ -123,8 +123,13 @@ public class Admin {
     }
 
     public String getSmsPassword(String phoneNumber) {
+        var stringKey = "SmsRegistration";
+        if (Config.isFixinglist()) {
+            stringKey += "_fixinglist";
+        }
+
         var smsLog = getSmsLogPage();
-        var password = new NewXmlParser(smsLog).getSmsPassword(phoneNumber, XmlParser.getTextByKey("SmsRegistration"));
+        var password = new NewXmlParser(smsLog).getSmsPassword(phoneNumber, XmlParser.getTextByKey(stringKey));
         logger.info("Get SMS password {} for phone number: {}", password, phoneNumber);
 
         return password;

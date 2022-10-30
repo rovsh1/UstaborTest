@@ -180,23 +180,10 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyHeaderCountriesListIsVisible() {
-        homePage.openHeaderCountriesDropDown();
-        homePage.verifyHeaderCountriesPopup();
-    }
-
-    @Step
     public void verifyFooterCountriesListIsVisible() {
         homePage.scrollPageToBottom();
         homePage.openFooterCountriesDropDown();
         homePage.verifyFooterCountriesPopup();
-    }
-
-    @Step
-    public void verifyFooterLanguagesListIsVisible() {
-        homePage.scrollPageToBottom();
-        homePage.openFooterLangDropDown();
-        homePage.verifyFooterLanguagePopup();
     }
 
     @Step
@@ -272,14 +259,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyMobileViewContactsForm(String text) throws TimeoutException {
-        openHomePage();
-        openMobileViewMainMenu();
-        homePage.openMobileViewPhoneForm();
-        homePage.verifyMobileViewPhoneFormText(text);
-    }
-
-    @Step
     public void openBuilderTab() {
         homePage.clickBuilderTab();
     }
@@ -307,6 +286,13 @@ public class HomePageSteps extends ScenarioSteps {
 
     public void waitForLoaderDisappears() {
         homePage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void openLocationPopupAndVerifyCountries() {
+        homePage.openLocationPopup();
+        homePage.verifyHeaderCountriesPopup();
+        homePage.clickCloseBtn();
     }
 
     @Step

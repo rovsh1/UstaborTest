@@ -55,7 +55,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu countries']/div[contains(@class, 'label')]")
     private WebElementFacade headerCountriesBtn;
 
-    @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu countries']//a")
+    @FindBy(xpath = "//ul[@class='countries']/li")
     private List<WebElementFacade> countriesList;
 
     @FindBy(xpath = "//button[@class='button-submit']")
@@ -243,6 +243,11 @@ public class BasePage extends PageObject {
             expectedUrl = expectedUrl.replace("/ru/", "");
         }
 
+        var homeDomainKeyword = "SiteDomainHome";
+        if (Config.isFixinglist()) {
+            homeDomainKeyword += "_fixinglist";
+        }
+
         if (siteName.equals(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainBuild_Short2"))) ||
                 siteName.equals(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainBuild_Full")))) {
             assertThat(getDriver().getCurrentUrl()).contains(expectedUrl);
@@ -250,7 +255,7 @@ public class BasePage extends PageObject {
             assertThat(getDriver().getCurrentUrl()).contains("//auto.");
         } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainTech")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//tech.");
-        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainHome")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey(homeDomainKeyword)))) {
             assertThat(getDriver().getCurrentUrl()).contains("//home.");
         } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainMaterials")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//materials.");

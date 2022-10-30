@@ -14,7 +14,7 @@ public class UU293_MainPageUiTest extends TestBase {
     @Test
     public void mainPageUiTest() throws TimeoutException {
         if (Config.isFixinglist()) {
-            user.atHomePage.verifyHeaderCountriesListIsVisible();
+            user.atHomePage.openLocationPopupAndVerifyCountries();
         }
 
         user.atHomePage.verifySubdomainDropDown();
@@ -27,10 +27,6 @@ public class UU293_MainPageUiTest extends TestBase {
         user.atPlaceOrderPage.verifyPage();
 
         user.atHomePage.verifyRandomFaqItem();
-
-        if (Config.isFixinglist()) {
-            user.atHomePage.verifyFooterCountriesListIsVisible();
-        }
 
         setBrowserMobileWindowSize();
         user.atHomePage.openMobileViewMainMenu();
