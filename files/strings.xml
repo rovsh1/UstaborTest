@@ -7,7 +7,7 @@
     <string name="ua">Украина</string>
     <string name="uz">Узбекистан</string>
 
-    <string name="kz_city">Нур-Султан</string>
+    <string name="kz_city">Астана</string>
     <string name="uz_city">Ташкент</string>
 
     <string name="CustomerRegEmailSubject_new_test">Регистрация на сайте Ustabor.uz</string>
@@ -62,10 +62,10 @@
     <string name="FilterCity_uz_test">Джизак</string>
     <string name="FilterCity_ua_test">Одесса</string>
 
-    <string name="FilterCity_kz_ustabor">Нур-Султан</string>
+    <string name="FilterCity_kz_ustabor">Астана</string>
     <string name="FilterCity_uz_ustabor">Ташкент</string>
 
-    <string name="FilterCity_kz_fixinglist">Нур-Султан</string>
+    <string name="FilterCity_kz_fixinglist">Астана</string>
     <string name="FilterCity_uz_fixinglist">Ташкент</string>
 
     <string name="FilterDistrict_uz"></string>
