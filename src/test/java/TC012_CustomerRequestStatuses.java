@@ -33,7 +33,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
 
         user.atHomePage.logsOut();
 
-        if (getTashkentHour() > 9 && getTashkentHour() < 18) {
+        if (getTashkentHour() >= 9 && getTashkentHour() < 18) {
             admin.atRequestsPage.openRequestById(requestId);
             admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
 

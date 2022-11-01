@@ -44,16 +44,11 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
 
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();
 
-        if (getTashkentHour() > 9 && getTashkentHour() < 18) {
+        if (getTashkentHour() >= 9 && getTashkentHour() < 18) {
             admin.atRequestsPage.openRequestById(requestId);
             admin.atRequestsPage.verifyRequest(customer, category, getText("Question"));
             admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
 
-            try {
-                Thread.sleep(15000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
         user.atHomePage.openHomePage();

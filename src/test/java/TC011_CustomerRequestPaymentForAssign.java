@@ -32,10 +32,10 @@ public class TC011_CustomerRequestPaymentForAssign extends TestBase {
 
         admin.atRequestsPage.openRequestById(requestId);
 
-        if (getTashkentHour() < 9 && getTashkentHour() > 18) {
-            admin.atRequestsPage.reassignRequestToMasterForPayment(watcher.getMaster());
-        } else {
+        if (getTashkentHour() >= 9 && getTashkentHour() < 18) {
             admin.atRequestsPage.assignRequestToMasterForPayment(watcher.getMaster());
+        } else {
+            admin.atRequestsPage.reassignRequestToMasterForPayment(watcher.getMaster());
         }
 
         user.atHomePage.openHomePage();
