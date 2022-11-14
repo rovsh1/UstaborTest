@@ -19,21 +19,7 @@ public class Config {
     private static String countryCode;
     private static String adminUrl;
     private static Users users;
-    private static Browsers browser;
     private static boolean agent = false;
-
-    public static Browsers getBrowser() {
-        if (browser == null) {
-            var parameter = getEnvironmentVariableValue(BROWSER, false);
-
-            if (parameter == null) {
-                browser = Browsers.chrome;
-            } else {
-                browser = Browsers.valueOf(parameter);
-            }
-        }
-        return browser;
-    }
 
     public static boolean isUstabor() {
         return getEnv().equals("ustabor");
@@ -66,16 +52,16 @@ public class Config {
     public static String getAdminUrl() {
         if (adminUrl == null) {
             adminUrl = getBaseUrl().replace("www", "ka8rms");
-
-            if (Config.isBildrlist()) {
-                adminUrl = adminUrl.replace("https", "http");
-            }
         }
 
         return adminUrl;
     }
 
     public static String getFullUrl() {
+        if (isBildrlist()) {
+            return getBaseUrl() + getLang();
+        }
+
         return getBaseUrl() + getLang() + "-" + getCountryCode() + "/";
     }
 
