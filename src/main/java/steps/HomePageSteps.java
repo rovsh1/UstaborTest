@@ -180,13 +180,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyFooterCountriesListIsVisible() {
-        homePage.scrollPageToBottom();
-        homePage.openFooterCountriesDropDown();
-        homePage.verifyFooterCountriesPopup();
-    }
-
-    @Step
     public void verifyHeaderLanguagesListIsVisible() {
         homePage.openHeaderLangDropDown();
         homePage.verifyLangPopupIsVisible();

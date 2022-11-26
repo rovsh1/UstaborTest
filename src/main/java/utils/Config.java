@@ -59,11 +59,11 @@ public class Config {
 
     public static String getFullUrl() {
         if (isBildrlist()) {
-            return getBaseUrl() + getLang();
+            return getBaseUrl() + getLang() + "/";
         }
 
         if (isUstabor()) {
-            return getBaseUrl() + getLang();
+            return getBaseUrl() + getLang() + "/";
         }
 
         return getBaseUrl() + getLang() + "-" + getCountryCode() + "/";

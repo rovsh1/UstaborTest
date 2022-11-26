@@ -19,7 +19,10 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifySubdomainDropDown();
         user.atHomePage.verifyHeaderLanguagesListIsVisible();
-        user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
+
+        if (!Config.isUstabor()) {
+            user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
+        }
 
         user.atHomePage.verifyLoginForm();
         user.atHomePage.verifyRegistrationForm();
