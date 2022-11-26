@@ -62,6 +62,10 @@ public class Config {
             return getBaseUrl() + getLang();
         }
 
+        if (isUstabor()) {
+            return getBaseUrl() + getLang();
+        }
+
         return getBaseUrl() + getLang() + "-" + getCountryCode() + "/";
     }
 
