@@ -72,11 +72,4 @@ public class AdminSteps extends ScenarioSteps {
     public void waitForCronTaskCompleted(String taskId, int timeout) {
         atCronTasksPage.waitForCronTaskCompleted(taskId, timeout);
     }
-
-    public void addTagToCategory(Category category, String tagName) throws TimeoutException {
-        atCategoriesPage.openEditCategoryPage(category.getSystemId());
-        atCategoriesPage.openAddTagsPage();
-        atCategoriesPage.addTag(tagName);
-
-    }
 }
