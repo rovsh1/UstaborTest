@@ -13,17 +13,16 @@ public class UU293_MainPageUiTest extends TestBase {
 
     @Test
     public void mainPageUiTest() throws TimeoutException {
-
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.verifyHeaderCountriesListIsVisible();
+        if (Config.isFixinglist()) {
+            user.atHomePage.openLocationPopupAndVerifyCountries();
         }
 
-        if (!Config.isFixListKg()) {
-            user.atHomePage.verifySubdomainDropDown();
-            user.atHomePage.verifyHeaderLanguagesListIsVisible();
-        }
+        user.atHomePage.verifySubdomainDropDown();
+        user.atHomePage.verifyHeaderLanguagesListIsVisible();
 
-        user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
+        if (!Config.isUstabor()) {
+            user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
+        }
 
         user.atHomePage.verifyLoginForm();
         user.atHomePage.verifyRegistrationForm();
@@ -32,27 +31,18 @@ public class UU293_MainPageUiTest extends TestBase {
 
         user.atHomePage.verifyRandomFaqItem();
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.verifyFooterCountriesListIsVisible();
-        }
-
-        if (!Config.isFixListKg()) {
-            user.atHomePage.verifyFooterLanguagesListIsVisible();
-        }
-
-        setBrowserWindowSize(320, 800);
+        setBrowserMobileWindowSize();
         user.atHomePage.openMobileViewMainMenu();
 
-        if (!Config.isFixListKg()) {
+        if (!Config.isFixListKg() || !Config.isNewTest()) {
             user.atHomePage.verifyMobileViewLanguageMenu();
         }
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
+        if (!Config.isUstabor() && !Config.isBildrlist()) {
             user.atHomePage.verifyMobileViewCountriesMenu();
         }
 
         user.atHomePage.openPlaceOrderPage();
         user.atHomePage.verifyMobileViewCustomerRegistrationForm();
-        user.atHomePage.verifyMobileViewContactsForm(getText("PhoneHintPopupText_" + Config.getEnv()));
     }
 }

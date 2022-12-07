@@ -1,6 +1,7 @@
 package enums;
 
 public enum RequestPages {
-
-    First, Second, Last
+    First,
+    Second,
+    Last
 }

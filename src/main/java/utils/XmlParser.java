@@ -1,42 +1,38 @@
 package utils;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.lang.reflect.Field;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class XmlParser {
 
-    public static String getTextByKey(String attribute) {
-        System.setProperty("file.encoding","UTF-8");
-        try {
-            Field charset = Charset.class.getDeclaredField("defaultCharset");
-            charset.setAccessible(true);
-            charset.set(null,null);
+    private static final Logger logger = LoggerFactory.getLogger(XmlParser.class);
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setNamespaceAware(true);
-            DocumentBuilder builder;
+    public static String getTextByKey(String attribute) {
+        try {
             String xml = "files/strings.xml";
 
-            builder = factory.newDocumentBuilder();
+            var inputStream = new FileInputStream(new File(xml));
+            var reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            var is = new InputSource(reader);
+            is.setEncoding("UTF-8");
 
-            Document document = builder.parse(new File(xml));
-            NodeList nl = document.getElementsByTagName("string");
+            var dbFactory = DocumentBuilderFactory.newInstance();
+            var builder = dbFactory.newDocumentBuilder();
+            var document = builder.parse(is);
+            var nl = document.getElementsByTagName("string");
 
             for (int i = 0; i < nl.getLength(); i++) {
-                Node node = nl.item(i);
-                NamedNodeMap nm = node.getAttributes();
+                var node = nl.item(i);
+                var nm = node.getAttributes();
                 if (nm != null) {
-                    String name = nm.getNamedItem("name").getNodeValue();
+                    var name = nm.getNamedItem("name").getNodeValue();
 
                     if (name.equals(attribute)) {
                         return node.getTextContent();
@@ -45,44 +41,9 @@ public class XmlParser {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.info(e.getLocalizedMessage());
         }
 
         return null;
-    }
-
-    public static List<String> getAllValuesByPredicate(String attributePredicate) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        DocumentBuilder builder;
-        String xml = null;
-        var results = new ArrayList<String>();
-        try {
-            builder = factory.newDocumentBuilder();
-
-            xml = "files/strings.xml";
-
-            Document document = builder.parse(new File(xml));
-            NodeList nl = document.getElementsByTagName("string");
-
-            for (int i = 0; i < nl.getLength(); i++) {
-                Node node = nl.item(i);
-                NamedNodeMap nm = node.getAttributes();
-                if (nm != null) {
-                    String name = nm.getNamedItem("name").getNodeValue();
-
-                    if (name.startsWith(attributePredicate)) {
-                        results.add(node.getTextContent());
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return results;
     }
 }

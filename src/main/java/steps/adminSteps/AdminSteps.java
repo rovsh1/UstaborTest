@@ -2,6 +2,7 @@ package steps.adminSteps;
 
 import entities.Master;
 import entities.Category;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -33,10 +34,13 @@ public class AdminSteps extends ScenarioSteps {
     @Steps
     public AddServicePageSteps atAddEditServicePage;
 
+    @Steps
+    public CronTasksPageSteps atCronTasksPage;
+
     public void addTestCategory(Category category) {
         atAdminHomePage.loginAsAdmin();
         atAddCategoryPage.addTestCategory(category);
-        atCategoriesPage.getCategoryIdByName(category);
+        atCategoriesPage.getCategoryId(category);
     }
 
     public void addMoneyToMaster(int amount, Master master) {
@@ -49,7 +53,7 @@ public class AdminSteps extends ScenarioSteps {
         atPromotionPage.approvePromotion(category);
     }
 
-    public void addServiceRequestQuestions(Category category, String question) {
+    public void addServiceQuestions(Category category, String question) {
         atAddRequestQuestionsPage.openPage();
         atAddRequestQuestionsPage.addQuestionToCategory(category, question);
     }
@@ -60,9 +64,13 @@ public class AdminSteps extends ScenarioSteps {
         atAddEditServicePage.saveService();
     }
 
-    public void setRequestPrices(Category category, String country, String minPrice, String maxPrice) {
-        atAddEditServicePage.openEditPage(category.getName());
-        atAddEditServicePage.setPriceForCurrentCountry(country, minPrice, maxPrice);
+    public void setServicePrices(String country, String minPrice, String maxPrice) {
+        atAddRequestQuestionsPage.setPriceForCurrentCountry(country, minPrice, maxPrice);
+    }
+
+    @Step
+    public void waitForCronTaskCompleted(String taskId, int timeout) {
+        atCronTasksPage.waitForCronTaskCompleted(taskId, timeout);
     }
 
     public void addTagToCategory(Category category, String tagName) throws TimeoutException {

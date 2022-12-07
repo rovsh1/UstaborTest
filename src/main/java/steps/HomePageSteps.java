@@ -5,6 +5,7 @@ import entities.User;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.HomePage;
+import utils.Admin;
 
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -12,17 +13,6 @@ import java.util.concurrent.TimeoutException;
 public class HomePageSteps extends ScenarioSteps {
 
     private HomePage homePage;
-
-    @Step
-    public void enterSearchText(String text) {
-        homePage.enterSearchText(text);
-    }
-
-    @Step
-    public void enterTextAndSearch(String text) {
-        enterSearchText(text);
-        homePage.selectSuggestion(text);
-    }
 
     @Step
     public void openHomePage() throws TimeoutException {
@@ -39,20 +29,28 @@ public class HomePageSteps extends ScenarioSteps {
 
         homePage.regFormEnterUserPhone(customer.getPhoneNumber());
         homePage.regFormClickSubmit();
-        homePage.waitForLoaderDisappears();
-        homePage.authCodeFormShouldBeVisible();
+        homePage.waitForSubmitCodeForm();
     }
 
     @Step
-    public void enterAuthCodeAndSubmit(String code) {
+    public void enterAuthCodeAndSubmit(String code, String phoneNumber) {
         homePage.regFormEnterAuthCode(code);
         homePage.regFormClickSubmitAuthCode();
+
+        if (homePage.isRefreshLinkVisible()) {
+            retryEnterCode(phoneNumber);
+        }
+
         homePage.waitForLoaderDisappears();
     }
 
     @Step
-    public void openCatalog() {
-        homePage.clickCatalogBtn();
+    public void retryEnterCode(String phoneNumber) {
+        homePage.resendCode();
+        homePage.waitForLoaderDisappears();
+        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+        homePage.regFormEnterAuthCode(smsCode);
+        homePage.regFormClickSubmitAuthCode();
     }
 
     @Step
@@ -70,6 +68,7 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.signInFormEnterLogin(login);
         homePage.signInFormEnterPassword(password);
         homePage.signInFormClickLoginBtn();
+        homePage.waitForLoaderDisappears();
         return homePage.isLoggedIn();
     }
 
@@ -85,30 +84,14 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void pageShouldBeVisible() {
-        homePage.viewFullCatalogBtnShouldBeVisible();
-    }
-
-
-    @Step
     public void selectSuggestionCategoryAndSearch(String suggestion) {
         homePage.suggestionListShouldBeVisible();
         homePage.selectSuggestion(suggestion);
     }
 
     @Step
-    public void openRandomCategory() {
-        homePage.openRandomCategory();
-    }
-
-    @Step
     public List<String> getCountriesList() {
         return homePage.getCountries();
-    }
-
-    @Step
-    public void setCountry(String country) {
-        homePage.setCountry(country);
     }
 
     @Step
@@ -122,27 +105,12 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void homePageShouldBeVisible() {
-        homePage.openLoginFormBtnShouldBeVisible();
-    }
-
-    @Step
     public void openLoginFormAndVerify() {
         homePage.openLoginForm();
         homePage.loginInputShouldBeVisible();
         homePage.passwordInputShouldBeVisible();
         homePage.forgotPasswordLinkShouldBeVisible();
         homePage.loginBtnShouldBeVisible();
-        homePage.registerLinkShouldBeVisible();
-    }
-
-    @Step
-    public void selectIamMasterAndVerify() {
-        homePage.clickMasterBtnLogin();
-        homePage.loginInputShouldBeVisible();
-        homePage.passwordInputShouldBeVisible();
-        homePage.loginBtnShouldBeVisible();
-        homePage.forgotPasswordLinkShouldBeVisible();
         homePage.registerLinkShouldBeVisible();
     }
 
@@ -157,46 +125,40 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void setMasterExperienceCityAndPhone(Master master) {
+    public void registerAsMaster(Master master, boolean randomCategory) {
+        homePage.openRegistrationForm();
+        homePage.clickMasterBtnRegister();
+        homePage.regMasterFormEnterFirstName(master.getFirstName());
+        homePage.regMasterFormEnterLastName(master.getLastName());
         homePage.regMasterFormEnterPhoneNumber(master.getPhoneNumber());
+        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
+        homePage.regFormEnterPassword(master.getPassword());
+
+        homePage.regMasterClickSubmit();
+
+        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
         homePage.regMasterFormSelectExperience();
         master.setCity(homePage.regMasterFormSelectCity());
-    }
 
-    @Step
-    public void registerAsMasterWithSpecifiedCategory(Master master) {
-        homePage.openRegistrationForm();
-        homePage.clickMasterBtnRegister();
-        homePage.registerFormShouldBeVisible();
-        homePage.regMasterFormSelectBuildSubDomain();
-        homePage.regMasterFormEnterFirstName(master.getFirstName());
-        homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterPassword(master.getPassword());
-
-        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
-
-        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectCategory(master);
-        setMasterExperienceCityAndPhone(master);
         homePage.regMasterClickSubmit();
-    }
 
-    @Step
-    public void registerAsMaster(Master master) {
-        homePage.openRegistrationForm();
-        homePage.clickMasterBtnRegister();
-        homePage.registerFormShouldBeVisible();
         homePage.regMasterFormSelectBuildSubDomain();
-        homePage.regMasterFormEnterFirstName(master.getFirstName());
-        homePage.regMasterFormEnterLastName(master.getLastName());
-        homePage.regFormEnterPassword(master.getPassword());
 
-        master.setPhoneCode(homePage.getMasterPhoneCountryCode());
+        if (randomCategory) {
+            homePage.regMasterFormSelectRandomCategory(master);
+        } else {
+            homePage.regMasterFormSelectCategory(master);
+        }
 
-        homePage.regMasterFormEnterAboutMe(master.getAboutMe());
-        homePage.regMasterFormSelectRandomCategory(master);
-        setMasterExperienceCityAndPhone(master);
         homePage.regMasterClickSubmit();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        homePage.waitForSubmitCodeForm();
     }
 
     @Step
@@ -205,41 +167,16 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void requestNewPassword(String email) {
-        homePage.forgotPasswordEnterEmail(email);
+    public void requestNewPassword(String phoneNumber) {
+        homePage.forgotPasswordEnterPhone(phoneNumber);
         homePage.forgotPasswordClickRestoreBtn();
         homePage.waitForLoaderDisappears();
-    }
-
-    @Step
-    public boolean isCountrySelectorAvailable() {
-        return homePage.isCountrySelectorVisible();
     }
 
     @Step
     public void verifyPhonePopUpText(String text) {
         homePage.clickHeaderPhoneBtn();
         homePage.verifyHeaderPhonePopupText(text);
-    }
-
-    @Step
-    public void verifyHeaderCountriesListIsVisible() {
-        homePage.openHeaderCountriesDropDown();
-        homePage.verifyHeaderCountriesPopup();
-    }
-
-    @Step
-    public void verifyFooterCountriesListIsVisible() {
-        homePage.scrollPageToBottom();
-        homePage.openFooterCountriesDropDown();
-        homePage.verifyFooterCountriesPopup();
-    }
-
-    @Step
-    public void verifyFooterLanguagesListIsVisible() {
-        homePage.scrollPageToBottom();
-        homePage.openFooterLangDropDown();
-        homePage.verifyFooterLanguagePopup();
     }
 
     @Step
@@ -315,14 +252,6 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyMobileViewContactsForm(String text) throws TimeoutException {
-        openHomePage();
-        openMobileViewMainMenu();
-        homePage.openMobileViewPhoneForm();
-        homePage.verifyMobileViewPhoneFormText(text);
-    }
-
-    @Step
     public void openBuilderTab() {
         homePage.clickBuilderTab();
     }
@@ -338,11 +267,34 @@ public class HomePageSteps extends ScenarioSteps {
         homePage.longWaitForDocument();
     }
 
+    @Step
+    public void resendCode() {
+        homePage.resendCode();
+    }
+
+    @Step
     public void setLanguage(String lang) {
         homePage.setLanguage(lang);
     }
 
-    public void verifyCurrentLanguage(String lang) {
-        homePage.verifyCurrentLanguage(lang);
+    public void waitForLoaderDisappears() {
+        homePage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void openLocationPopupAndVerifyCountries() {
+        homePage.openLocationPopup();
+        homePage.verifyHeaderCountriesPopup();
+        homePage.clickCloseBtn();
+    }
+
+    @Step
+    public void selectLocation(String country, String city) {
+        homePage.selectLocation(country, city);
+    }
+
+    @Step
+    public void selectCity(String city) {
+        homePage.selectCity(city);
     }
 }

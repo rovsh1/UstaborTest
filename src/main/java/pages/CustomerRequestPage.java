@@ -18,8 +18,11 @@ public class CustomerRequestPage extends BasePage {
     @FindBy(xpath = "//div[@class='nav']//a[contains(@href, 'masters')]")
     private WebElementFacade assignedMastersBtn;
 
-    @FindBy(xpath = "//div[contains(@class, 'request-masters')]//div[contains(@class,'item')]//a[@class='phone']")
-    private List<WebElementFacade> mastersOffers;
+    @FindBy(xpath = "//div[@id='tab-active']//div[@class='item']")
+    private List<WebElementFacade> activeOffers;
+
+    @FindBy(xpath = "//div[@id='tab-hidden']//div[@class='item']")
+    private List<WebElementFacade> hiddenOffers;
 
     @FindBy(xpath = "//div[@class='msg icon']")
     private WebElementFacade masterMessage;
@@ -45,7 +48,7 @@ public class CustomerRequestPage extends BasePage {
     }
 
     public void verifyMasterAssigned(User master) {
-        var mastersPhones = mastersOffers.stream().map(WebElementFacade::getText).collect(Collectors.toList());
+        var mastersPhones = activeOffers.stream().map(WebElementFacade::getText).collect(Collectors.toList());
         assertThat(mastersPhones.stream().anyMatch(x -> x.contains(master.getPhoneNumber()))).isTrue();
     }
 
@@ -62,11 +65,7 @@ public class CustomerRequestPage extends BasePage {
     }
 
     public void verifyActiveOffersTableIsEmpty() {
-        try {
-            assertThat(mastersOffers.isEmpty()).isTrue();
-        } catch (NoSuchElementException ignored) {
-
-        }
+        assertThat(activeOffers.isEmpty()).isTrue();
     }
 
     public void clickHiddenOffersBtn() {
@@ -74,6 +73,6 @@ public class CustomerRequestPage extends BasePage {
     }
 
     public void verifyHiddenOfferIsPresent() {
-        assertThat(mastersOffers).isNotEmpty();
+        assertThat(hiddenOffers).isNotEmpty();
     }
 }

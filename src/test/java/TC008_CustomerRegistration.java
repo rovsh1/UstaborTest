@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.WithTag;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.Admin;
 import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
@@ -17,16 +16,16 @@ public class TC008_CustomerRegistration extends TestBase {
     private User customer;
 
     @Test
-    public void customerRegistration() {
+    public void customerRegistration() throws InterruptedException {
         customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
         user.atHomePage.registerAsCustomer(customer);
 
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        var smsCode = user.getSmsCode(customer);
 
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
-        user.atCustomerProfilePersonalInfoPage.verifyCustomerProfilePageIsOpened();
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, customer.getPhoneNumber());
+        user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
 
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
     }

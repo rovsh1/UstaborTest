@@ -1,10 +1,8 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
 
-@WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
 public class TC004_MasterLoginFailure extends TestBase {
@@ -14,7 +12,7 @@ public class TC004_MasterLoginFailure extends TestBase {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
-        user.register(master);
+        user.register(master, true);
         user.atMasterProfilePage.logsOut();
 
         user.atHomePage.openLoginFormAndVerify();

@@ -12,7 +12,7 @@ import utils.DataGenerator;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
-@AddCategory(addRequestQuestion = true)
+@AddCategory(addServiceQuestion = true)
 @AddMasters(masters = 1, addProject = false)
 @WithTag("new")
 public class TC010_CustomerRequestAssignToMaster extends TestBase {
@@ -25,11 +25,13 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
         customer = DataGenerator.getCustomer();
         watcher.users.add(customer);
 
+        admin.addMoneyToMaster(10000, watcher.getMaster());
+
         user.atHomePage.openHomePage();
 
         user.atHomePage.registerAsCustomer(customer);
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, customer.getPhoneNumber());
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         customer.setProfileId(user.atCustomerProfilePersonalInfoPage.getCustomerProfileId());
     }
@@ -37,18 +39,16 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
     @Test
     public void verifyRequestAssignToMaster() throws TimeoutException {
         user.atHomePage.openPlaceOrderPage();
-        user.atPlaceOrderPage.placeOrder(customer, category);
-        user.atPlaceOrderPage.openRequestsPage();
+        user.atPlaceOrderPage.placeOrderForLoggedUser(customer, category);
+        user.atCustomerProfileRequestsPage.openRequestsPage();
 
         var requestId = user.atCustomerProfileRequestsPage.getRequestId();
 
-        admin.atRequestsPage.openRequestById(requestId);
-        admin.atRequestsPage.verifyRequest(customer, category, getText("Question"));
-        admin.atRequestsPage.addAssignRequestToMaster(watcher.getMaster());
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (getTashkentHour() >= 9 && getTashkentHour() < 18) {
+            admin.atRequestsPage.openRequestById(requestId);
+            admin.atRequestsPage.verifyRequest(customer, category, getText("Question"));
+            admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
+
         }
 
         user.atHomePage.openHomePage();
@@ -56,5 +56,6 @@ public class TC010_CustomerRequestAssignToMaster extends TestBase {
         user.atHomePage.login(watcher.getMaster(), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
         user.atMasterProfileRequestsPage.verifyRequestId(requestId);
+        user.atMasterProfileRequestsPage.verifyBalance(10000);
     }
 }

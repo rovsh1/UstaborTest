@@ -9,9 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <serenity.version>2.0.81</serenity.version>
-        <serenity.maven.version>2.0.81</serenity.maven.version>
-        <junit.version>4.12</junit.version>
+        <serenity.version>3.2.4</serenity.version>
+        <junit.version>4.13.2</junit.version>
         <surefire.verson>3.0.0-M3</surefire.verson>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
@@ -55,12 +54,12 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.12</version>
+            <version>4.5.13</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>
-            <version>4.5.12</version>
+            <version>4.5.13</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>

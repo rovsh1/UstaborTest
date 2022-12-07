@@ -26,17 +26,17 @@ public class Watcher extends TestWatcher {
 
                 switch (user.getClass().getSimpleName()) {
                     case "Master":
-                        new Admin().deleteMaster(user.getProfileId());
+                        Admin.getInstance().deleteMaster(user.getProfileId());
                         break;
                     case "User":
-                        new Admin().deleteCustomer(user.getProfileId());
+                        Admin.getInstance().deleteCustomer(user.getProfileId());
                         break;
                 }
             }
         });
 
         if (category != null && category.getSystemId() != null) {
-            new Admin().deleteCategory(category.getSystemId());
+            Admin.getInstance().deleteCategory(category.getSystemId());
         }
     }
 

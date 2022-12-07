@@ -29,7 +29,7 @@ public class MasterProfileBasePage extends BasePage {
     @FindBy(xpath = "//span[@class='ID']")
     private WebElementFacade profileId;
 
-    @FindBy(xpath = "//div[@data-balance]")
+    @FindBy(xpath = "//span[@class='price-value']")
     private WebElementFacade masterBalance;
 
     public void projectsTabShouldBeVisible() {

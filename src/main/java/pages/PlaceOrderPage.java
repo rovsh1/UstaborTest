@@ -1,10 +1,12 @@
 package pages;
 
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import enums.RequestPages;
+import utils.Admin;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.time.Duration;
 
 public class PlaceOrderPage extends BasePage {
 
@@ -15,13 +17,13 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//select[@id='form_order_site_id']")
     private WebElementFacade domainDropdown;
 
-    @FindBy(xpath = "//select[@id='form_order_category_id']")
+    @FindBy(xpath = "//input[@name='order[category_id]']/../div")
     private WebElementFacade categoryDropdown;
 
-    @FindBy(xpath = "//select[@id='cr_a_0']")
+    @FindBy(xpath = "//div[@class='form-field']/div")
     private WebElementFacade whatToDoDropDown;
 
-    @FindBy(xpath = "//select[@id='cr_a_1']")
+    @FindBy(xpath = "//div[@class='form-field'][last()]/div")
     private WebElementFacade questionSelector;
 
     @FindBy(xpath = "//div[@class='dropzone-field']")
@@ -30,7 +32,7 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//textarea[@id='form_order_text']")
     private WebElementFacade additionalInfoInput;
 
-    @FindBy(xpath = "//div[@class='step step-1']//button[@class='button-submit']")
+    @FindBy(xpath = "//div[@class='step step-1']//button[@class='btn-submit']")
     private WebElementFacade nextButtonFirst;
     //endregion
 
@@ -38,7 +40,7 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//div[@id='prices-title']")
     private WebElementFacade pricesRangeDisclaimer;
 
-    @FindBy(xpath = "//div[@class='step step-2']//button[@class='button-submit']")
+    @FindBy(xpath = "//div[@class='step step-2']//button[@class='btn-submit']")
     private WebElementFacade nextButtonSecond;
     //endregion
 
@@ -49,19 +51,19 @@ public class PlaceOrderPage extends BasePage {
     @FindBy(xpath = "//input[@id='form_order_contact_phone']")
     private WebElementFacade phoneInput;
 
-    @FindBy(xpath = "//div[@class='step step-3']//button[@class='button-submit']")
+    @FindBy(xpath = "//div[@class='step step-3']//button[@class='btn-submit']")
     private WebElementFacade nextButtonLast;
     //endregion
 
     //region Confirmation form
-    @FindBy(xpath = "//input[@id='form_phone_confirmation_code']")
+    @FindBy(xpath = "//input[@id='form_confirmation_code']")
     private WebElementFacade codeInput;
 
-    @FindBy(xpath = "//form[@id='form-confirmation']//button[@class='button-submit']")
+    @FindBy(xpath = "//form[@id='form-confirmation']//button[@class='btn-submit']")
     private WebElementFacade confirmBtn;
     //endregion
 
-    @FindBy(xpath = "//a[contains(@href, '/customer/requests/')]")
+    @FindBy(xpath = "//a[contains(@href, '/customer/requests')]")
     private WebElementFacade myRequestsBtn;
 
     public void nameInputShouldBeVisible() {
@@ -69,7 +71,7 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void domainDropdownShouldBeVisible() {
-        domainDropdown.shouldBeVisible();
+        domainDropdown.shouldBePresent();
     }
 
     public void categoryDropdownShouldBeVisible() {
@@ -89,8 +91,9 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void selectCategory(String systemId) {
-        categoryDropdown.selectByValue(systemId);
-        waitForLoaderDisappears();
+        categoryDropdown.click();
+        getDriver().findElement(By.xpath(String.format("//li[@data-value='%s']", systemId))).click();
+        waitForLoaderDisappears(3000);
     }
 
     public void clickNextButton(RequestPages pageNumber) {
@@ -124,20 +127,19 @@ public class PlaceOrderPage extends BasePage {
         confirmBtn.click();
     }
 
-    public void successPageShouldBeVisible() {
-        myRequestsBtn.shouldBeVisible();
-    }
-
     public void clickMyRequestsBtn() {
         myRequestsBtn.click();
     }
 
     public void selectWhatToDo(String question) {
-        whatToDoDropDown.selectByVisibleText(question);
+        whatToDoDropDown.click();
+        getDriver().findElement(By.xpath(String.format("//li[./div[text()='%s']]", question))).click();
+        waitForLoaderDisappears(3000);
     }
 
     public void selectQuestion(String question) {
-        questionSelector.selectByVisibleText(question);
+        questionSelector.click();
+        getDriver().findElement(By.xpath(String.format("//li[./div[text()='%s']]", question))).click();
     }
 
     public void priceShouldBeVisible(String price) {
@@ -148,11 +150,26 @@ public class PlaceOrderPage extends BasePage {
         return phoneInput.getAttribute("placeholder").replaceAll("[^\\d]", "");
     }
 
-    public void verifyDomain(String name) {
-        assertThat(domainDropdown.getSelectedVisibleTextValue()).isEqualTo(name);
+    public void enterAdditionalInfo(String info) {
+        additionalInfoInput.sendKeys(info);
     }
 
-    public void verifyCategory(String name) {
-        assertThat(categoryDropdown.getSelectedVisibleTextValue()).isEqualTo(name);
+    public String getSmsCode(String phoneNumber) throws InterruptedException {
+        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+
+        if (smsCode.isEmpty()) {
+            clickResendCode();
+            Thread.sleep(3000);
+        }
+
+        return Admin.getInstance().getSmsCode(phoneNumber);
+    }
+
+    public void makeSureFormIsVisible() {
+        if (categoryDropdown.isVisible()) {
+            return;
+        }
+
+        getDriver().navigate().refresh();
     }
 }

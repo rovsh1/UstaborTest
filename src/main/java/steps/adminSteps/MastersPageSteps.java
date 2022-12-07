@@ -5,8 +5,6 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.MastersPage;
 
-import java.util.List;
-
 public class MastersPageSteps extends ScenarioSteps {
 
     private MastersPage mastersPage;
@@ -19,16 +17,7 @@ public class MastersPageSteps extends ScenarioSteps {
 
     @Step
     public void addAllBadgesToMaster(Master master) {
-        mastersPage.openEditMasterPageByDirectUrl(master.getProfileId());
-        mastersPage.addAllBadgesToMaster(master);
+        mastersPage.openMasterPageByDirectUrl(master.getProfileId());
+        mastersPage.addAllBadgesToMaster();
     }
-
-    public void performSearch(String text) {
-        mastersPage.performSearch(text);
-    }
-
-    public List<String> getMastersIds() {
-        return mastersPage.getMastersIds();
-    }
-
 }

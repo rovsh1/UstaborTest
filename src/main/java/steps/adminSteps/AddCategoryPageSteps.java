@@ -10,8 +10,14 @@ public class AddCategoryPageSteps extends ScenarioSteps {
 
     public void addTestCategory(Category category) {
         addCategoryPage.openPage();
+
+        addCategoryPage.selectDomain();
         addCategoryPage.enterName(category.getName());
         addCategoryPage.enterUrl(category.getUrl());
+
+        addCategoryPage.openContentTab();
+        addCategoryPage.enterTitle(category.getName());
+
         addCategoryPage.clickSubmit();
     }
 }

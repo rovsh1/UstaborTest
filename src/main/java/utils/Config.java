@@ -19,20 +19,7 @@ public class Config {
     private static String countryCode;
     private static String adminUrl;
     private static Users users;
-    private static Browsers browser;
-
-    public static Browsers getBrowser() {
-        if (browser == null) {
-            var parameter = getEnvironmentVariableValue(BROWSER, false);
-
-            if (parameter == null) {
-                browser = Browsers.chrome;
-            } else {
-                browser = Browsers.valueOf(parameter);
-            }
-        }
-        return browser;
-    }
+    private static boolean agent = false;
 
     public static boolean isUstabor() {
         return getEnv().equals("ustabor");
@@ -46,6 +33,14 @@ public class Config {
         return getEnv().equals("fixinglist");
     }
 
+    public static boolean isBildrlist() {
+        return getEnv().equals("test");
+    }
+
+    public static boolean isNewTest() {
+        return getEnv().equals("new_test");
+    }
+
     public static Users getUsers() {
         if (users == null) {
             users = new Users(getEnvironmentVariableValue(SITE, true));
@@ -55,30 +50,28 @@ public class Config {
     }
 
     public static String getAdminUrl() {
-        var prefix = getEnvironmentVariableValue(SITE, true);
-
         if (adminUrl == null) {
-            adminUrl = PropertyReader.getInstance().getProperty(prefix + ".site.admin", props);
+            adminUrl = getBaseUrl().replace("www", "ka8rms");
         }
 
         return adminUrl;
     }
 
     public static String getFullUrl() {
-        var langCountryCode = String.format("%s-%s/", getCountryCode(), getLang());
-        if (isUstabor() || isFixListKg()) return getBaseUrl();
-        if (isFixinglist()) langCountryCode =  String.format("%s-%s/", getLang(), getCountryCode());
-        return getBaseUrl() + langCountryCode;
+        if (isBildrlist()) {
+            return getBaseUrl() + getLang() + "/";
+        }
+
+        if (isUstabor()) {
+            return getBaseUrl() + getLang() + "/";
+        }
+
+        return getBaseUrl() + getLang() + "-" + getCountryCode() + "/";
     }
 
     private static String getBaseUrl() {
         if (site == null) {
             site = getPropertyFromEnvVariable(SITE, true);
-        }
-
-        if (isUstabor()) {
-            country = getUzCountry();
-            countryCode = getUzCountryCode();
         }
 
         return site + "/";
@@ -102,9 +95,14 @@ public class Config {
         if (countryCode == null) {
             if (isUstabor()) {
                 countryCode = "uz";
-            } else if (isFixListKg()) {
+            }
+            else if (isBildrlist()) {
+                countryCode = "uz";
+            }
+            else if (isFixListKg()) {
                 countryCode = "kg";
-            } else {
+            }
+            else {
                 countryCode = getEnvironmentVariableValue(COUNTRY, false);
             }
         }
@@ -137,21 +135,9 @@ public class Config {
         return varValue;
     }
 
-    private static String getUzCountry() {
-        return PropertyReader.getInstance().getProperty("country.uz", props);
-    }
-
-    private static String getUzCountryCode() {
-        return PropertyReader.getInstance().getProperty("lang.uz", props);
-    }
-
     public static boolean isMobileTag() {
         Properties properties = System.getProperties();
         return properties.getProperty("tags") != null && properties.getProperty("tags").contains("mobile");
-    }
-
-    public static boolean isChrome() {
-        return getBrowser().equals(Browsers.chrome);
     }
 
     public static String getChromeDriverPath() {
@@ -167,10 +153,18 @@ public class Config {
 
         } else if (os.contains("nux")) {
 
-            return "/var/lib/jenkins/workspace/chromedriver_linux";
+            return "/var/lib/jenkins/workspace/chromedriver";
 
         } else {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    public static void setAgentNeeded(boolean value) {
+        agent = value;
+    }
+
+    public static boolean getAgentNeeded() {
+        return agent;
     }
 }

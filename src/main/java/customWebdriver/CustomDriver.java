@@ -13,40 +13,28 @@ public class CustomDriver implements DriverSource {
 
     @Override
     public WebDriver newDriver() {
+        try {
+            System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
 
-        switch (Config.getBrowser()) {
-            case chrome:
-                try {
-                    System.setProperty("webdriver.chrome.driver", Config.getChromeDriverPath());
-                    ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--headless");
-                    options.addArguments("--window-size=1920,1080");
-                    options.addArguments("start-maximized");
-                    options.addArguments("--start-fullscreen");
-                    options.addArguments("user-agent=qatesting");
-                    options.addArguments("--ignore-certificate-errors");
-                    DesiredCapabilities capabilities = new DesiredCapabilities();
-                    capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-                    return new ChromeDriver(options);
-                } catch (Exception e) {
-                    throw new Error(e);
-                }
+            var options = new ChromeOptions();
+            options.addArguments("--headless");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("start-maximized");
+            options.addArguments("--start-fullscreen");
+            options.addArguments("user-agent=qatesting");
+            options.addArguments("--ignore-certificate-errors");
 
-            case ie:
-                try {
-                    System.setProperty("webdriver.ie.driver", "driver/IEDriverServer.exe");
-                    InternetExplorerOptions options = new InternetExplorerOptions();
-                    options.destructivelyEnsureCleanSession();
-                    options.ignoreZoomSettings();
-                    options.introduceFlakinessByIgnoringSecurityDomains();
+            if (Config.getAgentNeeded()) {
+                options.addArguments("--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
+            }
 
-                    return new InternetExplorerDriver(options);
-                } catch (Exception e) {
-                    throw new Error(e);
-                }
+            var capabilities = new DesiredCapabilities();
+            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+            return new ChromeDriver(options);
+        } catch (Exception e) {
+            throw new Error(e);
         }
-
-        return null;
     }
 
     @Override

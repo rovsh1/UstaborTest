@@ -1,5 +1,6 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
@@ -17,7 +18,7 @@ public class TC002_MasterLogin extends TestBase {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
-        user.register(master);
+        user.register(master, true);
         user.atMasterProfilePage.logsOut();
 
         var userName = "Test " + new SimpleDateFormat("MMddhhmm").format(new Date());
@@ -42,7 +43,6 @@ public class TC002_MasterLogin extends TestBase {
         user.atHomePage.verifyUserIsLoggedIn();
 
         user.atMasterProfilePage.openProfilePage();
-
         user.atMasterProfilePage.openProjectsTab();
         user.atMasterProjectsPage.pageShouldBeVisible();
 

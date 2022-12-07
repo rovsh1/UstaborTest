@@ -2,50 +2,21 @@ package pages.admin;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
-import utils.WaitHelper;
 
-import java.time.temporal.ChronoUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
 public class CategoriesPage extends BaseAdminPage {
 
-    private static final String promotionXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]//a";
-    private static final String countryXpath = "//div[@id='tab-countries']//tr[.//td[contains(text(), '%s')]]";
-    private static final String categoryUrlByNameXpath = "//td//a[text()='%s']";
+    private static final String categoryUrlByNameXpath = "//tr[./td[text()='%s']]//a";
 
-    //region Edit category page
-    @FindBy(xpath = "//li[@data-tab='tab-countries']")
-    private WebElementFacade promotionTab;
+    @FindBy(xpath = "//input[@id='quicksearch']")
+    private WebElementFacade categoriesSearch;
 
-    @FindBy(xpath = "//input[@id='form_data_enabled']")
-    private WebElementFacade enablePromoCheckbox;
+    @FindBy(xpath = "//form[@class='quicksearch']//button[@type='submit']")
+    private WebElementFacade searchBtn;
 
-    @FindBy(xpath = "//input[@id='form_data_price_min']")
-    private WebElementFacade minPrice;
-
-    @FindBy(xpath = "//input[@id='form_data_price_max']")
-    private WebElementFacade maxPrice;
-
-    @FindBy(xpath = "//input[@id='form_data_request_price']")
-    private WebElementFacade requestClickPrice;
-
-    @FindBy(xpath = "//button[@class='button-submit']")
-    private WebElementFacade submitBtn;
-
-    @FindBy(xpath = "//td[.//a[@class='button-edit']]")
-    private WebElementFacade editBtn;
-
-    @FindBy(xpath = "//li[@data-tab='tab-countries' and @class='current']")
-    private WebElementFacade countriesAndPromotionTabSelected;
-
-    @FindBy(xpath = "//li[@data-tab='tab-countries']")
-    private WebElementFacade countriesAndPromotionTab;
-    //endregion
 
     //region View category page
     @FindBy(xpath = "//a[@id='btn-master-add']")
@@ -61,52 +32,39 @@ public class CategoriesPage extends BaseAdminPage {
     private WebElementFacade submitMasterAssignBtn;
     //endregion
 
-    //region Tags page
-    @FindBy(xpath = "//li[@data-tab='tab-tags']")
-    private WebElementFacade tabsPage;
 
-    @FindBy(xpath = "//li[@class='btn-add edit']")
-    private WebElementFacade addTagBtn;
+    //region New admin
+    @FindBy(xpath = "//input[@id='form_data_request_price']")
+    private WebElementFacade requestClickPrice;
 
-    @FindBy(xpath = "//li[@data-id='new']//input")
-    private WebElementFacade tagNameInput;
+    @FindBy(xpath = "//input[@id='form_data_price_min']")
+    private WebElementFacade minPrice;
 
-    @FindBy(xpath = "//input[@type='submit']")
-    private WebElementFacade saveTag;
+    @FindBy(xpath = "//input[@id='form_data_price_max']")
+    private WebElementFacade maxPrice;
+
+    @FindBy(xpath = "//select[@id='form_data_category_id']")
+    private WebElementFacade selectCategory;
+
+    @FindBy(xpath = "//select[@id='form_data_country_id']")
+    private WebElementFacade selectCountry;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElementFacade submitBtn;
     //endregion
 
+
     public void openPage() {
-        getDriver().get(Config.getAdminUrl() + "catalog/category/");
-    }
-
-    public void openEditCategoryPage(String categoryId) throws TimeoutException {
-        getDriver().get(Config.getAdminUrl() + String.format("catalog/category/edit/%s/#!tab-countries", categoryId));
-
-        if (!Config.isChrome()) {
-            setTimeouts(1, ChronoUnit.SECONDS);
-            WaitHelper.pollingWait(60000, 1000, () -> {
-                if (!countriesAndPromotionTabSelected.isPresent()) {
-                    countriesAndPromotionTab.click();
-                }
-                return countriesAndPromotionTabSelected.isPresent();
-            });
-            resetTimeouts();
-        }
+        getDriver().get(Config.getAdminUrl() + "/reference/category");
     }
 
     public void openViewCategoryPage(String categoryId) {
         getDriver().get(Config.getAdminUrl() + String.format("catalog/category/view/%s/", categoryId));
     }
 
-    public void openAddTagPage() {
-        tabsPage.click();
-    }
-
     public void setPrice(String minimalPrice, String maximumPrice) {
-        minPrice.clear();
-        minPrice.sendKeys(String.valueOf(minimalPrice));
-        maxPrice.clear();
-        maxPrice.sendKeys(String.valueOf(maximumPrice));
+        minPrice.sendKeys(minimalPrice);
+        maxPrice.sendKeys(maximumPrice);
     }
 
     public void setClickPrice(String clickPrice) {
@@ -115,15 +73,6 @@ public class CategoriesPage extends BaseAdminPage {
 
     public void submitPromotion() {
         submitBtn.click();
-    }
-
-    public void openPromotionForCurrentCountry() {
-        WebElement countryRow = getDriver().findElement(By.xpath(String.format(countryXpath, Config.getCountry())));
-
-        Actions builder = new Actions(getDriver());
-        builder.moveToElement(countryRow).build().perform();
-
-        getDriver().findElement(By.xpath(String.format(promotionXpath, Config.getCountry()))).click();
     }
 
     public String getCategoryIdByName(String categoryName) {
@@ -153,21 +102,20 @@ public class CategoriesPage extends BaseAdminPage {
         submitMasterAssignBtn.click();
     }
 
-    public void enablePromotion() {
-        if (!enablePromoCheckbox.isSelected()) {
-            enablePromoCheckbox.click();
-        }
+    public void findCategory(String name) {
+        categoriesSearch.sendKeys(name);
+        searchBtn.click();
     }
 
-    public void clickAddButton() {
-        addTagBtn.click();
+    public void openPromotionPage() {
+        getDriver().get(Config.getAdminUrl() + "reference/category-country/create");
     }
 
-    public void enterTagName(String tagName) {
-        tagNameInput.sendKeys(tagName);
+    public void selectCategory(String categoryId) {
+        selectCategory.selectByValue(categoryId);
     }
 
-    public void clickSave() {
-        saveTag.click();
+    public void selectCurrentCountry() {
+        selectCountry.selectByVisibleText(Config.getCountry());
     }
 }

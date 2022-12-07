@@ -4,7 +4,6 @@ import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Admin;
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters(masters = 1)
+@AddMasters(addProject = false)
 public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
@@ -30,10 +29,10 @@ public class TC005a_MasterFeedback extends TestBase {
         user.atHomePage.openHomePage();
         user.atHomePage.registerAsCustomer(customer);
 
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, customer.getPhoneNumber());
 
-        var password = new Admin().getSmsPassword(customer.getPhoneNumber());
+        var password = Admin.getInstance().getSmsPassword(customer.getPhoneNumber());
         customer.setPassword(password);
     }
 
@@ -50,17 +49,19 @@ public class TC005a_MasterFeedback extends TestBase {
 
         user.atHomePage.waitForFeedbackProposalAndOpen();
         user.atFeedbackPage.leftFeedback(5, "Testing Review");
-        user.atHomePage.pageShouldBeVisible();
+
+        user.atHomePage.openHomePage();
 
         user.atCustomerProfilePersonalInfoPage.openCustomerProfilePage();
         user.atCustomerProfilePersonalInfoPage.verifyMyMastersListContains(watcher.getMaster().getLastName());
 
+        Admin.getInstance().runCron("1");
+        admin.waitForCronTaskCompleted("1", 200);
+
         user.atHomePage.openHomePage();
         user.atHomePage.openBuilderTab();
         user.atHomePage.openCategory(watcher.getMaster().getCategory().getName());
-        user.atCatalogPage.loadAllResults();
-        user.atCatalogPage.sortProjectsByRating();
 
-        user.atCatalogPage.verifyProjectsSortedByRate(watcher.getMaster().getCategory().getProject(), 5);
+        user.atCatalogPage.verifyMastersSortedByRate(watcher.getMaster(), 5);
     }
 }

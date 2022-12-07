@@ -17,20 +17,18 @@ public class TC003_MasterForgotPassword extends TestBase {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
-        user.register(master);
+        user.register(master, true);
         user.atMasterProfilePage.logsOut();
 
         user.atHomePage.openLoginFormAndVerify();
         user.atHomePage.clickForgotPassword();
         user.atHomePage.requestNewPassword(master.getLogin());
 
-        var smsCode = new Admin().getSmsCode(master.getLogin());
-        user.atHomePage.enterAuthCodeAndSubmit(smsCode);
+        var smsCode = Admin.getInstance().getSmsCode(master.getLogin());
+        user.atHomePage.enterAuthCodeAndSubmit(smsCode, master.getPhoneNumber());
 
         var newPassword = DataGenerator.getPassword();
 
-        user.atMasterProfilePage.openProfileSettings();
-        user.atMasterProfileSettingsPage.openChangePasswordForm();
         user.atMasterProfileSettingsPage.changePassword(newPassword);
         user.atMasterProfileSettingsPage.logsOut();
 

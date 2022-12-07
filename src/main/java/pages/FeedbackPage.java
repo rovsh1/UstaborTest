@@ -13,8 +13,11 @@ public class FeedbackPage extends BasePage {
     @FindBy(xpath = "//div[@class='master']//textarea")
     private WebElementFacade masterFeedbackInput;
 
-    @FindBy(xpath = "//input[@type='submit']")
+    @FindBy(xpath = "//*[@id='feedback-submit']")
     private WebElementFacade submitFeedbackBtn;
+
+    @FindBy(xpath = "//button[text()='OK']")
+    private WebElementFacade popupOkBtn;
 
     public void setRating(int rating) {
         if (rating != 0) {
@@ -28,5 +31,9 @@ public class FeedbackPage extends BasePage {
 
     public void submitFeedback() {
         submitFeedbackBtn.click();
+    }
+
+    public void closePopup() {
+        popupOkBtn.click();
     }
 }

@@ -1,8 +1,6 @@
 package steps;
 
-import entities.FavProject;
 import entities.Master;
-import entities.Project;
 import net.thucydides.core.annotations.Step;
 import pages.CatalogPage;
 import utils.XmlParser;
@@ -24,31 +22,11 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void OpenRandomProfile() {
-        catalogPage.openRandomProfile();
-    }
-
-    @Step
-    public void VerifyHeaderText(String text) {
-        catalogPage.verifyHeaderText(text);
-    }
-
-    @Step
-    public FavProject addRandomProjectToFavorites() {
-        return catalogPage.addRandomProjectToFavorites();
-    }
-
-    @Step
     public void openMasterContactsAndVerify(String projectName) {
         catalogPage.openMasterContactsByName(projectName);
         catalogPage.projectContactPopupShouldBeVisible();
         catalogPage.closeContactPopup();
         catalogPage.contactPopupShouldNotBeVisible();
-    }
-
-    @Step
-    public void openRandomProjectWithNameNot(String projectName) {
-        catalogPage.openRandomFavProjectWithNameNot(projectName);
     }
 
     @Step
@@ -143,38 +121,28 @@ public class CatalogPageSteps extends CommonSteps {
     }
 
     @Step
-    public void verifyFoundProject(String projectId) {
-        catalogPage.verifyFoundProject(projectId);
-    }
-
-    @Step
     public void verifyMasterCategoryPromoted(Master master) {
         catalogPage.verifyMasterAtFirstPosition(master);
     }
 
     @Step
-    public void openProjectBySystemId(String systemId) {
-        catalogPage.openProjectBySystemId(systemId);
+    public void verifyMastersSortedByRate(Master master, int rating) {
+        catalogPage.verifyMastersSortedByRate(master, rating);
     }
 
     @Step
-    public void loadAllResults() {
-        catalogPage.loadAllResults();
-    }
-
-    @Step
-    public void verifyLastAddedProject(Project project) {
-        catalogPage.verifyLastAddedProject(project);
-    }
-
-    @Step
-    public void verifyProjectsSortedByRate(Project project, int rating) {
-        catalogPage.verifyProjectsSortedByRate(project, rating);
-    }
-
-    @Step
-    public void sortProjectsByRating() {
+    public void sortMastersByRating() {
         catalogPage.openFilter();
         catalogPage.applyFilter();
+    }
+
+    public void openMastersCatalog() {
+        catalogPage.openPage();
+    }
+
+    @Step
+    public void enterTextAndSearch(String text) {
+        enterSearchText(text);
+        catalogPage.ClickSearchBtn();
     }
 }

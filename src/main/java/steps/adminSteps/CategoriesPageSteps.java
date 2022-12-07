@@ -19,24 +19,16 @@ public class CategoriesPageSteps extends ScenarioSteps {
     private CategoriesPage categoriesPage;
 
     @Step
-    public void openEditCategoryPage(String categoryId) throws TimeoutException {
-        categoriesPage.openEditCategoryPage(categoryId);
-    }
-
-    @Step
     public void openViewCategoryPage(String categoryId) {
         categoriesPage.openViewCategoryPage(categoryId);
     }
 
-    @Step
-    public void openAddTagsPage() {
-        categoriesPage.openAddTagPage();
-    }
+    public void getCategoryId(Category category) {
+        categoriesPage.findCategory(category.getName());
+        var id = categoriesPage.getCategoryIdByName(category.getName());
 
-    public void getCategoryIdByName(Category category) {
-        categoriesPage.openPage();
-        category.setSystemId(categoriesPage.getCategoryIdByName(category.getName()));
-        logger.info("Test category with id '{}' was created", category.getSystemId());
+        category.setSystemId(id);
+        logger.info("Test category with id '{}' has been created", id);
     }
 
     @Step
@@ -45,26 +37,18 @@ public class CategoriesPageSteps extends ScenarioSteps {
         masters.forEach(m -> {
             categoriesPage.openAddMasterForm();
             categoriesPage.addMasterToCategoryRequest(m.getLastName());
-            categoriesPage.submitMasterAssign();
             categoriesPage.waitForLoaderDisappears();
         });
     }
 
     @Step
     public void setPromotionAndClickPrice(String categoryId, String minPrice, String maxPrice, String clickPrice) throws TimeoutException {
-        openEditCategoryPage(categoryId);
-        categoriesPage.openPromotionForCurrentCountry();
-        categoriesPage.enablePromotion();
+        categoriesPage.openPromotionPage();
+        categoriesPage.selectCategory(categoryId);
+        categoriesPage.selectCurrentCountry();
         categoriesPage.setPrice(minPrice, maxPrice);
         categoriesPage.setClickPrice(clickPrice);
         categoriesPage.submitPromotion();
-        categoriesPage.waitForLoaderDisappears();
-    }
-
-    @Step
-    public void addTag(String tagName) {
-        categoriesPage.clickAddButton();
-        categoriesPage.enterTagName(tagName);
-        categoriesPage.clickSave();
+//        categoriesPage.waitForLoaderDisappears();
     }
 }

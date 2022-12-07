@@ -15,6 +15,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
     @Step
     public void verifyPage() {
+        placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.nameInputShouldBeVisible();
         placeOrderPage.domainDropdownShouldBeVisible();
         placeOrderPage.categoryDropdownShouldBeVisible();
@@ -28,25 +29,73 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
                 customer.getFirstName(),
                 category,
                 XmlParser.getTextByKey("Service"),
-                XmlParser.getTextByKey("Question"));
+                XmlParser.getTextByKey("Question"),
+                "test request");
+
         placeOrderPage.clickNextButton(RequestPages.First);
-        fillInSecondPage()
-                .clickNextButton(RequestPages.Second);
-        fillInThirdPage(customer.getCity(), customer.getPhoneNumber());
+        placeOrderPage.clickNextButton(RequestPages.Second);
+
+        fillInThirdPage(customer);
         customer.setPhoneCode(placeOrderPage.getCountryCode());
         placeOrderPage.clickNextButton(RequestPages.Last);
 
-        var smsCode = new Admin().getSmsCode(customer.getPhoneNumber());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        confirmPhoneNumber(smsCode);
+        placeOrderPage.waitForSubmitCodeForm();
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
+        confirmPhoneNumber(smsCode, smsCode);
+        placeOrderPage.waitForLoaderDisappears();
     }
 
     @Step
-    public void fillInFirstPage(String userName, Category category, String service, String question) {
+    public void placeOrderForLoggedUser(User customer, Category category) {
+        fillInFirstPage(
+                category,
+                XmlParser.getTextByKey("Service"),
+                XmlParser.getTextByKey("Question"),
+                "test request");
+
+        placeOrderPage.clickNextButton(RequestPages.First);
+        placeOrderPage.clickNextButton(RequestPages.Second);
+
+        placeOrderPage.enterAddress(customer.getCity());
+
+        customer.setPhoneCode(placeOrderPage.getCountryCode());
+        placeOrderPage.clickNextButton(RequestPages.Last);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        placeOrderPage.waitForSubmitCodeForm();
+        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
+        confirmPhoneNumber(smsCode, smsCode);
+        placeOrderPage.waitForLoaderDisappears();
+    }
+
+    @Step
+    public void fillInFirstPage(Category category, String service, String question, String info) {
+        placeOrderPage.makeSureFormIsVisible();
+        placeOrderPage.selectCategory(category.getSystemId());
+        placeOrderPage.selectWhatToDo(service);
+        placeOrderPage.selectQuestion(question);
+        placeOrderPage.enterAdditionalInfo(info);
+    }
+
+    @Step
+    public void fillInFirstPage(String userName, Category category, String service, String question, String info) {
+        placeOrderPage.makeSureFormIsVisible();
         placeOrderPage.enterName(userName);
         placeOrderPage.selectCategory(category.getSystemId());
         placeOrderPage.selectWhatToDo(service);
         placeOrderPage.selectQuestion(question);
+        placeOrderPage.enterAdditionalInfo(info);
     }
 
     @Step
@@ -56,26 +105,29 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public PlaceOrderPageSteps fillInSecondPage() {
-        return this;
+    public void fillInThirdPage(User customer) {
+        placeOrderPage.enterAddress(customer.getCity());
+        placeOrderPage.enterPhoneNumber(customer.getPhoneNumber());
     }
 
     @Step
-    public void fillInThirdPage(String address, String phone) {
-        placeOrderPage.enterAddress(address);
-        placeOrderPage.enterPhoneNumber(phone);
+    public void confirmPhoneNumber(String code, String number) {
+        placeOrderPage.enterSmsCode(code);
+        placeOrderPage.clickConfirmButton();
+
+        if (placeOrderPage.isRefreshLinkVisible()) {
+            retryEnterCode(number);
+        }
     }
 
     @Step
-    public PlaceOrderPageSteps confirmPhoneNumber(String smsCode) {
+    public void retryEnterCode(String phoneNumber) {
+        placeOrderPage.resendCode();
+        placeOrderPage.waitForLoaderDisappears();
+
+        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
         placeOrderPage.enterSmsCode(smsCode);
         placeOrderPage.clickConfirmButton();
-        return this;
-    }
-
-    @Step
-    public void successPageShouldBeVisible() {
-        placeOrderPage.successPageShouldBeVisible();
     }
 
     @Step
@@ -91,12 +143,12 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyDomain(String name) {
-        placeOrderPage.verifyDomain(name);
+    public void waitForCodeForm() {
+        placeOrderPage.waitForSubmitCodeForm();
     }
 
     @Step
-    public void verifyCategory(String category) {
-        placeOrderPage.verifyCategory(category);
+    public String getSmsCode(String phoneNumber) throws InterruptedException {
+        return placeOrderPage.getSmsCode(phoneNumber);
     }
 }

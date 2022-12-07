@@ -27,10 +27,27 @@ public class RequestsPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void addAssignRequestToMaster(Master master) {
+    public void assignRequestToMasterForFree(Master master) {
         requestsPage.openAssignMasterForm();
         requestsPage.findMaster(master.getLastName());
-        requestsPage.submitMasterAssign();
+        requestsPage.assignForFree();
+        requestsPage.waitForLoaderDisappears(180000);
+    }
+
+    @Step
+    public void assignRequestToMasterForPayment(Master master) {
+        requestsPage.openAssignMasterForm();
+        requestsPage.findMaster(master.getLastName());
+        requestsPage.assignForPayment();
+        requestsPage.waitForLoaderDisappears(180000);
+    }
+
+    @Step
+    public void reassignRequestToMasterForPayment(Master master) {
+        requestsPage.openAssignMasterForm();
+        requestsPage.findMaster(master.getLastName());
+        requestsPage.resetAssign();
+        requestsPage.assignForPayment();
         requestsPage.waitForLoaderDisappears(180000);
     }
 
@@ -46,6 +63,7 @@ public class RequestsPageSteps extends ScenarioSteps {
     @Step
     public void deleteRequest(String requestId) {
         openRequestById(requestId);
+        requestsPage.clickMenu();
         requestsPage.deleteRequest();
         requestsPage.waitForLoaderDisappears();
     }

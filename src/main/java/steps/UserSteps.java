@@ -1,6 +1,8 @@
 package steps;
 
 import entities.Master;
+import entities.User;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
@@ -20,9 +22,6 @@ public class UserSteps extends ScenarioSteps {
 
     @Steps
     public CustomerProfilePersonalInfoPageSteps atCustomerProfilePersonalInfoPage;
-
-    @Steps
-    public ProjectPageSteps atProjectPage;
 
     @Steps
     public FeedbackPageSteps atFeedbackPage;
@@ -66,25 +65,28 @@ public class UserSteps extends ScenarioSteps {
     @Steps
     public MasterRequestPageSteps atMasterRequestPage;
 
-    public void register(Master master) {
-        atHomePage.registerAsMaster(master);
+    @Step
+    public void register(Master master, boolean randomCategory) {
+        atHomePage.registerAsMaster(master, randomCategory);
 
-        var smsCode = new Admin().getSmsCode(master.getPhoneNumber());
+        var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());
 
-        atHomePage.enterAuthCodeAndSubmit(smsCode);
+        atHomePage.enterAuthCodeAndSubmit(smsCode, master.getPhoneNumber());
         atMasterProfilePage.masterProfilePagePageShouldBeVisible();
 
         master.setProfileId(atMasterProfilePage.getProfileId());
     }
 
-    public void registerAsMaster(Master master) {
-        atHomePage.registerAsMasterWithSpecifiedCategory(master);
+    @Step
+    public String getSmsCode(User user) throws InterruptedException {
+        var smsCode = Admin.getInstance().getSmsCode(user.getPhoneNumber());
 
-        var smsCode = new Admin().getSmsCode(master.getPhoneNumber());
+        if (smsCode == null) {
+            atHomePage.resendCode();
+            Thread.sleep(5000);
+        }
 
-        atHomePage.enterAuthCodeAndSubmit(smsCode);
-        atMasterProfilePage.masterProfilePagePageShouldBeVisible();
-
-        master.setProfileId(atMasterProfilePage.getProfileId());
+        return Admin.getInstance().getSmsCode(user.getPhoneNumber());
     }
+
 }

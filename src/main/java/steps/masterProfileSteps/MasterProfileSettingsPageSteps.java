@@ -1,6 +1,5 @@
 package steps.masterProfileSteps;
 
-import entities.CategoryCheckbox;
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterProfileSettingsPage;
 
@@ -10,6 +9,7 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
 
     @Step
     public void changePassword(String newPassword) {
+        masterProfileSettingsPage.openPasswordFormIfNeeded();
         masterProfileSettingsPage.enterNewPassword(newPassword);
         masterProfileSettingsPage.confirmNewPassword(newPassword);
         masterProfileSettingsPage.clickSaveNewPasswordBtn();
@@ -28,17 +28,12 @@ public class MasterProfileSettingsPageSteps extends MasterProfileSteps {
     }
 
     @Step
-    public CategoryCheckbox enableOrDisableRandomCategory() {
-        return masterProfileSettingsPage.enableOrDisableRandomCategory();
-    }
-
-    @Step
     public void saveChanges() {
         masterProfileSettingsPage.saveChanges();
     }
 
     @Step
     public void openChangePasswordForm() {
-        masterProfileSettingsPage.clickChangePasswordBtn();
+        masterProfileSettingsPage.openPasswordFormIfNeeded();
     }
 }

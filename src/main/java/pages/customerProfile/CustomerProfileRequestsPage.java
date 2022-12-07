@@ -6,7 +6,9 @@ import utils.Config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
 
@@ -25,7 +27,7 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     @FindBy(xpath = "//a[contains(@href,'close')]")
     private WebElementFacade hideRequest;
 
-    @FindBy(xpath = "//span[contains(@class, 'CUSTOMER_REQUEST_STATUS')]")
+    @FindBy(xpath = "//span[contains(@class, 'ui-request-status')]")
     private WebElementFacade requestStatus;
 
     public void requestShouldBeVisible() {
@@ -37,7 +39,7 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     }
 
     public void openPage() {
-        getDriver().get(Config.getFullUrl() + "customer/requests/");
+        getDriver().get(Config.getFullUrl() + "customer/requests");
     }
 
     public void deleteRequest() {
@@ -53,6 +55,10 @@ public class CustomerProfileRequestsPage extends CustomerProfileBasePage {
     }
 
     public void verifyRequestStatus(String status) {
-        requestStatus.shouldContainOnlyText(status);
+        requestStatus.shouldContainText(status);
+    }
+
+    public void closePopup() {
+        clickCloseBtn();
     }
 }

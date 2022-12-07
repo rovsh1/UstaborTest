@@ -15,15 +15,11 @@ public final class Users {
         return PropertyReader.getInstance().getProperty(key, PROPERTY_FILE);
     }
 
-    private User getUser(String key) {
-        return new User(
-                readProperty(domain + "." + key + ".login"),
-                readProperty(domain + "." + key + ".pass"),
-                readProperty(domain + "." + key + ".phone")
-        );
-    }
-
     public User getAdmin() {
-        return getUser("admin");
+        return new User(
+                readProperty("admin.login"),
+                readProperty("admin.pass"),
+                ""
+        );
     }
 }

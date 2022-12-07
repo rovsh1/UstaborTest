@@ -1,11 +1,14 @@
 package utils;
 
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.TrustAllStrategy;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
@@ -22,27 +25,37 @@ public class Admin {
     private static final Logger logger = LoggerFactory.getLogger(Admin.class);
 
     private Executor executor;
-    private final String baseUrl;
+    private static Admin instance;
 
-    public Admin() {
+    private Admin() {
         try {
+            var redirect = new LaxRedirectStrategy();
+            var ssl = new SSLContextBuilder().loadTrustMaterial(null, TrustAllStrategy.INSTANCE).build();
+            var config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
             executor = Executor.newInstance(
                     HttpClientBuilder
                             .create()
-                            .setRedirectStrategy(new LaxRedirectStrategy())
-                            .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, TrustAllStrategy.INSTANCE).build())
+                            .setRedirectStrategy(redirect)
+                            .setSSLContext(ssl)
                             .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                            .setDefaultRequestConfig(config)
                             .build());
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
             e.printStackTrace();
         }
-        baseUrl = Config.getAdminUrl();
         login();
     }
 
+    public static Admin getInstance() {
+        if (instance == null) {
+            instance = new Admin();
+        }
+
+        return instance;
+    }
+
     public void deleteMaster(String id) {
-        // http://ka8rms.vtaminka.com/master/user/delete/65820/
-        var url = baseUrl + String.format("master/user/delete/%s/", id);
+        var url = Config.getAdminUrl() + String.format("master/%s/delete", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -62,7 +75,7 @@ public class Admin {
     }
 
     public void deleteCategory(String id) {
-        var url = baseUrl + String.format("catalog/category/delete/%s/", id);
+        var url = Config.getAdminUrl() + String.format("reference/category/%s/delete", id);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -82,7 +95,7 @@ public class Admin {
     }
 
     public void deleteCustomer(String customerId) {
-        var url = baseUrl + String.format("customer/user/delete/%s/", customerId);
+        var url = Config.getAdminUrl() + String.format("customer/%s/delete", customerId);
 
         try {
             var result = executor.execute(Request.Get(url))
@@ -110,8 +123,13 @@ public class Admin {
     }
 
     public String getSmsPassword(String phoneNumber) {
+        var stringKey = "SmsRegistration";
+        if (Config.isFixinglist()) {
+            stringKey += "_fixinglist";
+        }
+
         var smsLog = getSmsLogPage();
-        var password = new NewXmlParser(smsLog).getSmsPassword(phoneNumber, XmlParser.getTextByKey("SmsRegistration"));
+        var password = new NewXmlParser(smsLog).getSmsPassword(phoneNumber, XmlParser.getTextByKey(stringKey));
         logger.info("Get SMS password {} for phone number: {}", password, phoneNumber);
 
         return password;
@@ -126,7 +144,7 @@ public class Admin {
     }
 
     private void login() {
-        var url = baseUrl + "account/auth/";
+        var url = Config.getAdminUrl() + "login";
 
         try {
             var result = executor.execute(Request.Post(url)
@@ -144,13 +162,29 @@ public class Admin {
             }
             logger.info("Admin login successfully");
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void runCron(String id) {
+        var url = Config.getAdminUrl() + String.format("system/cron/%s/run", id);
+
+        try {
+            logger.info("Run cron task");
+            executor.execute(Request.Get(url))
+                    .returnResponse()
+                    .getStatusLine()
+                    .getStatusCode();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private String getSmsLogPage() {
-        var url = baseUrl + "administration/log/sms/";
+        var url = Config.getAdminUrl() + "logs/sms";
 
         try {
             return executor.execute(Request.Get(url)).returnContent().asString();

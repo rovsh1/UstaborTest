@@ -4,10 +4,13 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 import utils.WaitHelper;
 import utils.XmlParser;
+
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
@@ -24,11 +27,17 @@ public class BasePage extends PageObject {
     @FindBy(xpath = loaderXpath)
     private WebElementFacade loader;
 
+    @FindBy(xpath = "//input[@id='form_confirmation_code']")
+    private WebElementFacade submitCodeInput;
+
+    @FindBy(xpath = "//div[@class='refresh-wrap']/a")
+    private WebElementFacade repeatSendCode;
+
     //region Header elements
     @FindBy(xpath = "//div[@class='header']//a[@class='logo']")
     private WebElementFacade logoBtn;
 
-    @FindBy(xpath = "//nav[@id='user-menu']/a[1]")
+    @FindBy(xpath = "//nav[@class='user']/a[1]")
     private WebElementFacade profileBtn;
 
     @FindBy(xpath = "//a[contains(@href, 'logout')]")
@@ -46,7 +55,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu countries']/div[contains(@class, 'label')]")
     private WebElementFacade headerCountriesBtn;
 
-    @FindBy(xpath = "//div[@class='header']//nav[@class='nav-menu countries']//a")
+    @FindBy(xpath = "//ul[@class='countries']/li")
     private List<WebElementFacade> countriesList;
 
     @FindBy(xpath = "//button[@class='button-submit']")
@@ -58,7 +67,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header-phone']//div[@class='hint']")
     private WebElementFacade phonePopup;
 
-    @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
+    @FindBy(xpath = "//div[@class='header-inner']//nav[@class='nav-menu language']/div[contains(@class, 'label')]")
     private WebElementFacade headerLangBtn;
 
     @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']//a")
@@ -87,11 +96,25 @@ public class BasePage extends PageObject {
     private WebElementFacade mobileViewMenuBtn;
     //endregion
 
-    @FindBy(xpath = "//div[@class='button-close']")
+    @FindBy(xpath = "//div[@class='btn-close']")
     private WebElementFacade closePopupBtn;
 
-    @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'/sitemap/')]")
+    @FindBy(xpath = "//nav[@class='footer']/a[contains(@href,'sitemap')]")
     private WebElementFacade siteMapLink;
+
+    @FindBy(xpath = "//div[@class='refresh-wrap']/a")
+    private WebElementFacade resendCode;
+
+    public void clickResendCode() {
+        resendCode.click();
+    }
+
+    public boolean isRefreshLinkVisible() {
+        setTimeouts(2, ChronoUnit.SECONDS);
+        var state = resendCode.isVisible();
+        resetTimeouts();
+        return state;
+    }
 
     public void setTimeouts(int duration, TemporalUnit timeUnit) {
         setImplicitTimeout(duration, timeUnit);
@@ -104,13 +127,17 @@ public class BasePage extends PageObject {
     }
 
     public void waitForLoaderDisappears() {
+        waitForLoaderDisappears(120000);
+    }
+
+    public void waitForLoaderDisappears(int timeoutMilli) {
         Serenity.throwExceptionsImmediately();
         setTimeouts(2, ChronoUnit.SECONDS);
-            try {
-                WaitHelper.pollingWait(120000, 500, () -> !loader.isVisible());
-            } catch (TimeoutException e) {
-                e.printStackTrace();
-            }
+        try {
+            WaitHelper.pollingWait(timeoutMilli, 500, () -> !loader.isVisible());
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
         resetTimeouts();
     }
 
@@ -137,7 +164,7 @@ public class BasePage extends PageObject {
     }
 
     public void openMasterProfilePage() {
-        getDriver().get(Config.getFullUrl() + "profile");
+        getDriver().get(Config.getFullUrl() + "master");
     }
 
     public void logsOut() {
@@ -157,10 +184,6 @@ public class BasePage extends PageObject {
 
     public void logoutBtnShouldBeVisible() {
         assertThat(isLogoutBtnVisible()).isTrue();
-    }
-
-    protected void clickPopupOkBtn() {
-        popupOkBtn.click();
     }
 
     void focusElementJS(String className, int elementCount) {
@@ -183,6 +206,10 @@ public class BasePage extends PageObject {
     }
 
     void clickElementJS(WebElementFacade element) {
+        evaluateJavascript("arguments[0].click();", element);
+    }
+
+    void clickElementJS(WebElement element) {
         evaluateJavascript("arguments[0].click();", element);
     }
 
@@ -216,20 +243,21 @@ public class BasePage extends PageObject {
             expectedUrl = expectedUrl.replace("/ru/", "");
         }
 
+        var homeDomainKeyword = "SiteDomainHome";
+        if (Config.isFixinglist()) {
+            homeDomainKeyword += "_fixinglist";
+        }
+
         if (siteName.equals(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainBuild_Short2"))) ||
                 siteName.equals(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainBuild_Full")))) {
             assertThat(getDriver().getCurrentUrl()).contains(expectedUrl);
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainAuto")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainAuto")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//auto.");
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainTech")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainTech")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//tech.");
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainHome")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey(homeDomainKeyword)))) {
             assertThat(getDriver().getCurrentUrl()).contains("//home.");
-        } else if (siteName.contains(
-                Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainMaterials")))) {
+        } else if (siteName.contains(Objects.requireNonNull(XmlParser.getTextByKey("SiteDomainMaterials")))) {
             assertThat(getDriver().getCurrentUrl()).contains("//materials.");
         } else {
             throw new IllegalArgumentException(String.format("No such site with name %s found", siteName));
@@ -302,10 +330,6 @@ public class BasePage extends PageObject {
 
     public void clickProfileBtn() {
         profileBtn.click();
-    }
-
-    public boolean isOpenLoginFormBtnVisible() {
-        return openLoginFormBtn.isVisible();
     }
 
     public void openLoginFormBtnShouldBeVisible() {
@@ -382,6 +406,16 @@ public class BasePage extends PageObject {
     }
 
     public void clickCloseBtn() {
-        closePopupBtn.click();
+        if (closePopupBtn.isVisible()) {
+            closePopupBtn.click();
+        }
+    }
+
+    public void waitForSubmitCodeForm(){
+        withTimeoutOf(Duration.ofSeconds(25)).waitFor(submitCodeInput).isPresent();
+    }
+
+    public void resendCode() {
+        repeatSendCode.click();
     }
 }

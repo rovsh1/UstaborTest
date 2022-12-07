@@ -6,21 +6,21 @@ import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
 import org.junit.Rule;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import steps.UserSteps;
 import steps.adminSteps.AdminSteps;
-import utils.Config;
-import utils.DataGenerator;
-import utils.Watcher;
-import utils.XmlParser;
+import utils.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeoutException;
 
-public class TestBase {
+import static net.serenitybdd.core.Serenity.getDriver;
 
+
+public class TestBase {
     public final Category category = new Category();
 
     @Rule
@@ -37,77 +37,81 @@ public class TestBase {
 
     @Before
     public void setUp() throws TimeoutException {
+        Config.setAgentNeeded(this.toString().contains("UU293"));
         Serenity.throwExceptionsImmediately();
-        if (!Config.isChrome()) {
-            driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
-            driver.manage().window().fullscreen();
-            driver.manage().window().maximize();
-        }
+        Admin.getInstance();
 
         if (this.getClass().isAnnotationPresent(AddCategory.class)) {
+            var annotation = this.getClass().getAnnotation(AddCategory.class);
+
             watcher.category = category;
             admin.addTestCategory(category);
 
-            if (this.getClass().getAnnotation(AddCategory.class).addTags()) {
-                admin.addTagToCategory(category, "testTag");
-            }
-
-            if (this.getClass().getAnnotation(AddCategory.class).addRequestQuestion()) {
+            if (annotation.addServiceQuestion()) {
                 admin.addCategoryService(category);
-                admin.setRequestPrices(category, Config.getCountry(), "100", "200");
-                admin.addServiceRequestQuestions(category, getText("Question"));
+                admin.addServiceQuestions(category, getText("Question"));
+                admin.setServicePrices(Config.getCountry(), "100", "200");
             }
 
-            if (this.getClass().getAnnotation(AddCategory.class).promotionAndClickPrice()) {
-                admin.atCategoriesPage.setPromotionAndClickPrice(
-                        category.getSystemId(),
-                        "100",
-                        "200",
-                        "1000");
+            if (annotation.promotionAndClickPrice()) {
+                admin.atCategoriesPage.setPromotionAndClickPrice(category.getSystemId(),"100", "200", "1000");
             }
-
-            if (this.getClass().isAnnotationPresent(AddMasters.class)) {
-                user.atHomePage.openHomePage();
-                setCountryAndLanguage();
-
-                var mastersCount = this.getClass().getAnnotation(AddMasters.class).masters();
-                for (int i = 0; i < mastersCount; i++) {
-                    var master = DataGenerator.getMaster(category);
-                    watcher.users.add(master);
-
-                    user.atHomePage.openHomePage();
-                    user.registerAsMaster(master);
-
-                    if (this.getClass().getAnnotation(AddMasters.class).addProject()) {
-                        user.atMasterProjectsPage.openProjectsTab();
-                        user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
-                    }
-
-                    user.atHomePage.logsOut();
-                }
-            }
-        } else {
-            user.atHomePage.openHomePage();
-            user.atHomePage.homePageShouldBeVisible();
-            setCountryAndLanguage();
         }
+
+        if (this.getClass().isAnnotationPresent(AddMasters.class)) {
+            var anno = this.getClass().getAnnotation(AddMasters.class);
+
+            user.atHomePage.openHomePage();
+
+            for (int i = 0; i < anno.masters(); i++) {
+                setCountryLanguageAndLocation();
+                var master = DataGenerator.getMaster(category);
+                watcher.users.add(master);
+
+                user.atHomePage.openHomePage();
+                user.register(master, false);
+
+                if (anno.addProject()) {
+                    user.atMasterProjectsPage.openProjectsTab();
+                    user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
+                }
+
+                getDriver().manage().deleteAllCookies();
+                user.atHomePage.logsOut();
+            }
+
+            setCountryLanguageAndLocation();
+            return;
+        }
+
+        user.atHomePage.openHomePage();
+        setCountryLanguageAndLocation();
     }
 
     String getText(String key) {
         return XmlParser.getTextByKey(key);
     }
 
-    void setBrowserWindowSize(int width, int height){
-        driver.manage().window().setSize(new Dimension(width, height));
+    int getTashkentHour() {
+        var date = new Date();
+        var df = new SimpleDateFormat("HH");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Tashkent"));
+        return Integer.parseInt(df.format(date));
     }
 
-    private void setCountryAndLanguage() {
-        if (!Config.isFixListKg()) {
-            user.atHomePage.setLanguage(Config.getLang());
+    void setBrowserMobileWindowSize() {
+        driver.manage().window().setSize(new Dimension(375, 667));
+        driver.navigate().refresh();
+    }
+
+    private void setCountryLanguageAndLocation() {
+        user.atHomePage.setLanguage(Config.getLang());
+
+        if (Config.isUstabor() || Config.isBildrlist()) {
+            user.atHomePage.selectCity(getText(Config.getCountryCode() + "_city"));
+            return;
         }
 
-        if (!Config.isUstabor() && !Config.isFixListKg()) {
-            user.atHomePage.setCountry(Config.getCountry());
-        }
+        user.atHomePage.selectLocation(Config.getCountry(), getText(Config.getCountryCode() + "_city"));
     }
 }
