@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AddMasters {
     int masters() default 2;
-    boolean addProject() default true;
+    boolean useAdminSite() default false;
 }

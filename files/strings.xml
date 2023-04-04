@@ -76,7 +76,10 @@
     <string name="LoginFailedError">Неправильный логин или пароль</string>
 
     <string name="Service">Autotest</string>
-    <string name="Question">This is a test question</string>
+    <string name="Question_0">This is a test question number 1</string>
+    <string name="Question_1">This is a test question number 2</string>
+    <string name="Question_2">This is a test question number 3</string>
+    <string name="Question_3">This is a test question number 4</string>
 
     <string name="WithdrawError">На вашем счете недостаточно средств</string>
 
@@ -91,7 +94,7 @@
     <string name="SmsRegistration">Вы зарегистрированы Логин</string>
     <string name="SmsRegistration_fixinglist">Вы зарегистрированы Ваш логин</string>
     <string name="SmsMasterMessage">сообщение</string>
-    <string name="SmsMasterPrice">Мастер предложил свою цену</string>
+    <string name="SmsMasterPrice">Мастер предложил цену за работу</string>
     <string name="SmsRequestClosed">закрыта для предложений</string>
     <string name="SmsTestMessage">This is test message</string>
 
@@ -99,5 +102,7 @@
     <string name="Tag_ustabor">Santehnik</string>
     <string name="Domain_ustabor">Qurilish Ishlari</string>
     <string name="Category_ustabor">Chilangarlar</string>
+
+    <string name="InsufficientFunds">На вашем счете недостаточно средств</string>string>
 
 </resources>

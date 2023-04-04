@@ -21,4 +21,8 @@ public class AddServicePageSteps extends ScenarioSteps {
     public void saveService() {
         servicePage.saveService();
     }
+
+    public void setPrices() {
+        servicePage.setPrices();
+    }
 }

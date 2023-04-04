@@ -1,7 +1,6 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
@@ -10,19 +9,18 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true, addServiceQuestion = true)
-@AddMasters(masters = 1, addProject = false)
-@WithTag("new")
+@AddMasters(masters = 1)
 public class TC011_CustomerRequestPaymentForAssign extends TestBase {
 
     @Test
-    public void verifyMasterClickPriceWithdraw() throws TimeoutException {
+    public void verifyMasterClickPriceWithdraw() throws TimeoutException, InterruptedException {
+        admin.addMoneyToMaster(10000, watcher.getMaster(), false);
+
         var customer = DataGenerator.getGuestCustomer();
         watcher.users.add(customer);
 
-        admin.addMoneyToMaster(10000, watcher.getMaster());
-
         user.atHomePage.openPlaceOrderPage();
-        user.atPlaceOrderPage.placeOrder(customer, category);
+        user.atPlaceOrderPage.placeOrderForLoggedUser(customer, category);
         user.atCustomerProfileRequestsPage.openRequestsPage();
 
         customer.setProfileId(user.atCustomerProfileRequestsPage.getCustomerProfileId());

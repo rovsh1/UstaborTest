@@ -29,7 +29,7 @@ public class RequestsPageSteps extends ScenarioSteps {
     @Step
     public void assignRequestToMasterForFree(Master master) {
         requestsPage.openAssignMasterForm();
-        requestsPage.findMaster(master.getLastName());
+        requestsPage.findMaster(master.getFirstName());
         requestsPage.assignForFree();
         requestsPage.waitForLoaderDisappears(180000);
     }

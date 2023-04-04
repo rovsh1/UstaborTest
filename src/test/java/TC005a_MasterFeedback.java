@@ -2,7 +2,6 @@ import annotations.AddCategory;
 import annotations.AddMasters;
 import entities.User;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,17 +10,15 @@ import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
 
-@WithTag("prod")
-
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters(addProject = false)
+@AddMasters()
 public class TC005a_MasterFeedback extends TestBase {
 
     private User customer;
 
     @Before
-    public void setUp() throws TimeoutException {
+    public void setUp() throws TimeoutException, InterruptedException {
         super.setUp();
         customer = DataGenerator.getCustomer();
         watcher.users.add(customer);

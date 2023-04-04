@@ -5,6 +5,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddServicePage extends BaseAdminPage {
 
     @FindBy(xpath = "//input[@name='data[name][ru]']")
@@ -18,6 +21,12 @@ public class AddServicePage extends BaseAdminPage {
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElementFacade submit;
+
+    @FindBy(xpath = "//li[@data-tab='tab-prices']")
+    private WebElementFacade pricesTab;
+
+    @FindBy(xpath = "//input[contains(@name, 'prices')]")
+    private List<WebElementFacade> priceInput;
 
 
     public void openPage() {
@@ -38,5 +47,12 @@ public class AddServicePage extends BaseAdminPage {
 
     public void saveService() {
         submit.click();
+    }
+
+    public void setPrices() {
+        pricesTab.click();
+        for (WebElementFacade input: priceInput) {
+            input.sendKeys("100");
+        }
     }
 }

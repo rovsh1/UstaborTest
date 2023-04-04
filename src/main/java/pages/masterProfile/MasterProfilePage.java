@@ -30,6 +30,12 @@ public class MasterProfilePage extends MasterProfileBasePage {
     @FindBy(xpath = "//a[@href='#reviews']")
     private WebElementFacade masterReviews;
 
+    @FindBy(xpath = "//table[@class='services']//td[@class='main']/div")
+    private WebElementFacade service;
+
+    @FindBy(xpath = "//table[@class='services']//input[@type='text']")
+    private WebElementFacade servicePrice;
+
     public void masterFullNameShouldContain(String firstName) {
         masterName.shouldContainText(firstName);
     }
@@ -51,7 +57,11 @@ public class MasterProfilePage extends MasterProfileBasePage {
     }
 
     public void masterFeedbackShouldContain(String feedback) {
-
         masterReviews.shouldContainText(feedback);
+    }
+
+    public void selectService() {
+        service.click();
+        servicePrice.sendKeys("100");
     }
 }

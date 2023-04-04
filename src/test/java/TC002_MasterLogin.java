@@ -1,14 +1,10 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.DataGenerator;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WithTag("smoke")
 
 @RunWith(SerenityRunner.class)
 public class TC002_MasterLogin extends TestBase {

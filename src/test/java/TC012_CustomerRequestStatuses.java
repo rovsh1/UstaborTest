@@ -1,7 +1,6 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Admin;
@@ -13,18 +12,19 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @RunWith(SerenityRunner.class)
 @AddCategory(addServiceQuestion = true)
-@AddMasters(masters = 1, addProject = false)
-@WithTag("new")
+@AddMasters(masters = 1, useAdminSite = true)
 public class TC012_CustomerRequestStatuses extends TestBase {
 
     @Test
-    public void verifyCustomerRequestStatuses() throws TimeoutException {
+    public void verifyCustomerRequestStatuses() throws TimeoutException, InterruptedException {
         var customer = DataGenerator.getGuestCustomer();
         watcher.users.add(customer);
 
         user.atHomePage.openHomePage();
+        setCountryLanguageAndLocation();
+
         user.atHomePage.openPlaceOrderPage();
-        user.atPlaceOrderPage.placeOrder(customer, category);
+        user.atPlaceOrderPage.placeOrderForLoggedUser(customer, category);
         user.atCustomerProfileRequestsPage.openRequestsPage();
 
         customer.setPassword(Admin.getInstance().getSmsPassword(customer.getPhoneNumber()));
@@ -36,15 +36,8 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         if (getTashkentHour() >= 9 && getTashkentHour() < 18) {
             admin.atRequestsPage.openRequestById(requestId);
             admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
-
-            try {
-                Thread.sleep(15000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Thread.sleep(15000);
         }
-
-        admin.addMoneyToMaster(900, watcher.getMaster());
 
         user.atHomePage.openHomePage();
         user.atHomePage.login(watcher.getMaster(), true);

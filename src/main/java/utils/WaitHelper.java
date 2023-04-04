@@ -5,7 +5,9 @@ import java.util.function.Supplier;
 
 public class WaitHelper {
 
-    public static void pollingWait(int timeoutInMilliseconds, int sleepInMilliseconds, Supplier<Boolean> condition) throws TimeoutException {
+    public static void pollingWait(int timeoutInMilliseconds,
+                                   int sleepInMilliseconds,
+                                   Supplier<Boolean> condition) throws TimeoutException {
 
         long startTime = System.currentTimeMillis();
 

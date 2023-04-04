@@ -1,29 +1,22 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
+import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Admin;
-import utils.DataGenerator;
 
 import java.util.concurrent.TimeoutException;
 
-@WithTag("prod")
-
 @RunWith(SerenityRunner.class)
 @AddCategory()
-@AddMasters(masters = 1, addProject = false)
+@AddMasters(masters = 2, useAdminSite = true)
 public class TC005_AddBadgesToMaster extends TestBase {
 
     @Test
     public void verifyBadgesEnableMasterPromotion() throws TimeoutException {
-        var master = DataGenerator.getMaster(category);
-        watcher.users.add(master);
+        var master = (Master) watcher.users.get(1);
 
-        user.register(master, false);
-
-        admin.atAdminHomePage.loginAsAdmin();
         admin.atMastersPage.addAllBadgesToMaster(master);
 
         Admin.getInstance().runCron("1");

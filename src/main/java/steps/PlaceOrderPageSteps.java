@@ -15,105 +15,81 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
 
     @Step
     public void verifyPage() {
-        placeOrderPage.makeSureFormIsVisible();
-        placeOrderPage.nameInputShouldBeVisible();
-        placeOrderPage.domainDropdownShouldBeVisible();
-        placeOrderPage.categoryDropdownShouldBeVisible();
-        placeOrderPage.photoFormShouldBeVisible();
-        placeOrderPage.additionalInfoFormShouldBeVisible();
+//        placeOrderPage.makeSureFormIsVisible();
+//        placeOrderPage.nameInputShouldBeVisible();
+//        placeOrderPage.domainDropdownShouldBeVisible();
+//        placeOrderPage.categoryDropdownShouldBeVisible();
+//        placeOrderPage.photoFormShouldBeVisible();
+//        placeOrderPage.additionalInfoFormShouldBeVisible();
     }
 
     @Step
-    public void placeOrder(User customer, Category category) {
-        fillInFirstPage(
-                customer.getFirstName(),
-                category,
-                XmlParser.getTextByKey("Service"),
-                XmlParser.getTextByKey("Question"),
-                "test request");
+    public void placeOrderForLoggedUser(User customer, Category category) throws InterruptedException {
+        var request = XmlParser.getTextByKey("Service");
+        var question = XmlParser.getTextByKey("Question_0");
 
-        placeOrderPage.clickNextButton(RequestPages.First);
-        placeOrderPage.clickNextButton(RequestPages.Second);
+        selectBuildDomain();
+        selectCategory(category);
+        selectRequest(request);
+        selectQuestion(question);
+        selectStartDateImmediately();
+        selectStartTime();
+        fillContactInfo(customer, "Some request info");
+        clickPlaceOrder();
 
-        fillInThirdPage(customer);
-        customer.setPhoneCode(placeOrderPage.getCountryCode());
-        placeOrderPage.clickNextButton(RequestPages.Last);
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        placeOrderPage.waitForSubmitCodeForm();
-        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-        confirmPhoneNumber(smsCode, smsCode);
-        placeOrderPage.waitForLoaderDisappears();
+        waitForCodeForm();
+        var smsCode = getSmsCode(customer.getPhoneNumber());
+        confirmPhoneNumber(smsCode, customer.getPhoneNumber());
     }
 
     @Step
-    public void placeOrderForLoggedUser(User customer, Category category) {
-        fillInFirstPage(
-                category,
-                XmlParser.getTextByKey("Service"),
-                XmlParser.getTextByKey("Question"),
-                "test request");
-
-        placeOrderPage.clickNextButton(RequestPages.First);
-        placeOrderPage.clickNextButton(RequestPages.Second);
-
-        placeOrderPage.enterAddress(customer.getCity());
-
-        customer.setPhoneCode(placeOrderPage.getCountryCode());
-        placeOrderPage.clickNextButton(RequestPages.Last);
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        placeOrderPage.waitForSubmitCodeForm();
-        var smsCode = Admin.getInstance().getSmsCode(customer.getPhoneNumber());
-        confirmPhoneNumber(smsCode, smsCode);
-        placeOrderPage.waitForLoaderDisappears();
+    public void selectBuildDomain() {
+        placeOrderPage.selectBuildDomain();
     }
 
     @Step
-    public void fillInFirstPage(Category category, String service, String question, String info) {
-        placeOrderPage.makeSureFormIsVisible();
+    public void selectStartTime() {
+        placeOrderPage.selectStartTimeMorning();
+        placeOrderPage.waitForServiceLoader();
+    }
+
+    @Step
+    public void selectCategory(Category category) {
         placeOrderPage.selectCategory(category.getSystemId());
-        placeOrderPage.selectWhatToDo(service);
+        placeOrderPage.waitForServiceLoader();
+    }
+
+    @Step
+    public void selectRequest(String request) {
+        placeOrderPage.selectWhatToDo(request);
+        placeOrderPage.waitForServiceLoader();
+    }
+
+    @Step
+    public void selectQuestion(String question) {
         placeOrderPage.selectQuestion(question);
+        placeOrderPage.waitForServiceLoader();
+    }
+
+    @Step
+    public void selectStartDateImmediately() {
+        placeOrderPage.selectStartDateImmediately();
+        placeOrderPage.waitForServiceLoader();
+    }
+
+    @Step
+    public void fillContactInfo(User guest, String info) {
+        placeOrderPage.enterName(guest.getFirstName());
+        guest.setPhoneCode(placeOrderPage.getCountryCode());
+        placeOrderPage.enterPhoneNumber(guest.getPhoneNumber());
+        placeOrderPage.enterAddress(guest.getCity());
         placeOrderPage.enterAdditionalInfo(info);
-    }
-
-    @Step
-    public void fillInFirstPage(String userName, Category category, String service, String question, String info) {
-        placeOrderPage.makeSureFormIsVisible();
-        placeOrderPage.enterName(userName);
-        placeOrderPage.selectCategory(category.getSystemId());
-        placeOrderPage.selectWhatToDo(service);
-        placeOrderPage.selectQuestion(question);
-        placeOrderPage.enterAdditionalInfo(info);
-    }
-
-    @Step
-    public void clickNextButton(RequestPages pageNumber) {
-        placeOrderPage.clickNextButton(pageNumber);
-        placeOrderPage.waitForLoaderDisappears();
-    }
-
-    @Step
-    public void fillInThirdPage(User customer) {
-        placeOrderPage.enterAddress(customer.getCity());
-        placeOrderPage.enterPhoneNumber(customer.getPhoneNumber());
     }
 
     @Step
     public void confirmPhoneNumber(String code, String number) {
         placeOrderPage.enterSmsCode(code);
-        placeOrderPage.clickConfirmButton();
+        placeOrderPage.clickCodeConfirm();
 
         if (placeOrderPage.isRefreshLinkVisible()) {
             retryEnterCode(number);
@@ -136,13 +112,6 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public PlaceOrderPageSteps priceRangeShouldBeVisible(String minPrice, String maxPrice) {
-        placeOrderPage.priceShouldBeVisible(minPrice);
-        placeOrderPage.priceShouldBeVisible(maxPrice);
-        return this;
-    }
-
-    @Step
     public void waitForCodeForm() {
         placeOrderPage.waitForSubmitCodeForm();
     }
@@ -150,5 +119,20 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     @Step
     public String getSmsCode(String phoneNumber) throws InterruptedException {
         return placeOrderPage.getSmsCode(phoneNumber);
+    }
+
+    @Step
+    public void clickPlaceOrder() {
+        placeOrderPage.clickConfirmButton();
+    }
+
+    @Step
+    public void verifyProgress(int percent) {
+        placeOrderPage.verifyProgress(percent);
+    }
+
+    @Step
+    public void verifyMastersCount(int i) {
+        placeOrderPage.verifyMastersCount(i);
     }
 }

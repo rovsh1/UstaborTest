@@ -5,8 +5,7 @@ import entities.Category;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
-
-import java.util.concurrent.TimeoutException;
+import pages.admin.AddMasterPage;
 
 public class AdminSteps extends ScenarioSteps {
 
@@ -37,14 +36,20 @@ public class AdminSteps extends ScenarioSteps {
     @Steps
     public CronTasksPageSteps atCronTasksPage;
 
+    @Steps
+    public AddMasterPage atAddMasterPage;
+
     public void addTestCategory(Category category) {
         atAdminHomePage.loginAsAdmin();
         atAddCategoryPage.addTestCategory(category);
         atCategoriesPage.getCategoryId(category);
     }
 
-    public void addMoneyToMaster(int amount, Master master) {
-        atAdminHomePage.loginAsAdmin();
+    public void addMoneyToMaster(int amount, Master master, boolean isLoginNeeded) {
+        if (isLoginNeeded) {
+            atAdminHomePage.loginAsAdmin();
+        }
+
         atMastersPage.addMoneyToMaster(amount, master.getProfileId());
     }
 
@@ -58,9 +63,12 @@ public class AdminSteps extends ScenarioSteps {
         atAddRequestQuestionsPage.addQuestionToCategory(category, question);
     }
 
-    public void addCategoryService(Category category) {
+    public void addCategoryService(Category category, boolean price) {
         atAddEditServicePage.openPage();
         atAddEditServicePage.fillAddServiceForm(category);
+        if (price) {
+            atAddEditServicePage.setPrices();
+        }
         atAddEditServicePage.saveService();
     }
 
@@ -71,5 +79,16 @@ public class AdminSteps extends ScenarioSteps {
     @Step
     public void waitForCronTaskCompleted(String taskId, int timeout) {
         atCronTasksPage.waitForCronTaskCompleted(taskId, timeout);
+    }
+
+    public void addSubQuestion(String question) {
+        atAddRequestQuestionsPage.addSubQuestion(question);
+    }
+
+    public void addMaster(Master master) {
+        atAddMasterPage.openPage();
+        atAddMasterPage.createMaster(master);
+        atAddMasterPage.openMasterPage(master);
+        atAddMasterPage.setCategoryToMaster(master);
     }
 }

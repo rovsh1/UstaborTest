@@ -24,4 +24,8 @@ public class AddRequestQuestionsPageSteps extends ScenarioSteps {
         addServiceQuestionsPage.setMaxPrice(country, maxPrice);
         addServiceQuestionsPage.clickSubmitPrice();
     }
+
+    public void addSubQuestion(String question) {
+        addServiceQuestionsPage.addSubQuestion(question);
+    }
 }

@@ -11,75 +11,54 @@ import java.time.Duration;
 public class PlaceOrderPage extends BasePage {
 
     //region First page
-    @FindBy(xpath = "//input[@id='form_order_username']")
-    private WebElementFacade nameInput;
-
-    @FindBy(xpath = "//select[@id='form_order_site_id']")
-    private WebElementFacade domainDropdown;
-
-    @FindBy(xpath = "//input[@name='order[category_id]']/../div")
-    private WebElementFacade categoryDropdown;
-
-    @FindBy(xpath = "//div[@class='form-field']/div")
-    private WebElementFacade whatToDoDropDown;
-
-    @FindBy(xpath = "//div[@class='form-field'][last()]/div")
-    private WebElementFacade questionSelector;
-
-    @FindBy(xpath = "//div[@class='dropzone-field']")
-    private WebElementFacade photoForm;
-
-    @FindBy(xpath = "//textarea[@id='form_order_text']")
-    private WebElementFacade additionalInfoInput;
-
-    @FindBy(xpath = "//div[@class='step step-1']//button[@class='btn-submit']")
-    private WebElementFacade nextButtonFirst;
+    @FindBy(xpath = "//div[@class='site-items']/a[1]")
+    private WebElementFacade buildDomain;
     //endregion
 
     //region Second page
-    @FindBy(xpath = "//div[@id='prices-title']")
-    private WebElementFacade pricesRangeDisclaimer;
+    @FindBy(xpath = "//div[@data-id='now']")
+    private WebElementFacade startDateImmediately;
 
-    @FindBy(xpath = "//div[@class='step step-2']//button[@class='btn-submit']")
-    private WebElementFacade nextButtonSecond;
+    @FindBy(xpath = "//div[@data-id='morning']")
+    private WebElementFacade startTimeMorning;
     //endregion
 
     //region Third page
-    @FindBy(xpath = "//input[@id='form_order_address']")
-    private WebElementFacade addressInput;
+    @FindBy(xpath = "//input[@id='form_data_username']")
+    private WebElementFacade nameInput;
 
-    @FindBy(xpath = "//input[@id='form_order_contact_phone']")
+    @FindBy(xpath = "//input[@id='form_data_contact_phone']")
     private WebElementFacade phoneInput;
 
-    @FindBy(xpath = "//div[@class='step step-3']//button[@class='btn-submit']")
-    private WebElementFacade nextButtonLast;
+    @FindBy(xpath = "//input[@id='form_data_address']")
+    private WebElementFacade addressInput;
+
+    @FindBy(xpath = "//textarea[@id='form_data_note']")
+    private WebElementFacade additionalInfoInput;
     //endregion
 
     //region Confirmation form
     @FindBy(xpath = "//input[@id='form_confirmation_code']")
     private WebElementFacade codeInput;
 
-    @FindBy(xpath = "//form[@id='form-confirmation']//button[@class='btn-submit']")
+    @FindBy(xpath = "//form[@id='form-confirmation']//button[@type='submit']")
+    private WebElementFacade codeConfirm;
+
+    @FindBy(xpath = "//form//button[@type='submit']")
     private WebElementFacade confirmBtn;
     //endregion
 
     @FindBy(xpath = "//a[contains(@href, '/customer/requests')]")
     private WebElementFacade myRequestsBtn;
 
+    @FindBy(xpath = "//div[@class='progress']/div[@class='value']")
+    private WebElementFacade progress;
+
+    @FindBy(xpath = "//a[@class='catalog']//i")
+    private WebElementFacade mastersCount;
+
     public void nameInputShouldBeVisible() {
         nameInput.shouldBeVisible();
-    }
-
-    public void domainDropdownShouldBeVisible() {
-        domainDropdown.shouldBePresent();
-    }
-
-    public void categoryDropdownShouldBeVisible() {
-        categoryDropdown.shouldBeVisible();
-    }
-
-    public void photoFormShouldBeVisible() {
-        photoForm.shouldBeVisible();
     }
 
     public void additionalInfoFormShouldBeVisible() {
@@ -91,23 +70,8 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void selectCategory(String systemId) {
-        categoryDropdown.click();
-        getDriver().findElement(By.xpath(String.format("//li[@data-value='%s']", systemId))).click();
-        waitForLoaderDisappears(3000);
-    }
-
-    public void clickNextButton(RequestPages pageNumber) {
-        switch (pageNumber) {
-            case First:
-                nextButtonFirst.click();
-                break;
-            case Second:
-                nextButtonSecond.click();
-                break;
-            case Last:
-                nextButtonLast.click();
-                break;
-        }
+        getDriver().findElement(By.xpath(String.format("//div[@data-id='%s']", systemId))).click();
+        waitForLoaderDisappears();
     }
 
     public void enterAddress(String address) {
@@ -132,18 +96,11 @@ public class PlaceOrderPage extends BasePage {
     }
 
     public void selectWhatToDo(String question) {
-        whatToDoDropDown.click();
-        getDriver().findElement(By.xpath(String.format("//li[./div[text()='%s']]", question))).click();
-        waitForLoaderDisappears(3000);
+        getDriver().findElement(By.xpath(String.format("//div[text()='%s']", question))).click();
     }
 
     public void selectQuestion(String question) {
-        questionSelector.click();
-        getDriver().findElement(By.xpath(String.format("//li[./div[text()='%s']]", question))).click();
-    }
-
-    public void priceShouldBeVisible(String price) {
-        pricesRangeDisclaimer.shouldContainText(price);
+        getDriver().findElement(By.xpath(String.format("//div[text()='%s']", question))).click();
     }
 
     public String getCountryCode() {
@@ -165,11 +122,27 @@ public class PlaceOrderPage extends BasePage {
         return Admin.getInstance().getSmsCode(phoneNumber);
     }
 
-    public void makeSureFormIsVisible() {
-        if (categoryDropdown.isVisible()) {
-            return;
-        }
+    public void selectBuildDomain() {
+        buildDomain.click();
+    }
 
-        getDriver().navigate().refresh();
+    public void selectStartDateImmediately() {
+        startDateImmediately.click();
+    }
+
+    public void selectStartTimeMorning() {
+        startTimeMorning.click();
+    }
+
+    public void clickCodeConfirm() {
+        codeConfirm.click();
+    }
+
+    public void verifyProgress(int percent) {
+        progress.shouldContainText(String.format("%d%%", percent));
+    }
+
+    public void verifyMastersCount(int i) {
+        mastersCount.shouldContainOnlyText(Integer.toString(i));
     }
 }

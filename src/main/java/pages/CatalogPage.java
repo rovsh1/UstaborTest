@@ -56,13 +56,13 @@ public class CatalogPage extends SearchBlock {
     private WebElementFacade emptyCatalogMessage;
 
     //region Filter elements
-    @FindBy(xpath = "//div[@id='catalog-search-menu']")
+    @FindBy(xpath = "//div[@id='btn-filter']")
     private WebElementFacade filterBtn;
 
-    @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'category')]")
+    @FindBy(xpath = "//div[./input[@id='category_id']]/div")
     private WebElementFacade filterCategoryBtn;
 
-    @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'city')]")
+    @FindBy(xpath = "//div[./select[@id='city_id']]/div")
     private WebElementFacade filterCityBtn;
 
     @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'district')]")
@@ -71,16 +71,16 @@ public class CatalogPage extends SearchBlock {
     @FindBy(xpath = "//div[contains(@class,'item')]")
     private List<WebElementFacade> filterCitiesList;
 
-    @FindBy(xpath = "//div[@class='menu-popup']/div[contains(@class, 'order')]")
+    @FindBy(xpath = "//div[./select[@id='order']]/div")
     private WebElementFacade filterSortingBtn;
 
-    @FindBy(xpath = "//div[@class='menu-popup']//button[@type='submit']")
+    @FindBy(xpath = "//div[@class='catalog-filter']//button[@type='submit']")
     private WebElementFacade filterSubmitBtn;
 
-    @FindBy(xpath = "//div[@class='menu-popup']//div[@class='btn-close']")
+    @FindBy(xpath = "//div[@class='catalog-filter']//div[@class='btn-close']")
     private WebElementFacade filterCloseBtn;
 
-    @FindBy(xpath = "//div[@class='menu-popup']//button[@type='reset']")
+    @FindBy(xpath = "//button[@type='reset']")
     private WebElementFacade filterResetBtn;
 
     @FindBy(xpath = "//div[@class='window window-categories']//div[@id='categories']")
@@ -108,7 +108,6 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void openFilter() {
-        scrollPageUpJS();
         filterBtn.click();
         waitForLoaderDisappears();
     }

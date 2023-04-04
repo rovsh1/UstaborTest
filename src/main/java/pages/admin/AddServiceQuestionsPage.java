@@ -28,6 +28,9 @@ public class AddServiceQuestionsPage extends BaseAdminPage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElementFacade submitPriceBtn;
 
+    @FindBy(xpath = "(//div[@class='expand'])[last()]")
+    private WebElementFacade addSubQuestion;
+
 
     public void openPage() {
         getDriver().get(Config.getAdminUrl() + "request/answer");
@@ -64,5 +67,11 @@ public class AddServiceQuestionsPage extends BaseAdminPage {
 
     public void clickSubmitPrice() {
         submitPriceBtn.click();
+    }
+
+    public void addSubQuestion(String question) {
+        addSubQuestion.click();
+        questionTextArea.sendKeys(question);
+        submitQuestionBtn.click();
     }
 }

@@ -1,33 +1,29 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
+import entities.Master;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pages.masterProfile.MasterPromotionPage;
-import utils.DataGenerator;
-
-@WithTag("prod")
 
 @RunWith(SerenityRunner.class)
 @AddCategory(promotionAndClickPrice = true)
-@AddMasters(addProject = false)
+@AddMasters()
 public class TC007_PromoteWithMinPrice extends TestBase {
 
     @Test
     public void promoteWithMinPrice() throws Exception {
-        var master = DataGenerator.getMaster(category);
-        watcher.users.add(master);
-
-        user.register(master, false);
-        admin.addMoneyToMaster(10000, master);
+        var master = (Master) watcher.users.get(0);
+        admin.addMoneyToMaster(10000, master, false);
 
         user.atHomePage.openHomePage();
         user.atHomePage.loginIfNeeded(master);
 
         user.atMasterProfilePage.openProfilePage();
         user.atMasterPromotionPage.openPromotionTab();
-        user.atMasterPromotionPage.promoteCategory(master.getCategory().getName(), MasterPromotionPage.PromotionType.MinimalPrice);
+        user.atMasterPromotionPage.promoteCategory(
+                master.getCategory().getName(),
+                MasterPromotionPage.PromotionType.MinimalPrice);
         user.atMasterProjectsPage.logsOut();
 
         admin.atAdminHomePage.loginAsAdmin();

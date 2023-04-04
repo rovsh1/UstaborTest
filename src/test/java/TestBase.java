@@ -36,7 +36,7 @@ public class TestBase {
     public WebDriver driver;
 
     @Before
-    public void setUp() throws TimeoutException {
+    public void setUp() throws TimeoutException, InterruptedException {
         Config.setAgentNeeded(this.toString().contains("UU293"));
         Serenity.throwExceptionsImmediately();
         Admin.getInstance();
@@ -48,18 +48,44 @@ public class TestBase {
             admin.addTestCategory(category);
 
             if (annotation.addServiceQuestion()) {
-                admin.addCategoryService(category);
-                admin.addServiceQuestions(category, getText("Question"));
+                admin.addCategoryService(category, annotation.addServicePrice());
+
+                for(int i = 0; i < annotation.questionsCount(); i++) {
+                    if (i == 0) {
+                        admin.addServiceQuestions(category, getText("Question_0"));
+                        continue;
+                    }
+                    var question = String.format("Question_%d", i);
+                    admin.addSubQuestion(getText(question));
+                    Thread.sleep(500);
+                    admin.addSubQuestion(getText(question));
+                    Thread.sleep(500);
+                }
+
                 admin.setServicePrices(Config.getCountry(), "100", "200");
             }
 
             if (annotation.promotionAndClickPrice()) {
-                admin.atCategoriesPage.setPromotionAndClickPrice(category.getSystemId(),"100", "200", "1000");
+                admin.atCategoriesPage.setPromotionAndClickPrice(
+                        category.getSystemId(),
+                        "100",
+                        "200",
+                        "1000");
             }
         }
 
         if (this.getClass().isAnnotationPresent(AddMasters.class)) {
             var anno = this.getClass().getAnnotation(AddMasters.class);
+
+            if (anno.useAdminSite()) {
+                for (int i = 0; i < anno.masters(); i++) {
+                    var master = DataGenerator.getMaster(category);
+                    watcher.users.add(master);
+                    admin.addMaster(master);
+                    Thread.sleep(500);
+                }
+                return;
+            }
 
             user.atHomePage.openHomePage();
 
@@ -70,11 +96,6 @@ public class TestBase {
 
                 user.atHomePage.openHomePage();
                 user.register(master, false);
-
-                if (anno.addProject()) {
-                    user.atMasterProjectsPage.openProjectsTab();
-                    user.atMasterProjectsPage.addNewProjectInCategory(master.getCategory());
-                }
 
                 getDriver().manage().deleteAllCookies();
                 user.atHomePage.logsOut();
@@ -104,7 +125,7 @@ public class TestBase {
         driver.navigate().refresh();
     }
 
-    private void setCountryLanguageAndLocation() {
+    void setCountryLanguageAndLocation() {
         user.atHomePage.setLanguage(Config.getLang());
 
         if (Config.isUstabor() || Config.isBildrlist()) {

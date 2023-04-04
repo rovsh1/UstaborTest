@@ -1,6 +1,7 @@
 package steps.adminSteps;
 
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,11 @@ public class CronTasksPage extends BaseAdminPage {
     public void waitForCronTaskCompleted(String taskId, int timeout) {
         var limit = timeout * 1000 / 15000;
 
+        var xpath = String.format("//a[@data-id='%s' and not(@style='display: none;')]", taskId);
+
         for (int i = 0; i < limit; i++) {
-            if (task.isVisible()) {
+            var elements = getDriver().findElements(By.xpath(xpath));
+            if (!elements.isEmpty()) {
                 logger.info(String.format("Cron task %s completed", taskId));
                 return;
             }

@@ -55,4 +55,8 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
     public String getProfileId() {
         return masterProfilePage.getProfileId();
     }
+
+    public void selectService() {
+        masterProfilePage.selectService();
+    }
 }

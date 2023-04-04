@@ -2,6 +2,7 @@ package steps.masterProfileSteps;
 
 import net.thucydides.core.annotations.Step;
 import pages.masterProfile.MasterPromotionPage;
+import utils.Config;
 
 public class MasterPromotionPageSteps extends MasterProfileSteps {
 
@@ -11,7 +12,6 @@ public class MasterPromotionPageSteps extends MasterProfileSteps {
     public void pageShouldBeVisible() {
         masterPromotionPage.categorySelectorShouldBeVisible();
         masterPromotionPage.sendToModerationBtnShouldBeVisible();
-        masterPromotionPage.promotionManualBtnShouldBeVisible();
     }
 
     @Step

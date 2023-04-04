@@ -4,6 +4,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementState;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
@@ -73,7 +74,7 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='header-menu']//nav[@class='nav-menu language']//a")
     private List<WebElementFacade> langsList;
 
-    @FindBy(xpath = "//div[@id='content']//a[contains(@href,'request')]")
+    @FindBy(xpath = "//div[./input[@id='catalog-input']]/button")
     private WebElementFacade placeOrderBtn;
     //endregion
 
@@ -128,6 +129,26 @@ public class BasePage extends PageObject {
 
     public void waitForLoaderDisappears() {
         waitForLoaderDisappears(120000);
+    }
+
+    public void waitForServiceLoader() {
+        setImplicitTimeout(500, ChronoUnit.MILLIS);
+        setWaitForTimeout(500);
+
+        var xpath = "//div[@class='loading']";
+        var retry = 5;
+
+        for (int i = 0; i < retry; i++) {
+            var elements = getDriver().findElements(By.xpath(xpath));
+            if (elements.isEmpty()) {
+                return;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void waitForLoaderDisappears(int timeoutMilli) {
@@ -186,13 +207,6 @@ public class BasePage extends PageObject {
         assertThat(isLogoutBtnVisible()).isTrue();
     }
 
-    void focusElementJS(String className, int elementCount) {
-        evaluateJavascript(
-                "document.getElementsByClassName(arguments[0])[arguments[1]].scrollIntoView(false)",
-                className,
-                elementCount);
-    }
-
     protected void focusElementJS(WebElementFacade element) {
         evaluateJavascript("arguments[0].focus();", element);
     }
@@ -203,14 +217,6 @@ public class BasePage extends PageObject {
 
     void clearInputJS(WebElementFacade input) {
         evaluateJavascript("arguments[0].value = ''", input);
-    }
-
-    void clickElementJS(WebElementFacade element) {
-        evaluateJavascript("arguments[0].click();", element);
-    }
-
-    void clickElementJS(WebElement element) {
-        evaluateJavascript("arguments[0].click();", element);
     }
 
     public List<String> getSitesNames() {
@@ -332,10 +338,6 @@ public class BasePage extends PageObject {
         profileBtn.click();
     }
 
-    public void openLoginFormBtnShouldBeVisible() {
-        openLoginFormBtn.shouldBeVisible();
-    }
-
     public void openLoginForm() {
         openLoginFormBtn.click();
     }
@@ -387,14 +389,6 @@ public class BasePage extends PageObject {
 
     public void openPlaceOrderForm() {
         placeOrderBtn.click();
-    }
-
-    public void verifyFooterCountriesPopup() {
-        footerCountriesList.forEach(WebElementState::shouldBeVisible);
-    }
-
-    public void verifyFooterLanguagePopup() {
-        footerLangsList.forEach(WebElementState::shouldBeVisible);
     }
 
     public void scrollPageToBottom() {

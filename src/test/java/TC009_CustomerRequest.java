@@ -1,9 +1,7 @@
 import annotations.AddCategory;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import enums.RequestPages;
 import utils.DataGenerator;
 import utils.XmlParser;
 
@@ -15,24 +13,21 @@ public class TC009_CustomerRequest extends TestBase {
 
     @Test
     public void verifyUserCanCreateCustomerRequest() throws TimeoutException, InterruptedException {
+        var request = XmlParser.getTextByKey("Service");
+        var question = XmlParser.getTextByKey("Question_0");
         var guest = DataGenerator.getGuestCustomer();
+
         watcher.users.add(guest);
 
         user.atHomePage.openPlaceOrderPage();
-        user.atPlaceOrderPage.fillInFirstPage(
-                guest.getFirstName(),
-                category,
-                XmlParser.getTextByKey("Service"),
-                XmlParser.getTextByKey("Question"),
-                "test request");
-        user.atPlaceOrderPage.clickNextButton(RequestPages.First);
-
-        user.atPlaceOrderPage
-                .priceRangeShouldBeVisible("100", "200")
-                .clickNextButton(RequestPages.Second);
-
-        user.atPlaceOrderPage.fillInThirdPage(guest);
-        user.atPlaceOrderPage.clickNextButton(RequestPages.Last);
+        user.atPlaceOrderPage.selectBuildDomain();
+        user.atPlaceOrderPage.selectCategory(category);
+        user.atPlaceOrderPage.selectRequest(request);
+        user.atPlaceOrderPage.selectQuestion(question);
+        user.atPlaceOrderPage.selectStartDateImmediately();
+        user.atPlaceOrderPage.selectStartTime();
+        user.atPlaceOrderPage.fillContactInfo(guest, "Some request info");
+        user.atPlaceOrderPage.clickPlaceOrder();
 
         user.atPlaceOrderPage.waitForCodeForm();
         var smsCode = user.atPlaceOrderPage.getSmsCode(guest.getPhoneNumber());

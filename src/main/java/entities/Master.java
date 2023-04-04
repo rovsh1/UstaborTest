@@ -39,6 +39,4 @@ public class Master extends User {
     public String toString() {
         return String.format("Phone number: '%s'", getPhoneNumber());
     }
-
-
 }
