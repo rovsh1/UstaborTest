@@ -13,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 public class TC014_CustomerRequestMastersFilter extends TestBase {
 
     @Test
-    public void verifyMastersCount() throws TimeoutException {
+    public void verifyMastersCount() throws TimeoutException, InterruptedException {
         var request = XmlParser.getTextByKey("Service");
         var master = watcher.getMaster();
 

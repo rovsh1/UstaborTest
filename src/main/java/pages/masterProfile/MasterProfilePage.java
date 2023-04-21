@@ -60,8 +60,9 @@ public class MasterProfilePage extends MasterProfileBasePage {
         masterReviews.shouldContainText(feedback);
     }
 
-    public void selectService() {
+    public void selectService() throws InterruptedException {
         service.click();
         servicePrice.sendKeys("100");
+        Thread.sleep(1000); //Wait for backend response
     }
 }
