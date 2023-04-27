@@ -73,14 +73,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atCustomerRequestPage.hideMasterOffer();
         user.atCustomerProfileRequestsPage.closePopup();
         user.atCustomerRequestPage.verifyOfferIsHidden();
-//        user.atHomePage.logsOut();
 
-//        user.atHomePage.login(watcher.getMaster(), true);
-//        user.atMasterProfileRequestsPage.openRequestsPage();
-//        user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestDeclined"));
-//        user.atHomePage.logsOut();
-
-//        user.atHomePage.login(customer, true);
         user.atCustomerProfileRequestsPage.openRequestsPage();
         user.atCustomerProfileRequestsPage.hideRequest();
         user.atCustomerProfileRequestsPage.closePopup();
@@ -89,7 +82,7 @@ public class TC012_CustomerRequestStatuses extends TestBase {
 
         user.atHomePage.login(watcher.getMaster(), true);
         user.atMasterProfileRequestsPage.openRequestsPage();
-        user.atMasterProfileRequestsPage.verifyRequestStatus(getText("RequestClosed"));
+        user.atMasterProfileRequestsPage.verifyRequestsTableIsEmpty();
         user.atHomePage.logsOut();
 
         admin.atRequestsPage.deleteRequest(requestId);
@@ -100,10 +93,5 @@ public class TC012_CustomerRequestStatuses extends TestBase {
         user.atCustomerProfileRequestsPage.closePopup();
         user.atCustomerProfileRequestsPage.verifyRequestsTableIsEmpty();
         user.atHomePage.logsOut();
-
-        user.atHomePage.login(watcher.getMaster(), true);
-        user.atMasterProfileRequestsPage.openRequestsPage();
-        user.atMasterProfileRequestsPage.verifyRequestsTableIsEmpty();
     }
-
 }

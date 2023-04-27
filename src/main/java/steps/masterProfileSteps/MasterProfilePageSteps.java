@@ -56,6 +56,7 @@ public class MasterProfilePageSteps extends MasterProfileSteps {
         return masterProfilePage.getProfileId();
     }
 
+    @Step
     public void selectService() throws InterruptedException {
         masterProfilePage.selectService();
     }
