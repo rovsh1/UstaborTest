@@ -38,7 +38,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
         clickPlaceOrder();
 
         waitForCodeForm();
-        var smsCode = getSmsCode(customer.getPhoneNumber());
+        var smsCode = getSmsCode(customer);
         confirmPhoneNumber(smsCode, customer.getPhoneNumber());
     }
 
@@ -117,8 +117,8 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public String getSmsCode(String phoneNumber) throws InterruptedException {
-        return placeOrderPage.getSmsCode(phoneNumber);
+    public String getSmsCode(User customer) throws InterruptedException {
+        return placeOrderPage.getSmsCode(customer);
     }
 
     @Step

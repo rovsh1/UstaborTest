@@ -30,7 +30,12 @@ public class NewXmlParser {
     public String getSmsText(String phoneNumber, String text) {
         String textXpath = "//tr[./td[contains(text(), '%s')]]//td[contains(text(), '%s')]";
         String xpath = String.format(textXpath, phoneNumber, text);
-        var node = document.selN(xpath);
-        return node.get(0).toString();
+        var nodes = document.selN(xpath);
+
+        if (nodes.size() == 0) {
+            return "";
+        }
+
+        return nodes.get(0).toString();
     }
 }

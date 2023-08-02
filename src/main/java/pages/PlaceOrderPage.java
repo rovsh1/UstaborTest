@@ -1,5 +1,6 @@
 package pages;
 
+import entities.User;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
@@ -111,15 +112,19 @@ public class PlaceOrderPage extends BasePage {
         additionalInfoInput.sendKeys(info);
     }
 
-    public String getSmsCode(String phoneNumber) throws InterruptedException {
-        var smsCode = Admin.getInstance().getSmsCode(phoneNumber);
+    public String getSmsCode(User user) throws InterruptedException {
+        var attempts = 5;
 
-        if (smsCode.isEmpty()) {
-            clickResendCode();
-            Thread.sleep(3000);
+        for (int i = 0; i < attempts; i++) {
+            var smsCode = Admin.getInstance().getSmsCode(user.getPhoneNumber());
+            if (smsCode.isEmpty() || smsCode.equals(user.getPhoneCode())) {
+                Thread.sleep(1000);
+            } else {
+                return smsCode;
+            }
         }
 
-        return Admin.getInstance().getSmsCode(phoneNumber);
+        throw new InterruptedException("Reached maximum attempts to get SMS code");
     }
 
     public void selectBuildDomain() {
