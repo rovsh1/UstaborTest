@@ -11,7 +11,6 @@ import java.util.concurrent.TimeoutException;
 @AddCategory(addServiceQuestion = true, addServicePrice = true)
 @AddMasters(masters = 2, useAdminSite = true)
 public class TC014_CustomerRequestMastersFilter extends TestBase {
-
     @Test
     public void verifyMastersCount() throws TimeoutException, InterruptedException {
         var request = XmlParser.getTextByKey("Service");

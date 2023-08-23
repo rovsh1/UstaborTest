@@ -63,6 +63,7 @@ public class TestBase {
                 }
 
                 admin.setServicePrices(Config.getCountry(), "100", "200");
+                admin.atServicePricesPage.addServicePrice(category);
             }
 
             if (annotation.promotionAndClickPrice()) {

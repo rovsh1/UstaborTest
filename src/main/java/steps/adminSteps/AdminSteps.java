@@ -38,6 +38,8 @@ public class AdminSteps extends ScenarioSteps {
 
     @Steps
     public AddMasterPage atAddMasterPage;
+    @Steps
+    public ServicePricePageSteps atServicePricesPage;
 
     public void addTestCategory(Category category) {
         atAdminHomePage.loginAsAdmin();
