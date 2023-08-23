@@ -24,6 +24,15 @@ public class TC015_CustomerRequestClientContactWithdraw extends TestBase {
 
         user.atHomePage.openPlaceOrderPage();
         user.atPlaceOrderPage.placeOrderForLoggedUser(customer, category);
+        user.atCustomerProfileRequestsPage.openRequestsPage();
+
+        var requestId = user.atCustomerProfileRequestsPage.getRequestId();
+
+        if (getTashkentHour() >= 9 && getTashkentHour() < 18) {
+            admin.atRequestsPage.openRequestById(requestId);
+            admin.atRequestsPage.verifyRequest(customer, category, getText("Question_0"));
+            admin.atRequestsPage.assignRequestToMasterForFree(watcher.getMaster());
+        }
 
         user.atHomePage.openHomePage();
         user.atHomePage.logsOut();

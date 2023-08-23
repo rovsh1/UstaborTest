@@ -49,40 +49,9 @@ public class MasterProjectsPage extends MasterProfileBasePage {
     @FindBy(xpath = "//div[@id='master-projects']/a")
     private WebElementFacade projectBtn;
 
-    public void openNewProjectForm() {
-        addProjectBtn.click();
-    }
-
-    public void enterProjectDescription(String description) {
-        newProjectDescription.sendKeys(description);
-    }
-
     public void selectCategory(String category) {
         projectCategorySelect.selectByVisibleText(category);
         waitForLoaderDisappears();
-    }
-
-    public void addProjectImage() {
-        try {
-            String html = Files.readString(new File("files/project_image.js").toPath());
-            evaluateJavascript(html);
-            fileInput.sendKeys(new File("files/projectImage.jpg").getAbsolutePath());
-        } catch (IOException e) {
-            Serenity.throwExceptionsImmediately();
-            e.printStackTrace();
-        }
-    }
-
-    public void saveNewProject() {
-        saveNewProjectBtn.click();
-    }
-
-    public int getCountOfProjects() {
-        setTimeouts(1, ChronoUnit.SECONDS);
-        var count =  projectsList.size();
-        resetTimeouts();
-
-        return count;
     }
 
     public void addProjectBtnShouldBeVisible() {

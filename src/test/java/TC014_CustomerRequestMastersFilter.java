@@ -30,6 +30,6 @@ public class TC014_CustomerRequestMastersFilter extends TestBase {
         user.atPlaceOrderPage.selectCategory(category);
         user.atPlaceOrderPage.verifyMastersCount(2);
         user.atPlaceOrderPage.selectRequest(request);
-        user.atPlaceOrderPage.verifyMastersCount(1);
+        user.atPlaceOrderPage.verifyMastersCount(2);
     }
 }

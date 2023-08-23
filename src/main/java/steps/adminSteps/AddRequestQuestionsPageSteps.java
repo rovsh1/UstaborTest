@@ -14,7 +14,13 @@ public class AddRequestQuestionsPageSteps extends ScenarioSteps {
 
     public void addQuestionToCategory(Category category, String question) {
         addServiceQuestionsPage.selectCategory(category.getSystemId());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         addServiceQuestionsPage.selectService();
+
         addServiceQuestionsPage.addQuestion(question);
     }
 
