@@ -114,12 +114,20 @@ public class Admin {
         }
     }
 
-    public String getSmsCode(String phoneNumber) {
-        var smsLog = getSmsLogPage();
-        var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);
-        logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
+    public String getSmsCode(String phoneNumber) throws InterruptedException {
+        for (int i = 0; i < 5; i++) {
+            var smsLog = getSmsLogPage();
+            var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);
+            logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
+            if (code.equals("")) {
+                logger.info("Code not found, retry");
+                Thread.sleep(1000);
+            } else {
+                return code;
+            }
+        }
 
-        return code;
+        return "";
     }
 
     public String getSmsPassword(String phoneNumber) {

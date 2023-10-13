@@ -33,7 +33,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void enterAuthCodeAndSubmit(String code, String phoneNumber) {
+    public void enterAuthCodeAndSubmit(String code, String phoneNumber) throws InterruptedException {
         homePage.regFormEnterAuthCode(code);
         homePage.regFormClickSubmitAuthCode();
 
@@ -45,7 +45,7 @@ public class HomePageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void retryEnterCode(String phoneNumber) {
+    public void retryEnterCode(String phoneNumber) throws InterruptedException {
         homePage.resendCode();
         homePage.waitForLoaderDisappears();
         var smsCode = Admin.getInstance().getSmsCode(phoneNumber);

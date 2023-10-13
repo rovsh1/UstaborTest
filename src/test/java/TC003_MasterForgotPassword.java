@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TC003_MasterForgotPassword extends TestBase {
 
     @Test
-    public void verifyMasterCanResetPassword() {
+    public void verifyMasterCanResetPassword() throws InterruptedException {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 

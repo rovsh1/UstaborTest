@@ -87,7 +87,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void confirmPhoneNumber(String code, String number) {
+    public void confirmPhoneNumber(String code, String number) throws InterruptedException {
         placeOrderPage.enterSmsCode(code);
         placeOrderPage.clickCodeConfirm();
 
@@ -97,7 +97,7 @@ public class PlaceOrderPageSteps extends ScenarioSteps {
     }
 
     @Step
-    public void retryEnterCode(String phoneNumber) {
+    public void retryEnterCode(String phoneNumber) throws InterruptedException {
         placeOrderPage.resendCode();
         placeOrderPage.waitForLoaderDisappears();
 

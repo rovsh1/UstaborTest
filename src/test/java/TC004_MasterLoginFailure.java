@@ -8,7 +8,7 @@ import utils.DataGenerator;
 public class TC004_MasterLoginFailure extends TestBase {
 
     @Test
-    public void verifyMasterCantLoginWithWrongPassword() {
+    public void verifyMasterCantLoginWithWrongPassword() throws InterruptedException {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 

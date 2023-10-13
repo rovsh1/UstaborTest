@@ -10,7 +10,7 @@ import utils.DataGenerator;
 public class TC001_MasterRegistration extends TestBase {
 
     @Test
-    public void verifyMasterCanCreateProfile() {
+    public void verifyMasterCanCreateProfile() throws InterruptedException {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 

@@ -66,7 +66,7 @@ public class UserSteps extends ScenarioSteps {
     public MasterRequestPageSteps atMasterRequestPage;
 
     @Step
-    public void register(Master master, boolean randomCategory) {
+    public void register(Master master, boolean randomCategory) throws InterruptedException {
         atHomePage.registerAsMaster(master, randomCategory);
 
         var smsCode = Admin.getInstance().getSmsCode(master.getPhoneNumber());

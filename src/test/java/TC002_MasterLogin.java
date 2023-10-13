@@ -10,7 +10,7 @@ import java.util.Date;
 public class TC002_MasterLogin extends TestBase {
 
     @Test
-    public void verifyMasterAccountLogin() {
+    public void verifyMasterAccountLogin() throws InterruptedException {
         var master = DataGenerator.getMaster();
         watcher.users.add(master);
 
