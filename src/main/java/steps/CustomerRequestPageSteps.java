@@ -1,7 +1,7 @@
 package steps;
 
 import entities.User;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.CustomerRequestPage;
 

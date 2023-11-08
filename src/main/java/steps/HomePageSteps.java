@@ -2,7 +2,7 @@ package steps;
 
 import entities.Master;
 import entities.User;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.HomePage;
 import utils.Admin;

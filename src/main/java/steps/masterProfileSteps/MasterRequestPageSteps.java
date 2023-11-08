@@ -2,7 +2,7 @@ package steps.masterProfileSteps;
 
 import entities.User;
 import enums.RequestPages;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.masterProfile.MasterRequestPage;
 

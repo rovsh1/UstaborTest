@@ -2,8 +2,8 @@ package steps;
 
 import entities.Master;
 import entities.User;
-import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Step;
+import net.serenitybdd.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 import steps.customerProfileSteps.CustomerProfilePersonalInfoPageSteps;
 import steps.customerProfileSteps.CustomerProfileRequestsPageSteps;

@@ -2,8 +2,8 @@ package steps.adminSteps;
 
 import entities.Master;
 import entities.Category;
-import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Step;
+import net.serenitybdd.annotations.Steps;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.admin.AddMasterPage;
 

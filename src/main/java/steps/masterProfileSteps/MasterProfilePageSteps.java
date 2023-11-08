@@ -1,7 +1,7 @@
 package steps.masterProfileSteps;
 
 import entities.Master;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import pages.masterProfile.MasterProfilePage;
 
 public class MasterProfilePageSteps extends MasterProfileSteps {

@@ -1,9 +1,10 @@
 import annotations.AddCategory;
 import annotations.AddMasters;
 import entities.Category;
+import net.serenitybdd.annotations.Managed;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
+
+import net.serenitybdd.annotations.Steps;
 import org.junit.Before;
 import org.junit.Rule;
 import org.openqa.selenium.Dimension;

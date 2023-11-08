@@ -259,7 +259,9 @@ public class CatalogPage extends SearchBlock {
     }
 
     public void verifyMasterWithBadges(Master master) {
-        assertThat(mastersList.get(0).getAttribute("data-id")).isEqualTo(master.getProfileId());
+        int badge = Integer.parseInt(mastersList.get(0).getAttribute("data-id"));
+        int expected = Integer.parseInt(master.getProfileId());
+        assertThat(badge).isEqualTo(expected);
     }
 
     public void verifyMasterAtFirstPosition(Master master) {

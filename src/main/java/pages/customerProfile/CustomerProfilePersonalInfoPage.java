@@ -24,7 +24,7 @@ public class CustomerProfilePersonalInfoPage extends CustomerProfileBasePage {
     @FindBy(xpath = "//a[@id='button-delete']")
     private WebElementFacade deleteProfileButton;
 
-    @FindBy(xpath = "//div[.//div[text()='Удалить профиль']]//button[@class='btn-submit']")
+    @FindBy(xpath = "//div[.//div[contains(text(), 'Удалить профиль')]]//button[@class='btn-submit']")
     private WebElementFacade submitButton;
 
     @FindBy(xpath = "//button[@class='button-submit']")
