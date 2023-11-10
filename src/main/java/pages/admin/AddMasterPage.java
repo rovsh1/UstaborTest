@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import utils.Config;
+import utils.XmlParser;
 
 public class AddMasterPage extends BaseAdminPage {
 
@@ -22,9 +23,6 @@ public class AddMasterPage extends BaseAdminPage {
 
     @FindBy(xpath = "//input[@id='form_data_phone']")
     private WebElementFacade phone;
-
-    @FindBy(xpath = "//select[@id='form_data_city_id']")
-    private WebElementFacade city;
 
     @FindBy(xpath = "//select[@id='form_data_experience']")
     private WebElementFacade experience;
@@ -72,7 +70,9 @@ public class AddMasterPage extends BaseAdminPage {
         lastName.sendKeys(master.getLastName());
         phone.sendKeys(master.getPhoneNumber());
 
-        city.selectByIndex(1);
+        String xpath = "//select[@id='form_data_city_id']//optgroup[@label='%s']//option";
+        String country = Config.getCountry();
+        getDriver().findElements(By.xpath(String.format(xpath, country))).get(0).click();
         experience.selectByIndex(1);
 
         settingsTab.click();

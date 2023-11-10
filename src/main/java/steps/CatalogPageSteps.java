@@ -1,7 +1,7 @@
 package steps;
 
 import entities.Master;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import pages.CatalogPage;
 import utils.XmlParser;
 

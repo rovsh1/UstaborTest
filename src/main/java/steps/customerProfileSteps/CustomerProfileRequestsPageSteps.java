@@ -1,6 +1,6 @@
 package steps.customerProfileSteps;
 
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import pages.customerProfile.CustomerProfileRequestsPage;
 

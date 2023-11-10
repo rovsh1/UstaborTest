@@ -1,5 +1,5 @@
+import net.serenitybdd.annotations.WithTag;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.WithTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import utils.Config;
@@ -20,7 +20,7 @@ public class UU293_MainPageUiTest extends TestBase {
         user.atHomePage.verifySubdomainDropDown();
         user.atHomePage.verifyHeaderLanguagesListIsVisible();
 
-        if (!Config.isUstabor()) {
+        if (!Config.isUstabor() && !Config.isFixinglist()) {
             user.atHomePage.verifyPhonePopUpText(getText("PhoneHintPopupText_" + Config.getEnv()));
         }
 

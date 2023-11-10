@@ -2,7 +2,7 @@ package steps.adminSteps;
 
 import entities.Category;
 import entities.User;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

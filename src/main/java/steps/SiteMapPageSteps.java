@@ -1,6 +1,6 @@
 package steps;
 
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 import pages.SiteMapPage;
 
 public class SiteMapPageSteps extends CommonSteps{
