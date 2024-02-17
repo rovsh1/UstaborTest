@@ -115,19 +115,20 @@ public class Admin {
     }
 
     public String getSmsCode(String phoneNumber) throws InterruptedException {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
+            logger.info("Getting SMS code for phone number: {}", phoneNumber);
             var smsLog = getSmsLogPage();
             var code = new NewXmlParser(smsLog).getSmsCode(phoneNumber);
-            logger.info("Get SMS code {} for phone number: {}", code, phoneNumber);
             if (code.equals("")) {
                 logger.info("Code not found, retry");
                 Thread.sleep(1000);
             } else {
+                logger.info("SMS code: {}", code);
                 return code;
             }
         }
 
-        return "";
+        throw new NullPointerException("No SMS code found after 10 attempts");
     }
 
     public String getSmsPassword(String phoneNumber) {
